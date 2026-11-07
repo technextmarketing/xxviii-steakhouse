@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://xxviii.example/assets/img/block/cowboy-cut-lg.webp">
 <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/css/brand.css">
-<link rel="stylesheet" href="live/live.css?v=202611071826">
+<link rel="stylesheet" href="live/live.css?v=202611072112">
 <link rel="preload" as="image" href="../assets/img/texture/oxblood-tufted-leather-lg.webp">
 <noscript><style>.scene, .bar__tools, #cards { display: none !important; } .noscript { display: block !important; }</style></noscript>
 </head>
@@ -40,7 +40,7 @@
     <button type="button" class="ib only-book" id="btnZoom" aria-pressed="false" aria-label="Lean in closer" title="Lean in closer (Z)"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5M10.5 7.5v6M7.5 10.5h6"/></svg></button>
     <button type="button" class="ib only-cards" id="btnList" aria-pressed="false" aria-label="Show the menu as a list" title="List"><svg viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><path d="M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01" stroke-width="2.6"/></svg></button>
     <button type="button" class="ib" id="btnSound" aria-pressed="true" aria-label="Page sounds on"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="snd-w" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
-    <a class="ib" data-pdf href="out/xxviii-menu.pdf" download aria-label="Download the printed menu (PDF, 5.9 MB)" title="The printed menu (PDF, 5.9 MB)"><svg viewBox="0 0 24 24"><path d="M12 3.5V15M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 16.5v2a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-2"/></svg></a>
+    <a class="ib" data-pdf href="out/xxviii-menu.pdf" download aria-label="Download the printed menu (PDF, 5.8 MB)" title="The printed menu (PDF, 5.8 MB)"><svg viewBox="0 0 24 24"><path d="M12 3.5V15M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 16.5v2a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-2"/></svg></a>
     <a class="bar__classic" href="classic/">Page view</a>
     <a class="btn btn-solid bar__cta" href="../index.html#reserve" aria-label="Reserve a table"><span>Reserve a table</span></a>
   </div>
@@ -57,8 +57,8 @@
   <video class="table__video" id="tableVideo" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   <div class="lamp" id="lamp" aria-hidden="true"></div>
   <div class="camera" id="camera">
+    <div class="tshadow" id="tshadow" aria-hidden="true"><i class="tshadow__h tshadow__h--l"></i><i class="tshadow__h tshadow__h--r"></i></div>
     <div class="book" id="book" role="region" aria-roledescription="book" aria-label="The Twenty-Eight menu">
-      <i class="book__shadow" aria-hidden="true"></i>
       <i class="cast cast--r" id="castR" aria-hidden="true"></i><i class="cast cast--l" id="castL" aria-hidden="true"></i>
       <div class="sheets" id="sheets"></div>
       <button type="button" class="edge edge--l" id="prevPage" aria-label="Turn back a page"></button>
@@ -79,9 +79,9 @@
 
 <p class="noscript" hidden>This menu needs JavaScript to turn its pages. <a href="out/xxviii-menu.pdf">Download the printed menu (PDF)</a> or <a href="../index.html#reserve">reserve a table</a>.</p>
 
-<script>window.XXVIII_BASE = '../'; window.MENU_PDF_MB = '5.9';</script>
+<script>window.XXVIII_BASE = '../'; window.MENU_PDF_MB = '5.8';</script>
 <script src="../assets/data/xxviii.js"></script>
 <script src="../assets/vendor/gsap.min.js"></script>
-<script src="live/live.js?v=202611071826"></script>
+<script src="live/live.js?v=202611072112"></script>
 </body>
 </html>

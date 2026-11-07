@@ -190,7 +190,7 @@
         <p class="room__hint">${PRINT ? 'Each cut is ready on its own day: 21, 28, 35 and 45 days.' : 'Drag the rail: each cut is ready on its own day.'} ${esc(B.launch ? B.launch.note : '')}</p></div>${FO(n)}</div>`,
     R: n => `<div class="pg-in board">${RH(M.room.name, 'The board by the door')}
       <div class="room__strip">${pic(X.dryage('room-through-the-glass', 'md'), 'room__s', 'Ribs hanging behind the glass')}${pic(X.dryage('room-rack-aisle', 'md'), 'room__s', 'Inside the ageing room: the rack aisle, every cut tagged')}${pic(X.dryage('room-butcher-moment', 'md'), 'room__s', 'The butcher checking a tagged rib')}</div>
-      <div class="b8">${allCuts.map(c => `<figure class="bt" data-age="${c.age}" data-dish-alt="${slug(c.name)}"><span class="bt__tag">${tagSvg(c.age)}</span>
+      <div class="b8">${allCuts.map(c => `<figure class="bt${c.name.length > 16 ? ' bt--long' : ''}" data-age="${c.age}" data-dish-alt="${slug(c.name)}"><span class="bt__tag">${tagSvg(c.age)}</span>
         <div class="bt__ph">${pic(cutSrc(c, 'sm'), 'bt__im', c.name)}</div>
         <figcaption><div class="t__row"><h3 class="bt__n">${esc(c.name)}</h3>${price(c)}</div><p class="bt__m"><span>${esc(c.weight)}${c.serves ? ' · serves ' + esc(c.serves) : ''}</span><span class="bt__s"></span></p></figcaption></figure>`).join('')}</div>${FO(n)}</div>`,
     bind(c) {
@@ -202,7 +202,12 @@
         knob.style.left = (p * 100) + '%'; fill.style.transform = `scaleX(${p})`;
         cols[0].style.transform = `translateY(${-Math.floor(d / 10)}em)`; cols[1].style.transform = `translateY(${-(d % 10)}em)`;
         rail.setAttribute('aria-valuenow', d); rail.setAttribute('aria-valuetext', `Day ${d}`);
-        tags.forEach(t => { const r = d >= t.age; t.t.classList.toggle('ready', r); t.st.textContent = r ? 'Ready' : `Ready at ${t.age} days`; });
+        tags.forEach(t => {
+          const early = !c.touched && t.age > 28;   // hung weeks earlier: ready on opening night (brand.launch.note)
+          const r = d >= t.age || early;
+          t.t.classList.toggle('ready', r);
+          t.st.textContent = d >= t.age ? 'Ready' : early ? 'Ready · hung earlier' : `Ready at ${t.age} days`;
+        });
       };
       const swing = now => {
         const dt = Math.min(.033, (now - (lastT || now)) / 1000 || .016); lastT = now; let moving = false;
@@ -214,12 +219,14 @@
         if (push && !reduced && !PRINT && Math.abs(dv) > .01) { tags.forEach((t, i) => { t.v += clamp(dv * (9 + i % 3 * 2), -60, 60); }); if (!raf) raf = requestAnimationFrame(swing); }
       };
       c.setDay = setDay; c.getDay = () => day;
+      const touch = () => { if (!c.touched) { c.touched = true; render(); } };
       const fromX = x => { const r = rail.querySelector('.rail__bar').getBoundingClientRect(); return 1 + clamp((x - r.left) / r.width, 0, 1) * 44; };
-      rail.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); cap(rail, e.pointerId); rail.classList.add('drag'); if (c.sweep) c.sweep.kill(); setDay(fromX(e.clientX)); });
+      rail.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); touch(); cap(rail, e.pointerId); rail.classList.add('drag'); if (c.sweep) c.sweep.kill(); setDay(fromX(e.clientX)); });
       rail.addEventListener('pointermove', e => { if (rail.classList.contains('drag')) setDay(fromX(e.clientX)); });
       const end = () => { rail.classList.remove('drag'); setDay(Math.round(day)); };
       rail.addEventListener('pointerup', end); rail.addEventListener('pointercancel', end);
       rail.addEventListener('keydown', e => {
+        if (/^(Arrow|Page|Home|End)/.test(e.key)) touch();
         const k = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1, PageUp: 7, PageDown: -7 }[e.key];
         if (k) { e.preventDefault(); e.stopPropagation(); setDay(Math.round(day) + k); }
         if (e.key === 'Home') { e.preventDefault(); e.stopPropagation(); setDay(1); }
@@ -350,7 +357,7 @@
       const ph = Math.round(Math.min(vh - top - bottom, (vw - 140) / 2 / .697));
       this.ph = ph; this.pw = Math.round(ph * .697);
       const book = $('#book');
-      book.style.setProperty('--pw', this.pw + 'px'); book.style.setProperty('--ph', this.ph + 'px');
+      [book, $('#camera')].forEach(el => { el.style.setProperty('--pw', this.pw + 'px'); el.style.setProperty('--ph', this.ph + 'px'); });
     },
     // spring per sheet (degrees). Paper: critically damped. Hard covers: heavier, bounce once off the table, thud.
     step(dt) {
@@ -393,10 +400,21 @@
       });
       // the book slides to keep a closed cover centred (front closed: shift left; back closed: shift right)
       const p0 = -this.sheets[0].th / 180, pN = -this.sheets[N - 1].th / 180;
-      $('#book').style.transform = `translateX(${((-.5 * (1 - p0) + .5 * pN) * pw).toFixed(2)}px) rotateX(7deg)`;   // lying on the table
+      const bt = `translateX(${((-.5 * (1 - p0) + .5 * pN) * pw).toFixed(2)}px) rotateX(7deg)`;   // lying on the table
+      $('#book').style.transform = bt;
+      // the table shadow follows the footprint. Each half keeps its exact size and blur and slides out from under
+      // the other half as a cover comes down past upright (projected width -cos th of a page), fading in as it lands.
+      const ts = $('#tshadow');
+      if (ts) {
+        const fl = Math.max(0, -Math.cos(p0 * Math.PI)), fr = Math.max(0, -Math.cos((1 - pN) * Math.PI));
+        ts.style.transform = bt;
+        const [hl, hr] = ts.children;
+        hl.style.transform = `translateX(${((1 - fl) * pw).toFixed(2)}px)`; hl.style.opacity = (fl * fl * (3 - 2 * fl)).toFixed(3);
+        hr.style.transform = `translateX(${(-(1 - fr) * pw).toFixed(2)}px)`; hr.style.opacity = (fr * fr * (3 - 2 * fr)).toFixed(3);
+      }
       const cr = $('#castR'), cl = $('#castL');
       if (cast) {
-        const t = cast.th * Math.PI / 180, w = Math.abs(Math.cos(t)), o = Math.sin(-t) * .55;
+        const t = cast.th * Math.PI / 180, o = Math.sin(-t) * .6, w = Math.min(1, Math.abs(Math.cos(t)) + .38 * Math.sin(-t));   // reaches a little past the lifted edge: the soft penumbra you see
         // the shadow falls on the page beneath the lifting sheet: just above that page, just below the sheet
         if (cast.th > -90) { cr.style.opacity = o.toFixed(3); cr.style.transform = `translateZ(${((N - cast.i - 1) * .9 + .45).toFixed(2)}px) scaleX(${w.toFixed(3)})`; cl.style.opacity = 0; }
         else { cl.style.opacity = o.toFixed(3); cl.style.transform = `translateZ(${((cast.i - 1) * .9 + .45).toFixed(2)}px) scaleX(${w.toFixed(3)})`; cr.style.opacity = 0; }

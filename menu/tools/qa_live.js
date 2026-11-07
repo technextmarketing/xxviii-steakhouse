@@ -100,9 +100,14 @@ window.LIVEQA = async function LIVEQA() {
     await wait(2900);
     const rail = $('.rail', B.ctx[4].roots[0]);
     ok('the board counts up to Day 28 after the turn settles', rail.getAttribute('aria-valuenow') === '28', rail.getAttribute('aria-valuenow'));
-    ok('the long cuts read as hung earlier, no countdown', !/to go/.test(B.ctx[4].roots[1].textContent) && /Ready at 45 days/.test(B.ctx[4].roots[1].textContent));
+    ok('opening state: every cut reads Ready (the long cuts hung earlier)', $$('.bt.ready', B.ctx[4].roots[1]).length === 8 && /hung earlier/.test(B.ctx[4].roots[1].textContent) && !/to go|Ready at/.test(B.ctx[4].roots[1].textContent));
+    // text lines on the board keep at least 8 px between them
+    const gaps = $$('.bt', B.ctx[4].roots[1]).map(bt => { const n = bt.querySelector('.bt__n').getBoundingClientRect(), m = bt.querySelector('.bt__m').getBoundingClientRect(); return Math.round(m.top - n.bottom); });
+    ok('board: each name sits on one line, 8 px or more above its weight line', $$('.bt__n', B.ctx[4].roots[1]).every(h => h.getBoundingClientRect().height < parseFloat(getComputedStyle(h).fontSize) * 1.6) && gaps.every(g => g >= 8), gaps);
+    const pgR = B.ctx[4].roots[1].getBoundingClientRect(), over = $$('.bt', B.ctx[4].roots[1]).filter(bt => { const c = bt.querySelector('figcaption'); return c.scrollWidth > c.clientWidth + 1 || bt.querySelector('.pr').getBoundingClientRect().right > pgR.right - 4; }).map(bt => bt.querySelector('.bt__n').textContent);
+    ok('board: every name and price sits inside its row and the page', over.length === 0, over);
     rail.focus(); for (let i = 0; i < 7; i++) rail.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
-    ok('rail at Day 21: only the 21-day cuts are ready', rail.getAttribute('aria-valuenow') === '21' && $$('.bt.ready', B.ctx[4].roots[1]).length === 2);
+    ok('rail at Day 21 (moved by the guest): only the 21-day cuts are ready, the rest show their day', rail.getAttribute('aria-valuenow') === '21' && $$('.bt.ready', B.ctx[4].roots[1]).length === 2 && /Ready at 45 days/.test(B.ctx[4].roots[1].textContent));
     const tf2 = []; let last3 = performance.now(), on3 = true; const loop3 = t => { tf2.push(t - last3); last3 = t; if (on3) requestAnimationFrame(loop3); }; requestAnimationFrame(loop3);
     const rb = $('.rail__bar', rail).getBoundingClientRect();
     const down = new PointerEvent('pointerdown', { clientX: rb.left + 2, clientY: rb.top, pointerId: 11, bubbles: true, cancelable: true });
