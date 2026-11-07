@@ -28,9 +28,9 @@
   .fb-copy p { font: 400 2.5cqw/1.1 var(--f-display); color: var(--bone); margin: 0; }
   /* story 1080 x 1920 */
   .st-photo { position: absolute; left: 0; top: -9%; width: 100%; aspect-ratio: 1; height: auto; object-fit: cover; }
-  .st-fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,12,11,.85) 0%, rgba(15,12,11,.35) 30%, transparent 42%, #0f0c0b 60%); }
+  .st-fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,12,11,.85) 0%, rgba(15,12,11,.35) 20%, transparent 34%, #0f0c0b 46%); }
   .st-mono { position: absolute; left: 50%; top: 27cqw; width: 12cqw; translate: -50% 0; }
-  .st-copy { position: absolute; left: 9cqw; right: 9cqw; bottom: 46cqw; display: grid; justify-items: start; gap: 2.4cqw; }
+  .st-copy { position: absolute; left: 9cqw; right: 9cqw; bottom: 40cqw; display: grid; justify-items: start; gap: 2.4cqw; }
   .st-copy .label { font-size: 3.4cqw; color: var(--ash); letter-spacing: .3em; }
   .st-num { font: 700 26cqw/.85 var(--f-label); color: var(--brass); letter-spacing: .01em; }
   .st-line { font: 400 9cqw/1.04 var(--f-display); color: var(--bone); margin: 0; }
@@ -47,8 +47,10 @@
   .mh-photo img { position: absolute; left: 0; top: -22%; width: 100%; height: auto; }
   .mh-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #0f0c0b, transparent 40%); }
   /* gbp 2048 x 1152 */
-  .gb-photo { position: absolute; width: 74%; top: -10%; right: -6%; height: auto; }
-  .gb-fade { position: absolute; inset: 0; background: linear-gradient(90deg, #0f0c0b 0%, #0f0c0b 30%, rgba(15,12,11,.5) 44%, transparent 60%); }
+  .gb-photo { position: absolute; width: 66%; top: -4%; right: -6%; height: auto; }
+  .gb-fade { position: absolute; inset: 0; background: linear-gradient(90deg, #0f0c0b 0%, #0f0c0b 40%, rgba(15,12,11,.5) 52%, transparent 66%); }
+  .room-fade { position: absolute; inset: 0; }
+  .room-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .gb-logo { position: absolute; left: 6%; top: 0; bottom: 0; width: 28%; display: grid; place-items: center; align-content: center; gap: 3cqw; text-align: center; }
   .gb-logo p { font: 400 2.4cqw/1.1 var(--f-display); color: var(--bone); margin: 0; }
   /* og 1200 x 630 */
@@ -93,7 +95,21 @@
 
 <div class="board" id="og-image" data-w="1200" data-h="630">
   <div class="og-copy"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Some things can’t be hurried.</p></div>
-  <img class="og-ph" src="../../assets/img/cutout/new-york-strip-lg.webp" alt="">
+  <img class="og-ph" src="../../assets/img/cutout/cowboy-cut-lg.webp" alt="">
+  <div class="grain-s"></div>
+</div>
+
+<div class="board" id="fb-cover-room" data-w="1640" data-h="624">
+  <img class="room-photo" src="../../assets/img/interior/main-dining-room-lg.webp" alt="" style="object-position:40% 55%">
+  <div class="room-fade" style="background:linear-gradient(270deg,#0f0c0b 0%,rgba(15,12,11,.9) 30%,rgba(15,12,11,.25) 62%,rgba(15,12,11,.1) 100%)"></div>
+  <div class="fb-copy" style="position:absolute;right:0;top:0;bottom:0;width:46%"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Some things can’t be hurried.</p></div>
+  <div class="grain-s"></div>
+</div>
+
+<div class="board" id="gbp-cover-room" data-w="2048" data-h="1152">
+  <img class="room-photo" src="../../assets/img/interior/main-dining-room-lg.webp" alt="" style="object-position:62% 50%">
+  <div class="room-fade" style="background:linear-gradient(90deg,#0f0c0b 0%,rgba(15,12,11,.86) 30%,rgba(15,12,11,.25) 58%,transparent 80%)"></div>
+  <div class="gb-logo"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Some things can’t be hurried.</p></div>
   <div class="grain-s"></div>
 </div>
 

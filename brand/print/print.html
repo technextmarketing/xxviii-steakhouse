@@ -26,8 +26,8 @@
   .trim { position: absolute; inset: 3mm; }
   .safe { position: absolute; inset: 6mm; }
   .safe8 { position: absolute; inset: 8mm; }
-  .brass { background: linear-gradient(160deg, rgba(255,240,205,.16), rgba(60,40,10,.12)), url("../../assets/img/texture/brushed-antique-brass-lg.webp") center / cover, #c29a5b; color: #141110; }
-  .leather { background: linear-gradient(90deg, rgba(20,10,10,.8) 0%, rgba(20,10,10,.52) 55%, rgba(20,10,10,.74) 100%), url("../../assets/img/texture/oxblood-tufted-leather-lg.webp") center / 110mm auto, #4a1216; color: #efe7da; }
+  .brass { background: #c29a5b; color: #141110; }
+  .leather { background: linear-gradient(90deg, rgba(20,10,10,.8) 0%, rgba(20,10,10,.52) 55%, rgba(20,10,10,.74) 100%), url("../../assets/img/texture/oxblood-tufted-leather-lg.webp") center / cover no-repeat, #4a1216; color: #efe7da; }
   .slate { background: linear-gradient(180deg, rgba(15,12,11,.3), rgba(15,12,11,.6)), url("../../assets/img/texture/charcoal-slate-stone-lg.webp") center / cover, #1d1b1a; color: #efe7da; }
   .char { background: radial-gradient(90% 90% at 50% 0%, #241d1a, #141110 70%); color: #efe7da; }
   .bone { background: #efe7da; color: #141110; }
@@ -38,7 +38,7 @@
   .bc-f img { width: 46mm; }
   .bc-b { display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto; }
   .bc-name { font: 400 5.4mm/1.1 var(--f-display); margin: 0; }
-  .bc-role { font: 600 2.1mm/1 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: #141110; margin: 1.6mm 0 0; }
+  .bc-role { font: 600 2.4mm/1 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: #141110; margin: 1.6mm 0 0; }
   .bc-contact { font: 400 2.4mm/1.6 var(--f-body); color: #1f1a18; margin: 0; }
   .bc-mono { width: 11mm; grid-column: 2; grid-row: 1 / 3; align-self: end; }
   /* steak card */
@@ -49,10 +49,11 @@
   .sk-lines span:first-child { color: #e2c48e; }
   .sk-b { display: grid; align-content: space-between; }
   .sk-field { display: grid; gap: 1mm; }
-  .sk-field b { font: 600 1.9mm/1 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: #7a1e24; }
+  .sk-field b { font: 600 2.4mm/1 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: #7a1e24; }
   .sk-field i { display: block; height: .25mm; background: rgba(20,17,16,.45); margin-top: 5mm; }
   .sk-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5mm; }
-  .sk-seal { position: absolute; right: 0; top: 0; width: 13mm; }
+  .sk-seal { position: absolute; right: 0; top: 0; width: 11mm; }
+  .sk-allergen { margin: 0; font: 400 2.3mm/1.3 var(--f-body); color: #5c4e45; }
   .sk-b > .sk-field:first-child { margin-right: 21mm; }
   /* gift voucher 210 x 99 */
   [data-doc="gift-voucher"] .page { width: 216mm; height: 105mm; }
@@ -60,7 +61,7 @@
   .gv-main { display: grid; align-content: space-between; padding: 6mm 4mm 2mm 0; }
   .gv-main > img { width: 70mm; }
   .gv-head { font: 400 11mm/1.04 var(--f-display); margin: 0; }
-  .gv-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7mm; }
+  .gv-fields { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6mm; }
   .gv-fields p { margin: 0; display: grid; gap: 7mm; }
   .gv-fields b { font: 600 2.4mm/1 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: #c29a5b; }
   .gv-fields i { display: block; height: .25mm; background: rgba(239,231,218,.5); }
@@ -68,7 +69,8 @@
   .gv-stub img { width: 24mm; }
   .gv-stub p { margin: 0; font: 600 2.4mm/1.4 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: #a39686; }
   .gv-stub b { color: #c29a5b; font-size: 4mm; letter-spacing: .06em; }
-  .gv-edge { position: absolute; left: 0; right: 0; bottom: 0; height: 5mm; background: #c29a5b; }
+  .gv-edge { position: absolute; left: 0; right: 0; bottom: 0; height: 9mm; background: #c29a5b; }
+  .gv { bottom: 15mm !important; }
   .gv-back { display: grid; grid-template-columns: 1fr 1fr; gap: 12mm; align-items: center; }
   .gv-back h2 { font: 400 9mm/1.05 var(--f-display); margin: 0 0 5mm; }
   .gv-back p { font: 400 3mm/1.6 var(--f-body); margin: 0 0 2mm; color: #5c4e45; }
@@ -78,7 +80,8 @@
   [data-doc="table-tent"] .page { width: 106mm; height: 156mm; }
   .tt { display: grid; justify-items: center; align-content: space-between; text-align: center; padding: 8mm 0 4mm; }
   .tt > img { width: 52mm; }
-  .tt-head { font: 400 7mm/1.12 var(--f-display); margin: 0; max-width: 70mm; }
+  .tt-head { font: 400 7mm/1.12 var(--f-display); margin: 0; max-width: 72mm; text-wrap: balance; }
+  #ttTag { max-width: 58mm; }
   .tt-qr { width: 38mm; background: #efe7da; color: #141110; padding: 3.4mm; }
   .tt-qr svg { width: 100%; height: auto; display: block; }
   .tt-lbl { font: 600 2.4mm/1.4 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: #a39686; margin: 0; }
@@ -94,8 +97,8 @@
 
 <!-- business card -->
 <div class="doc" data-doc="business-card" data-w="91" data-h="61">
-  <section class="page char"><div class="trim c bc-f"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"></div></section>
-  <section class="page brass"><div class="safe bc-b">
+  <section class="page char" data-side="front"><div class="trim c bc-f"><img data-foil src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"></div></section>
+  <section class="page brass" data-side="back"><div class="safe bc-b">
     <div><p class="bc-name">[Name]</p><p class="bc-role">[Role]</p></div>
     <p class="bc-contact"><span data-x="brand.contact.phone"></span><br><span data-x="brand.contact.email"></span><br><span data-x="brand.contact.street"></span></p>
     <img class="bc-mono" src="../../assets/logo/xxviii-monogram-char.svg" alt="">
@@ -104,25 +107,26 @@
 
 <!-- steak card -->
 <div class="doc" data-doc="steak-card" data-w="91" data-h="61">
-  <section class="page char sk-front"><div class="safe sk-f"><img src="../../assets/logo/xxviii-monogram-brass.svg" alt="XXVIII"><p class="sk-lines"></p></div></section>
-  <section class="page bone"><div class="safe8 sk-b">
+  <section class="page char sk-front" data-side="front"><div class="safe sk-f"><img data-foil src="../../assets/logo/xxviii-monogram-brass.svg" alt="XXVIII"><p class="sk-lines"></p></div></section>
+  <section class="page bone" data-side="back"><div class="safe8 sk-b">
     <div class="sk-field"><b>The cut</b><i></i></div>
     <div class="sk-row"><div class="sk-field"><b>Day</b><i></i></div><div class="sk-field"><b>Cut on</b><i></i></div><div class="sk-field"><b>Table</b><i></i></div></div>
-    <img class="sk-seal" src="../../assets/logo/xxviii-seal-ox.svg" alt="">
+    <img class="sk-seal" src="../../assets/logo/xxviii-monogram-ox.svg" alt="">
+    <p class="sk-allergen">Tell us about any allergy. The kitchen will talk you through every dish.</p>
   </div></section>
 </div>
 
 <!-- gift voucher -->
 <div class="doc" data-doc="gift-voucher" data-w="216" data-h="105">
-  <section class="page leather">
+  <section class="page leather" data-side="front">
     <div class="safe gv">
-      <div class="gv-main"><img src="../../assets/logo/xxviii-horizontal-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p class="gv-head">The gift of a long dinner.</p>
-        <div class="gv-fields"><p><b>For</b><i></i></p><p><b>From</b><i></i></p><p><b>Value</b><i></i></p></div></div>
-      <div class="gv-stub"><img src="../../assets/logo/xxviii-monogram-brass.svg" alt=""><p>No. <b>0001</b></p><p>Terms overleaf</p></div>
+      <div class="gv-main"><img data-foil src="../../assets/logo/xxviii-horizontal-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p class="gv-head">The gift of a long dinner.</p>
+        <div class="gv-fields"><p><b>For</b><i></i></p><p><b>From</b><i></i></p><p><b>Value ₱</b><i></i></p><p><b>Valid until</b><i></i></p></div></div>
+      <div class="gv-stub"><img data-foil src="../../assets/logo/xxviii-monogram-brass.svg" alt=""><p>No. <b>0001</b></p><p>Terms overleaf</p></div>
     </div>
-    <div class="gv-edge"></div>
+    <div class="gv-edge" data-foil></div>
   </section>
-  <section class="page bone"><div class="safe gv-back">
+  <section class="page bone" data-side="back"><div class="safe gv-back">
     <div>
       <h2>Worth the wait.</h2>
       <p class="lbl">To reserve</p><p><span data-x="brand.contact.phone"></span> · <span data-x="brand.contact.web"></span></p>
@@ -135,14 +139,14 @@
 
 <!-- table tent -->
 <div class="doc" data-doc="table-tent" data-w="106" data-h="156">
-  <section class="page slate"><div class="safe tt">
-    <img src="../../assets/logo/xxviii-wordmark-brass.svg" alt="XXVIII">
+  <section class="page slate" data-side="face 1"><div class="safe tt">
+    <img data-foil src="../../assets/logo/xxviii-wordmark-brass.svg" alt="XXVIII">
     <p class="tt-head">The menu, the bar list, the ageing room today.</p>
     <div class="tt-qr"><!--qr:start--><svg class="qr-code" role="img" aria-label="QR code: xxviii.example/menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29"><path class="qrline" stroke="currentColor" d="M0 0.5h7m5 0h1m2 0h1m1 0h4m1 0h7m-29 1h1m5 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m3 0h2m2 0h1m3 0h3m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h2m1 0h3m3 0h1m4 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h3m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m2 0h1m4 0h5m3 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h2m2 0h1m5 0h3m-20 1h1m1 0h4m1 0h2m1 0h2m2 0h1m2 0h1m1 0h3m1 0h2m1 0h1m-26 1h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h1m1 0h3m4 0h1m1 0h2m-28 1h1m1 0h2m2 0h2m4 0h2m2 0h3m1 0h3m1 0h3m-26 1h2m1 0h2m3 0h1m5 0h1m1 0h1m1 0h2m3 0h2m2 0h1m-28 1h3m2 0h1m9 0h1m4 0h2m2 0h1m1 0h1m-27 1h2m1 0h2m2 0h1m1 0h1m3 0h1m1 0h3m3 0h1m1 0h1m1 0h1m1 0h1m-28 1h1m1 0h2m1 0h5m1 0h1m4 0h1m1 0h1m3 0h1m1 0h1m2 0h1m-29 1h1m7 0h2m3 0h1m1 0h1m1 0h2m1 0h2m2 0h3m1 0h1m-26 1h1m2 0h1m2 0h2m1 0h2m1 0h3m1 0h2m2 0h1m1 0h1m1 0h2m-29 1h1m2 0h1m3 0h3m3 0h1m2 0h1m1 0h3m3 0h3m-27 1h2m2 0h4m2 0h1m2 0h3m1 0h3m3 0h2m1 0h1m1 0h1m-29 1h2m6 0h2m1 0h4m4 0h1m1 0h3m2 0h3m-29 1h4m1 0h3m1 0h1m1 0h1m2 0h4m1 0h6m1 0h2m-20 1h1m1 0h2m1 0h3m2 0h3m3 0h4m-28 1h7m2 0h4m2 0h1m1 0h4m1 0h1m1 0h1m1 0h1m-27 1h1m5 0h1m1 0h1m5 0h2m1 0h1m1 0h2m3 0h2m1 0h2m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h5m1 0h9m3 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h2m5 0h1m1 0h3m-28 1h1m1 0h3m1 0h1m2 0h2m3 0h1m1 0h1m1 0h1m1 0h2m1 0h3m1 0h2m-29 1h1m5 0h1m1 0h2m1 0h1m1 0h3m5 0h1m2 0h3m1 0h1m-29 1h7m5 0h3m3 0h3m2 0h2"/></svg><!--qr:end--></div>
     <p class="tt-lbl">Scan with your camera</p>
   </div></section>
-  <section class="page slate"><div class="safe tt">
-    <img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse">
+  <section class="page slate" data-side="face 2"><div class="safe tt">
+    <img data-foil src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse">
     <p class="tt-head" id="ttTag"></p>
     <ul class="tt-hours" id="ttHours"></ul>
     <p class="tt-lbl" data-x="brand.contact.web"></p>
@@ -175,6 +179,19 @@
   var tg = document.getElementById('ttTag'); if (tg) tg.textContent = X.brand.taglines[0];
   var th = document.getElementById('ttHours');
   if (th) th.innerHTML = X.brand.contact.hours.map(function (h) { return '<li><b>' + h.days + '</b><span>' + h.time + '</span></li>'; }).join('');
+  /* foil plate mode: keep only the foil marks, as charcoal vectors, one plate per distinct side */
+  if (/foil=1/.test(location.search)) {
+    var pages = Array.prototype.slice.call(d.querySelectorAll('.page'));
+    pages.forEach(function (pg, i) {
+      if (!pg.querySelector('[data-foil]') || (pg.classList.contains('sk-front') && i > 0 && pages[i - 1].classList.contains('sk-front'))) { pg.remove(); return; }
+      pg.classList.add('foil-plate');
+    });
+    d.querySelectorAll('img[data-foil]').forEach(function (im) { im.src = im.src.replace(/-(brass|bone)\.svg$/, '-char.svg'); });
+    var st2 = document.createElement('style');
+    st2.textContent = 'html, body { background: #fff !important; } .foil-plate { background: #fff !important; } .foil-plate * { visibility: hidden; } .foil-plate [data-foil] { visibility: visible !important; } .foil-plate .gv-edge { background: #141110 !important; }';
+    document.head.appendChild(st2);
+  }
+  window.__sides = Array.prototype.slice.call(d.querySelectorAll('.page')).map(function (pg) { return pg.dataset.side || ''; });
   var imgs = Array.prototype.slice.call(d.querySelectorAll('img'));
   Promise.all([document.fonts.ready].concat(imgs.map(function (i) { return i.decode ? i.decode().catch(function () {}) : 0; })))
     .then(function () { document.body.dataset.ready = '1'; });
