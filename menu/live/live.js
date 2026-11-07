@@ -613,26 +613,90 @@
     },
   };
 
+  /* ================================================================== PHONES: the menu as one scroll, course by course
+     Its own format, not the book's pages: a course title, then every dish as a full-width photograph with its name,
+     price and description under it (type never on a photograph). The ageing rail and the steak card work as in the book. */
+  const MOB = () => {
+    const frag = h => { const t = document.createElement('template'); t.innerHTML = h; return t.content; };
+    const from = (html, sel) => { const e = frag(html).querySelector(sel); return e ? e.outerHTML : ''; };
+    const NOTE = '<p class="m-note">Prices in PHP · VAT inclusive · 10% service charge · Tell us about any allergy</p>';
+    const hd = (no, name, line, tag = 'h2') => `<header class="m-hd">${no ? `<span class="m-no">${no}</span>` : ''}<${tag} class="m-t">${esc(name)}</${tag}>${line ? `<p class="m-l">${esc(line)}</p>` : ''}</header>`;
+    const hero = (src, alt, pos = '50% 50%', cls = '') => `<figure class="m-hero ${cls}">${pic(src, 'm-im', alt, ` style="object-position:${pos}"`)}</figure>`;
+    // a dish: its photograph (plated at the table, cropped to the plate; or on the board), then the name, price, description
+    const dish = (it, o = {}) => `<article class="m-d${o.cls ? ' ' + o.cls : ''}" ${o.alt ? 'data-dish-alt' : 'data-dish'}="${slug(it.name)}"${o.attrs || ''}>
+      <figure class="m-ph${o.board ? ' m-ph--board' : ''}">${pic(o.src || X.img(it.img, 'plated', 'md'), 'm-im', it.name)}</figure>
+      <div class="m-row">${o.pre || ''}<h3 class="m-n">${withMk(o.wrap ? esc(it.name) : nm(it.name), it)}</h3>${price(it)}</div>
+      ${it.desc && !o.nodesc ? `<p class="t__d">${esc(it.desc)}</p>` : ''}${o.meta || ''}</article>`;
+    const list = (items, o) => `<div class="m-list">${items.map(it => dish(it, typeof o === 'function' ? o(it) : (o || {}))).join('')}</div>`;
+    const grid = (items, o) => `<div class="m-grid">${items.map(it => dish(it, Object.assign({ wrap: true }, typeof o === 'function' ? o(it) : (o || {})))).join('')}</div>`;
+    const meta = (...parts) => `<p class="m-meta">${parts.filter(Boolean).join('')}</p>`;
+    const sec = [];
+    // I · the dining room, the story, Day One
+    sec.push(`${hero(X.interior('main-dining-room', 'md'), 'The main dining room: leather booths, white cloths, low light', '34% 58%', 'm-hero--top')}
+      <div class="m-pad"><div class="m-story"><p class="m-lead">${esc(B.story[0])}</p><p>${esc(B.story[1])} ${esc(B.story[2])}</p><p class="m-honest">Every steak lists its age.</p></div>
+      <dl class="m-values">${B.values.map(v => `<div><dt>${esc(v.name)}</dt><dd>${esc(v.line)}</dd></div>`).join('')}</dl>
+      ${hd('I', M.day.name, M.day.line)}${list(M.day.items)}${NOTE}</div>`);
+    // II · the first course
+    sec.push(`<div class="m-pad">${hd('II', M.first.name, M.first.line)}${list(M.first.items)}${NOTE}</div>`);
+    // III · from the garden, then the kitchen
+    sec.push(`<div class="m-pad">${hd('III', M.garden.name, M.garden.line)}${list(M.garden.items)}
+      <h3 class="m-sub">The kitchen</h3></div>${hero(X.interior('open-kitchen-chefs-counter', 'md'), 'The open kitchen and the chef’s counter', '62% 50%')}
+      <div class="m-pad"><p class="m-line">${esc(B.values[1].line)}</p>${NOTE}</div>`);
+    // IV · the ageing room: the room, the rail, the five steaks from the room
+    const ctl = from(SP[3].L(8), '.room__ctl');
+    sec.push(`<div class="m-pad">${hd('IV', M.room.name, 'The glass room by the door: a salt-brick wall lit warm, ribs on hooks, every cut tagged with its day.')}</div>
+      ${hero(X.dryage('room-wide-feature-wall', 'md'), 'The glass ageing room, seen from the dining room', '44% 40%')}
+      <div class="m-pad">${ctl}
+      <div class="m-four">${[['room-through-the-glass', 'Ribs hanging behind the glass'], ['room-rack-aisle', 'Inside the ageing room: the rack aisle'], ['rib-crust-close-detail', 'The crust on a rib, close'], ['room-butcher-moment', 'The butcher checking a tagged rib']].map(([k, a]) => `<figure>${pic(X.dryage(k, 'sm'), 'm-im', a)}</figure>`).join('')}</div>
+      <div class="m-list">${roomCuts.map(c => dish(c, { cls: 'bt', board: true, src: X.block(c.img, 'md'), attrs: ` data-age="${c.age}"`, pre: `<span class="bt__tag">${tagSvg(c.age)}</span>`,
+        meta: meta(`<span>${esc(c.weight)}${c.serves ? ' · serves ' + esc(c.serves) : ''}</span>`, '<span class="bt__s"></span>') })).join('')}</div>${NOTE}</div>`);
+    // the twenty-eight, then the sauces and butters
+    const t = roomCuts[0];
+    sec.push(`<div class="m-pad"><header class="m-hd"><span class="m-no">IV</span><h2 class="m-t">The house steak</h2></header>
+      <article class="m-sig" data-dish-alt="${slug(t.name)}"><figure class="m-sig__ph">${pic(cutSrc(t, 'lg'), 'm-sig__im', t.name)}</figure>
+        ${ageTag(t.age)}<h3 class="m-sig__n">${nm(t.name)}</h3><p class="t__d">${esc(t.desc)}</p><p class="m-meta"><span>${esc(t.weight)}</span>${price(t)}</p>${from(SP[4].L(10), '.card28')}</article>
+      ${hd('', M.along.extras.name, 'One for the steak, one for the table.')}${grid(sx)}${NOTE}</div>`);
+    // V · the long wait, then the enhancements
+    sec.push(`<div class="m-pad">${hd('V', M.wait.name, M.wait.line)}
+      ${list(waitCuts, w => ({ board: true, src: X.block(w.img, 'md'), meta: meta(ageTag(w.age), `<span>${esc(w.weight)}</span>`, `<span>Serves ${esc(w.serves)}</span>`) }))}
+      ${hd('', M.wait.extras.name, 'For any steak, from the room or the long wait.', 'h3')}${grid(M.wait.extras.items, e => ({ board: true, src: X.block(e.img, 'md') }))}${NOTE}</div>`);
+    // VI · alongside, VII · beyond the ageing room
+    sec.push(`<div class="m-pad">${hd('VI', M.along.name, 'Sides to share.')}${grid(M.along.items)}
+      ${hd('VII', M.beyond.name, M.beyond.line)}${list(bz)}${NOTE}</div>`);
+    // how we cook your steak, VIII · the last course
+    sec.push(`<div class="m-pad">${hd('', 'How we cook your steak', 'Every steak rests before it reaches you. Tell us how you like it.')}
+      ${from(SP[7].L(16), '.scale')}<div class="m-slices">${from(SP[7].L(16), '.slices').replace(/^<div class="slices">|<\/div>$/g, '')}</div>
+      <p class="m-line">Every slice here is medium rare, <span class="nw">55–57 °C</span>: our suggestion for aged beef.</p>
+      ${hd('VIII', M.last.name, M.last.line)}${list(lc)}${NOTE}</div>`);
+    // the bar, then good to know
+    sec.push(`<div class="m-pad">${hd('', 'The bar', 'Stirred slowly.')}</div>${hero(X.interior('bar', 'md'), 'The bar: a long counter, leather stools, warm brass light', '46% 52%')}
+      <div class="m-pad"><div class="m-house"><div class="m-row"><h3 class="m-sig__n">${esc(house.name)}</h3>${price(house)}</div><p class="t__d">${esc(B.cocktail.line)}</p></div>
+      <div class="m-drinks">${X.drinks.filter(d => d !== house).map(d => `<div class="m-dr"><div class="m-row"><h3 class="m-n">${esc(d.name)}</h3>${price(d)}</div><p class="t__d">${esc(d.desc)}</p></div>`).join('')}</div>
+      ${hd('', 'Good to know', '')}</div>${hero(X.interior('entrance-host-stand', 'md'), 'The host stand by the door', '30% 55%')}
+      <div class="m-pad">${from(SP[8].R(19), '.know__g')}</div>`);
+    return sec;
+  };
+
   /* ================================================================== PHONES: course cards */
   const Cards = {
     build() {
       const wrap = $('#cards');
       const cards = [`<section class="card card--cover" data-k="0" aria-label="Cover">${coverHTML()}<a class="card__open" href="#c-1">Open the menu</a></section>`];
-      SP.forEach((sp, j) => cards.push(`<section class="card" id="c-${j + 1}" data-k="${j + 1}" aria-labelledby="ct-${j + 1}"><h2 class="sr-only" id="ct-${j + 1}">${esc(sp.title)}</h2><div class="pg pg--l" data-sp="${sp.id}">${sp.L(2 * (j + 1))}</div><div class="pg pg--r" data-sp="${sp.id}">${sp.R(2 * (j + 1) + 1)}</div></section>`));
+      const mob = MOB();
+      SP.forEach((sp, j) => cards.push(`<section class="card m" id="c-${j + 1}" data-k="${j + 1}" data-sp="${sp.id}" aria-label="${esc(sp.title)}">${mob[j]}</section>`));
       cards.push(`<section class="card card--cover card--back" data-k="${SP.length + 1}" aria-label="Back cover">${backHTML()}</section>`);
       wrap.innerHTML = cards.join('');
       this.ctx = $$('.card', wrap).map((el, i) => { const sp = SP[i - 1]; if (!sp) return null; const c = ctxOf([el], sp); if (sp.bind) sp.bind(c); return c; });
       // decode images just ahead of the reader; run loops and videos only on the card in view
       const near = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) hydrate(e.target); }), { rootMargin: '120% 0px' });
       let current = null;
+      // a section counts as "in view" when it crosses the middle of the screen (sections are taller than the screen)
       const seen = new IntersectionObserver(es => es.forEach(e => {
-        const c = this.ctx[+e.target.dataset.k];
-        if (e.isIntersecting && e.intersectionRatio > .35) {
-          if (current && current !== c && current && current.spec.leave) current.spec.leave(current);
-          current = c; UI.onSpread(+e.target.dataset.k); Preload.bump(+e.target.dataset.k);
-          if (c && c.spec.enter && !c.entered) { if (c.spec.prepare) c.spec.prepare(c); c.spec.enter(c); c.entered = true; } else if (c && c.spec.enter && c.spec.id === 'long-wait') c.spec.enter(c);
-        }
-      }), { threshold: [0, .35, .6] });
+        if (!e.isIntersecting) return;
+        const k = +e.target.dataset.k, c = this.ctx[k];
+        current = c; UI.onSpread(k); Preload.bump(k);
+        if (c && c.spec.id === 'ageing-room' && !c.entered) { c.spec.enter(c); c.entered = true; }   // the board counts up to Day 28
+      }), { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
       $$('.card', wrap).forEach(el => { near.observe(el); seen.observe(el); });
       // every card's images are fetched and decoded up front, in order, the card in view +/- 2 always first
       document.fonts.ready.then(() => Preload.start($$('.card', wrap).map(el => [el]), [0, 1, 2]));
@@ -816,7 +880,7 @@
   window.__clipped = root => $$('h2, h3, .t__n, .bt__n, .barp__n, .t28__n, .hd__t', root).filter(e => !e.classList.contains('sr-only')).filter(e => {
     const r = e.getBoundingClientRect(); if (!r.width) return false;
     if (e.scrollHeight > e.clientHeight + 2 || e.scrollWidth > e.clientWidth + 2) return true;
-    for (let p = e.parentElement; p && !p.classList.contains('pg') && !p.classList.contains('pp'); p = p.parentElement) {
+    for (let p = e.parentElement; p && !p.classList.contains('pg') && !p.classList.contains('pp') && !p.classList.contains('card'); p = p.parentElement) {
       const cs = getComputedStyle(p); if (cs.overflow === 'visible' && cs.overflowY === 'visible') continue;
       const q = p.getBoundingClientRect(); if (r.top < q.top - 1 || r.bottom > q.bottom + 1 || r.left < q.left - 1 || r.right > q.right + 1) return true;
     }

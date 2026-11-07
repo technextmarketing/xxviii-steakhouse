@@ -504,3 +504,83 @@ body.is-back .ribbon { left: calc(50% - 3.5em); }
 @media (prefers-reduced-motion: reduce) { .odo__c, .bt, .ribbon__list { transition: none !important; } }
 
 .is-cards .card--cover { padding-top: 0; }
+
+/* ================================================================ PHONES (v5): the menu as one scroll, its own format.
+   A course title on paper, then each dish as a full-width photograph with its name, price and description under it. */
+.is-cards .cards { scroll-snap-type: none; background: linear-gradient(#15100d, #0e0b09); }
+.card.m { padding: 60px 0 8px; scroll-margin-top: 0; font: 400 16px/1.5 var(--f-body); color: var(--bone); }
+.card.m + .card.m { border-top: 1px solid var(--line); }
+.m-pad { padding: 0 20px; }
+.m-hd { margin: 40px 0 22px; }
+.m-hero + .m-pad > .m-hd:first-child, .m-pad > .m-hd:first-child { margin-top: 30px; }
+.m-no { display: inline-block; margin-bottom: 12px; padding: 6px 9px 5px; border: 1px solid var(--line); font: 700 12px/1 var(--f-label); letter-spacing: .24em; color: var(--brass); }
+.m-t { margin: 0; font: 400 clamp(32px, 9vw, 40px)/1.06 var(--f-display); letter-spacing: -.01em; color: var(--bone); text-wrap: balance; padding-bottom: .04em; }
+.m-l { margin-top: 10px; color: var(--desc); }
+.m-sub { margin: 40px 0 16px; font: 600 13px/1.2 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: var(--brass); }
+.m-hero { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
+.m-hero--top { aspect-ratio: 4 / 4.2; }
+.m-im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.m-list { display: grid; gap: 40px; }
+.m-d { margin: 0; min-width: 0; }
+.m-ph { position: relative; margin: 0 0 14px; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 2px; box-shadow: 0 14px 28px -12px rgba(0, 0, 0, .85); }
+.m-ph .m-im { object-position: 50% 68%; transform: scale(1.32); transform-origin: 50% 68%; }
+.m-ph--board .m-im { object-position: 55% 55%; transform: scale(1.12); transform-origin: 55% 55%; }
+.m-row { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 14px; flex-wrap: wrap; }
+.m-n { margin: 0; font: 400 24px/1.12 var(--f-display); color: var(--bone); padding-bottom: .04em; text-wrap: balance; }
+.m .pr { font-size: 19px; margin-left: auto; }
+.m .t__d { margin-top: 6px; font-size: 16px; color: var(--desc); }
+.m-meta { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; font: 600 12px/1.3 var(--f-label); letter-spacing: .16em; text-transform: uppercase; color: var(--ash); }
+.m-meta .pr { margin-left: 0; }
+.m .age-tag { font-size: 12px; }
+.m-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 14px; }
+.m-grid .m-ph { aspect-ratio: 1 / 1; margin-bottom: 10px; }
+.m-grid .m-ph .m-im { transform: scale(1.75); }
+.m-grid .m-ph--board .m-im { transform: scale(1.4); }
+.m-grid .m-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+.m-grid .m-n { font-size: 19px; }
+.m-grid .pr { margin-left: 0; font-size: 17px; }
+.m-grid .t__d { font-size: 16px; }
+.m-note { margin: 36px 0 10px; padding-top: 12px; border-top: 1px solid var(--line-soft); font: 600 12px/1.5 var(--f-label); letter-spacing: .08em; text-transform: uppercase; color: var(--ash); }
+.m-line { margin: 18px 0 0; font: 400 23px/1.22 var(--f-display); color: var(--brass-hi); text-wrap: balance; }
+/* I · the story */
+.m-story { margin-top: 26px; display: grid; gap: 12px; }
+.m-lead { font: 400 28px/1.15 var(--f-display); text-wrap: balance; }
+.m-honest { font: 400 22px/1.2 var(--f-display); color: var(--brass-hi); }
+.m-values { margin: 22px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+.m-values dt { font: 600 12px/1.2 var(--f-label); letter-spacing: .24em; text-transform: uppercase; color: var(--brass-hi); margin-bottom: 4px; }
+.m-values dd { margin: 0; font-size: 15px; color: var(--desc); }
+/* IV · the room: the rail under the photograph, four close shots, the five steaks with their tags */
+.m .room__ctl { margin: 22px 0 6px; font-size: 16px; }
+.m .room__hint { font-size: 15px; color: var(--desc); }
+.m-four { margin: 18px 0 34px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.m-four figure { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
+.m .bt { display: block; padding: 0; border: 0; opacity: 1; grid-template-columns: none; }
+.m .bt .m-row { flex-wrap: nowrap; align-items: center; }
+.m .bt .m-n { flex: 1; min-width: 0; }
+.m .bt__tag { flex: none; width: 24px; margin: 0; align-self: flex-start; }
+.m .bt .m-meta { justify-content: space-between; }
+.m .bt__s { color: var(--ash); }
+.m .bt.ready .bt__s { color: var(--brass); }
+/* the twenty-eight */
+.m-sig { margin: 0; }
+.m-sig__ph { position: relative; margin: 0 -20px 10px; aspect-ratio: 1 / .86; }
+.m-sig__im { position: absolute; inset: -6% -18% 0 -10%; width: 128%; height: 106%; object-fit: contain; filter: drop-shadow(0 18px 22px rgba(0, 0, 0, .65)); }
+.m-sig__n { margin: 10px 0 0; font: 400 34px/1.08 var(--f-display); }
+.m-sig .m-meta .pr { font-size: 26px; }
+.m .card28 { margin-top: 18px; font-size: 16px; }
+/* doneness */
+.m .scale { gap: 0; }
+.m .scale li { padding: 10px 6px; }
+.m .scale__n { font-size: 22px; }
+.m-slices { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 10px; }
+.m-slices .mac__w { aspect-ratio: 4 / 3; }
+.m-slices figcaption { font-size: 11px; }
+/* the bar, good to know */
+.m-house { margin-top: 24px; }
+.m-drinks { margin-top: 18px; }
+.m-dr { padding: 14px 0; border-top: 1px solid var(--line-soft); }
+.m .know__g { margin-top: 24px; grid-template-columns: 1fr; gap: 22px; font-size: 16px; }
+.m .know__g .sub { font-size: 12px; }
+.m .hours { grid-template-columns: 1fr; gap: 0; }
+.m .hours dt { margin-top: 8px; font: 600 12px/1.3 var(--f-label); letter-spacing: .16em; text-transform: uppercase; }
+.m .hours dd { text-align: left; }

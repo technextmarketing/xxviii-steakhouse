@@ -34,17 +34,21 @@ window.LIVEQA = async function LIVEQA() {
 
   // ---------------------------------------------------------------- phones: course cards
   if (window.LIVE.mobile) {
-    ok('phone: course cards, no tiny book', !$('#book') && $$('.card', root).length === SP.length + 2);
+    ok('phone: its own scroll format (a section per course, no book pages)', !$('#book') && $$('.card', root).length === SP.length + 2 && !$$('.card .pg', root).length && $$('.card.m', root).length === SP.length);
     $$('.card img[data-src]').forEach(i => { i.src = i.dataset.src; i.removeAttribute('data-src'); });
     await wait(1500);
-    const tiles = $$('.card .t__ph, .card .bt__ph, .card .dt__p, .card .lw__f').filter(e => e.offsetParent);
-    const small = tiles.filter(e => e.getBoundingClientRect().width < W * .5);
-    ok('phone: a big picture for every dish (no thumbnails)', !small.length, small.length);
+    const tiles = $$('.card [data-dish] .m-ph, .card .m-sig__ph').filter(e => e.offsetParent);
+    const small = tiles.filter(e => e.getBoundingClientRect().width < W * .4);
+    ok('phone: a big picture for every dish (full width, or half in the side-dish and sauce grids)', tiles.length >= 45 && !small.length, [tiles.length, small.length]);
     const smallT = [...$$('.bar a, .bar button')].filter(e => e.offsetParent).filter(e => { const r = e.getBoundingClientRect(); return r.height < 44 || r.width < 40; });
     ok('phone: touch targets are at least 44 px', !smallT.length, smallT.map(e => e.id || e.textContent.trim()).slice(0, 5));
     const fs = $$('#cards .t__d').map(e => parseFloat(getComputedStyle(e).fontSize));
     ok('phone: descriptions at 16 px', Math.min(...fs) >= 16, Math.min(...fs));
-    ok('phone: no text crosses its card', !outside(root).length, outside(root).slice(0, 6));
+    const wide = $$('h2, h3, p, dt, dd, .pr', root).filter(e => e.offsetParent && !e.closest('.sr-only')).filter(e => { const r = e.getBoundingClientRect(); return r.width && (r.right > W + 1 || r.left < -1); });
+    ok('phone: no text runs off the screen', !wide.length, wide.map(e => e.textContent.trim().slice(0, 24)).slice(0, 6));
+    const frames = $$('.m-hero, .m-ph', root).map(f => f.getBoundingClientRect());
+    const onPh = $$('.m h2, .m h3, .m p', root).filter(e => e.offsetParent).filter(e => { const r = e.getBoundingClientRect(); return r.width && frames.some(q => Math.min(r.bottom, q.bottom) - Math.max(r.top, q.top) > 2 && Math.min(r.right, q.right) - Math.max(r.left, q.left) > 2); });
+    ok('phone: no text on a photograph', !onPh.length, onPh.map(e => e.textContent.trim().slice(0, 24)).slice(0, 6));
     ok('phone: no clipped titles', !window.__clipped(root).length, window.__clipped(root));
     ok('phone: one view only, the scroll (no list, no course strip, no page view)', !$('#btnList') && !$('#list') && !$('#strip') && !$('.bar__classic') && !$('#cards').hidden);
     const c4 = $('#c-4'); c4.scrollIntoView({ block: 'start' }); await until(() => Math.abs(c4.getBoundingClientRect().top) < 140, 4000);

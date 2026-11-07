@@ -138,3 +138,9 @@ Margins and folios were consistent before and after on every page: the content b
 ## Round 4: the view follows the window
 
 The view was chosen once, at load, so a desktop window narrowed to phone width kept a tiny book. The page now reloads into the other view whenever the viewport crosses the phone line (resize or rotation). Checked by narrowing 1440 → 600 → 390 (cards, no book) and widening back (book).
+
+## Round 5: no table video; a phone menu of its own
+
+- **Desktop:** the video that played on the table behind the closed book is removed (element, styles and the QA check).
+- **Phones:** the book pages are no longer stacked. Phones get their own format: one scroll, course by course. Each course has a title on paper; every dish has a full-width photograph (the side dishes, sauces and enhancements in two-column grids) with its name, price and description underneath. The room and bar photographs run edge to edge. No type sits on a photograph (checked by QA). The ageing rail counts up to Day 28 and works by drag and keys; the steak card turns. Hours are stacked day over time.
+- **QA:** the phone checks assert the scroll format (no book pages), 45 or more dish photos with none under 40% of the screen, no text off the screen and no text on a photograph. Clipped-title checks now stop at the card. All suites pass: 39 / 39 / 18 / 18, plus reduced motion.
