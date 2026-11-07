@@ -869,3 +869,6 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
   .mpeek__meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 30px; }
   .mpeek__p { font: 600 1.25rem/1 var(--f-label); letter-spacing: .06em; color: var(--brass); }
 }
+
+/* chat: a dish shown from the host is marked briefly */
+.dish.is-ask { background: color-mix(in srgb, var(--brass) 10%, transparent); transition: background-color .6s; }

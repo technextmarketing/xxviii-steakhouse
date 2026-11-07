@@ -821,6 +821,41 @@
     if (ok) { inp.value = ''; inp.blur(); } else inp.focus();
   });
 
+  /* ───────── Hooks for the "Ask the host" chat (site/chat.js) ───────── */
+  window.XXSite = {
+    now: NOW, open: OPEN, hours: HOURS, fmt: fmt, longDate: longDate, slotsFor: slotsFor,
+    status: function () { return ST_NOW; },
+    go: function (id) { var t = d.getElementById(id); if (t) scrollToEl(t); },
+    showSection: function (id) {
+      var i = X.menu.map(function (s) { return s.id; }).indexOf(id); if (i < 0) return false;
+      setMenu(i); scrollToEl($('#menu')); return true;
+    },
+    showDish: function (name) {
+      var row = $$('.mpanel .dish').filter(function (r) { var n = $('.dish__name', r); return n && n.textContent.replace(/\u00a0/g, ' ') === name; })[0];
+      if (!row) return false;
+      var pi = mPanels.indexOf(row.closest('.mpanel')); if (pi >= 0) setMenu(pi);
+      setTimeout(function () {
+        scrollToEl(row);
+        row.classList.add('is-ask'); setTimeout(function () { row.classList.remove('is-ask'); }, 3600);
+      }, 60);
+      return true;
+    },
+    book: function (o) {
+      o = o || {};
+      if (o.occasion) occ.value = o.occasion;
+      setParty(o.party || party);
+      if (o.utc != null) {
+        var di2 = $$('input[name=date]', datesBox).filter(function (x) { return +x.dataset.utc === o.utc && !x.disabled; })[0];
+        if (di2) { di2.checked = true; chosenUTC = o.utc; renderTimes(); }
+      }
+      var tok = null;
+      if (o.min != null) { var tm = timesBox.querySelector('input[value="' + o.min + '"]'); if (tm) { tm.checked = true; tok = o.min; } }
+      if (o.go !== false) scrollToEl($('#reserve'));
+      return { party: party, utc: chosenUTC, min: tok, occasion: occ.value };
+    }
+  };
+  try { d.dispatchEvent(new CustomEvent('xx:site-ready')); } catch (e) { }
+
   /* ───────── Reduced motion / no GSAP: everything static and visible ───────── */
   if (!MOTION) {
     root.classList.remove('intro-on', 'hero-wait');
