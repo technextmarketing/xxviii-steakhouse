@@ -31,7 +31,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
 <link rel="preload" href="assets/fonts/BigShoulders.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/video/cowboy-cut-poster.webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/brand.css?v=3">
-<link rel="stylesheet" href="site/site.css?v=14">
+<link rel="stylesheet" href="site/site.css?v=15">
 <link rel="stylesheet" href="site/chat.css?v=5">
 <script type="application/ld+json" id="ld-restaurant">
 {"@context":"https://schema.org","@type":"Restaurant","@id":"https://xxviii.example/#restaurant","name":"Twenty-Eight Steakhouse","alternateName":"XXVIII","url":"https://xxviii.example/","servesCuisine":"Steakhouse","priceRange":"₱₱₱₱","acceptsReservations":true,"hasMenu":"https://xxviii.example/menu/","image":"https://xxviii.example/assets/img/plated/cowboy-cut-lg.webp","logo":"https://xxviii.example/assets/logo/xxviii-primary-brass.svg","telephone":"+63 (2) 0000 0028","email":"reservations@xxviii.example","address":{"@type":"PostalAddress","streetAddress":"[Street], Bonifacio Global City","addressLocality":"Taguig","addressRegion":"Metro Manila","addressCountry":"PH"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Tuesday","https://schema.org/Wednesday","https://schema.org/Thursday"],"opens":"17:30","closes":"23:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Friday","https://schema.org/Saturday"],"opens":"17:30","closes":"00:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"17:30","closes":"22:00"}]}
@@ -117,8 +117,8 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
     <h1 class="hero__title" id="hero-title" data-bind="brand.taglines.0">Some things can’t be hurried.</h1>
     <p class="hero__sub">A dry-aged steakhouse in Bonifacio Global City. Every steak on the menu lists its age.</p>
     <div class="hero__ctas">
-      <a class="btn btn-solid" href="#reserve">Reserve a table <span class="arr" aria-hidden="true"></span></a>
-      <a class="btn btn-line" href="#menu">See the menu</a>
+      <a class="btn btn-solid" href="#reserve">Book your evening <span class="arr" aria-hidden="true"></span></a>
+      <a class="btn btn-line" href="#menu">Explore the menu</a>
     </div>
   </div>
   <div class="wrap hero__strip">
@@ -161,7 +161,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
           <div><dt class="label">Price</dt><dd class="price" data-b-price></dd></div>
         </dl>
         <p class="board__card"><span class="label">On its card</span><span class="board__card-txt" data-b-card></span></p>
-        <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book data-b-book>Book a table for this cut <span class="arr" aria-hidden="true"></span></a><a class="btn btn-line" href="#menu">See the full menu</a></div>
+        <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book data-b-book>Book a table for this cut <span class="arr" aria-hidden="true"></span></a><a class="btn btn-line" href="#menu">Browse every cut</a></div>
       </div>
     </div>
   </div>
@@ -255,7 +255,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
     <noscript><p class="menu__noscript">The full menu is in the <a class="link" href="menu/index.html">menu book</a> and the <a class="link" href="menu/out/xxviii-menu.pdf">printable PDF</a>.</p></noscript>
   </div>
   <div class="wrap menu__foot">
-    <a class="btn btn-solid" href="#reserve" data-book>Reserve a table <span class="arr" aria-hidden="true"></span></a>
+    <a class="btn btn-solid" href="#reserve" data-book>Hold a table for dinner <span class="arr" aria-hidden="true"></span></a>
     <a class="btn btn-line" href="menu/index.html">Open the menu book</a>
     <a class="link label menu__pdf" href="menu/out/xxviii-menu.pdf" download>Download the menu (PDF)</a>
     <p class="menu__note muted" data-price-note>Service charge and VAT wording: to be confirmed.</p>
@@ -334,7 +334,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
       </svg></span><span class="label">The house cocktail</span><span class="price" data-cocktail-price></span></div>
       <p class="drinks__title label">Also at the bar</p>
       <ul class="drinks" data-drinks></ul>
-      <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book data-note="Start us with Patience, please.">Book a table <span class="arr" aria-hidden="true"></span></a><button class="btn btn-line" type="button" data-ask="What drinks do you have?">Ask the host about drinks</button></div>
+      <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book data-note="Start us with Patience, please.">Start the evening with Patience <span class="arr" aria-hidden="true"></span></a><button class="btn btn-line" type="button" data-ask="What drinks do you have?">Ask the host about drinks</button></div>
     </div>
   </div>
 </section>
@@ -346,7 +346,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
     <button class="reel__toggle label" type="button" aria-pressed="false"><span class="reel__ico" aria-hidden="true"></span><span class="reel__txt">Pause the photographs</span></button>
   </div>
   <div class="reel__rows" data-reel></div>
-  <div class="wrap reel__foot"><div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book>Reserve a table <span class="arr" aria-hidden="true"></span></a><a class="btn btn-line" href="#menu">See the full menu</a></div></div>
+  <div class="wrap reel__foot"><div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book>Save a seat at the table <span class="arr" aria-hidden="true"></span></a><a class="btn btn-line" href="#menu">See every starter and side</a></div></div>
 </section>
 
 <!-- 10. Values -->
@@ -359,7 +359,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
       <li class="value"><span class="value__word">Honesty</span><p class="value__line">The menu tells you how many days each steak has aged.</p></li>
       <li class="value"><span class="value__word">Gathering</span><p class="value__line">A long wait deserves a long dinner. Guests are never hurried.</p></li>
     </ul>
-    <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book>Reserve a table <span class="arr" aria-hidden="true"></span></a><button class="btn btn-line" type="button" data-ask="">Ask the host a question</button></div>
+    <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book>Book an unhurried dinner <span class="arr" aria-hidden="true"></span></a><button class="btn btn-line" type="button" data-ask="">Ask the host a question</button></div>
   </div>
 </section>
 
@@ -497,7 +497,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
         <li><span class="label muted">Phone</span><a class="link nw" data-tel href="tel:+63200000028">+63 (2) 0000 0028</a></li>
         <li><span class="label muted">Email</span><a class="link" data-mail href="mailto:reservations@xxviii.example">reservations@xxviii.example</a></li>
       </ul>
-      <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book>Reserve a table <span class="arr" aria-hidden="true"></span></a><a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Bonifacio+Global+City+Taguig" target="_blank" rel="noopener">Get directions</a></div>
+      <div class="cta-row"><a class="btn btn-solid" href="#reserve" data-book>Book before you visit <span class="arr" aria-hidden="true"></span></a><a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Bonifacio+Global+City+Taguig" target="_blank" rel="noopener">Get directions</a></div>
       <p class="visit__preview muted" data-preview>Preview: address, hours, phone, prices and social handles are placeholders, to be confirmed.</p>
     </div>
     <div class="visit__media">
@@ -577,7 +577,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/vendor/SplitText.min.js"></script>
 <script src="assets/vendor/lenis.min.js"></script>
-<script src="site/site.js?v=15"></script>
+<script src="site/site.js?v=16"></script>
 <script src="site/chat.js?v=4"></script>
 </body>
 </html>

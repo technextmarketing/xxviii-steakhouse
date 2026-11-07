@@ -170,7 +170,7 @@ video { background: var(--char-2); }
   .hero__status { font-size: .74rem; }
 }
 @media (max-width: 380px) { .hero__ctas .btn { padding: 0 16px; letter-spacing: .18em; } }
-@media (max-width: 479px) { .btn { letter-spacing: .16em; padding: 0 20px; } [data-private-enquire] { font-size: .76rem; } }
+@media (max-width: 479px) { .btn { letter-spacing: .16em; padding: 0 20px; } }
 
 /* ───────── 3. Twenty-eight days ───────── */
 
@@ -894,3 +894,6 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
 }
 .sig__copy .cta-row .btn, .board__info .cta-row .btn { padding: 0 18px; letter-spacing: .2em; }
 @media (max-width: 599px) { .menu__foot .btn { flex: 1 1 100%; min-height: 48px; } }
+/* 8 Nov: CTA rows fill their column (grids with justify-items:start shrank them) */
+.cta-row { justify-self: stretch; }
+.private__copy .cta-row .btn { padding: 0 18px; letter-spacing: .2em; }

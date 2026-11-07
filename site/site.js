@@ -1111,7 +1111,7 @@
 
   /* ───────── Private dining plan (draws in ≤ 1.5 s) ───────── */
   lineReveal($('#private-title'));
-  G.from(['.private__line', '[data-private-enquire]'], { autoAlpha: 0, y: 20, duration: 1.1, ease: 'expo.out', stagger: .1, scrollTrigger: { trigger: '.private__copy', start: 'top 78%', once: true } });
+  G.from(['.private__line', '.private__copy .cta-row'], { autoAlpha: 0, y: 20, duration: 1.1, ease: 'expo.out', stagger: .1, scrollTrigger: { trigger: '.private__copy', start: 'top 78%', once: true } });
   (function () {
     var room = $('.plan__room'), table = $('.plan__table'), door = $('.plan__door');
     [room, table].forEach(function (r) { var L = r.getTotalLength ? r.getTotalLength() : 2000; r.style.strokeDasharray = L; r.style.strokeDashoffset = L; });
@@ -1130,7 +1130,7 @@
   G.from('.booking', { autoAlpha: 0, y: 50, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.booking', start: 'top 85%', once: true } });
   G.from($$('.chipr'), { autoAlpha: 0, x: 24, duration: .9, ease: 'expo.out', stagger: .025, scrollTrigger: { trigger: '.bk-dates', start: 'top 88%', once: true } });
   lineReveal($('#visit-title'));
-  G.from(['.visit__addr', '.hours', '.visit__contact', '.visit__copy > .btn'], { autoAlpha: 0, y: 20, duration: 1.1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: '.visit__copy', start: 'top 75%', once: true } });
+  G.from(['.visit__addr', '.hours', '.visit__contact', '.visit__copy > .cta-row'], { autoAlpha: 0, y: 20, duration: 1.1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: '.visit__copy', start: 'top 75%', once: true } });
   G.from('.visit__door', { autoAlpha: 0, y: 40, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.visit__media', start: 'top 80%', once: true } });
   G.from('.reserve__room', { autoAlpha: 0, y: 30, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.reserve__room', start: 'top 90%', once: true } });
   G.timeline({ scrollTrigger: { trigger: '.map', start: 'top 75%', once: true } })
