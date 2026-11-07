@@ -47,7 +47,7 @@
   $$('[data-bind]').forEach(function (n) { var v = get(n.getAttribute('data-bind')); if (typeof v === 'string') n.textContent = v; });
   var C = X.brand.contact;
   var telHref = 'tel:' + C.phone.replace(/[^\d+]/g, '');
-  $$('[data-tel]').forEach(function (a) { a.href = telHref; if (!a.querySelector('svg') && !a.hasAttribute('data-call')) a.textContent = C.phone; });
+  $$('[data-tel]').forEach(function (a) { a.href = telHref; if (!a.querySelector('svg') && !a.hasAttribute('data-call') && !a.classList.contains('btn')) a.textContent = C.phone; });
   $$('[data-mail]').forEach(function (a) { a.href = 'mailto:' + C.email; a.textContent = C.email; });
 
   /* ───────── Time in Manila + opening hours ───────── */
@@ -784,6 +784,7 @@
     if (bad) { bad.focus(); return; }
     var enq = isEnquiry();
     booking = { utc: chosenUTC, min: +t.value, party: party, occasion: occ.value, name: $('#bk-name').value.trim(), enquiry: enq };
+    funnelSubmit(booking);
     var rows = [['Date', longDate(booking.utc)], ['Time', fmt(booking.min)], [enq ? 'Party' : 'Guests', booking.party + (booking.party === 1 ? ' guest' : ' guests')], ['Name', booking.name]];
     if (booking.occasion !== 'None') rows.splice(3, 0, ['Occasion', booking.occasion]);
     $('[data-summary]').innerHTML = rows.map(function (r) { return '<dt class="label">' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('');
@@ -855,6 +856,53 @@
     }
   };
   try { d.dispatchEvent(new CustomEvent('xx:site-ready')); } catch (e) { }
+
+  /* ───────── Funnel: contextual CTAs, booking context, measurement (8 Nov) ───────── */
+  var dl = window.dataLayer = window.dataLayer || [];
+  function fTrack(ev, o) { var p = { event: ev }; for (var k in o) p[k] = o[k]; dl.push(p); }
+  var UTM = {};
+  try {
+    var qs = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) { if (qs.get(k)) UTM[k] = qs.get(k); });
+    if (Object.keys(UTM).length) sessionStorage.setItem('xx-utm', JSON.stringify(UTM)); else UTM = JSON.parse(sessionStorage.getItem('xx-utm') || '{}');
+  } catch (e) { }
+  var FUN = { from: '', note: '' }, notesEl = $('#bk-notes'), ctxBox = $('[data-bk-context]');
+  function secOf(n) { var s = n.closest('section, header, footer, .actbar, .xxdock'); return s ? (s.id || s.className.split(' ')[0]) : 'page'; }
+  function setContext(from, note) {
+    var cur = notesEl.value.trim();
+    if (FUN.note && cur.indexOf(FUN.note) === 0) cur = cur.slice(FUN.note.length).trim();
+    FUN.from = from; FUN.note = note || '';
+    notesEl.value = FUN.note ? (FUN.note + (cur ? '\n' + cur : '')) : cur;
+    ctxBox.hidden = !FUN.note;
+    if (FUN.note) { $('[data-bk-context-txt]', ctxBox).textContent = FUN.note; fTrack('reserve_context', { from: from, note: FUN.note }); }
+  }
+  $('[data-bk-context-x]').addEventListener('click', function () { setContext('', ''); notesEl.focus(); });
+  d.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-book]');
+    if (b) {
+      e.preventDefault();
+      var note = b.getAttribute('data-note') || '';
+      if (b.hasAttribute('data-b-book') && boardCuts[bCur]) { var bc = boardCuts[bCur].it; note = 'Interested in the ' + bc.name + ', aged ' + bc.age + ' days.'; }
+      setContext(secOf(b), note);
+      scrollToEl($('#reserve'));
+    }
+    var ms = e.target.closest('[data-menu-sec]');
+    if (ms && window.XXSite.showSection(ms.getAttribute('data-menu-sec'))) e.preventDefault();
+    var ak = e.target.closest('[data-ask]');
+    if (ak && !ak.closest('.xxchat-panel, .xxpanel, [role=dialog]') && window.__xxChat) {
+      var q = ak.getAttribute('data-ask'); if (q) window.__xxChat.send(q); else window.__xxChat.open();
+    }
+    var c = e.target.closest('a.btn, button.btn, .actbar a, .hdr__nav a, .overlay__list a, .ftr__nav a, .booking__next a, .menu__pdf, [data-ask], [data-book]');
+    if (c) fTrack('cta_click', { cta_section: secOf(c), cta_label: c.textContent.replace(/\s+/g, ' ').trim(), cta_target: c.getAttribute('href') || c.getAttribute('data-ask') || c.type || '' });
+  });
+  var started = false;
+  form.addEventListener('focusin', function () { if (!started) { started = true; fTrack('reserve_start', { from: FUN.from }); } });
+  function funnelSubmit(bk) { var o = { party: bk.party, occasion: bk.occasion, enquiry: bk.enquiry, from: FUN.from }; for (var k in UTM) o[k] = UTM[k]; bk.from = FUN.from; bk.utm = UTM; bk.notes = notesEl.value.trim(); fTrack('reserve_submit', o); }
+  if ('IntersectionObserver' in window) {
+    var seenSec = {};
+    var sio = new IntersectionObserver(function (es) { es.forEach(function (en) { var id = en.target.id; if (en.isIntersecting && !seenSec[id]) { seenSec[id] = 1; fTrack('section_view', { section: id }); sio.unobserve(en.target); } }); }, { threshold: .35 });
+    $$('main > section[id]').forEach(function (s) { sio.observe(s); });
+  }
 
   /* ───────── Reduced motion / no GSAP: everything static and visible ───────── */
   if (!MOTION) {
