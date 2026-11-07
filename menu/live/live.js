@@ -183,8 +183,10 @@
     'The Twenty-Eight': 'GF', 'Prime Ribeye': 'GF', 'New York Strip': 'GF', 'Filet Mignon': 'GF', 'Picanha': 'GF',
     'Crème Brûlée': 'V GF', 'Dark Chocolate Fondant': 'V', 'Sticky Toffee Pudding': 'V', 'Bananas Foster': 'V', 'Petit Fours': 'V',
   };
-  const marks = it => { const m = MARKS[it.name]; return m ? ` <span class="mk" title="Dietary marks, to be confirmed">${m.split(' ').map(x => `<i>${x}</i>`).join('')}</span>` : ''; };
+  const marks = it => { const m = MARKS[it.name]; return m ? `\u00a0<span class="mk" title="Dietary marks, to be confirmed">${m.split(' ').map(x => `<i>${x}</i>`).join('')}</span>` : ''; };
   const cutSrc = (it, size = 'lg') => cut(it.cutout || it.img, size);
+  // a name with its dietary marks: the last word and the marks never part (no "V" alone on a line)
+  const withMk = (html, it) => { const m = marks(it); if (!m) return html; const i = html.lastIndexOf(' '); return i < 0 ? `<span class="nw">${html}${m}</span>` : `${html.slice(0, i + 1)}<span class="nw">${html.slice(i + 1)}${m}</span>`; };
   // running head + folio: the furniture of a printed menu
   const RH = (l, r) => `<div class="rh" aria-hidden="true"><span>${esc(l)}</span><span>${esc(r)}</span></div>`;
   // PLACEHOLDER wording (VAT / service charge) to be confirmed by the owner, as on "Good to know"
@@ -192,10 +194,16 @@
   const HD = (no, name, line, cls = '') => `<header class="hd ${cls}"><h2 class="hd__t">${no ? `<span class="hd__no">${no}</span>` : ''}${esc(name)}</h2>${line ? `<p class="hd__l">${esc(line)}</p>` : ''}</header>`;
   // a dish: its picture first, then a place card (name, price, line)
   // names never break badly: a non-breaking hyphen in "Twenty-Eight", and short names (<= 14 letters) kept on one line
-  const nm = s => { s = String(s).replace(/Twenty-Eight/g, 'Twenty\u2011Eight'); return esc(s.length <= 14 ? s.replace(/ /g, '\u00a0') : s); };
+  // three-word names stay on one line; longer names keep their last two words together (no one-word lines)
+  const nm = s => {
+    s = String(s).replace(/Twenty-Eight/g, 'Twenty\u2011Eight'); const w = s.split(' ');
+    if (s.length <= 14 || (w.length <= 3 && s.length <= 26)) return esc(s.replace(/ /g, '\u00a0'));
+    return esc([w.slice(0, 2).join('\u00a0'), ...w.slice(2, -2), w.slice(-2).join('\u00a0')].join(' '));   // four words or more: break only mid-name
+  };
+  const nmCls = s => (String(s).split(' ').length <= 3 && String(s).length > 22 ? ' t__n--long' : '');
   const tile = (it, o = {}) => `<figure class="t ${o.cls || ''}" data-dish="${slug(it.name)}"${o.style ? ` style="${o.style}"` : ''}>
       <div class="t__ph">${o.ph || pic(cutSrc(it, o.size || 'sm'), 't__im', it.name)}</div>
-      <figcaption class="t__c"><div class="t__row"><h3 class="t__n">${nm(it.name)}${marks(it)}</h3>${price(it)}</div>${it.desc && !o.nodesc ? `<p class="t__d">${esc(it.desc)}</p>` : ''}${o.meta || ''}</figcaption></figure>`;
+      <figcaption class="t__c"><div class="t__row"><h3 class="t__n${nmCls(it.name)}"><span class="nl">${withMk(nm(it.name), it)}</span></h3>${price(it)}</div>${it.desc && !o.nodesc ? `<p class="t__d">${esc(it.desc)}</p>` : ''}${o.meta || ''}${o.crop ? `<div class="t__crop">${pic(X.img(it.img, 'plated', 'md'), 't__cim', it.name + ', close up', ` style="object-position:${o.crop[0]}% ${o.crop[1]}%;transform-origin:${o.crop[0]}% ${o.crop[1]}%;transform:scale(${o.crop[2]})"`)}</div>` : ''}</figcaption></figure>`;
   // a macro: a tight crop of a real photograph (the crust, the marbling, the bone); never type over it
   const mac = (src, x, y, s, label, cls = '') => `<figure class="mac ${cls}"><div class="mac__w">${pic(src, 'mac__im', label || '', ` style="object-position:${x}% ${y}%;transform-origin:${x}% ${y}%;transform:scale(${s})"`)}</div>${label ? `<figcaption>${esc(label)}</figcaption>` : ''}</figure>`;
   // a moving photograph on screen (muted loop, only while its spread is open); its still in print
@@ -213,7 +221,8 @@
   // 1 · the dining room and the story | Day One
   SP.push({
     id: 'day-one', title: M.day.name, course: 'I',
-    L: n => `${ground(X.interior('main-dining-room', 'lg'), '30% 50%')}<i class="veil veil--top"></i><i class="veil veil--bottom veil--deep"></i><div class="pg-in story">${RH('Twenty-Eight', 'The dining room')}
+    L: n => `<div class="pg-in story">${RH('Twenty-Eight', 'The dining room')}
+      <figure class="story__ph">${pic(X.interior('main-dining-room', 'lg'), 'story__im', 'The main dining room: leather booths, white cloths, low light')}</figure>
       <div class="story__t"><p class="story__lead">${esc(B.story[0])}</p><p class="story__body">${esc(B.story[1])} ${esc(B.story[2])}</p><p class="story__honest">Every steak lists its age.</p></div>
       <dl class="values">${B.values.map(v => `<div><dt>${esc(v.name)}</dt><dd>${esc(v.line)}</dd></div>`).join('')}</dl>${FO(n)}</div>`,
     R: n => { const t = M.day.items[0], P = X.img('wagyu-tallow-white', 'plated', 'lg'); return `<div class="pg-in dayone">${RH('The Menu', 'I · Day One')}${HD('I', M.day.name, M.day.line)}
@@ -226,13 +235,15 @@
 
   // 2 · The First Course: one table across the spread, every plate with its place card
   const fc = M.first.items;
+  // the close-up under each place card: the focal point of the dish's own photograph (x %, y %, zoom)
+  const FCX = { 'steak-tartare': [37, 52, 2.6], 'wagyu-carpaccio': [50, 55, 2.4], 'seared-foie-gras': [56, 45, 2.4], 'roasted-bone-marrow': [45, 52, 2.2], 'tiger-prawn-cocktail': [50, 37, 2.4], 'oysters-half-shell': [55, 52, 2.1] };
   SP.push({
     id: 'first-course', title: M.first.name, course: 'II',
     L: n => `<div class="pg-in table-pg">${RH('The Menu', 'II · ' + M.first.name)}${HD('II', M.first.name, M.first.line)}
-      <div class="tbl tbl--a">${tile(fc[0], { cls: 't--wide', size: 'lg' })}${tile(fc[1])}${tile(fc[2])}</div>${FO(n)}</div>`,
+      <div class="tbl tbl--z">${tile(fc[0], { cls: 't--wide', size: 'lg', crop: FCX[fc[0].img] })}${tile(fc[1], { cls: 't--wide t--flip', size: 'lg', crop: FCX[fc[1].img] })}${tile(fc[2], { cls: 't--wide', size: 'lg', crop: FCX[fc[2].img] })}</div>${FO(n)}</div>`,
     R: n => `<div class="pg-in table-pg">${RH('The First Course', 'Raw, cured and seared')}
-      <div class="tbl tbl--b">${tile(fc[3])}${tile(fc[4])}${tile(fc[5], { cls: 't--wide t--flip', size: 'lg' })}</div>
-      ${mac(X.img(fc[0].img, 'plated', 'lg'), 47, 52, 2.2, 'Hand-cut, the moment you order', 'mac--band')}${FO(n)}</div>`,
+      <div class="tbl tbl--z">${tile(fc[3], { cls: 't--wide t--flip', size: 'lg', crop: FCX[fc[3].img] })}${tile(fc[4], { cls: 't--wide', size: 'lg', crop: FCX[fc[4].img] })}${tile(fc[5], { cls: 't--wide t--flip', size: 'lg', crop: FCX[fc[5].img] })}</div>
+      ${FO(n)}</div>`,
   });
 
   // 3 · From the Garden (photographs at the table) | the open kitchen: a craft line, the crust up close
@@ -310,7 +321,9 @@
 
   // 5 · The Twenty-Eight: the plate bleeds off the page, the crust and the butter up close | sauces and butters around their steak
   const sx = M.along.extras.items;
-  const RING = [[17, 0], [50, 0], [83, 0], [13, 35], [87, 35], [30, 70], [70, 70]];
+  // [left %, top %, width %] per sauce, in data order: the two short names at the sides, the long ones on the wide rows
+  const RING = [[13, 35, 26], [87, 35, 26], [50, 0, 34], [17, 0, 33], [30, 70, 40], [70, 70, 40], [83, 0, 33]];
+  const rgName = s => esc(s.length <= 20 ? s.replace(/ /g, '\u00a0') : s);
   SP.push({
     id: 'twenty-eight', title: roomCuts[0].name, course: 'IV',
     L: n => { const t = roomCuts[0], cb = X.block('cowboy-cut', 'lg'); return `<div class="pg-in t28">${RH('IV · ' + M.room.name, 'The house steak')}
@@ -320,7 +333,7 @@
         <div class="t28__macs">${mac(cb, 31, 60, 3, 'The crust')}${mac(cb, 42, 45, 3.3, 'The butter')}${mac(cb, 64, 33, 2.8, 'The bone')}</div></div>${FO(n)}</div>`; },
     R: n => `<div class="pg-in sauces">${RH('Alongside', 'Sauces & Butters')}${HD('', M.along.extras.name, 'One for the steak, one for the table.')}
       <div class="ring"><div class="ring__c"><i class="shadow"></i>${pic(cutSrc(roomCuts[3], 'lg'), 'ring__im', roomCuts[3].name)}</div>
-        ${sx.map((s, i) => `<figure class="rg" data-dish="${slug(s.name)}" style="left:${RING[i][0]}%;top:${RING[i][1]}%"><div class="rg__ph">${pic(cutSrc(s, 'sm'), 'rg__im', s.name)}</div><figcaption><h3 class="rg__n">${esc(s.name)}</h3>${price(s)}</figcaption></figure>`).join('')}</div>${FO(n)}</div>`,
+        ${sx.map((s, i) => `<figure class="rg" data-dish="${slug(s.name)}" style="left:${RING[i][0]}%;top:${RING[i][1]}%;width:${RING[i][2]}%"><div class="rg__ph">${pic(cutSrc(s, 'sm'), 'rg__im', s.name)}</div><figcaption><h3 class="rg__n">${rgName(s.name)}</h3>${price(s)}</figcaption></figure>`).join('')}</div>${FO(n)}</div>`,
     bind(c) { const card = c.q('.card28'); card.addEventListener('click', () => { const on = card.getAttribute('aria-pressed') !== 'true'; card.setAttribute('aria-pressed', String(on)); tw(card.querySelector('.card28__in'), { rotationY: on ? 180 : 0, duration: .9, ease: EASE.softLand }); }); },
     prepare(c) { if (!reduced) gsap.set(c.q('.t28__im'), { xPercent: -8, opacity: 0 }); },
     enter(c) { if (!reduced) gsap.to(c.q('.t28__im'), { xPercent: 0, opacity: 1, duration: 1, ease: EASE.softLand, delay: .2 }); },
@@ -335,7 +348,7 @@
     L: n => `<div class="pg-in lwp">${RH('The Menu', 'V · ' + M.wait.name)}${HD('V', M.wait.name, M.wait.line)}${band(waitCuts[0], 'Carved at the table')}${band(waitCuts[1], 'Sliced to share')}${FO(n)}</div>`,
     R: n => `<div class="pg-in lwp">${RH(M.wait.name, 'Forty-five days')}${band(waitCuts[2], 'Dressed with chimichurri')}
       <h3 class="sub">${esc(M.wait.extras.name)}<span>For any steak, from the room or the long wait</span></h3>
-      <div class="e4">${M.wait.extras.items.map(e => tile(e)).join('')}</div>${FO(n)}</div>`,
+      <div class="e4">${M.wait.extras.items.map(e => tile(e, { cls: 't--photo t--board', ph: pic(X.block(e.img, 'md'), 't__photo', e.name) })).join('')}</div>${FO(n)}</div>`,
     enter(c) { playFilms(c, true); }, leave(c) { playFilms(c, false); },
   });
 
@@ -343,7 +356,7 @@
   const bz = M.beyond.items;
   SP.push({
     id: 'alongside', title: M.along.name, course: 'VI',
-    L: n => `<div class="pg-in">${RH('The Menu', 'VI · ' + M.along.name)}${HD('VI', M.along.name, 'Sides to share.')}<div class="s8">${M.along.items.map(s => tile(s, { cls: 't--bowl' })).join('')}</div>${FO(n)}</div>`,
+    L: n => `<div class="pg-in">${RH('The Menu', 'VI · ' + M.along.name)}${HD('VI', M.along.name, 'Sides to share.')}<div class="s8">${M.along.items.map(s => tile(s, { cls: 't--photo t--side', ph: pic(X.img(s.img, 'plated', 'md'), 't__photo', s.name) })).join('')}</div>${FO(n)}</div>`,
     R: n => `<div class="pg-in beyond">${RH('The Menu', 'VII · ' + M.beyond.name)}
       <div class="beyond__top">${HD('VII', M.beyond.name, M.beyond.line)}<div class="beyond__hero"><i class="shadow"></i>${pic(cutSrc(bz[1], 'lg'), 'beyond__im', bz[1].name)}</div></div>
       <div class="beyond__lead">${tile(bz[1], { cls: 't--text', ph: '' })}</div>
@@ -359,18 +372,19 @@
     L: n => `<div class="pg-in done">${RH('Good to know', 'How we cook your steak')}${HD('', 'How we cook your steak', 'Every steak rests before it reaches you. Tell us how you like it.')}
       <div class="done__g"><ol class="scale">${BANDS.map((b, i) => `<li class="${i === 2 ? 'pick' : ''}"><i style="background:${b[3]}"></i><div><p class="scale__n">${b[0]}<span>${b[1]} °C</span></p><p class="scale__d">${esc(b[2])}</p></div></li>`).join('')}</ol>
         <div class="slices">${mac(X.block('new-york-strip', 'lg'), 66, 56, 2.6, 'New York Strip')}${mac(X.block('chateaubriand-for-two', 'lg'), 58, 58, 2.6, 'Châteaubriand')}${mac(X.block('picanha', 'lg'), 54, 60, 2.6, 'Picanha')}${mac(X.block('porterhouse-for-two', 'lg'), 34, 58, 2.6, 'Porterhouse')}</div></div>
-      <p class="done__note">Every slice here is medium rare, 55–57 °C: our suggestion for aged beef.</p>${FO(n)}</div>`,
+      <p class="done__note">Every slice here is medium rare, <span class="nw">55–57 °C</span>: our suggestion for aged beef.</p>${FO(n)}</div>`,
     R: n => `<div class="pg-in dess">${RH('The Menu', 'VIII · ' + M.last.name)}${HD('VIII', M.last.name, M.last.line)}
       <div class="dt">${lc.map((d, i) => `<figure class="dt__p dt__p--${DESS[i][3]}" data-dish="${slug(d.name)}" style="left:${DESS[i][0]}%;top:${DESS[i][1]}%;width:${DESS[i][2]}%"><i class="shadow"></i>${pic(cutSrc(d, 'lg'), 'dt__im', d.name)}
-        <figcaption class="dt__c"><h3 class="t__n">${esc(d.name)}${marks(d)}</h3><p class="t__d">${esc(d.desc)}</p>${price(d)}</figcaption></figure>`).join('')}</div>${FO(n)}</div>`,
+        <figcaption class="dt__c"><h3 class="t__n">${withMk(nm(d.name), d)}</h3><p class="t__d">${esc(d.desc)}</p>${price(d)}</figcaption></figure>`).join('')}</div>${FO(n)}</div>`,
   });
 
   // 9 · Patience at the bar | Good to know: the door, private dining, hours, the allergen key
   SP.push({
     id: 'bar', title: 'The bar', course: '',
-    L: n => `${ground(X.interior('bar', 'lg'), '42% 50%')}<i class="veil veil--top"></i><i class="veil veil--bottom veil--deep"></i><div class="pg-in barp">${RH('The bar', 'Stirred slowly')}
+    L: n => `<div class="pg-in barp">${RH('The bar', 'Stirred slowly')}
+      <figure class="barp__ph">${pic(X.interior('bar', 'lg'), 'barp__im', 'The bar: a long counter, leather stools, warm brass light')}</figure>
       <div class="barp__house"><h2 class="barp__n">${esc(house.name)}</h2><p class="barp__d">${esc(B.cocktail.line)}</p>${price(house)}</div>
-      <div class="barp__list"><h3 class="sub sub--light">From the bar</h3>${X.drinks.filter(d => d !== house).map(d => `<div class="dr"><div class="t__row"><h3 class="t__n">${esc(d.name)}</h3>${price(d)}</div><p class="t__d">${esc(d.desc)}</p></div>`).join('')}</div>${FO(n)}</div>`,
+      <div class="barp__list"><h3 class="sub">From the bar</h3>${X.drinks.filter(d => d !== house).map(d => `<div class="dr"><div class="t__row"><h3 class="t__n">${esc(d.name)}</h3>${price(d)}</div><p class="t__d">${esc(d.desc)}</p></div>`).join('')}</div>${FO(n)}</div>`,
     R: n => { const priv = (C.capacity.match(/private room for (\d+)/) || [])[1]; return `<div class="pg-in know">${RH('Good to know', 'Twenty-Eight')}
       <figure class="know__door">${pic(X.interior('entrance-host-stand', 'lg'), 'know__im', 'The host stand by the door')}</figure>
       <div class="know__g">

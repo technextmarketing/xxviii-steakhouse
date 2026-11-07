@@ -163,7 +163,7 @@ body.is-back .edge--l { left: 0; width: var(--pw); cursor: pointer; }
 .pr--note { font-size: .78em; letter-spacing: .24em; text-transform: uppercase; }
 .pg .age-tag { font-size: .8em; }
 .unit { text-transform: none; }
-.mk { white-space: normal; }
+.mk { white-space: nowrap; }
 .mk i { display: inline-block; margin-left: .3em; padding: .22em .35em .18em; vertical-align: .3em; border: 1px solid var(--brass-lo); font: 700 .46em/1 var(--f-label); font-style: normal; letter-spacing: .08em; color: var(--brass); }
 .shadow { position: absolute; left: 14%; right: 14%; bottom: 4%; height: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)); opacity: .6; pointer-events: none; }
 /* a macro crop of a real photograph */
@@ -175,13 +175,17 @@ body.is-back .edge--l { left: 0; width: var(--pw); cursor: pointer; }
 @keyframes found { 0%, 30% { background: rgba(194, 154, 91, .2); } 100% { background: rgba(194, 154, 91, 0); } }
 
 /* 1 · the dining room + story | Day One */
-.story .story__t { display: grid; gap: .8em; }
-.story__lead { font: 400 2.1em/1.14 var(--f-display); text-wrap: balance; }
+/* the photograph leads: it bleeds to the page edges under the running head; the story sits below it on paper */
+.story__ph, .barp__ph { flex: 1.35; min-height: 0; margin: 0 -9.36% 1em -7.6%; position: relative; overflow: hidden; box-shadow: 0 1em 1.4em -.6em rgba(0, 0, 0, .7); }
+.story__im, .barp__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 34% 58%; }
+.barp__im { object-position: 46% 52%; }
+.story .story__t { display: grid; gap: .55em; }
+.story__lead { font: 400 1.62em/1.16 var(--f-display); text-wrap: balance; }
 .story__body { color: var(--bone); max-width: 30em; }
-.story__honest { font: 400 1.5em/1.2 var(--f-display); color: var(--brass-hi); }
-.values { margin: auto 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: .9em 1.4em; padding-top: 1em; border-top: 1px solid var(--line); }
+.story__honest { font: 400 1.3em/1.2 var(--f-display); color: var(--brass-hi); }
+.values { margin: auto 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: .6em 1.4em; padding-top: .8em; border-top: 1px solid var(--line); }
 .values dt { font: 600 .74em/1.2 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: var(--brass-hi); margin-bottom: .3em; }
-.values dd { margin: 0; font-size: .92em; color: var(--bone); }
+.values dd { margin: 0; font-size: .92em; color: var(--desc); }
 .dayone__hero { position: relative; flex: 1.3; min-height: 0; }
 .dayone__im { position: absolute; width: 118%; height: 120%; left: 2%; top: -8%; object-fit: contain; filter: drop-shadow(0 1em 1.2em rgba(0, 0, 0, .6)); }
 .dayone__hero .shadow { bottom: 2%; left: 20%; right: -6%; }
@@ -191,17 +195,29 @@ body.is-back .edge--l { left: 0; width: var(--pw); cursor: pointer; }
 
 /* 2 · the first course table */
 .tbl { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1em 1.3em; }
-.tbl--a { grid-template-rows: 1.2fr 1fr; }
-.tbl--b { grid-template-rows: 1fr 1.2fr; }
-.t--wide { grid-column: 1 / -1; grid-template-columns: 1.25fr 1fr; grid-template-rows: minmax(0, 1fr); gap: 1.1em; }
+.tbl--z { grid-template-columns: 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: .9em; }
+.t--wide { grid-column: 1 / -1; grid-template-columns: 1.25fr 1fr; grid-template-rows: minmax(0, 1fr); gap: 1.3em; }
+.t--wide.t--flip { grid-template-columns: 1fr 1.25fr; }
 .t--wide .t__c { align-self: center; padding: 0; }
-.t--wide .t__im { transform: scale(1.08); }
+.t--wide .t__im { transform: scale(1.06); }
+.tbl .t__n { font-size: 1.4em; }
+/* each first-course plate also shown at the table: a close crop of its photograph under the place card */
+.t__crop { position: relative; height: 5.6em; margin-top: .7em; overflow: hidden; box-shadow: 0 .5em 1em rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(194, 154, 91, .25); }
+.t__cim { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.card .t__crop { height: 40vw; }
 .t--flip .t__ph { order: 2; }
-.mac--band { flex: none; height: 13%; margin-top: 1em; }
 /* 3 · garden photographs | the kitchen */
 .g4 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.1em 1.2em; }
 .t--photo .t__ph { overflow: hidden; box-shadow: 0 .6em 1.2em rgba(0, 0, 0, .5); }
 .t__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 64%; transform: scale(1.3); transform-origin: 50% 64%; }
+.g4 .t__n { font-size: 1.42em; }
+.t__n--long .nl { font-size: .8em; }
+/* sides and enhancements: real photographs, cropped to the plate */
+.t--side .t__photo { object-position: 50% 66%; transform: scale(1.42); transform-origin: 50% 66%; }
+.t--board .t__photo { object-position: 56% 56%; transform: scale(1.3); transform-origin: 56% 56%; }
+.t--side .t__n, .t--board .t__n { font-size: 1.3em; }
+.t--side .t__c, .t--board .t__c { padding-top: .4em; }
+.t--side .t__d, .t--board .t__d { margin-top: .1em; }
 .kitchen__ph { flex: 1.25; min-height: 0; margin: 0; overflow: hidden; position: relative; }
 .kitchen__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
 .kitchen__line { flex: none; margin: .7em 0; font: 400 1.75em/1.15 var(--f-display); text-align: center; text-wrap: balance; }
@@ -211,7 +227,7 @@ body.is-back .edge--l { left: 0; width: var(--pw); cursor: pointer; }
 .room-hero .hd__t { font-size: 2.9em; }
 .room__ph { flex: 1; min-height: 0; margin: 0 0 .8em; position: relative; overflow: hidden; box-shadow: 0 1em 1.6em rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(194, 154, 91, .3); }
 .room__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.room__strip { flex: none; height: 10.5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: .5em; margin-bottom: .6em; }
+.room__strip { flex: none; height: 15.5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: .5em; margin-bottom: .6em; }
 .room__s { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 0; }
 .card .room__ph { flex: none; height: 64vw; }
 .card .room__strip { height: 26vw; }
@@ -219,7 +235,7 @@ body.is-back .edge--l { left: 0; width: var(--pw); cursor: pointer; }
 .room__ctl { flex: none; }
 .odo { display: flex; align-items: flex-end; gap: .5em; color: var(--brass-hi); }
 .odo__l { font: 600 .85em/1 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--bone); padding-bottom: .55em; }
-.odo__d { display: inline-flex; height: 1em; overflow: hidden; font: 700 4.2em/1 var(--f-label); font-variant-numeric: tabular-nums; }
+.odo__d { display: inline-flex; height: 1em; padding: 0 .08em; overflow: hidden; font: 700 4.2em/1 var(--f-label); font-variant-numeric: tabular-nums; }
 .odo__c { display: flex; flex-direction: column; align-self: flex-start; transition: transform .5s var(--ease-out); }
 .odo__c i { display: block; height: 1em; font-style: normal; }
 .rail { position: relative; height: 3em; margin: .3em .7em .3em; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
@@ -281,11 +297,10 @@ body:not(.is-front) .cover__hint { opacity: 0; }
 .ring { position: relative; flex: 1; min-height: 0; }
 .ring__c { position: absolute; left: 50%; top: 50%; width: 60%; height: 44%; transform: translate(-50%, -50%); }
 .rg { position: absolute; width: 34%; height: 30%; margin: 0; transform: translateX(-50%); display: grid; grid-template-rows: minmax(0, 1fr) auto; text-align: center; }
-.rg:nth-child(5), .rg:nth-child(6) { width: 26%; }
 .rg__ph { position: relative; min-height: 0; }
 .rg__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 .6em .7em rgba(0, 0, 0, .6)); }
 .rg figcaption { padding-top: .3em; }
-.rg__n { margin: 0; font: 700 .9em/1.15 var(--f-label); letter-spacing: .14em; text-transform: uppercase; color: var(--bone); }
+.rg__n { margin: 0; font: 700 .9em/1.15 var(--f-label); letter-spacing: .1em; text-transform: uppercase; color: var(--bone); }
 .rg .pr { font-size: 1.15em; }
 .ring__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1em 1.2em rgba(0, 0, 0, .65)); }
 .t--ring { position: absolute; width: 30%; height: 22%; transform: translateX(-50%); text-align: center; }
@@ -301,30 +316,32 @@ body:not(.is-front) .cover__hint { opacity: 0; }
 .lw__m .age-tag { font-size: 1em; }
 .lw__m { margin-top: .45em; display: flex; flex-wrap: wrap; align-items: center; gap: .4em 1em; font: 600 .78em/1.2 var(--f-label); letter-spacing: .18em; text-transform: uppercase; color: var(--ash); }
 .lwp .sub { margin-top: .2em; }
-.e4 { flex: .95; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: .7em 1.2em; }
-.e4 .t__n { font-size: 1.7em; }
+.e4 { flex: 1.05; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: .9em 1.2em; }
 
 /* 7 · alongside: eight bowls | beyond */
-.s8 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: .7em 1.2em; }
+.s8 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: .85em 1.2em; }
 .t--bowl { grid-template-columns: 34% 1fr; grid-template-rows: minmax(0, 1fr); gap: .6em; }
 .t--bowl .t__c { align-self: center; padding: 0; }
 .t--bowl .t__row { flex-direction: column; align-items: flex-start; gap: .2em; }
 .t--bowl .t__row .pr { margin-left: 0; }
 .t--bowl .t__n { font-size: 1.7em; }
-.beyond__top { position: relative; flex: 1.05; min-height: 0; }
+.beyond__top { position: relative; flex: 1.25; min-height: 0; }
 .beyond__top .hd { position: relative; z-index: 2; width: 100%; }
 .beyond__top { display: flex; flex-direction: column; }
-.beyond__hero { position: relative; flex: 1; min-height: 0; margin-right: -22%; margin-left: 18%; }
+.beyond__hero { position: relative; flex: 1; min-height: 0; margin: -.6em -16% 0 4%; }
+.beyond__im { transform: scale(1.12); }
 .beyond__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1em 1.2em rgba(0, 0, 0, .6)); }
 .beyond__lead { flex: none; padding: .5em 0 .7em; border-bottom: 1px solid var(--line); }
 .t--text { grid-template-rows: auto; }
 .t--text .t__ph { display: none; }
 .b3 { flex: 1.2; min-height: 0; display: grid; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: .5em; padding-top: .6em; }
-.b3 .t { grid-template-columns: 40% 1fr; grid-template-rows: minmax(0, 1fr); gap: .8em; }
+.b3 .t { grid-template-columns: 44% 1fr; grid-template-rows: minmax(0, 1fr); gap: .8em; }
 .b3 .t__c { align-self: center; padding: 0; }
+.b3 .t__n { font-size: 1.3em; }
 
 /* 8 · doneness with real slices | the dessert table */
-.done__g { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.05fr 1fr; gap: 1.2em; }
+.done__g { flex: 1; min-height: 0; display: grid; grid-template-columns: .95fr 1.12fr; gap: 1.1em; }
+.nw { white-space: nowrap; }
 .scale { list-style: none; margin: 0; padding: 0; display: grid; grid-template-rows: repeat(5, minmax(0, 1fr)); gap: .3em; }
 .scale li { display: grid; grid-template-columns: 1.1em 1fr; gap: .6em; align-items: center; padding: .3em .4em; border-top: 1px solid var(--line-soft); }
 .scale li i { width: .8em; height: .8em; transform: rotate(45deg); }
@@ -342,16 +359,20 @@ body:not(.is-front) .cover__hint { opacity: 0; }
 .dt__p--r .dt__c { left: calc(100% + .8em); }
 .dt__p--l .dt__c { right: calc(100% + .8em); text-align: right; }
 .dt__c .pr { display: inline-block; margin-top: .3em; }
+.dt .t__n { font-size: 1.45em; }
 
 /* 9 · patience at the bar | good to know */
 .barp__house { display: grid; justify-items: start; gap: .4em; }
-.barp__n { font: 400 3.8em/1.05 var(--f-display); padding-bottom: .05em; }
+.barp__house { grid-template-columns: 1fr auto; align-items: baseline; column-gap: 1em; }
+.barp__house .barp__d { grid-column: 1 / -1; }
+.barp__house .pr { grid-row: 1; grid-column: 2; }
+.barp__n { font: 400 3em/1.05 var(--f-display); padding-bottom: .05em; }
 .barp__d { max-width: 24em; color: var(--bone); }
 .barp > .barp__house .pr { font-size: 1.7em; }
-.barp__list { margin-top: auto; }
+.barp__list { margin-top: auto; padding-top: .7em; }
 .sub--light { color: var(--brass-hi); }
-.dr { padding: .55em 0; border-top: 1px solid rgba(239, 231, 218, .16); }
-.dr .t__d { color: var(--bone); }
+.dr { padding: .45em 0; border-top: 1px solid var(--line-soft); }
+.dr .t__n { font-size: 1.45em; }
 .know__door { flex: .82; min-height: 0; margin: 0 0 .8em; overflow: hidden; position: relative; }
 .know__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 55%; }
 .know__g { flex: 2; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .6em 1.2em; align-content: start; font-size: .9em; }
@@ -445,6 +466,10 @@ body.is-back .ribbon { left: calc(50% - 3.5em); }
 .card .slices .mac { height: 38vw; }
 .card .scale { grid-template-rows: none; }
 .card .ring { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+.card .rg { position: static; transform: none; width: auto !important; height: auto; }
+.card .rg__ph { height: 34vw; }
+.card .rg__n { font-size: 15px; }
+.card .story__ph, .card .barp__ph { flex: none; height: 74vw; margin: 0 -18px 20px; }
 .card .ring__c { position: relative; grid-column: 1 / -1; left: auto; top: auto; width: 100%; height: 62vw; transform: none; }
 .card .t--ring { position: static; width: auto; height: auto; transform: none; }
 .card .t--ring .t__ph { height: 34vw; }

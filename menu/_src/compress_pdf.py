@@ -12,8 +12,8 @@ import pymupdf
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PDF = os.path.join(ROOT, "out", "xxviii-menu.pdf")
-DPI, QUALITY = 120, 56
-GROUND_PAGES = {2, 21}           # textured grounds under a 70-90 % char wash: detail is invisible, so 100 dpi / q 55
+DPI, QUALITY = 115, 52
+GROUND_PAGES = {21}             # the back cover leather under its wash: detail is invisible, so 100 dpi / q 55
 GROUND_DPI, GROUND_Q = 100, 55
 
 
@@ -57,7 +57,7 @@ def main():
             m = pymupdf.Pixmap(d, smask)
             if (nw, nh) != (m.width, m.height):
                 m = pymupdf.Pixmap(m, nw, nh, None)
-            d.update_stream(smask, m.tobytes("jpeg", jpg_quality=80), compress=False)
+            d.update_stream(smask, m.tobytes("jpeg", jpg_quality=70), compress=False)
             for key, val in (("Filter", "/DCTDecode"), ("Width", str(nw)), ("Height", str(nh)), ("DecodeParms", "null"),
                              ("ColorSpace", "/DeviceGray"), ("BitsPerComponent", "8")):
                 d.xref_set_key(smask, key, val)
@@ -88,7 +88,7 @@ def main():
             d.xref_set_key(xref, key, val)
         done += 1
     tmp = PDF + ".tmp"
-    d.save(tmp, garbage=1, deflate=True)
+    d.save(tmp, garbage=4, deflate=True)          # garbage=4 also merges identical objects (the page-edge shading repeats on every page)
     d.close()
     shutil.move(tmp, PDF)
     e = pymupdf.open(PDF)                         # every page must still render
