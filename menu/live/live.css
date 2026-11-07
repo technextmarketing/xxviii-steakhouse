@@ -73,22 +73,23 @@ body { margin: 0; background: #0b0908; color: var(--bone); overflow: hidden; }
 .face--b .face__sh { background: linear-gradient(to right, rgba(0, 0, 0, .35), #000 70%); }
 .sheet--hard .face { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .3), inset 0 0 .5em rgba(0, 0, 0, .35); }
 /* the shadow on the table: a sibling of the book in the camera (never inside the book's 3D space), on the same
-   tilted plane, sized to the footprint by JS. One half per side of the spine, each scaled from the spine, so a closed
-   book shadows only its cover and the open book both pages. Ambient (wide, soft) + contact (tight, dark at the edges);
-   the lamp sits above, top centre, so both fall a little toward the viewer. No transitions: it moves with the cover. */
+   tilted plane, sized to the footprint by JS. One half per side of the spine, each sliding out from under the other, so a closed
+   book shadows only its cover and the open book both pages. Ambient (soft) + contact (tight, dark at the edges), both kept
+   inside the footprint (at most ~1.5 % of the page height of fade below the bottom edge). No transitions: its transform
+   is written in the same rAF tick, from the same values, as the book's, so the two never drift apart. */
 .tshadow { position: absolute; left: 50%; top: 50%; width: calc(var(--pw, 0px) * 2); height: var(--ph, 0px); margin: calc(var(--ph, 0px) * -.5) 0 0 calc(var(--pw, 0px) * -1);
   transform-origin: 50% 100%; transform: translateX(calc(var(--pw, 0px) * -.5)) rotateX(7deg); pointer-events: none; }
 .tshadow__h { position: absolute; top: 0; bottom: 0; width: 50%; will-change: transform, opacity; }
 .tshadow__h--l { right: 50%; transform: translateX(var(--pw, 0px)); opacity: 0; }
 .tshadow__h--r { left: 50%; }
 .tshadow__h::before, .tshadow__h::after { content: ""; position: absolute; }
-.tshadow__h::before { top: 1.2%; bottom: -4.2%; border-radius: 4% / 3%; background: rgba(6, 4, 3, .66); filter: blur(calc(var(--ph, 0px) * .034)); }
-.tshadow__h::after { top: .3%; bottom: -.9%; border-radius: .6%; background: rgba(0, 0, 0, .8); filter: blur(calc(var(--ph, 0px) * .007)); }
+.tshadow__h::before { top: 1.5%; bottom: 0; border-radius: 1%; background: rgba(6, 4, 3, .72); filter: blur(calc(var(--ph, 0px) * .006)); }
+.tshadow__h::after { top: .4%; bottom: -.15%; border-radius: .4%; background: rgba(0, 0, 0, .82); filter: blur(calc(var(--ph, 0px) * .003)); }
 /* outer side spreads past the cover; spine side overlaps the other half, so the core under the spine is darker */
-.tshadow__h--r::before { left: -9%; right: -3.4%; }
-.tshadow__h--l::before { right: -9%; left: -3.4%; }
-.tshadow__h--r::after { left: -2%; right: -.5%; }
-.tshadow__h--l::after { right: -2%; left: -.5%; }
+.tshadow__h--r::before { left: -1.5%; right: -.8%; }
+.tshadow__h--l::before { right: -1.5%; left: -.8%; }
+.tshadow__h--r::after { left: -.6%; right: -.3%; }
+.tshadow__h--l::after { right: -.6%; left: -.3%; }
 /* page edges: a thin paper block under the covers, light at the top edge, falling to shadow at the outer edge */
 .book::before, .book::after { content: ""; position: absolute; top: 1%; bottom: 1%; z-index: 0; border-radius: 0 1px 1px 0;
   background: repeating-linear-gradient(90deg, rgba(0, 0, 0, .14) 0 1px, rgba(0, 0, 0, 0) 1px 2px), linear-gradient(90deg, #4a3e33, #2e2620 60%, #1b1613); }
