@@ -125,3 +125,43 @@
 /* keep wide carousels inside the message column (no hidden sideways overflow in the log) */
 .xxchat__log { grid-template-columns: minmax(0, 1fr); }
 .xxmsg, .xxcar, .xxcard, .xxgal, .xxbtns { min-width: 0; }
+
+/* ───────── 8 Nov: compact pass (client: "too crowded, make everything compact, message box bigger, text smaller") ───────── */
+@media (min-width: 768px) { .xxchat { width: min(440px, calc(100vw - 40px)); height: min(760px, calc(100vh - 190px)); } }
+.xxchat__head { grid-template-columns: 30px 1fr 34px; gap: 10px; padding: 8px 10px 8px 14px; }
+.xxchat__mono { width: 30px; height: 30px; }
+.xxchat__title { font-size: 1.08rem; }
+.xxchat__sub { font-size: .6rem; letter-spacing: .12em; margin-top: 1px; }
+.xxchat__close { width: 34px; height: 34px; }
+.xxchat__close span::before, .xxchat__close span::after { width: 14px; }
+.xxchat__log { padding: 12px 12px 6px; gap: 10px; }
+.xxmsg { gap: 7px; }
+.xxmsg p { font-size: .84rem; line-height: 1.5; }
+.xxmsg--you { padding: 6px 10px; max-width: 82%; }
+.xxdish__body { padding: 9px 11px 11px; gap: 6px; }
+.xxdish__sec { font-size: .6rem; }
+.xxdish__name { font-size: 1.08rem; }
+.xxdish__meta { font-size: .72rem; gap: 4px 10px; }
+.xxdish__meta .price { font-size: .86rem; }
+.xxdish__meta .age-tag { font-size: .62rem; }
+.xxdish__desc { font-size: .8rem !important; }
+.xximg { aspect-ratio: 16 / 10; }
+.xximgcard figcaption, .xxvidcard figcaption { padding: 7px 11px 9px; font-size: .78rem; }
+.xxbtns { gap: 6px; }
+.xxbtn { min-height: 34px; padding: 0 11px; font-size: .64rem; letter-spacing: .14em; }
+.xxcar__title { font-size: .6rem !important; margin-bottom: 6px; }
+.xxcar__row { margin: 0 -12px; padding: 2px 12px 4px; grid-auto-columns: 112px; gap: 8px; scroll-padding-inline: 12px; }
+.xxcar__item { gap: 4px; padding-bottom: 7px; }
+.xxcar__img { aspect-ratio: 4 / 3; }
+.xxcar__name { font-size: .84rem; padding: 0 8px; }
+.xxcar__meta { font-size: .62rem; padding: 0 8px; }
+.xxhours th, .xxhours td { padding: 6px 10px; font-size: .78rem; }
+.xxhours th { font-size: .62rem; }
+/* chips: one quiet scrolling row instead of two crowded lines */
+.xxchat__chips { flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding: 7px 12px; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
+.xxchip { min-height: 30px; padding: 0 10px; font-size: .76rem; }
+.xxchat__form { grid-template-columns: 1fr 40px; gap: 6px; padding: 4px 12px 8px; }
+.xxchat__in { min-height: 40px; padding: 9px 12px; font-size: .86rem; }
+.xxchat__send { width: 40px; height: 40px; }
+.xxchat__foot { padding: 0 12px 8px; font-size: .64rem; line-height: 1.35; }
+@media (pointer: coarse) { .xxchip { min-height: 38px; } .xxbtn { min-height: 40px; } .xxchat__close, .xxchat__send { width: 44px; height: 44px; } .xxchat__head { grid-template-columns: 30px 1fr 44px; } .xxchat__form { grid-template-columns: 1fr 44px; } .xxchat__in { min-height: 44px; } }
