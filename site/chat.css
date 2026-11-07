@@ -183,3 +183,6 @@
   .xxchat__close { width: 44px; height: 44px; }
 }
 html.xxchat-lock, html.xxchat-lock body { overscroll-behavior: none; }
+
+/* 8 Nov: phones open the menu book from the action bar; no floating book button */
+@media (max-width: 767px) { .xxdock__book { display: none; } }
