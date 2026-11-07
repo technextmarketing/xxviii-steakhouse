@@ -128,3 +128,9 @@ Margins and folios were consistent before and after on every page: the content b
   - QA suite all pass: 40 / 40 / 17 / 17 tests, plus reduced motion.
   - Flip check: 0 half-loaded images over 2,045 frames.
   - PDF 5.78 MB (photos 110 dpi).
+
+## Round 3: one view per device
+
+- **Desktop:** the 3D book is the only view. The "Page view" link to the classic reader is removed from the bar.
+- **Phones:** the course-card scroll is the only view. The List button and list view are removed, as is the red course strip under the bar. Cards now start 72 px down instead of 120 px.
+- **QA:** the phone checks now assert one view only (no list, no strip, no page view). All suites pass: 40 / 40 / 17 / 17, plus reduced motion.

@@ -656,18 +656,18 @@
       const live = $('#live');
       const name = s === 0 ? 'Cover' : s >= SP.length + 1 ? 'Back cover' : SP[s - 1].title;
       if (live) live.textContent = name;
-      $$('#ribbonList [data-go], #strip [data-go]').forEach(b => { const on = +b.dataset.go === s; b.setAttribute('aria-current', String(on)); if (on && mobile) { const st = $('#strip'); st.scrollTo({ left: b.parentElement.offsetLeft - 16, behavior: reduced ? 'auto' : 'smooth' }); } });
+      $$('#ribbonList [data-go]').forEach(b => { const on = +b.dataset.go === s; b.setAttribute('aria-current', String(on)); });
       const v = $('#tableVideo');
       if (v) { const on = s === 0 && !mobile; v.classList.toggle('on', on); if (on && !reduced) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause(); }
       document.documentElement.style.setProperty('--open', s > 0 && s < SP.length + 1 ? 1 : 0);
     },
     bind() {
-      // ribbon: a cloth bookmark that unrolls into the contents (phones: the same courses as a strip under the bar)
-      const rib = mobile ? null : $('#ribbon'), list = mobile ? $('#strip') : $('#ribbonList');
-      list.innerHTML = this.courses.map(([k, n]) => `<li><button type="button" data-go="${k}">${esc(n)}</button></li>`).join('');
+      // ribbon: a cloth bookmark that unrolls into the contents (the book only; phones simply scroll)
+      const rib = mobile ? null : $('#ribbon'), list = mobile ? null : $('#ribbonList');
+      if (list) list.innerHTML = this.courses.map(([k, n]) => `<li><button type="button" data-go="${k}">${esc(n)}</button></li>`).join('');
       const setRib = on => { if (!rib) return; rib.setAttribute('aria-expanded', String(on)); document.body.classList.toggle('rib-open', on); if (on) { const f = list.querySelector('button'); if (f) setTimeout(() => f.focus(), 60); } };
       if (rib) rib.addEventListener('click', () => setRib(rib.getAttribute('aria-expanded') !== 'true'));
-      list.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (!b) return; setRib(false); this.goTo(+b.dataset.go); if (rib) rib.focus(); });
+      if (list) list.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (!b) return; setRib(false); this.goTo(+b.dataset.go); if (rib) rib.focus(); });
       // search the dishes (accents ignored); a hit turns to its spread and lights the dish
       const all = [];
       X.menu.forEach(s => { s.items.forEach(it => all.push({ it, s: s.name })); if (s.extras) s.extras.items.forEach(it => all.push({ it, s: s.extras.name })); });
@@ -694,9 +694,6 @@
       paintSnd();
       ['pointerdown', 'keydown', 'touchstart'].forEach(ev => addEventListener(ev, () => Sound.unlock(), { capture: true, passive: true }));
       if (window.MENU_PDF_MB) $$('[data-pdf]').forEach(a => { a.setAttribute('aria-label', `Download the printed menu (PDF, ${window.MENU_PDF_MB} MB)`); });
-      // list view (phones): the whole menu as plain text
-      const lb = $('#btnList');
-      if (lb) lb.addEventListener('click', () => { const on = lb.getAttribute('aria-pressed') !== 'true'; lb.setAttribute('aria-pressed', String(on)); $('#list').hidden = !on; $('#cards').hidden = on; if (on && !$('#list').childElementCount) $('#list').innerHTML = listHTML(); });
       if (mobile) return;
       // keyboard: arrows turn pages unless a slider, a radio group or a text field has them
       addEventListener('keydown', e => {
@@ -737,11 +734,6 @@
       tw(cam, { scale: sc, yPercent: on ? 12 : 0, duration: on ? .9 : .6, ease: on ? EASE.softLand : EASE.glide });
     },
   };
-
-  // plain-text list (phones: "List")
-  const dish = (it, extra = '') => `<div class="d"><div class="d__row"><h3 class="d__n">${esc(it.name)}</h3>${price(it)}</div>${it.desc ? `<p class="d__desc">${esc(it.desc)}</p>` : ''}${extra}</div>`;
-  const listHTML = () => X.menu.map(s => `<section class="ls"><h2>${esc(s.name)}</h2>${s.line ? `<p class="ls__l">${esc(s.line)}</p>` : ''}${s.items.map(it => dish(it, it.age ? `<p class="d__meta">${ageTag(it.age)}<span>${esc(it.weight)}</span></p>` : '')).join('')}${s.extras ? `<h3>${esc(s.extras.name)}</h3>${s.extras.items.map(it => dish(it)).join('')}` : ''}</section>`).join('') +
-    `<section class="ls"><h2>The bar</h2>${X.drinks.map(d => dish(d)).join('')}</section>`;
 
   /* ================================================================== boot */
   function boot() {

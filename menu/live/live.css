@@ -25,11 +25,7 @@ body { margin: 0; background: #0b0908; color: var(--bone); overflow: hidden; }
 .ib:hover { color: var(--brass-hi); background: rgba(239, 231, 218, .06); }
 .ib[aria-pressed="true"] { color: var(--brass); }
 #btnSound[aria-pressed="false"] .snd-w { opacity: .15; }
-.bar__classic { display: inline-flex; align-items: center; min-height: 44px; font: 600 .78rem/1 var(--f-label); letter-spacing: .24em; text-transform: uppercase; color: var(--ash); padding: 14px 10px; }
-.bar__classic:hover { color: var(--bone); }
 .bar__cta { min-height: 44px; padding: 0 20px; margin-left: 8px; font-size: .8rem; }
-.only-cards { display: none !important; }
-.is-cards .only-cards { display: inline-grid !important; }
 .is-cards .only-book { display: none !important; }
 
 /* ---------------------------------------------------------------- search */
@@ -432,10 +428,10 @@ body.is-back .ribbon { left: calc(50% - 3.5em); }
 .zoomed .edge, .zoomed .ribbon { pointer-events: none; opacity: 0; }
 
 /* ================================================================ PHONES: course cards (v4: a big picture for every dish) */
-.is-book .cards, .is-book .list-view { display: none; }
+.is-book .cards { display: none; }
 .is-cards .scene { display: none; }
 .cards { height: 100dvh; overflow-y: auto; scroll-snap-type: y proximity; overscroll-behavior-y: contain; background: #0d0a08; }
-.card { position: relative; scroll-snap-align: start; padding: 120px 10px 30px; }
+.card { position: relative; scroll-snap-align: start; padding: 72px 10px 30px; }
 .card .pg { position: relative; inset: auto; font: 400 16px/1.45 var(--f-body); box-shadow: 0 20px 40px -14px rgba(0, 0, 0, .9); }
 .card .pg + .pg { margin-top: 2px; }
 .card .pg--l::after, .card .pg--r::after { display: none; }
@@ -494,15 +490,6 @@ body.is-back .ribbon { left: calc(50% - 3.5em); }
 .card__open { position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%); z-index: 3; font: 600 .82rem/1 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--brass-hi); padding: 16px 20px; }
 .is-cards .bar { background: linear-gradient(to bottom, rgba(11, 9, 8, .96), rgba(11, 9, 8, .7) 70%, rgba(11, 9, 8, 0)); }
 .is-cards .bar__home img { height: 22px; }
-.list-view { padding: 120px 18px 40px; background: var(--char); min-height: 100dvh; }
-.list-view .ls { padding: 24px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
-.list-view h2 { font: 400 32px/1.1 var(--f-display); margin-bottom: 6px; }
-.list-view h3:not(.d__n) { margin: 20px 0 6px; font: 600 14px/1.2 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: var(--brass); }
-.ls__l { color: var(--desc); margin-bottom: 10px; }
-.list-view .d { padding: 10px 0; border-top: 1px solid var(--line-soft); }
-.list-view .d__row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-.list-view .d__n { font: 400 21px/1.15 var(--f-display); margin: 0; }
-.list-view .d__desc, .list-view .d__meta { color: var(--desc); margin-top: 4px; }
 .card .hours { grid-template-columns: 1fr auto; }
 .card .hours dd { text-align: right; }
 .card .know__g p, .card .know__g dd { overflow-wrap: anywhere; }
@@ -511,7 +498,7 @@ body.is-back .ribbon { left: calc(50% - 3.5em); }
 .card .fo b { display: none; }
 @media (max-width: 760px) {
   .bar { height: 60px; gap: 6px; }
-  .bar__classic, .bar__cta span { display: none; }
+  .bar__cta span { display: none; }
   .bar__cta { padding: 0 12px; margin-left: 2px; }
   .bar__cta::after { content: "Reserve"; font: 700 .7rem/1 var(--f-label); letter-spacing: .16em; }
   .search { top: 60px; }
@@ -519,11 +506,4 @@ body.is-back .ribbon { left: calc(50% - 3.5em); }
 @media (max-width: 400px) { .bar__home img { height: 18px; } }
 @media (prefers-reduced-motion: reduce) { .odo__c, .bt, .ribbon__list { transition: none !important; } }
 
-/* phones: the courses as a cloth strip under the bar */
-.strip { display: none; }
-.is-cards .strip { display: flex; position: fixed; top: 60px; left: 0; right: 0; z-index: 39; margin: 0; padding: 0 10px; list-style: none; gap: 2px; overflow-x: auto; scrollbar-width: none;
-  background: linear-gradient(90deg, #4a1216, var(--cloth) 8%, #7f252b 50%, var(--cloth) 92%, #4a1216); box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .8); }
-.is-cards .strip::-webkit-scrollbar { display: none; }
-.strip button { min-height: 44px; padding: 0 12px; border: 0; background: none; color: var(--bone); white-space: nowrap; font: 600 .72rem/1 var(--f-label); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
-.strip button[aria-current="true"] { color: var(--brass-hi); box-shadow: inset 0 -2px 0 var(--brass-hi); }
 .is-cards .card--cover { padding-top: 0; }

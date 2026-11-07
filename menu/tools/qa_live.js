@@ -1,7 +1,7 @@
 /* Live menu book regression suite, v4 (food-led pages). Run by tools/run_qa.py, or in the console: await LIVEQA()
    Desktop: the 3D book (turns by key, click, drag, flick; inert faces; the ageing rail; films; furniture).
    Every spread: text inside its page, no clipped titles, no page more than 15 % empty.
-   Phones: course cards with a picture for every dish, the strip, the rail, the List. */
+   Phones: one scroll of course cards with a picture for every dish, and the rail. */
 window.LIVEQA = async function LIVEQA() {
   const { Book: B, Sound, SP } = window.LIVE, X = window.XXVIII;
   const results = [], frames = {};
@@ -40,22 +40,19 @@ window.LIVEQA = async function LIVEQA() {
     const tiles = $$('.card .t__ph, .card .bt__ph, .card .dt__p, .card .lw__f').filter(e => e.offsetParent);
     const small = tiles.filter(e => e.getBoundingClientRect().width < W * .5);
     ok('phone: a big picture for every dish (no thumbnails)', !small.length, small.length);
-    const smallT = [...$$('.bar a, .bar button'), ...$$('#strip button')].filter(e => e.offsetParent).filter(e => { const r = e.getBoundingClientRect(); return r.height < 44 || r.width < 40; });
+    const smallT = [...$$('.bar a, .bar button')].filter(e => e.offsetParent).filter(e => { const r = e.getBoundingClientRect(); return r.height < 44 || r.width < 40; });
     ok('phone: touch targets are at least 44 px', !smallT.length, smallT.map(e => e.id || e.textContent.trim()).slice(0, 5));
     const fs = $$('#cards .t__d').map(e => parseFloat(getComputedStyle(e).fontSize));
     ok('phone: descriptions at 16 px', Math.min(...fs) >= 16, Math.min(...fs));
     ok('phone: no text crosses its card', !outside(root).length, outside(root).slice(0, 6));
     ok('phone: no clipped titles', !window.__clipped(root).length, window.__clipped(root));
-    $('#strip [data-go="4"]').click();
-    const c4 = $('#c-4'); await until(() => Math.abs(c4.getBoundingClientRect().top) < 140, 4000);
-    ok('phone: the course strip jumps to The Ageing Room', Math.abs(c4.getBoundingClientRect().top) < 140, Math.round(c4.getBoundingClientRect().top));
+    ok('phone: one view only, the scroll (no list, no course strip, no page view)', !$('#btnList') && !$('#list') && !$('#strip') && !$('.bar__classic') && !$('#cards').hidden);
+    const c4 = $('#c-4'); c4.scrollIntoView({ block: 'start' }); await until(() => Math.abs(c4.getBoundingClientRect().top) < 140, 4000);
+    ok('phone: The Ageing Room card scrolls into view', Math.abs(c4.getBoundingClientRect().top) < 140, Math.round(c4.getBoundingClientRect().top));
     await wait(3000);
     const rail = $('#c-4 .rail'); rail.focus();
     for (let i = 0; i < 7; i++) rail.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
     ok('phone: the ageing rail works from the keyboard (Day 21)', rail.getAttribute('aria-valuenow') === '21' && $$('#c-4 .bt.ready').length === 2, rail.getAttribute('aria-valuenow'));
-    $('#btnList').click(); await wait(100);
-    ok('phone: the List view is one tap away', !$('#list').hidden && $('#list').textContent.includes('The Twenty-Eight') && $('#cards').hidden);
-    $('#btnList').click();
     const f = results.filter(x => !x.pass);
     return { pass: results.length - f.length, fail: f.length, failed: f, results };
   }
