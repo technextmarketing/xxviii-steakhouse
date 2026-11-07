@@ -38,7 +38,9 @@
     [/\bt\s*bone\b/g, 'porterhouse'], [/\bny\b/g, 'new york'], [/\bdry\s*ag(e|ed|ing|eing)\b/g, 'dryage'], [/\bdryag(e|ed|ing|eing)\b/g, 'dryage'],
     [/\bag(ing|eing)\s*room\b/g, 'ageingroom'], [/\bglass\s*room\b/g, 'ageingroom'], [/\bwell\s*done\b/g, 'welldone'], [/\bmedium\s*rare\b/g, 'mediumrare'],
     [/\bpa\s*reserve\b|\bpareserve\b|\bpa-reserve\b/g, 'reserve'], [/\bhow\s*much\b/g, 'howmuch'], [/\bhow\s*long\b/g, 'howlong'], [/\bilang\s*araw\b/g, 'howlong'],
-    [/\bdress\s*code\b/g, 'dresscode'], [/\bgift\s*(card|voucher|cert\w*)\b/g, 'voucher'], [/\bwine\s*list\b/g, 'wine'], [/\bmenu\s*book\b|\bflip\s*book\b/g, 'menubook'],
+    [/\bdress\s*code\b/g, 'dresscode'], [/\bgift\s*(cards?|vouchers?|cert\w*)\b/g, 'voucher'], [/\bhappy\s*hours?\b/g, 'happyhour'], [/\boutdoor\s*(seating|seats?|tables?|area)?\b|\bal\s*fresco\b|\bterrace\b/g, 'outdoor'],
+    [/\blive\s*music\b|\blive\s*band\b/g, 'livemusic'], [/\bservice\s*charge\b/g, 'servicecharge'], [/\bemail\s*(address|add)\b|\be\s*mail\b/g, 'email'], [/\bzero\s*proof\b|\bnon\s*alcoholic\b|\balcohol\s*free\b|\bmocktails?\b|\bno\s*alcohol\b/g, 'zeroproof'],
+    [/\bwhat(s| is)? good( here)?\b|\bfirst (visit|time)\b/g, 'recommend'], [/\bage (your|the) beef\b|\bin\s*house\b/g, 'dryage'], [/\bhow many (people|persons|pax)\b|\bilang tao\b|\bgood for how many\b/g, 'servesq'], [/\bwine\s*list\b/g, 'wine'], [/\bmenu\s*book\b|\bflip\s*book\b/g, 'menubook'],
     [/\bopen\s*kitchen\b/g, 'kitchen'], [/\bpart(y|ies)\s*of\b/g, 'partyof'], [/\btable\s*for\b/g, 'tablefor'], [/\bgroup\s*of\b|\bbarkada\s*of\b/g, 'partyof'],
     [/\bmost\s*expensive\b|\bpinakamahal\b/g, 'priciest'], [/\bless\s*than\b|\bbelow\b|\bunder\b|\bat\s*most\b|\bwithin\b|\bbudget\b/g, 'under'], [/\bmore\s*than\b|\babove\b|\bover\b/g, 'over'],
     [/\bfor\s*the\s*table\b/g, 'forthetable'], [/\bto\s*begin\b/g, 'tobegin'], [/\bfinal\s*act\b/g, 'finalact'], [/\bbutchers?\s*selection\b/g, 'butcherselection'],
@@ -57,6 +59,9 @@
       if (TENS[t[i]] != null) { var v = TENS[t[i]]; if (UNITS[t[i + 1]] != null && UNITS[t[i + 1]] < 10) { v += UNITS[t[i + 1]]; i++; } out.push(String(v)); }
       else if (UNITS[t[i]] != null) out.push(String(UNITS[t[i]]));
       else out.push(t[i]);
+    }
+    for (var k2 = 1; k2 < out.length; k2++) {
+      if (/^\d+$/.test(out[k2 - 1]) && (out[k2] === 'thousand' || out[k2] === 'hundred')) { out[k2 - 1] = String(+out[k2 - 1] * (out[k2] === 'thousand' ? 1000 : 100)); out.splice(k2, 1); k2--; }
     }
     return out.join(' ');
   }
@@ -92,13 +97,13 @@
     PAY: 'pay payment payments card cards credit debit cash gcash maya visa mastercard amex',
     CORK: 'corkage byob bring own',
     HALAL: 'halal pork kosher',
-    GIFT: 'voucher vouchers gift',
+    GIFT: 'voucher vouchers',
     ALLERGY: 'allergy allergies allergic allergen allergens nut nuts gluten dairy lactose shellfish celiac',
     DONE: 'mediumrare welldone medium rare doneness temperature temp cooked cook bloody pink',
     DRYAGE: 'dryage ageingroom salt hanging hang rack racks butcher',
     NAME: 'name xxviii roman numeral numerals pronounce pronounced 28 called',
     ABOUT: 'about story values value philosophy who concept honesty craft gathering',
-    CONTACT: 'contact phone call number email mail telephone landline reach',
+    CONTACT: 'contact phone call number email telephone landline',
     MENUBOOK: 'menubook pdf download print printable flipbook brochure',
     MENU: 'menu menus food dishes dish eat order',
     GREET: 'hello hi hey hiya kumusta kamusta musta yo greetings evening morning afternoon',
@@ -113,10 +118,17 @@
     LIGHT: 'light lighter small smaller lean leaner',
     DATE: 'date dinner'
   };
-  var CONCEPT = {}, VOCAB = {};
+  var CONCEPT = {}, VOCAB = {}, DOMAIN = {};
+  /* common English / Taglish words are never corrected (wife -> wine, suck -> duck, make -> cake, seating -> sharing) */
+  var COMMON = ('wife husband partner friend friends family make made making love around quiet help helped people person serve serves served suck sucks seating seat seats outdoor chef cook cooks happy hour email address card cards gift gifts it its '
+    + 'next last this coming week weekend celebrating celebrate visit visiting flying fly from singapore manila here there good great nice lovely want wanna gonna gotta yo whats thing things item items cost '
+    + 'live music band hiring job jobs service charge included robot bot human real agent talk speak someone vegan zero proof alcoholic free thousand hundred much many long time times '
+    + 'tomorrow tmrw tonight today night evening lunch noon morning afternoon early late later soon sure okay ok yes no not none maybe please thank show tell book table tables seats for with '
+    + 'name names number numbers address location place places hour hours open close closed sell sells buy offer offers have has get got bring take takes cut cuts aged age same also too both').split(' ');
+  COMMON.forEach(function (w) { VOCAB[w] = 1; });
   /* everyday words are protected from spell-correction */
   'show me you your yours the is are was have has do does did what which who how get find see can could would will i my we our us they it its this that there here please po ba kayo ako tayo ang ng sa na lang yung mga and with without want like need give tell about some any all one more less than from at in on to of for by just also really very good nice'.split(' ').forEach(function (w) { VOCAB[w] = 1; });
-  Object.keys(LEX).forEach(function (k) { LEX[k].split(' ').forEach(function (w) { (CONCEPT[w] = CONCEPT[w] || []).push(k); VOCAB[w] = 1; }); });
+  Object.keys(LEX).forEach(function (k) { LEX[k].split(' ').forEach(function (w) { (CONCEPT[w] = CONCEPT[w] || []).push(k); VOCAB[w] = 1; DOMAIN[w] = 1; }); });
 
   /* dish + section index */
   var WEAK = { cocktail: 1, steak: 1, sauce: 1, butter: 1, cream: 1, wild: 1, black: 1 };
@@ -125,22 +137,25 @@
   DISHES.forEach(function (x) {
     x.nn = normalise(x.it.name);
     x.toks = x.nn.split(' ').filter(function (w) { return !STOP[w]; });
-    x.toks.forEach(function (w) { DF[w] = (DF[w] || 0) + 1; VOCAB[w] = 1; });
+    x.toks.forEach(function (w) { DF[w] = (DF[w] || 0) + 1; VOCAB[w] = 1; DOMAIN[w] = 1; });
   });
   function idf(w) { return Math.log(1 + DISHES.length / (DF[w] || 1)); }
   var SEC_ALIAS = { 'day-one': ['day 1', 'amuse bouche', 'amuse'], 'first-course': ['first course', 'tobegin', 'starters', 'starter', 'appetiser', 'appetisers', 'appetizer', 'appetizers', 'raw bar'],
     garden: ['from the garden', 'garden', 'soup', 'soups', 'soup and garden'], 'ageing-room': ['ageingroom', 'butcherselection', 'single cuts'], 'long-wait': ['long wait', 'forthetable', 'sharing cuts', 'to share', '45 day'],
     alongside: ['alongside', 'accompaniments'], beyond: ['beyond the ageingroom', 'beyond the fire', 'beyond', 'mains', 'not steak'], 'last-course': ['last course', 'finalact', 'desserts', 'dessert'] };
-  Object.keys(SEC_ALIAS).forEach(function (k) { SEC_ALIAS[k].forEach(function (a) { a.split(' ').forEach(function (w) { VOCAB[w] = 1; }); }); });
+  Object.keys(SEC_ALIAS).forEach(function (k) { SEC_ALIAS[k].forEach(function (a) { a.split(' ').forEach(function (w) { VOCAB[w] = 1; DOMAIN[w] = 1; }); }); });
   DRINKS.forEach(function (k) { k.nn = normalise(k.name); });
-  var VOCAB_LIST = Object.keys(VOCAB).filter(function (w) { return w.length >= 3 && !/^\d+$/.test(w); });
+  var VOCAB_LIST = Object.keys(DOMAIN).filter(function (w) { return w.length >= 4 && !/^\d+$/.test(w); });
 
+  var DAY_WORDS = { sunday: 0, sun: 0, linggo: 0, monday: 1, mon: 1, lunes: 1, tuesday: 2, tue: 2, tues: 2, martes: 2, wednesday: 3, wed: 3, miyerkules: 3, thursday: 4, thu: 4, thurs: 4, huwebes: 4, friday: 5, fri: 5, biyernes: 5, saturday: 6, sat: 6, sabado: 6 };
+  var MON = { jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2, apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6, aug: 7, august: 7, sep: 8, sept: 8, september: 8, oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11 };
   function correct(w) {
-    if (VOCAB[w] || /^\d+$/.test(w) || w.length < 4) return w;
+    if (VOCAB[w] || DAY_WORDS[w] != null || MON[w] != null || /\d/.test(w) || w.length < 4) return w;
     var best = null, bd = 9, t = tol(w);
     for (var i = 0; i < VOCAB_LIST.length; i++) {
       var v = VOCAB_LIST[i];
       if (Math.abs(v.length - w.length) > t) continue;
+      if (w.length <= 5 && v[0] !== w[0]) continue;
       var dv = dl(w, v); if (dv < bd || (dv === bd && best && v.length > best.length)) { bd = dv; best = v; }
     }
     if (best && bd <= t) return best;
@@ -149,8 +164,6 @@
   }
 
   /* ════════════════════ 3. PARSE ════════════════════ */
-  var DAY_WORDS = { sunday: 0, sun: 0, linggo: 0, monday: 1, mon: 1, lunes: 1, tuesday: 2, tue: 2, tues: 2, martes: 2, wednesday: 3, wed: 3, miyerkules: 3, thursday: 4, thu: 4, thurs: 4, huwebes: 4, friday: 5, fri: 5, biyernes: 5, saturday: 6, sat: 6, sabado: 6 };
-  var MON = { jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2, apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6, aug: 7, august: 7, sep: 8, sept: 8, september: 8, oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11 };
   function parse(q) {
     var n = normalise(q), raw = n.split(' ').filter(Boolean);
     var toks = raw.map(correct);
@@ -162,13 +175,14 @@
   function slots(P) {
     var t = P.text, o = {}, m;
     if ((m = t.match(/ (?:partyof|tablefor|for|of) (\d{1,2})(?! (?:am|pm|days?|nov|dec|jan|oct))\b/)) || (m = t.match(/ (\d{1,2}) (?:people|persons|person|pax|guests|guest|tao|adults|of us|katao)\b/))) o.party = +m[1];
+    if (!o.party && P.has('BOOK') && (m = t.match(/ 4 (\d{1,2}) (?=tmrw|tomorrow|tonight|today|on|at|this|next|$)/))) o.party = +m[1];
     var nowS = S() && S().now, base = nowS ? nowS.utc : Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     var wd0 = new Date(base).getUTCDay();
     if (/ (tonight|today|ngayon|ngayong gabi) /.test(t)) o.utc = base;
     else if (/ (tomorrow|tmrw|bukas) /.test(t) && P.has('BOOK') || / (tomorrow|tmrw) /.test(t)) o.utc = base + 864e5;
     else {
       for (var w in DAY_WORDS) if (t.indexOf(' ' + w + ' ') >= 0 && !/^(sun|mon|sat|wed|tue|thu|fri)$/.test(w) || (t.indexOf(' ' + w + ' ') >= 0 && /^(sat|sun|mon|tue|wed|thu|fri)$/.test(w))) {
-        var k = (DAY_WORDS[w] - wd0 + 7) % 7; o.utc = base + k * 864e5; o.dayWord = w; break;
+        var k = (DAY_WORDS[w] - wd0 + 7) % 7; if (k === 0 && / next /.test(t)) k = 7; o.utc = base + k * 864e5; o.dayWord = w; break;
       }
       if ((m = t.match(/ (\d{1,2}) (jan\w*|feb\w*|mar\w*|apr\w*|may|jun\w*|jul\w*|aug\w*|sep\w*|oct\w*|nov\w*|dec\w*) /)) || (m = t.match(/ (jan\w*|feb\w*|mar\w*|apr\w*|may|jun\w*|jul\w*|aug\w*|sep\w*|oct\w*|nov\w*|dec\w*) (\d{1,2}) /))) {
         var day = /^\d/.test(m[1]) ? +m[1] : +m[2], mo = MON[/^\d/.test(m[1]) ? m[2] : m[1]];
@@ -209,6 +223,7 @@
     return best && best.s;
   }
   function matchDrink(P) {
+    if (/ zeroproof /.test(P.text)) { for (var z = 0; z < DRINKS.length; z++) if (/zero-proof/i.test(DRINKS[z].desc)) return DRINKS[z]; }
     if (!P.has('DRINK') && !/ patience /.test(P.text)) return null;
     for (var i = 0; i < DRINKS.length; i++) if (P.text.indexOf(' ' + DRINKS[i].nn + ' ') >= 0) return DRINKS[i];
     return null;
@@ -267,12 +282,13 @@
   function aDish(x, mode) {
     var it = x.it; CTX.dish = x; CTX.section = x.sec;
     var t;
-    if (mode === 'price') t = it.name + ' is ' + peso(it.price) + (it.weight ? ' for ' + it.weight : '') + (it.serves ? ', for ' + it.serves + ' to share' : '') + (it.note && it.price ? ' (' + it.note.toLowerCase() + ')' : '') + '.';
+    if (mode === 'serves') t = it.serves ? it.name + ' serves ' + it.serves + ' (' + it.weight + ').' : it.name + (it.weight ? ' is a ' + it.weight + ' cut for one' : ' is for one') + '; the cuts to share are on The Long Wait.';
+    else if (mode === 'price') t = it.name + ' is ' + peso(it.price) + (it.weight ? ' for ' + it.weight : '') + (it.serves ? ', for ' + it.serves + ' to share' : '') + (it.note && it.price ? ' (' + it.note.toLowerCase() + ')' : '') + '.';
     else if (mode === 'age') t = it.age ? it.name + ' is dry-aged for ' + it.age + ' days' + (it.age >= 45 ? ', so please order early.' : '.') : it.name + ' is not one of our aged steaks; only the steaks carry an age. It is on ' + x.sec.name + '.';
     else t = it.name + (it.age ? ', aged ' + it.age + ' days' : '') + '. ' + (it.desc || '') + (it.price ? ' ' + peso(it.price) + (it.weight ? ' · ' + it.weight : '') + '.' : ' ' + peso(it.price) + '.');
     var chips = it.age ? ['How much is it?', 'Which sauces go with it?', 'Book a table', 'Compare with the ' + (it.img === 'prime-ribeye' ? 'strip' : 'ribeye')] : ['See the steaks', 'What else is on ' + x.sec.name + '?', 'Book a table'];
     if (mode === 'age') chips[0] = 'How much is it?';
-    return { intent: mode === 'price' ? 'price' : mode === 'age' ? 'age' : 'dish', text: t, cards: [dishCard(x)], chips: chips };
+    return { intent: mode === 'price' ? 'price' : mode === 'age' ? 'age' : mode === 'serves' ? 'serves' : 'dish', text: t, cards: [dishCard(x)], chips: chips };
   }
   function aSection(sec) {
     CTX.section = sec;
@@ -341,10 +357,11 @@
     var cards = [carousel(items, lw.extras.name)]; if (first) cards.unshift({ type: 'video', slug: first.it.img, title: first.it.name, cap: first.it.desc || '' });
     return { intent: 'enhancements', text: lw.extras.name + ', added to any steak: ' + items.map(function (x) { return x.it.name + ' ' + peso(x.it.price); }).join(', ') + '.', cards: cards.concat([buttons([btn('See them on the page', 'go', 'long-wait', 'solid')])]), chips: ['Sauces and butters', 'The Long Wait'] };
   }
-  function aVeg() {
-    var meaty = /beef|bacon|anchovy|lobster|tallow|wagyu|foie|marrow|crab|prawn|oyster|lamb|bass|steak|tenderloin/i;
+  function aVeg(P) {
+    var meaty = /beef|bacon|anchovy|lobster|tallow|wagyu|foie|marrow|crab|prawn|oyster|lamb|bass|steak|tenderloin|duck|lard|gelatin|chicken|pork|ham/i;
+    var vegan = / vegan /.test(P ? P.text : '');
     var items = DISHES.filter(function (x) { return !x.it.age && !x.extra && /garden|alongside|beyond|last-course/.test(x.sec.id) && !meaty.test(x.it.name + ' ' + (x.it.desc || '')); });
-    return { intent: 'vegetarian', text: 'The menu does not mark dishes as vegetarian, so please check with your server. Dishes whose description lists no meat or fish: ' + list(items.map(function (x) { return x.it.name; })) + '.',
+    return { intent: 'vegetarian', text: (vegan ? 'Nothing on the menu is marked vegan, and many dishes use butter, cream or cheese, so please call before you come. ' : 'The menu does not mark dishes as vegetarian, so please check with your server. ') + 'Dishes whose description lists no meat or fish: ' + list(items.map(function (x) { return x.it.name; })) + '.',
       cards: [carousel(items, 'No meat or fish listed'), buttons([bCall()])], chips: ['Seafood', 'Allergies', 'Book a table'] };
   }
   function aSea() {
@@ -365,7 +382,7 @@
   }
   function aPrivate(P, o) {
     var party = (o && o.party) || CTX.party || 10;
-    return { intent: 'private', text: 'The private room seats fourteen at one long table, behind its own door. ' + (party > 14 ? 'For more than fourteen, please call us.' : 'Send an enquiry and we will call you within a day to confirm the room.'),
+    return { intent: 'private', text: 'The private room seats fourteen at one long table. ' + (party > 14 ? 'For more than fourteen, please call us.' : 'Send an enquiry and the team will confirm the room with you.'),
       cards: [imageCard(interior('private-dining-room'), 'The private room: one long table for fourteen'), buttons([party > 14 ? bCall() : btn('Enquire about the private room', 'book', { occasion: 'Private dining', party: Math.max(9, Math.min(14, party)) }, 'solid'), bCall()])],
       prefill: null, chips: ['Book a table', 'See the steaks', 'House cocktail'] };
   }
@@ -392,29 +409,41 @@
     var p = o.party || CTX.party;
     if (p && p > 14) return aGroup(P, o);
     var parts = [], warn = '';
+    var allSlots = function (wd) { var h = site && site.hours && site.hours[wd], out = []; if (h) h.sessions.forEach(function (x) { for (var q = x.o; q <= x.c - 90; q += 30) out.push(q); }); return out; };
+    var tomorrowBtn = null;
     if (o.utc != null && site) {
-      var sl = site.slotsFor(o.utc);
-      if (!sl.length) { warn = new Date(o.utc).getUTCDay() === 1 ? 'We are closed on Mondays, so I have left the date for you to choose. ' : 'There are no tables left that day. '; o.utc = null; }
-      else if (o.min != null && sl.indexOf(o.min) < 0) { warn = 'The first and last seatings that day are ' + site.fmt(sl[0]) + ' and ' + site.fmt(sl[sl.length - 1]) + '; please pick a time. '; o.min = null; }
+      var sl = site.slotsFor(o.utc), wd = new Date(o.utc).getUTCDay(), full = allSlots(wd);
+      if (!full.length) { warn = 'We are closed on ' + ['Sundays', 'Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays'][wd] + ', so I have left the date for you to choose. '; o.utc = null; o.min = null; }
+      else if (!sl.length && o.utc === site.now.utc) { warn = 'Tonight’s last seating (' + site.fmt(full[full.length - 1]) + ') has passed, so please choose another day. '; o.utc = null; o.min = null; tomorrowBtn = btn('Tomorrow instead', 'ask', 'table for ' + (p || 2) + ' tomorrow'); }
+      else if (o.min != null && sl.indexOf(o.min) < 0) { warn = (sl.length ? 'Seatings that day run from ' + site.fmt(sl[0]) + ' to ' + site.fmt(sl[sl.length - 1]) : 'There are no more seatings that day') + ', so I have left the time for you to pick. '; o.min = null; }
+    } else if (o.min != null && site) {
+      var ok = false; for (var dd = 0; dd < 7; dd++) if (allSlots(dd).indexOf(o.min) >= 0) ok = true;
+      if (!ok) { warn = site.fmt(o.min) + ' is outside our seatings: from 5:30 PM (12:00 PM on Sunday) to 10:30 PM. I have left the time for you to pick. '; o.min = null; }
     }
     if (p) parts.push(p + (p === 1 ? ' guest' : ' guests'));
     if (o.utc != null && site) parts.push(site.longDate(o.utc));
     if (o.min != null && site) parts.push(site.fmt(o.min));
     if (o.occasion) parts.push(o.occasion.toLowerCase());
     var pre = { party: p || null, utc: o.utc, min: o.min, occasion: o.occasion || null };
-    var t = warn + (parts.length ? 'I have filled in the booking form: ' + parts.join(', ') + '. Add your name and number to hold it.' : 'Choose a date and time in the booking form; it takes a minute. We hold every table for the whole evening.') + (p >= 9 ? ' For nine or more it becomes a private-room enquiry.' : '');
-    var res = { intent: 'reservation', text: t, cards: [imageCard(interior('main-dining-room', 'sm'), 'Where you will sit'), buttons([btn(parts.length ? 'Go to the booking form' : 'Reserve a table', 'book', pre, 'solid'), bCall()])],
-      prefill: pre, chips: ['Table for 2 tonight', 'Table for 4 on Friday at 8pm', 'Private room for 14'] };
+    var t = warn + (parts.length ? 'I have filled in the booking form: ' + parts.join(', ') + '. Add your name and number to hold it.' : 'Choose a date and time in the booking form; it takes a minute.') + (p >= 9 ? ' For nine or more it becomes a private-room enquiry.' : '');
+    var res = { intent: 'reservation', text: t, cards: [imageCard(interior('main-dining-room', 'sm'), 'Where you will sit'), buttons([btn(parts.length ? 'Go to the booking form' : 'Reserve a table', 'book', pre, 'solid')].concat(tomorrowBtn ? [tomorrowBtn] : []).concat([bCall()]))],
+      prefill: pre, chips: ['Table for 2 tonight', 'Table for 4 on Friday at 8pm', 'Private room for 14'].filter(function (c) { return c.toLowerCase() !== String(P.q).toLowerCase().trim(); }) };
     if (apply && site && parts.length) site.book({ party: pre.party, utc: pre.utc, min: pre.min, occasion: pre.occasion, go: false });
     return res;
   }
   function aPriceFilter(P) {
     var pool = P.has('STEAKS') || CTX.intent === 'steaks' ? STEAKS : DISHES.filter(function (x) { return x.it.price > 0; });
     var nums = (P.text.match(/ \d{3,6} /g) || []).map(function (x) { return +x; });
-    if (/ (cheapest|mura|murang|cheap|affordable) /.test(P.text)) { var c = pool.slice().sort(function (a, b) { return a.it.price - b.it.price; })[0]; var r = aDish(c, 'price'); r.intent = 'price'; r.text = 'The most affordable ' + (pool === STEAKS ? 'steak' : 'dish') + ' is ' + r.text.charAt(0).toLowerCase() + r.text.slice(1); return r; }
+    if (/ (cheapest|mura|murang|cheap|affordable) /.test(P.text)) { var srt = pool.slice().sort(function (a, b) { return a.it.price - b.it.price; }), c = srt[0], ties = srt.filter(function (x) { return x.it.price === c.it.price; }); var noun = pool === STEAKS ? 'steak' : 'item';
+      if (ties.length > 1) return { intent: 'price', text: 'The most affordable ' + noun + 's are ' + list(ties.map(function (x) { return x.it.name; })) + ', at ' + peso(c.it.price) + ' each.', cards: [carousel(ties, 'From ' + peso(c.it.price))], chips: ['Cheapest steak', 'See the steaks'] };
+      var r = aDish(c, 'price'); r.intent = 'price'; r.text = 'The most affordable ' + noun + ' is ' + c.it.name + ', at ' + peso(c.it.price) + (c.it.weight ? ' for ' + c.it.weight : '') + '.'; return r; }
     if (/ priciest /.test(P.text) || / expensive /.test(P.text)) { var e = pool.slice().sort(function (a, b) { return b.it.price - a.it.price; })[0]; var r2 = aDish(e, 'price'); r2.text = 'The top of the menu: ' + r2.text; return r2; }
+    if (nums.length && / under /.test(P.text) && / (for 2|2 people|couple) /.test(P.text)) { var lim2 = nums[0], side = DISHES.filter(function (x) { return x.sec.id === 'alongside' && !x.extra; }).sort(function (a, b) { return a.it.price - b.it.price; })[0], sauce = DISHES.filter(function (x) { return x.sec.id === 'alongside' && x.extra; }).sort(function (a, b) { return a.it.price - b.it.price; })[0];
+      var fit = STEAKS.filter(function (x) { return x.it.price + side.it.price + sauce.it.price <= lim2; }).sort(function (a, b) { return b.it.price - a.it.price; });
+      if (fit.length) return { intent: 'price', text: 'For two within ' + peso(lim2) + ': ' + fit[0].it.name + ' (' + peso(fit[0].it.price) + '), ' + side.it.name + ' (' + peso(side.it.price) + ') and ' + sauce.it.name + ' (' + peso(sauce.it.price) + '), ' + peso(fit[0].it.price + side.it.price + sauce.it.price) + ' before drinks.', cards: [carousel([fit[0], side, sauce], 'Within ' + peso(lim2))], chips: ['Cheapest steak', 'See the steaks'] }; }
     if (nums.length && / under /.test(P.text)) { var lim = nums[0], f = pool.filter(function (x) { return x.it.price <= lim; }).sort(function (a, b) { return b.it.price - a.it.price; });
-      return { intent: 'price', text: f.length ? f.length + ' ' + (pool === STEAKS ? 'steaks' : 'dishes') + ' at ' + peso(lim) + ' or less.' : 'Nothing on the ' + (pool === STEAKS ? 'steak list' : 'menu') + ' at ' + peso(lim) + ' or less.', cards: [f.length ? carousel(f, 'Up to ' + peso(lim)) : carousel(pool.slice().sort(function (a, b) { return a.it.price - b.it.price; }), 'From the lowest price')], chips: ['Cheapest steak', 'See the steaks'] }; }
+      var nounS = pool === STEAKS ? (f.length === 1 ? 'steak' : 'steaks') : (f.length === 1 ? 'dish' : 'dishes'), cnt = f.length === 1 ? 'One' : String(f.length);
+      return { intent: 'price', text: f.length ? cnt + ' ' + nounS + ' at ' + peso(lim) + ' or less' + (f.length <= 4 ? ': ' + list(f.map(function (x) { return x.it.name + ' (' + peso(x.it.price) + ')'; })) : '') + '.' : 'Nothing on the ' + (pool === STEAKS ? 'steak list' : 'menu') + ' at ' + peso(lim) + ' or less.', cards: [f.length ? carousel(f, 'Up to ' + peso(lim)) : carousel(pool.slice().sort(function (a, b) { return a.it.price - b.it.price; }), 'From the lowest price')], chips: ['Cheapest steak', 'See the steaks'] }; }
     if (nums.length && / over /.test(P.text)) { var lo = nums[0], g = pool.filter(function (x) { return x.it.price >= lo; });
       return { intent: 'price', text: g.length + ' ' + (pool === STEAKS ? 'steaks' : 'dishes') + ' at ' + peso(lo) + ' or more.', cards: [carousel(g, 'From ' + peso(lo))], chips: ['Cheapest steak', 'See the steaks'] }; }
     return null;
@@ -444,7 +473,10 @@
   }
   function fallback(P) {
     var near = nearest(P, 3), bs = near.map(function (x) { return btn(x.it.name, 'ask', x.it.name); });
-    return { intent: 'fallback', confidence: .2, text: 'I am not sure I caught that.' + (bs.length ? ' Did you mean one of these?' : ' Here is what I can help with.'),
+    var lines = ['I am not sure I caught that.', 'I did not quite follow that one.', 'That one is beyond what this page holds.'];
+    var lead = lines[(String(P.q).length) % lines.length];
+    if (!bs.length) bs = [btn('See the steaks', 'ask', 'See the steaks', 'solid'), btn('Book a table', 'ask', 'Book a table'), bMenuBook()];
+    return { intent: 'fallback', confidence: .2, text: lead + (near.length ? ' Did you mean one of these?' : ' Here is what I can help with, or call the team.'),
       cards: [buttons(bs.concat([bCall()]))], chips: MAIN_CHIPS.slice(0, 5) };
   }
 
@@ -457,7 +489,9 @@
     var only = function (c) { return Object.keys(P.con).length === 1 && P.has(c); };
     var nconcepts = Object.keys(P.con).length;
 
-    if ((P.has('GREET') && nconcepts === 1 && !dishes.length) || / start over /.test(t)) r = greet();
+    if (/ (suck|sucks|stupid|useless|idiot|dumb|bobo|tanga|wtf|shit|fuck|crap) /.test(t)) r = { intent: 'fallback', confidence: .3, text: 'I am sorry this has not helped. The team can answer anything I cannot, on ' + C.phone + '.', cards: [buttons([bCall(), bEmail(), btn('See the steaks', 'ask', 'See the steaks')])], chips: MAIN_CHIPS.slice(0, 4) };
+    else if (/ (robot|bot|human|real person|agent|ai|someone|talk to|speak to) /.test(t)) r = { intent: 'assistant', text: 'I am the website’s host assistant, and I answer from what this page holds. For a person, call ' + C.phone + ' or email ' + C.email + '.', cards: [buttons([bCall(), bEmail()])], chips: MAIN_CHIPS.slice(0, 4) };
+    else if ((P.has('GREET') && nconcepts === 1 && !dishes.length) || / start over /.test(t)) r = greet();
     else if (P.has('THANKS') && !dishes.length && nconcepts <= 2) r = { intent: 'thanks', text: 'You are welcome. Take your time; the table is yours.', cards: [buttons([bReserve(), bMenuBook()])], chips: MAIN_CHIPS.slice(0, 4) };
     else if (P.has('PRIVATE') && !P.has('PARK')) r = aPrivate(P, o);
     else if (P.has('ALLERGY')) r = aAllergy();
@@ -466,24 +500,34 @@
     else if (P.has('PAY')) r = unknown('the payment methods');
     else if (P.has('CORK')) r = unknown('a corkage policy');
     else if (P.has('HALAL')) r = unknown('halal certification');
-    else if (P.has('GIFT')) r = unknown('gift vouchers', 'They are planned, with terms still to be confirmed.');
+    else if (P.has('GIFT')) r = unknown('gift vouchers');
     else if (/ wine /.test(t)) r = unknown('a wine list', 'At the bar today: Patience and three more drinks.');
     else if (P.has('KIDS') && !P.has('BOOK')) r = unknown('a children’s menu', 'The menu does not list one.');
+    else if (/ happyhour /.test(t)) r = unknown('a happy hour');
+    else if (/ chef /.test(t) && !dishes.length) r = unknown('the chef’s name', 'The kitchen is open to the room, so you will see the team at work.');
+    else if (/ outdoor /.test(t)) r = unknown('outdoor seating');
+    else if (/ livemusic /.test(t)) r = unknown('live music');
+    else if (/ servicecharge /.test(t)) r = unknown('the service charge and VAT wording');
+    else if (/ (hiring|job|jobs|career|careers|vacancy|apply) /.test(t)) r = unknown('vacancies');
     else if (/ (delivery|deliver|takeout|take out|takeaway|grab|foodpanda|wifi|pet|pets|dog|wheelchair|accessible) /.test(t)) r = unknown('that detail');
     else if (P.has('DONE')) r = aDone();
     else if ((P.has('BOOK') || (o.party && (P.has('GROUP') || CTX.intent === 'reservation' || / table /.test(t)))) && !(dishes.length && !P.has('BOOK'))) r = (o.party > 14 ? aGroup(P, o) : aBook(P, o, apply));
-    else if (o.party && (CTX.intent === 'reservation' || CTX.intent === 'private' || CTX.intent === 'group') && !dishes.length) r = aBook(P, o, apply);
+    else if ((o.party || o.utc != null || o.min != null) && (CTX.intent === 'reservation' || CTX.intent === 'private' || CTX.intent === 'group') && !dishes.length) r = aBook(P, o, apply);
     else if (P.has('GROUP') && !dishes.length && !P.has('MENU')) r = o.party && o.party < 9 ? aBook(P, o, apply) : aGroup(P, o);
     else if (P.has('OPENING') || / (when|kailan) (do|will)? ?(you)? ?open /.test(t) && / (when|kailan) /.test(t) && !P.has('BOOK')) r = aOpening();
     else if (P.has('HOURS') && !dishes.length && !P.has('MENU')) r = aHours();
     else if (/ ageingroom /.test(t) && !/ (menu|list|steaks) /.test(t)) r = aDryage();
     else if (P.has('NAME') && / (xxviii|roman|pronounce) /.test(t)) r = aName();
+    else if (/ (email|phone|number|contact|telephone) /.test(t) && !dishes.length) r = aContact();
     else if (P.has('WHERE') && !dishes.length) r = aWhere();
     else if (P.has('CONTACT') && !dishes.length) r = aContact();
     else if (P.has('NAME') && !dishes.filter(function (x) { return x !== SIG; }).length && !P.has('PRICE') && / (name|xxviii|roman|pronounce|called|whatis 28|why 28) /.test(t)) r = aName();
+    else if (P.has('RECO') && !dishes.length && !sec && (!/ whatis /.test(t) || / (best|recommend|must|favourite|favorite) /.test(t)) && !P.has('DRINK') && !P.has('DESSERT')) r = aReco(P);
     else if (P.has('DRYAGE') && !dishes.length && !(sec && !/ whatis /.test(t) && !/ (room|salt|hanging|rack|photo|see|where) /.test(t) && / ageingroom /.test(t) && / (menu|list|steaks) /.test(t))) r = aDryage();
     else if (P.has('MENUBOOK')) r = aMenuBook();
     else if (drink || (P.has('DRINK') && !dishes.length) || / patience /.test(t) && !/ (value|values) /.test(t)) r = aCocktail(drink);
+    else if (/ servesq /.test(t) && !dishes.length && CTX.dish) r = aDish(CTX.dish, 'serves');
+    else if (dishes.length === 1 && P.has('COMPARE') && CTX.dish && CTX.dish !== dishes[0]) r = aCompare(CTX.dish, dishes[0]);
     else if (dishes.length >= 2 && (P.has('COMPARE') || dishes.length === 2 && / (or|vs|versus) /.test(t))) r = aCompare(dishes[0], dishes[1]);
     else if (dishes.length === 1 || (dishes.length > 1 && dishes[0] === SIG && / (the 28|signature) /.test(t))) {
       var mode = P.has('PRICE') ? 'price' : (P.has('AGE') && !P.has('PRICE')) ? 'age' : (/^ and /.test(t) && (CTX.intent === 'price' || CTX.intent === 'age') ? CTX.intent : null);
@@ -496,7 +540,7 @@
     else if (P.has('SAUCE')) r = aSauces();
     else if (P.has('ENH')) r = aEnh();
     else if (P.has('SIDES') && !sec) r = aSides();
-    else if (P.has('VEG')) r = aVeg();
+    else if (P.has('VEG')) r = aVeg(P);
     else if (/ (no beef|without beef|not beef|dont eat beef|walang beef|not steak|no steak) /.test(t)) r = aNoBeef();
     else if (P.has('SEA')) r = aSea();
     else if (sec) r = aSection(sec);
@@ -509,6 +553,16 @@
     else if (P.has('HOURS')) r = aHours();
     else if (P.has('GREET')) r = greet();
     else { r = fallback(P); conf = .2; }
+    if (/ (and|also|plus|tsaka|at saka|as well) /.test(t) && r.intent !== 'fallback') {
+      var extra = [], xtxt = [];
+      if (P.has('HOURS') && r.intent !== 'hours' && r.intent !== 'opening' && r.intent !== 'reservation') { extra.push(hoursCard()); xtxt.push(statusTxt() + '.'); }
+      if (P.has('WHERE') && r.intent !== 'location') { extra.push(mapCard()); xtxt.push('We are in ' + C.area + '.'); }
+      if (P.has('PARK') && !/parking/.test(r.text)) xtxt.push('Parking details are still to be confirmed by the team.');
+      if (P.has('DESSERT') && r.intent !== 'section') { var ds = SECTIONS.filter(function (x) { return x.id === 'last-course'; })[0]; extra.push(carousel(DISHES.filter(function (x) { return x.sec === ds; }), ds.name)); xtxt.push('For afters: ' + ds.name + '.'); }
+      if (P.has('DRINK') && r.intent !== 'drinks') { xtxt.push(X.brand.cocktail.name + ', the house cocktail, is ' + peso(X.brand.cocktail.price) + '.'); extra.push(buttons([btn('The house cocktail', 'ask', 'House cocktail')])); }
+      if (P.has('STEAKS') && r.intent !== 'steaks' && r.intent !== 'dish' && r.intent !== 'price' && r.intent !== 'age' && r.intent !== 'compare') { extra.push(carousel(STEAKS, 'The steaks')); xtxt.push('And the steaks, each with its age.'); }
+      if (extra.length || xtxt.length) { r.text += ' ' + xtxt.join(' '); r.cards = (r.cards || []).concat(extra); }
+    }
     if (r.confidence == null) r.confidence = conf;
     CTX.intent = r.intent;
     if (r.intent === 'section' && sec) CTX.section = sec;
@@ -545,7 +599,20 @@
   window.addEventListener('resize', liftCheck);
 
   /* ════════════════════ 7. UI: panel (built on first open) ════════════════════ */
-  var panel = null, log, chipsBox, input, typing = null, HIST = [], videoIO = null;
+  var panel = null, log, chipsBox, input, typing = null, HIST = [], videoIO = null, say, pill, lastBot = null, lockY = 0;
+  function nearBottom() { return log.scrollTop + log.clientHeight >= log.scrollHeight - 60; }
+  function scrollToMsg(m) { log.scrollTop = Math.max(0, m.getBoundingClientRect().top - log.getBoundingClientRect().top + log.scrollTop - 12); }
+  function lockPage() {
+    lockY = window.scrollY || root.scrollTop;
+    root.classList.add('xxchat-lock'); root.style.overflow = 'hidden';
+    d.body.style.position = 'fixed'; d.body.style.top = (-lockY) + 'px'; d.body.style.left = '0'; d.body.style.right = '0'; d.body.style.width = '100%'; d.body.style.overflow = 'hidden';
+  }
+  function unlockPage() {
+    if (!root.classList.contains('xxchat-lock')) return;
+    root.classList.remove('xxchat-lock'); root.style.overflow = '';
+    ['position', 'top', 'left', 'right', 'width', 'overflow'].forEach(function (k) { d.body.style[k] = ''; });
+    var sb = root.style.scrollBehavior; root.style.scrollBehavior = 'auto'; window.scrollTo(0, lockY); root.style.scrollBehavior = sb;
+  }
   function build() {
     panel = d.createElement('section');
     panel.className = 'xxchat'; panel.id = 'xxchat'; panel.hidden = true; panel.setAttribute('data-lenis-prevent', '');
@@ -553,13 +620,37 @@
     panel.innerHTML = '<header class="xxchat__head"><img class="xxchat__mono" src="assets/logo/xxviii-monogram-brass.svg" alt="" width="512" height="512">' +
       '<div><h2 class="xxchat__title" id="xxchat-title">Ask the host</h2><p class="xxchat__sub">Replies in a moment · not a booking line</p></div>' +
       '<button class="xxchat__close" type="button" aria-label="Close the chat"><span aria-hidden="true"></span></button></header>' +
-      '<div class="xxchat__log" aria-live="polite" aria-relevant="additions"></div>' +
+      '<div class="xxchat__logwrap"><div class="xxchat__log" role="log" aria-live="off" tabindex="0" aria-label="Conversation"></div><button class="xxchat__new" type="button" hidden>New reply <span aria-hidden="true">↓</span></button></div>' +
+      '<p class="sr-only" aria-live="polite" data-xx-say></p>' +
       '<div class="xxchat__chips" role="group" aria-label="Suggestions"></div>' +
       '<form class="xxchat__form" autocomplete="off"><label class="sr-only" for="xxchat-in">Ask a question</label><input id="xxchat-in" class="xxchat__in" type="text" maxlength="200" placeholder="Ask about steaks, hours or a table">' +
       '<button class="xxchat__send" type="submit" aria-label="Send">' + ICON_SEND + '</button></form>' +
       '<p class="xxchat__foot">Preview build: answers come from this website. For anything else, call ' + esc(C.phone) + '.</p>';
     d.body.appendChild(panel);
     log = panel.querySelector('.xxchat__log'); chipsBox = panel.querySelector('.xxchat__chips'); input = panel.querySelector('.xxchat__in');
+    say = panel.querySelector('[data-xx-say]'); pill = panel.querySelector('.xxchat__new');
+    pill.addEventListener('click', function () { pill.hidden = true; if (lastBot) scrollToMsg(lastBot); log.focus({ preventScroll: true }); });
+    log.addEventListener('scroll', function () { if (nearBottom()) pill.hidden = true; }, { passive: true });
+    /* wheel: never scroll the page behind; the log takes vertical wheel input, chip/carousel rows take horizontal */
+    panel.addEventListener('wheel', function (e) {
+      var tg = e.target, row = tg.closest('.xxcar__row, .xxchat__chips');
+      if (row && (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY))) { if (row.scrollWidth <= row.clientWidth) e.preventDefault(); return; }
+      if (tg.closest('.xxchat__chips') && !e.shiftKey) { e.preventDefault(); chipsBox.scrollLeft += e.deltaY; return; }
+      if (!tg.closest('.xxchat__log')) { e.preventDefault(); log.scrollTop += e.deltaY; return; }
+      if ((e.deltaY < 0 && log.scrollTop <= 0) || (e.deltaY > 0 && log.scrollTop + log.clientHeight >= log.scrollHeight - 1)) e.preventDefault();
+    }, { passive: false });
+    /* touch: the sheet never chains a swipe to the page */
+    var ty = 0;
+    panel.addEventListener('touchstart', function (e) { ty = e.touches[0].clientY; }, { passive: true });
+    panel.addEventListener('touchmove', function (e) {
+      var tg = e.target; if (tg.closest('.xxcar__row, .xxchat__chips')) return;
+      if (!tg.closest('.xxchat__log')) { e.preventDefault(); return; }
+      var dy = ty - e.touches[0].clientY;
+      if ((dy < 0 && log.scrollTop <= 0) || (dy > 0 && log.scrollTop + log.clientHeight >= log.scrollHeight - 1)) e.preventDefault();
+    }, { passive: false });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'PageUp' || e.key === 'PageDown') { e.preventDefault(); log.scrollTop += (e.key === 'PageUp' ? -1 : 1) * log.clientHeight * .85; }
+    });
     panel.querySelector('.xxchat__close').addEventListener('click', function () { closeChat(); });
     panel.querySelector('.xxchat__form').addEventListener('submit', function (e) { e.preventDefault(); var v = input.value.trim(); if (v) { input.value = ''; send(v); } });
     panel.addEventListener('keydown', function (e) {
@@ -572,7 +663,7 @@
     });
     panel.addEventListener('click', onAction);
     if ('IntersectionObserver' in window) videoIO = new IntersectionObserver(function (es) {
-      es.forEach(function (en) { var v = en.target; if (RM) return; if (en.isIntersecting && !panel.hidden) { if (!v.getAttribute('src')) v.src = X.video(v.getAttribute('data-vid'), 'sd'); var p = v.play(); if (p && p.catch) p.catch(function () { }); } else v.pause(); });
+      es.forEach(function (en) { var v = en.target; if (RM) { if (en.isIntersecting && !v.getAttribute('src')) { v.preload = 'metadata'; v.src = X.video(v.getAttribute('data-vid'), 'sd'); } return; } if (en.isIntersecting && !panel.hidden) { if (!v.getAttribute('src')) v.src = X.video(v.getAttribute('data-vid'), 'sd'); var p = v.play(); if (p && p.catch) p.catch(function () { }); } else v.pause(); });
     }, { root: log, threshold: .4 });
     var restored = false;
     try { var h = JSON.parse(sessionStorage.getItem('xx-chat') || '[]'); if (h.length) { h.forEach(function (q) { renderUser(q); renderBot(answer(q, false), true); }); HIST = h; restored = true; } } catch (e) { }
@@ -582,14 +673,14 @@
     if (!panel) build();
     panel.hidden = false; panel.setAttribute('aria-modal', PHONE.matches ? 'true' : 'false');
     root.classList.add('xxchat-open'); launcher.setAttribute('aria-expanded', 'true');
-    if (PHONE.matches) d.body.style.overflow = 'hidden';
+    if (PHONE.matches) lockPage();
     requestAnimationFrame(function () { panel.classList.add('is-in'); });
     log.scrollTop = log.scrollHeight;
     setTimeout(function () { input.focus({ preventScroll: true }); }, 60);
   }
   function closeChat(noFocus) {
     if (!panel || panel.hidden) return;
-    panel.classList.remove('is-in'); panel.hidden = true; root.classList.remove('xxchat-open'); launcher.setAttribute('aria-expanded', 'false'); d.body.style.overflow = '';
+    panel.classList.remove('is-in'); panel.hidden = true; root.classList.remove('xxchat-open'); launcher.setAttribute('aria-expanded', 'false'); unlockPage();
     Array.prototype.forEach.call(panel.querySelectorAll('video'), function (v) { v.pause(); });
     if (!noFocus) launcher.focus();
   }
@@ -599,25 +690,30 @@
   function renderBot(r, instant) {
     var m = d.createElement('div'); m.className = 'xxmsg xxmsg--host';
     m.innerHTML = '<p>' + esc(r.text) + '</p>' + (r.cards || []).map(cardHTML).join('');
+    lastBot = m;
+    if (!instant && say) say.textContent = r.text;
     log.appendChild(m);
     Array.prototype.forEach.call(m.querySelectorAll('video'), function (v) { if (videoIO) videoIO.observe(v); });
-    setChips(r.chips || MAIN_CHIPS);
-    if (instant) log.scrollTop = log.scrollHeight; else m.scrollIntoView({ block: 'nearest' });
+    setChips(r.chips || MAIN_CHIPS, r._asked);
+    Array.prototype.forEach.call(m.querySelectorAll('video'), function (v) { v.addEventListener('play', function () { if (!v.getAttribute('src')) { v.src = X.video(v.getAttribute('data-vid'), 'sd'); var pp = v.play(); if (pp && pp.catch) pp.catch(function () { }); } }); });
+    if (instant) log.scrollTop = log.scrollHeight;
     return m;
   }
-  function setChips(list) {
-    chipsBox.innerHTML = (list || []).slice(0, PHONE.matches ? 3 : 4).map(function (c) { return '<button type="button" class="xxchip" data-ask="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+  function setChips(list, asked) {
+    chipsBox.scrollLeft = 0;
+    chipsBox.innerHTML = (list || []).filter(function (c) { return !asked || c.toLowerCase() !== String(asked).toLowerCase(); }).slice(0, PHONE.matches ? 3 : 4).map(function (c) { return '<button type="button" class="xxchip" data-ask="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
   }
   function send(q) {
+    var wasBottom = nearBottom();
     renderUser(q);
-    HIST.push(q); if (HIST.length > 15) HIST = HIST.slice(-15);
+    HIST.push(q); if (HIST.length > 30) HIST = HIST.slice(-30);
     try { sessionStorage.setItem('xx-chat', JSON.stringify(HIST)); } catch (e) { }
-    var r = answer(q, true);
+    var r = answer(q, true); r._asked = q;
     if (typing) typing.remove();
-    typing = d.createElement('div'); typing.className = 'xxmsg xxmsg--host xxtyping'; typing.setAttribute('aria-label', 'The host is typing'); typing.innerHTML = '<i></i><i></i><i></i>';
-    log.appendChild(typing); log.scrollTop = log.scrollHeight;
+    typing = d.createElement('div'); typing.className = 'xxmsg xxmsg--host xxtyping'; typing.setAttribute('role', 'status'); typing.innerHTML = '<i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i><span class="sr-only">The host is typing</span>';
+    log.appendChild(typing); if (wasBottom) log.scrollTop = log.scrollHeight;
     var delay = RM ? 150 : Math.max(400, Math.min(900, 300 + r.text.length * 3));
-    setTimeout(function () { if (typing) { typing.remove(); typing = null; } var m = renderBot(r); log.scrollTop = Math.max(0, m.offsetTop - 12); }, delay);
+    setTimeout(function () { if (typing) { typing.remove(); typing = null; } var m = renderBot(r); if (wasBottom) { scrollToMsg(m); pill.hidden = true; } else pill.hidden = false; }, delay);
     return r;
   }
   window.__xxChat = { open: openChat, close: closeChat, send: function (q) { if (!panel || panel.hidden) openChat(); return send(q); } };

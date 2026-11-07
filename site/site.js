@@ -657,7 +657,7 @@
   }).join('');
   var VALUE_LINE = { Honesty: 'The menu tells you how many days each steak has aged.' };
   $('[data-values]').innerHTML = X.brand.values.map(function (v, i) {
-    var pic = v.name === 'Craft' && typeof X.interior === 'function' ? '<img class="value__img" src="' + X.interior('open-kitchen-chefs-counter', 'sm') + '" alt="The open kitchen, a chef at the pass" width="640" height="360" loading="lazy" decoding="async">' : '';
+    var pic = ''; /* client, 8 Nov: no image on the values; the open kitchen stays in The room */
     return '<li class="value' + (i === 0 ? ' is-open' : '') + '"><span class="value__word"><span class="value__w">' + esc(v.name) + '</span></span><div class="value__aside">' + pic + '<p class="value__line">' + esc(VALUE_LINE[v.name] || v.line) + '</p></div></li>';
   }).join('');
   var valEls = $$('.value');

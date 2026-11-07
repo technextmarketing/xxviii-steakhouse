@@ -165,3 +165,21 @@
 .xxchat__send { width: 40px; height: 40px; }
 .xxchat__foot { padding: 0 12px 8px; font-size: .64rem; line-height: 1.35; }
 @media (pointer: coarse) { .xxchip { min-height: 38px; } .xxbtn { min-height: 40px; } .xxchat__close, .xxchat__send { width: 44px; height: 44px; } .xxchat__head { grid-template-columns: 30px 1fr 44px; } .xxchat__form { grid-template-columns: 1fr 44px; } .xxchat__in { min-height: 44px; } }
+
+/* ───────── fix round (8 Nov audit): scroll, targets, legibility ───────── */
+.xxchat { overscroll-behavior: contain; }
+.xxchat__logwrap { position: relative; min-height: 0; display: grid; }
+.xxchat__log { min-height: 0; overscroll-behavior: contain; }
+.xxchat__log:focus-visible { outline: 2px solid var(--brass); outline-offset: -2px; }
+.xxchat__new { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); min-height: 36px; padding: 0 14px; border: 1px solid var(--brass); background: var(--char-2); color: var(--brass-hi); cursor: pointer;
+  font: 600 .72rem/1 var(--f-label); letter-spacing: .14em; text-transform: uppercase; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .9); }
+.xxchat__new[hidden] { display: none; }
+.xxchat__sub, .xxdish__sec, .xxcar__title, .xxcar__meta, .xxhours th, .xxdish__meta .age-tag { font-size: .7rem !important; }
+.xxbtn { font-size: .7rem; min-height: 36px; }
+.xxchat__foot { font-size: .7rem; }
+@media (pointer: coarse) {
+  .xxbtn, .xxchip, .xxchat__new { min-height: 44px; }
+  .xxchat__in { font-size: 16px; }
+  .xxchat__close { width: 44px; height: 44px; }
+}
+html.xxchat-lock, html.xxchat-lock body { overscroll-behavior: none; }
