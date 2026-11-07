@@ -1613,3 +1613,27 @@ figcaption span, .sub, .ch-intro, .series-note, .sc-for, .dl-who, .bg-meta > spa
   .fmt-pdfart { max-width: 240px; }
 }
 .colo-rev { max-width: 60ch; margin: 8px auto 0; text-align: center; line-height: 1.6; }
+
+/* 8 Nov: brass foil on screen + phone rules */
+.foilb { margin-top: clamp(56px, 7vw, 96px); }
+.foilb h3 { margin-bottom: 10px; }
+.foilb-grid { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.foilb-art { margin: 0; display: grid; place-items: center; gap: 22px; padding: clamp(36px, 5vw, 64px) 24px 24px; min-height: 260px; }
+.foilb-char { background: #141110; border: 1px solid var(--line-soft); }
+.foilb-leather { background: #3a1013 url(../assets/img/texture/oxblood-tufted-leather-lg.webp) center / cover; box-shadow: inset 0 0 60px rgba(0,0,0,.6); }
+.foilb-art figcaption { color: var(--ash); }
+.foilb-leather figcaption { color: #e2c48e; }
+.bfoil { display: block; width: min(80%, 420px); aspect-ratio: 705 / 170; filter: drop-shadow(0 -1px 0 rgba(255,236,200,.3)) drop-shadow(0 2px 2px rgba(0,0,0,.8)) drop-shadow(0 0 10px rgba(0,0,0,.35)); }
+.bfoil > i { display: block; width: 100%; height: 100%; background: linear-gradient(100deg, #8a6a3a 0%, #c29a5b 38%, #f4dfb4 50%, #c29a5b 62%, #8a6a3a 100%); background-size: 260% 100%; background-position: 50% 0;
+  -webkit-mask: url(../assets/logo/xxviii-wordmark-brass.svg) center / contain no-repeat; mask: url(../assets/logo/xxviii-wordmark-brass.svg) center / contain no-repeat; animation: bfoil 7s ease-in-out infinite alternate; }
+@keyframes bfoil { from { background-position: 15% 0; } to { background-position: 85% 0; } }
+@media (prefers-reduced-motion: reduce) { .bfoil > i { animation: none; } }
+.foilb-rules, .phr-list { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.phr-list { grid-template-columns: repeat(5, 1fr); }
+.foilb-rules li, .phr-list li { display: grid; gap: 6px; align-content: start; padding: 18px 20px 20px; border-top: 1px solid var(--brass); background: rgba(255,255,255,.02); }
+.foilb-rules b, .phr-list b { font: 400 1.3rem/1.15 var(--f-display); }
+.foilb-rules span, .phr-list span { color: var(--ash); font-size: .92rem; }
+.foilb-rules code { font: 500 .78rem/1.5 ui-monospace, Consolas, monospace; color: #e2c48e; word-break: break-word; }
+.phr { margin-top: clamp(56px, 7vw, 96px); }
+@media (max-width: 1100px) { .foilb-rules { grid-template-columns: 1fr 1fr; } .phr-list { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .foilb-grid, .foilb-rules, .phr-list { grid-template-columns: 1fr; } }
