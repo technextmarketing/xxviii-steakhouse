@@ -260,7 +260,7 @@
   /* ───────── Smooth scroll (Lenis) ───────── */
   var lenis = null;
   if (MOTION && !TOUCH && window.Lenis) {
-    lenis = new window.Lenis({ duration: 1.25, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    lenis = new window.Lenis({ duration: 1.25, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true, prevent: function (n) { return !!(n && n.closest && n.closest('.xxchat, [data-lenis-prevent]')); } });
     lenis.on('scroll', ST.update);
     G.ticker.add(function (t) { lenis.raf(t * 1000); });
     G.ticker.lagSmoothing(0);

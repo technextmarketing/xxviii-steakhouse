@@ -548,7 +548,7 @@
   var panel = null, log, chipsBox, input, typing = null, HIST = [], videoIO = null;
   function build() {
     panel = d.createElement('section');
-    panel.className = 'xxchat'; panel.id = 'xxchat'; panel.hidden = true;
+    panel.className = 'xxchat'; panel.id = 'xxchat'; panel.hidden = true; panel.setAttribute('data-lenis-prevent', '');
     panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-labelledby', 'xxchat-title');
     panel.innerHTML = '<header class="xxchat__head"><img class="xxchat__mono" src="assets/logo/xxviii-monogram-brass.svg" alt="" width="512" height="512">' +
       '<div><h2 class="xxchat__title" id="xxchat-title">Ask the host</h2><p class="xxchat__sub">Replies in a moment · not a booking line</p></div>' +
