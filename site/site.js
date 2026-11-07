@@ -283,6 +283,12 @@
     if (history.replaceState) history.replaceState(null, '', '#' + id);
   });
 
+  /* ───────── Brass foil: the bright band follows the pointer, like the menu cover ───────── */
+  if (FINE && !RM) {
+    var foils = $$('.foil'), fRaf = 0, fX = .5;
+    window.addEventListener('pointermove', function (e) { fX = e.clientX / window.innerWidth; if (!fRaf) fRaf = requestAnimationFrame(function () { fRaf = 0; foils.forEach(function (f) { f.style.setProperty('--fx', (100 - fX * 100).toFixed(1) + '%'); }); }); }, { passive: true });
+  }
+
   /* ───────── Header: hide on scroll down, show on scroll up ───────── */
   var hdr = $('#hdr'), lastY = window.scrollY, acc = 0, hidden = false;
   function showHdr() { if (hidden) { hidden = false; hdr.classList.remove('is-hidden'); } root.classList.add('hdr-shown'); }
@@ -835,10 +841,12 @@
       var row = $$('.mpanel .dish').filter(function (r) { var n = $('.dish__name', r); return n && n.textContent.replace(/\u00a0/g, ' ') === name; })[0];
       if (!row) return false;
       var pi = mPanels.indexOf(row.closest('.mpanel')); if (pi >= 0) setMenu(pi);
+      /* 8 Nov: centre the dish on screen; scrolling it to the top hid it under the header and the sticky course tabs */
       setTimeout(function () {
-        scrollToEl(row);
+        var b = row.getBoundingClientRect(), y = Math.max(0, b.top + window.scrollY - (window.innerHeight - b.height) / 2);
+        if (lenis) lenis.scrollTo(y, { duration: 1.2, force: true }); else window.scrollTo({ top: y, behavior: RM ? 'auto' : 'smooth' });
         row.classList.add('is-ask'); setTimeout(function () { row.classList.remove('is-ask'); }, 3600);
-      }, 60);
+      }, 80);
       return true;
     },
     book: function (o) {
@@ -1090,13 +1098,16 @@
 
   /* ───────── Photo reel ───────── */
   var rows = $$('.reel__row'), reelTw = [], userPaused = false, hoverPaused = false, onScreen = false;
-  rows.forEach(function (r, i) { reelTw.push(i ? G.fromTo(r, { xPercent: -50 }, { xPercent: 0, duration: 95, ease: 'none', repeat: -1, paused: true }) : G.to(r, { xPercent: -50, duration: 120, ease: 'none', repeat: -1, paused: true })); });
+  rows.forEach(function (r, i) { reelTw.push(i ? G.fromTo(r, { xPercent: -50 }, { xPercent: 0, duration: NARROW.matches ? 60 : 95, ease: 'none', repeat: -1, paused: true }) : G.to(r, { xPercent: -50, duration: NARROW.matches ? 75 : 120, ease: 'none', repeat: -1, paused: true })); });
   function syncReel() { var run = onScreen && !userPaused && !hoverPaused; reelTw.forEach(function (t) { if (run) t.play(); else t.pause(); }); }
   ST.create({ trigger: '.reel', start: 'top bottom', end: 'bottom top', onToggle: function (s) { onScreen = s.isActive; syncReel(); } });
   var rb = $('.reel__rows');
-  rb.addEventListener('pointerenter', function () { hoverPaused = true; syncReel(); });
+  /* mouse hover pauses; a finger only pauses while it is down (touch never sends a reliable leave) */
+  rb.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && FINE) { hoverPaused = true; syncReel(); } });
   rb.addEventListener('pointerleave', function () { hoverPaused = false; syncReel(); });
-  rb.addEventListener('focusin', function () { hoverPaused = true; syncReel(); });
+  rb.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') { hoverPaused = true; syncReel(); } });
+  ['pointerup', 'pointercancel'].forEach(function (ev) { rb.addEventListener(ev, function (e) { if (e.pointerType !== 'mouse') { hoverPaused = false; syncReel(); } }); });
+  rb.addEventListener('focusin', function () { if (FINE) { hoverPaused = true; syncReel(); } });
   rb.addEventListener('focusout', function () { hoverPaused = false; syncReel(); });
   var tgl = $('.reel__toggle');
   tgl.addEventListener('click', function () { userPaused = !userPaused; tgl.setAttribute('aria-pressed', userPaused ? 'true' : 'false'); $('.reel__txt', tgl).textContent = userPaused ? 'Play the photographs' : 'Pause the photographs'; syncReel(); });

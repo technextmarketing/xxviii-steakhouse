@@ -586,17 +586,27 @@
   d.body.appendChild(dock);
   var launcher = dock.querySelector('.xxdock__ask');
   try { if (!sessionStorage.getItem('xx-chat-cue')) setTimeout(function () { if (!panel || panel.hidden) { launcher.classList.add('is-cue'); try { sessionStorage.setItem('xx-chat-cue', '1'); } catch (e) { } setTimeout(function () { launcher.classList.remove('is-cue'); }, 2600); } }, 8000); } catch (e) { }
-  /* lift the dock clear of the booking form's submit button */
-  var lifting = false;
-  function liftCheck() {
-    lifting = false;
-    var sb = d.querySelector('.bk-submit, .booking__acts'); if (!sb) return;
-    var r = sb.getBoundingClientRect(), dr = dock.getBoundingClientRect();
-    var over = r.bottom > dr.top - 12 && r.top < dr.bottom + 12 && r.right > dr.left - 12;
-    dock.classList.toggle('is-lift', over && r.height > 0);
+  /* 8 Nov mobile audit: tuck the dock away whenever it would sit on a button, a form field or a date/time chip */
+  var tucking = false, HIT = 'a.btn, button.btn, input, select, textarea, label.chipr, label.tslot, .stepper, .bk-context, .booking__next a, .chip, .reel__toggle';
+  function tuckCheck() {
+    tucking = false;
+    if (panel && !panel.hidden) { dock.classList.remove('is-tuck'); return; }
+    var hit = false;
+    Array.prototype.forEach.call(dock.querySelectorAll('.xxdock__ask, .xxdock__book'), function (el) {
+      var r = el.getBoundingClientRect(); if (!r.width || hit) return;
+      [[.5, .5], [.15, .2], [.85, .2], [.15, .8], [.85, .8]].forEach(function (f) {
+        if (hit) return;
+        var st = d.elementsFromPoint(r.left + r.width * f[0], r.top + r.height * f[1]);
+        for (var i = 0; i < st.length; i++) { if (dock.contains(st[i])) continue; if (st[i].closest && st[i].closest(HIT)) hit = true; break; }
+      });
+    });
+    dock.classList.toggle('is-tuck', hit);
   }
-  window.addEventListener('scroll', function () { if (!lifting) { lifting = true; requestAnimationFrame(liftCheck); } }, { passive: true });
-  window.addEventListener('resize', liftCheck);
+  function qTuck() { if (!tucking) { tucking = true; requestAnimationFrame(tuckCheck); } }
+  window.addEventListener('scroll', qTuck, { passive: true });
+  window.addEventListener('resize', qTuck);
+  d.addEventListener('focusin', qTuck);
+  setInterval(function () { if (!d.hidden) tuckCheck(); }, 350); /* reveals and swipes move buttons without a page scroll */
 
   /* ════════════════════ 7. UI: panel (built on first open) ════════════════════ */
   var panel = null, log, chipsBox, input, typing = null, HIST = [], videoIO = null, say, pill, lastBot = null, lockY = 0;

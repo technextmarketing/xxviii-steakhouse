@@ -186,3 +186,7 @@ html.xxchat-lock, html.xxchat-lock body { overscroll-behavior: none; }
 
 /* 8 Nov: phones open the menu book from the action bar; no floating book button */
 @media (max-width: 767px) { .xxdock__book { display: none; } }
+
+/* 8 Nov mobile audit: the dock steps aside when it would cover a button or field */
+.xxdock > * { transition: opacity .35s var(--ease-out), transform .45s var(--ease-out); }
+.xxdock.is-tuck > * { opacity: 0; transform: translateX(28px); pointer-events: none; }
