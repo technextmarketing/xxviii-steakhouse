@@ -67,7 +67,10 @@ window.XXVIII = {
         { days: 'Sunday', time: '12:00 PM – 3:00 PM · 5:30 PM – 10:00 PM' },
         { days: 'Monday', time: 'Closed. The beef rests, and so do we.' }
       ],
-      capacity: '84 covers · private room for 14'
+      capacity: '84 covers · private room for 14',
+      /* PLACEHOLDER (owner to confirm): opening night as 'YYYY-MM-DD'. While it is set and in the future, the website shows
+         'Opening <date> · Reservations open' instead of live opening hours. null = the restaurant is open. */
+      openingDate: null
     },
     placeholders: ['Street address', 'Phone', 'Email and domain (.example)', 'Social handles', 'Opening hours', 'Capacity and private room size', 'All prices (indicative PHP)', 'Steak weights and ageing days per cut', 'Opening year MMXXVI', 'Name clearance: IPOPHL / DTI (PH), ACRA (SG), domain, handles']
   },
@@ -165,3 +168,13 @@ window.XXVIII.media = {
 window.XXVIII.video = function (slug, q) { var b = (window.XXVIII_BASE || '') + 'assets/video/' + slug; return q === 'poster' ? b + '-poster.webp' : b + '-' + (q || 'hd') + '.mp4'; };
 window.XXVIII.block = function (slug, size) { return (window.XXVIII_BASE || '') + 'assets/img/block/' + slug + '-' + (size || 'md') + '.webp'; };
 window.XXVIII.texture = function (slug, size) { return (window.XXVIII_BASE || '') + 'assets/img/texture/' + slug + '-' + (size || 'lg') + '.webp'; };
+/* Media batch 3 (7 Nov): interior set, 16:9 2048x1152 -> assets/img/interior/<slug>-{lg 1920|md 1200|sm 640}.webp */
+window.XXVIII.media.interior = {
+  'dry-aging-cabinet': 'The glass ageing cabinet by the entrance: hanging cuts behind brass-framed glass, oxblood banquette, one table.',
+  'main-dining-room': 'The dining room: white linen, oxblood leather chairs, brass pendants, tall windows.',
+  'bar': 'The bar: dark wood counter, oxblood stools, the bartender polishing a glass, back bar of spirits.',
+  'private-dining-room': 'The private room: one long table for fourteen, brass pendants, wood panelling.',
+  'entrance-host-stand': 'The entrance: walnut host stand, a view through to the room.',
+  'open-kitchen-chefs-counter': 'The open kitchen: chef at the pass, steel line, chef’s counter with oxblood stools.'
+};
+window.XXVIII.interior = function (slug, size) { return (window.XXVIII_BASE || '') + 'assets/img/interior/' + slug + '-' + (size || 'md') + '.webp'; };
