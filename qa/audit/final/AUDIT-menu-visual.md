@@ -134,3 +134,7 @@ Margins and folios were consistent before and after on every page: the content b
 - **Desktop:** the 3D book is the only view. The "Page view" link to the classic reader is removed from the bar.
 - **Phones:** the course-card scroll is the only view. The List button and list view are removed, as is the red course strip under the bar. Cards now start 72 px down instead of 120 px.
 - **QA:** the phone checks now assert one view only (no list, no strip, no page view). All suites pass: 40 / 40 / 17 / 17, plus reduced motion.
+
+## Round 4: the view follows the window
+
+The view was chosen once, at load, so a desktop window narrowed to phone width kept a tiny book. The page now reloads into the other view whenever the viewport crosses the phone line (resize or rotation). Checked by narrowing 1440 → 600 → 390 (cards, no book) and widening back (book).

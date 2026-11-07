@@ -16,7 +16,8 @@
   const slug = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const fold = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || !!window.LIVE_PRINT;
-  const mobile = matchMedia('(max-width: 760px), (max-width: 1023px) and (orientation: portrait)').matches;
+  const PHONE = matchMedia('(max-width: 760px), (max-width: 1023px) and (orientation: portrait)');
+  const mobile = PHONE.matches;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const sec = id => X.menu.find(s => s.id === id);
   const M = {
@@ -765,6 +766,11 @@
     if (v && !mobile && !(navigator.connection && navigator.connection.saveData)) { v.poster = X.video('cowboy-cut', 'poster'); if (!reduced) { v.src = X.video('cowboy-cut', 'sd'); const p = v.play(); if (p && p.catch) p.catch(() => {}); } }
     else if (v) v.remove();
     document.documentElement.classList.add('ready');
+    // one view per device: if the window crosses the phone line (a resized window, a rotated tablet), reload into the other view
+    let swapT = 0;
+    const swap = () => { clearTimeout(swapT); swapT = setTimeout(() => { if (PHONE.matches !== mobile) location.reload(); }, 180); };
+    if (PHONE.addEventListener) PHONE.addEventListener('change', swap); else if (PHONE.addListener) PHONE.addListener(swap);
+    addEventListener('resize', swap);
   }
   /* ================================================================== PRINT: the same pages, 230 x 330 mm, for the PDF (print.html sets LIVE_PRINT) */
   const Print = {
