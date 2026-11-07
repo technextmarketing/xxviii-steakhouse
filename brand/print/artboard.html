@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XXVIII Artboard</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../../assets/css/brand.css">
+<style>
+  html, body { margin: 0; background: #141110; overflow: hidden; }
+  .board { position: relative; overflow: hidden; background: #0f0c0b; container-type: inline-size; display: none; }
+  .board.on { display: block; }
+  .pool { position: absolute; inset: 0; background: radial-gradient(52% 52% at 50% 50%, rgba(226,196,142,.16), rgba(194,154,91,.04) 60%, transparent 75%); }
+  .grain-s { position: absolute; inset: 0; opacity: .08; mix-blend-mode: overlay; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .center { position: absolute; inset: 0; display: grid; place-items: center; }
+  /* avatars */
+  #avatar-monogram .center img { width: 58%; }
+  #avatar-seal .center img { width: 84%; }
+  /* facebook cover 1640 x 624 */
+  #fb-cover { display: none; }
+  #fb-cover.on { display: grid; grid-template-columns: 54% 46%; }
+  .fb-photo { position: relative; overflow: hidden; }
+  .fb-photo img { position: absolute; left: 0; top: -22%; width: 100%; height: auto; }
+  .fb-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(270deg, #0f0c0b 0%, rgba(15,12,11,.35) 24%, transparent 48%); }
+  .fb-copy { position: relative; display: grid; justify-items: center; align-content: center; gap: 2.4cqw; text-align: center; padding-right: 12cqw; background: radial-gradient(60% 80% at 40% 50%, rgba(194,154,91,.1), transparent 70%); }
+  .fb-copy img { width: 26cqw; }
+  .fb-copy p { font: 400 2.5cqw/1.1 var(--f-display); color: var(--bone); margin: 0; }
+  /* story 1080 x 1920 */
+  .st-photo { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 1; height: auto; object-fit: cover; }
+  .st-fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,12,11,.6) 0%, transparent 16%, transparent 40%, #0f0c0b 58%); }
+  .st-mono { position: absolute; left: 50%; top: 15cqw; width: 12cqw; translate: -50% 0; }
+  .st-copy { position: absolute; left: 9cqw; right: 9cqw; bottom: 38cqw; display: grid; justify-items: start; gap: 2.4cqw; }
+  .st-copy .label { font-size: 3.4cqw; color: var(--ash); letter-spacing: .3em; }
+  .st-num { font: 700 32cqw/.85 var(--f-label); color: var(--brass); letter-spacing: .01em; }
+  .st-line { font: 400 9cqw/1.04 var(--f-display); color: var(--bone); margin: 0; }
+  .st-rule { width: 100%; margin-top: 3cqw; }
+  .st-foot { position: absolute; left: 9cqw; right: 9cqw; bottom: 22cqw; display: flex; justify-content: space-between; align-items: center; font: 600 3cqw/1 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--ash); }
+  /* email header 1200 x 400 */
+  #email-header.on { display: grid; grid-template-columns: 1fr 1fr; }
+  .mh-copy { display: grid; align-content: center; justify-items: start; gap: 3cqw; padding: 0 5cqw; position: relative; }
+  .mh-copy img { width: 36cqw; }
+  .mh-copy p { font: 400 3.6cqw/1 var(--f-display); color: var(--bone); margin: 0; }
+  .mh-photo { position: relative; overflow: hidden; }
+  .mh-photo img { position: absolute; left: 0; top: -22%; width: 100%; height: auto; }
+  .mh-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #0f0c0b, transparent 40%); }
+  /* gbp 2048 x 1152 */
+  .gb-photo { position: absolute; width: 74%; top: -10%; right: -6%; height: auto; }
+  .gb-fade { position: absolute; inset: 0; background: linear-gradient(90deg, #0f0c0b 0%, #0f0c0b 30%, rgba(15,12,11,.5) 44%, transparent 60%); }
+  .gb-logo { position: absolute; left: 6%; top: 0; bottom: 0; width: 28%; display: grid; place-items: center; align-content: center; gap: 3cqw; text-align: center; }
+  .gb-logo p { font: 400 2.4cqw/1.1 var(--f-display); color: var(--bone); margin: 0; }
+  /* og 1200 x 630 */
+  .og-copy { position: absolute; inset: 0; display: grid; align-content: center; justify-items: start; gap: 4cqw; padding: 0 7cqw; background: radial-gradient(60% 90% at 78% 60%, rgba(194,154,91,.16), transparent 70%); }
+  .og-copy img { width: 34cqw; }
+  .og-copy p { font: 400 4.4cqw/1.1 var(--f-display); max-width: 14ch; color: var(--bone); margin: 0; }
+  .og-ph { position: absolute; right: -4cqw; top: 50%; width: 56cqw; translate: 0 -46%; filter: drop-shadow(0 4cqw 4cqw rgba(0,0,0,.6)); }
+  /* pattern */
+  #pattern-tally { background-color: #141110; background-size: 320px 240px; }
+</style>
+</head>
+<body>
+<div class="board" id="avatar-monogram" data-w="1080" data-h="1080"><div class="pool"></div><div class="center"><img src="../../assets/logo/xxviii-monogram-brass.svg" alt="XXVIII monogram"></div><div class="grain-s"></div></div>
+<div class="board" id="avatar-seal" data-w="1080" data-h="1080"><div class="pool"></div><div class="center"><img src="../../assets/logo/xxviii-seal-brass.svg" alt="XXVIII seal"></div><div class="grain-s"></div></div>
+
+<div class="board" id="fb-cover" data-w="1640" data-h="624">
+  <div class="fb-photo"><img src="../../assets/img/plated/porterhouse-for-two-lg.webp" alt=""></div>
+  <div class="fb-copy"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Some things can’t be hurried.</p></div>
+  <div class="grain-s"></div>
+</div>
+
+<div class="board" id="ig-story" data-w="1080" data-h="1920">
+  <img class="st-photo" src="../../assets/img/plated/prime-ribeye-lg.webp" alt="">
+  <div class="st-fade"></div>
+  <img class="st-mono" src="../../assets/logo/xxviii-monogram-brass.svg" alt="">
+  <div class="st-copy"><span class="label">Day</span><span class="st-num">31</span><p class="st-line">Friday’s ribeyes are nearly there.</p><div class="rule-diamond st-rule"><i></i></div></div>
+  <div class="st-foot"><span>The ageing room</span><span>xxviii.example</span></div>
+  <div class="grain-s"></div>
+</div>
+
+<div class="board" id="email-header" data-w="1200" data-h="400">
+  <div class="mh-copy"><img src="../../assets/logo/xxviii-horizontal-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Worth the wait.</p></div>
+  <div class="mh-photo"><img src="../../assets/img/plated/chateaubriand-for-two-lg.webp" alt=""></div>
+  <div class="grain-s"></div>
+</div>
+
+<div class="board" id="gbp-cover" data-w="2048" data-h="1152">
+  <img class="gb-photo" src="../../assets/img/plated/sovereign-tomahawk-lg.webp" alt="">
+  <div class="gb-fade"></div>
+  <div class="gb-logo"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Some things can’t be hurried.</p></div>
+  <div class="grain-s"></div>
+</div>
+
+<div class="board" id="og-image" data-w="1200" data-h="630">
+  <div class="og-copy"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Some things can’t be hurried.</p></div>
+  <img class="og-ph" src="../../assets/img/cutout/new-york-strip-lg.webp" alt="">
+  <div class="grain-s"></div>
+</div>
+
+<div class="board" id="pattern-tally" data-w="2000" data-h="2000"></div>
+
+<script>
+(function () {
+  var id = (location.search.match(/id=([\w-]+)/) || [])[1] || 'og-image';
+  var b = document.getElementById(id);
+  b.classList.add('on');
+  b.style.width = b.dataset.w + 'px'; b.style.height = b.dataset.h + 'px';
+  if (id === 'pattern-tally') {
+    var gate = function (x, y) {
+      var s = ''; for (var k = 0; k < 4; k++) s += '<line x1="' + (x + k * 9) + '" y1="' + y + '" x2="' + (x + k * 9) + '" y2="' + (y + 30) + '"/>';
+      return s + '<line x1="' + (x - 5) + '" y1="' + (y + 26) + '" x2="' + (x + 32) + '" y2="' + (y + 4) + '"/>';
+    };
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="160" height="120" viewBox="0 0 160 120"><g stroke="#C29A5B" stroke-width="1.6" stroke-linecap="round" fill="none" opacity=".85">' + gate(18, 14) + gate(98, 74) + '</g></svg>';
+    b.style.backgroundImage = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+  }
+  var imgs = Array.prototype.slice.call(b.querySelectorAll('img'));
+  Promise.all([document.fonts.ready].concat(imgs.map(function (i) { return i.decode ? i.decode().catch(function () {}) : Promise.resolve(); })))
+    .then(function () { document.body.dataset.ready = '1'; });
+})();
+</script>
+</body>
+</html>

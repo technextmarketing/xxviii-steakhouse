@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XXVIII · Twenty-Eight Steakhouse — Dry-aged in Bonifacio Global City</title>
+<meta name="description" content="Twenty-Eight is a dry-aged steakhouse in Bonifacio Global City. Every steak on the menu lists its age. Reserve a table for a long, unhurried dinner.">
+<meta name="theme-color" content="#141110">
+<link rel="canonical" href="https://xxviii.example/">
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="restaurant">
+<meta property="og:site_name" content="XXVIII · Twenty-Eight Steakhouse">
+<meta property="og:url" content="https://xxviii.example/">
+<meta property="og:title" content="XXVIII · Twenty-Eight Steakhouse — Some things can’t be hurried.">
+<meta property="og:description" content="A dry-aged steakhouse in Bonifacio Global City. Every steak on the menu lists its age.">
+<meta property="og:image" content="https://xxviii.example/assets/img/plated/cowboy-cut-lg.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1600">
+<meta property="og:image:alt" content="The Twenty-Eight, a bone-in ribeye, on a white plate on a walnut table">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="XXVIII · Twenty-Eight Steakhouse">
+<meta name="twitter:description" content="A dry-aged steakhouse in Bonifacio Global City. Every steak on the menu lists its age.">
+<meta name="twitter:image" content="https://xxviii.example/assets/img/plated/cowboy-cut-lg.webp">
+<script>
+(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');
+try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('hero-wait');setTimeout(function(){d.classList.remove('hero-wait');},2600);}}catch(e){}
+try{if(!sessionStorage.getItem('xxviii-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-on');
+setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}},3200);}}catch(e){}})();
+</script>
+<link rel="preload" href="assets/fonts/Gloock-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/BigShoulders.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/video/cowboy-cut-poster.webp" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/brand.css">
+<link rel="stylesheet" href="site/site.css">
+<script type="application/ld+json" id="ld-restaurant">
+{"@context":"https://schema.org","@type":"Restaurant","@id":"https://xxviii.example/#restaurant","name":"Twenty-Eight Steakhouse","alternateName":"XXVIII","url":"https://xxviii.example/","servesCuisine":"Steakhouse","priceRange":"₱₱₱₱","acceptsReservations":true,"hasMenu":"https://xxviii.example/menu/","image":"https://xxviii.example/assets/img/plated/cowboy-cut-lg.webp","logo":"https://xxviii.example/assets/logo/xxviii-primary-brass.svg","telephone":"+63 (2) 0000 0028","email":"reservations@xxviii.example","address":{"@type":"PostalAddress","streetAddress":"[Street], Bonifacio Global City","addressLocality":"Taguig","addressRegion":"Metro Manila","addressCountry":"PH"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Tuesday","https://schema.org/Wednesday","https://schema.org/Thursday"],"opens":"17:30","closes":"23:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Friday","https://schema.org/Saturday"],"opens":"17:30","closes":"00:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"17:30","closes":"22:00"}]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- 0. Intro sting (first visit per session; JS-gated by .intro-on) -->
+<div class="intro" id="intro">
+  <div class="intro__stage" aria-hidden="true">
+    <span class="intro__line"></span>
+    <svg class="intro__tally" viewBox="0 0 520 64"></svg>
+    <span class="intro__day label"><span>Day</span> <b class="num" id="intro-day">01</b></span>
+    <div class="intro__mark"></div>
+  </div>
+  <button class="intro__skip label" type="button">Skip the intro</button>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+
+<!-- 1. Header -->
+<header class="hdr" id="hdr">
+  <div class="hdr__in">
+    <a class="hdr__logo" href="#top" aria-label="XXVIII Twenty-Eight Steakhouse, back to top">
+      <img src="assets/logo/xxviii-horizontal-brass.svg" alt="" width="774" height="122">
+    </a>
+    <nav class="hdr__nav" aria-label="Primary">
+      <ul>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#ageing">Ageing Room</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#private">Private Dining</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-solid hdr__cta" href="#reserve">Reserve a table</a>
+    <button class="hdr__burger label" type="button" aria-expanded="false" aria-controls="overlay" aria-label="Open the site index">
+      <span class="hdr__burger-txt" aria-hidden="true">Index</span><span class="hdr__burger-ico" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile overlay navigation -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Site index" hidden>
+  <div class="overlay__in">
+    <nav aria-label="Site index">
+      <ol class="overlay__list">
+        <li><a href="#story"><span>Story</span></a></li>
+        <li><a href="#ageing"><span>Ageing Room</span></a></li>
+        <li><a href="#menu"><span>Menu</span></a></li>
+        <li><a href="#private"><span>Private Dining</span></a></li>
+        <li><a href="#visit"><span>Visit</span></a></li>
+        <li><a href="#reserve"><span>Reserve</span></a></li>
+      </ol>
+    </nav>
+    <div class="overlay__foot">
+      <p class="label muted" data-status-short>Open tonight</p>
+      <a class="link nw" data-tel href="tel:+63200000028">+63 (2) 0000 0028</a>
+    </div>
+    <img class="overlay__logo" src="assets/logo/xxviii-horizontal-brass.svg" alt="" width="774" height="122">
+    <button class="overlay__close label" type="button">Close</button>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- 2. Hero -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__media" aria-hidden="true">
+    <div class="hero__frame">
+      <video class="hero__video" data-vid="cowboy-cut" data-priority="hero" muted loop playsinline preload="none" disablepictureinpicture
+        poster="assets/video/cowboy-cut-poster.webp" width="1920" height="1080"></video>
+    </div>
+    <div class="hero__pool"></div>
+    <div class="hero__shade"></div>
+    <div class="hero__tag">
+      <span class="hero__string"></span>
+      <img src="assets/logo/xxviii-tag-brass.svg" alt="" width="360" height="600">
+    </div>
+  </div>
+  <div class="wrap hero__copy">
+    <h1 class="hero__title" id="hero-title" data-bind="brand.taglines.0">Some things can’t be hurried.</h1>
+    <p class="hero__sub">A dry-aged steakhouse in Bonifacio Global City. Every steak on the menu lists its age.</p>
+    <div class="hero__ctas">
+      <a class="btn btn-solid" href="#reserve">Reserve a table <span class="arr" aria-hidden="true"></span></a>
+      <a class="btn btn-line" href="#menu">See the menu</a>
+    </div>
+  </div>
+  <div class="wrap hero__strip">
+    <p class="hero__status label"><span class="dot" aria-hidden="true"></span><span data-status>Open tonight · 5:30 PM – 11:00 PM</span></p>
+    <a class="hero__cue label" href="#story"><span>Scroll</span><i aria-hidden="true"></i></a>
+  </div>
+</section>
+
+<!-- 3. Twenty-eight days -->
+<section class="story" id="story" aria-labelledby="story-title">
+  <div class="story__pin">
+    <div class="wrap story__grid">
+      <div class="story__left">
+        <h2 class="story__title" id="story-title" data-bind="brand.taglines.2">Time is the finest ingredient.</h2>
+        <div class="odo" aria-hidden="true">
+          <span class="odo__label label">Day</span>
+          <span class="odo__digits num"><span class="odo__static">28</span><span class="odo__reel odo__reel--t"></span><span class="odo__reel odo__reel--o"></span></span>
+        </div>
+        <div class="story__lines">
+          <p class="story__line" data-bind="brand.story.0">Twenty-eight days. That is how long it takes for good beef to become great: still, cold, quiet, patient.</p>
+          <p class="story__line" data-bind="brand.story.2">Every steak we serve has waited for this moment, and so has your table.</p>
+          <p class="story__line story__line--last" data-bind="brand.story.1">We don’t rush the beef, so we never rush you.</p>
+        </div>
+      </div>
+      <div class="story__stage" aria-hidden="true">
+        <div class="story__glow"></div>
+        <div class="story__cutwrap">
+          <img class="story__cut" src="assets/img/cutout/new-york-strip-lg.webp" srcset="assets/img/cutout/new-york-strip-sm.webp 600w, assets/img/cutout/new-york-strip-lg.webp 1200w" sizes="(min-width: 900px) 46vw, 90vw" width="1200" height="804" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="story__frost"><span class="story__frost-grain"></span></div>
+      </div>
+    </div>
+    <div class="wrap story__ruler" aria-hidden="true">
+      <div class="ruler">
+        <div class="ruler__ticks"></div>
+        <div class="ruler__fill"></div>
+      </div>
+      <ol class="beats" data-beats>
+        <li style="--d:7"><span class="label">Day 07</span><b>Still</b></li>
+        <li style="--d:14"><span class="label">Day 14</span><b>Cold</b></li>
+        <li style="--d:21"><span class="label">Day 21</span><b>Quiet</b></li>
+        <li style="--d:28"><span class="label">Day 28</span><b>Patient</b></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="seam" aria-hidden="true"><div class="rule-diamond"><i></i></div></div>
+
+<!-- 4. The Ageing Room board -->
+<section class="board" id="ageing" aria-labelledby="board-title">
+  <div class="wrap board__head">
+    <h2 id="board-title">The Ageing Room</h2>
+    <p class="board__line">Every steak lists its age. Nothing is hidden.</p>
+    <p class="board__date label"><span>Today’s board</span> <span class="board__date-sep" aria-hidden="true"></span> <time data-today></time></p>
+  </div>
+  <noscript><p class="wrap muted board__noscript">Today’s cuts and their ages are in the <a class="link" href="menu/index.html">menu book</a>.</p></noscript>
+  <div class="wrap board__body">
+    <div class="board__glass">
+      <div class="board__list" role="tablist" aria-orientation="vertical" aria-label="Cuts in the ageing room" data-board-list></div>
+      <div class="board__scale label" aria-hidden="true"><div class="bs"><span style="--d:0">0</span><span style="--d:14">14</span><span style="--d:28">28</span><span style="--d:45">45</span></div><span class="bs-unit">days</span></div>
+    </div>
+    <div class="board__detail" role="tabpanel" id="board-panel" tabindex="0" data-board-panel>
+      <div class="board__screen">
+        <span class="board__corner board__corner--tl" aria-hidden="true"></span><span class="board__corner board__corner--br" aria-hidden="true"></span>
+      </div>
+      <div class="board__info">
+        <p class="age-tag" data-b-age>Aged <b>35</b> days</p>
+        <h3 data-b-name>Prime Ribeye</h3>
+        <p class="board__desc muted" data-b-desc></p>
+        <dl class="board__facts">
+          <div><dt class="label">Weight</dt><dd class="num" data-b-weight></dd></div>
+          <div data-b-serves-row><dt class="label">Serves</dt><dd class="num" data-b-serves></dd></div>
+          <div><dt class="label">Price</dt><dd class="price" data-b-price></dd></div>
+        </dl>
+        <p class="board__card"><span class="label">On its card</span><span class="board__card-txt" data-b-card></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. The Signature -->
+<section class="sig" id="signature" aria-labelledby="sig-title">
+  <div class="wrap sig__grid">
+    <figure class="sig__photo">
+      <div class="sig__frame">
+        <img src="assets/img/block/cowboy-cut-lg.webp" srcset="assets/img/block/cowboy-cut-md.webp 960w, assets/img/block/cowboy-cut-lg.webp 1920w" sizes="(min-width: 900px) 70vw, 180vw" width="1920" height="1080" alt="Close up of The Twenty-Eight: a seared crust, rosemary and cultured butter melting into the ribeye" loading="lazy" decoding="async">
+      </div>
+    </figure>
+    <div class="sig__copy">
+      <h2 class="sig__title" id="sig-title" data-bind="brand.signature.name">The Twenty-Eight</h2>
+      <p class="sig__line" data-bind="brand.signature.line">A bone-in ribeye dry-aged for 28 days, finished with cultured butter that has aged beside it in the same room.</p>
+      <div class="sig__facts" data-sig-facts></div>
+      <div class="card3d" data-card>
+        <button class="card3d__btn" type="button" aria-pressed="false" aria-label="Turn the steak card">
+          <span class="card3d__inner">
+            <span class="card3d__face card3d__front">
+              <img class="card3d__mono" src="assets/logo/xxviii-monogram-char.svg" alt="" width="512" height="512">
+              <span class="card3d__lines" data-card-lines><span>Aged 28 days.</span><span>Cut today.</span><span>Yours tonight.</span></span>
+            </span>
+            <span class="card3d__face card3d__back">
+              <img class="card3d__seal" src="assets/logo/xxviii-monogram-char.svg" alt="" width="512" height="512">
+              <span class="card3d__name" data-card-name>The Twenty-Eight</span>
+              <span class="card3d__cut label" data-card-cut>Cut today</span>
+            </span>
+          </span>
+        </button>
+        <p class="card3d__hint label muted" aria-hidden="true">Every steak arrives with its own card. Turn it over.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. The Menu -->
+<section class="menu" id="menu" aria-labelledby="menu-title">
+  <div class="wrap menu__head">
+    <h2 id="menu-title">The menu</h2>
+    <p class="menu__intro">From the first taste to the last. Prices in pesos.</p>
+  </div>
+  <div class="menu__tabs-wrap">
+    <div class="wrap">
+      <div class="menu__tabs" role="tablist" aria-label="Menu sections" data-menu-tabs></div>
+    </div>
+  </div>
+  <div class="wrap menu__body" data-menu-panels>
+    <noscript><p class="menu__noscript">The full menu is in the <a class="link" href="menu/index.html">menu book</a> and the <a class="link" href="menu/out/xxviii-menu.pdf">printable PDF</a>.</p></noscript>
+  </div>
+  <div class="wrap menu__foot">
+    <a class="btn btn-line" href="menu/index.html">Open the menu book <span class="arr" aria-hidden="true"></span></a>
+    <a class="link label menu__pdf" href="menu/out/xxviii-menu.pdf" download>Download the menu (PDF)</a>
+  </div>
+</section>
+
+<div class="seam" aria-hidden="true"><div class="rule-diamond"><i></i></div></div>
+
+<!-- 7. The Long Wait -->
+<section class="wait" id="long-wait" aria-labelledby="wait-title">
+  <div class="wait__pin">
+    <div class="wait__track" data-wait-track>
+      <div class="wait__intro">
+        <p class="wait__day num" aria-hidden="true"><span>Day</span>45</p>
+        <h2 id="wait-title">The Long Wait</h2>
+        <p class="wait__line">Forty-five-day cuts for the table. Order early.</p>
+        <p class="wait__swipe label" aria-hidden="true">Swipe <i></i></p>
+      </div>
+      <!-- cut panels + enhancements rendered from data -->
+    </div>
+    <div class="wait__progress" aria-hidden="true"><i></i></div>
+  </div>
+</section>
+
+<!-- 8. Patience -->
+<section class="patience" id="patience" aria-labelledby="patience-title">
+  <div class="patience__scene" aria-hidden="true"></div>
+  <div class="wrap patience__grid">
+    <div class="glass" aria-hidden="true">
+      <svg class="glass__svg" viewBox="0 0 420 470">
+        <defs>
+          <clipPath id="c-inside"><path d="M108 168 L312 168 L304 392 Q303 404 290 404 L130 404 Q117 404 116 392 Z"/></clipPath>
+          <clipPath id="c-above"><rect x="0" y="0" width="420" height="214"/></clipPath>
+          <clipPath id="c-below"><rect x="0" y="214" width="420" height="260"/></clipPath>
+        </defs>
+        <g class="glass__caustic">
+          <ellipse cx="214" cy="438" rx="150" ry="16" fill="none" stroke="#c29a5b" stroke-opacity=".45"/>
+          <ellipse cx="214" cy="438" rx="104" ry="10" fill="none" stroke="#c29a5b" stroke-opacity=".3"/>
+          <ellipse cx="214" cy="438" rx="58" ry="6" fill="none" stroke="#e2c48e" stroke-opacity=".5"/>
+        </g>
+        <!-- spoon above the surface -->
+        <g clip-path="url(#c-above)"><g class="glass__spoon"><g class="glass__spoon-in">
+          <line x1="0" y1="-150" x2="0" y2="150" stroke="#c29a5b" stroke-width="1.5"/>
+          <path d="M-3 -146 L3 -140 M-3 -132 L3 -126 M-3 -118 L3 -112 M-3 -104 L3 -98 M-3 -90 L3 -84 M-3 -76 L3 -70 M-3 -62 L3 -56 M-3 -48 L3 -42" stroke="#c29a5b" stroke-width="1"/>
+          <circle cx="0" cy="-158" r="7" fill="none" stroke="#c29a5b" stroke-width="1.5"/>
+        </g></g></g>
+        <!-- inside the glass -->
+        <g clip-path="url(#c-inside)">
+          <rect x="100" y="214" width="220" height="200" fill="#c29a5b" fill-opacity=".09"/>
+          <g class="glass__caust-in">
+            <path d="M96 300 C150 284 196 318 236 300 S300 290 330 304" stroke="#e2c48e" stroke-opacity=".35" fill="none"/>
+            <path d="M96 344 C150 332 200 358 244 340 S300 330 330 346" stroke="#e2c48e" stroke-opacity=".22" fill="none"/>
+          </g>
+          <g class="glass__ice">
+            <rect x="156" y="196" width="104" height="100" rx="8" fill="#efe7da" fill-opacity=".04" stroke="#efe7da" stroke-opacity=".8" stroke-width="1.25"/>
+            <rect x="170" y="210" width="76" height="72" rx="5" fill="none" stroke="#efe7da" stroke-opacity=".28"/>
+            <path d="M156 204 L170 210 M260 204 L246 210 M156 288 L170 282 M260 288 L246 282" stroke="#efe7da" stroke-opacity=".28"/>
+          </g>
+          <g clip-path="url(#c-below)" opacity=".55"><g class="glass__spoon"><g class="glass__spoon-in">
+            <line x1="0" y1="-150" x2="0" y2="150" stroke="#e2c48e" stroke-width="1.25"/>
+            <ellipse cx="0" cy="154" rx="9" ry="5" fill="none" stroke="#e2c48e"/>
+          </g></g></g>
+          <line x1="96" y1="214" x2="330" y2="214" stroke="#c29a5b" stroke-width="1.25"/>
+        </g>
+        <!-- glass outline -->
+        <path d="M100 150 L320 150 L308 398 Q306 420 286 420 L134 420 Q114 420 112 398 Z" fill="none" stroke="#efe7da" stroke-opacity=".7" stroke-width="1.25"/>
+        <path d="M116 392 Q117 404 130 404 L290 404 Q303 404 304 392" fill="none" stroke="#efe7da" stroke-opacity=".35"/>
+        <ellipse cx="210" cy="150" rx="110" ry="8" fill="none" stroke="#efe7da" stroke-opacity=".6" stroke-width="1.25"/>
+        <path d="M120 176 L114 370" stroke="#efe7da" stroke-opacity=".35" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="patience__copy">
+      <h2 id="patience-title" data-bind="brand.cocktail.name">Patience</h2>
+      <p class="patience__line" data-bind="brand.cocktail.line">A beef-fat-washed bourbon Old Fashioned, stirred slowly and served over a single clear ice cube.</p>
+      <p class="patience__meta"><span class="label">The house cocktail</span><span class="price" data-cocktail-price></span></p>
+      <ul class="drinks" data-drinks></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Photo marquee -->
+<section class="reel" id="dishes" aria-labelledby="reel-title">
+  <div class="wrap reel__head">
+    <h2 id="reel-title">Before the steak, and after it.</h2>
+    <button class="reel__toggle label" type="button" aria-pressed="false"><span class="reel__ico" aria-hidden="true"></span><span class="reel__txt">Pause the photographs</span></button>
+  </div>
+  <div class="reel__rows" data-reel></div>
+</section>
+
+<!-- 10. Values -->
+<section class="values" id="values" aria-labelledby="values-title">
+  <div class="wrap">
+    <h2 class="values__title" id="values-title">What we keep to</h2>
+    <ul class="values__list" data-values>
+      <li class="value"><span class="value__word">Patience</span><p class="value__line">Good things take time, in the ageing room and at the table.</p></li>
+      <li class="value"><span class="value__word">Craft</span><p class="value__line">Every cut is aged, trimmed and seared by hand.</p></li>
+      <li class="value"><span class="value__word">Honesty</span><p class="value__line">The menu tells you how many days each steak has aged.</p></li>
+      <li class="value"><span class="value__word">Gathering</span><p class="value__line">A long wait deserves a long dinner. Guests are never hurried.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 11. Private dining -->
+<section class="private" id="private" aria-labelledby="private-title">
+  <div class="private__bg" aria-hidden="true"></div>
+  <div class="wrap private__grid">
+    <div class="private__copy">
+      <h2 id="private-title">A room for fourteen.</h2>
+      <p class="private__line">One long table behind its own door. Birthdays, anniversaries, business dinners: the evening runs at your pace.</p>
+      <button class="btn btn-line" type="button" data-private-enquire>Enquire about the private room <span class="arr" aria-hidden="true"></span></button>
+    </div>
+    <div class="private__plan" aria-hidden="true">
+      <svg viewBox="0 0 640 360" class="plan">
+        <rect class="plan__room" x="20" y="20" width="600" height="320" fill="none"/>
+        <path class="plan__door" d="M560 340 A40 40 0 0 1 600 300" fill="none"/>
+        <rect class="plan__table" x="110" y="150" width="420" height="60"/>
+        <g class="plan__seats"></g>
+        <g class="plan__lamps"></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="seam" aria-hidden="true"><div class="rule-diamond"><i></i></div></div>
+
+<!-- 12. Reserve -->
+<section class="reserve" id="reserve" aria-labelledby="reserve-title">
+  <div class="reserve__bg" aria-hidden="true"></div>
+  <div class="wrap reserve__grid">
+    <div class="reserve__intro">
+      <h2 id="reserve-title">Reserve a table</h2>
+      <p class="reserve__line">Your table is yours for the evening. Nobody will ask for it back.</p>
+      <p class="reserve__alt muted">For parties over fourteen, call us on <a class="link nw" data-tel href="tel:+63200000028">+63 (2) 0000 0028</a>.</p>
+    </div>
+    <noscript><p class="reserve__noscript">To reserve, call <a class="link nw" href="tel:+63200000028">+63 (2) 0000 0028</a> or email <a class="link" href="mailto:reservations@xxviii.example">reservations@xxviii.example</a>.</p></noscript>
+    <div class="booking" data-booking>
+      <form class="booking__form" novalidate data-form>
+        <fieldset class="bk-field">
+          <legend class="label">Date</legend>
+          <div class="bk-dates" data-dates></div>
+          <p class="bk-hint muted">Closed on Mondays.</p>
+        </fieldset>
+        <fieldset class="bk-field" data-times-field>
+          <legend class="label">Time <span class="muted" data-time-for></span></legend>
+          <div class="bk-times" data-times></div>
+          <p class="bk-err" id="err-time" data-err-time hidden>Choose a time.</p>
+        </fieldset>
+        <div class="bk-row">
+          <div class="bk-field">
+            <span class="label" id="party-label">Guests</span>
+            <div class="stepper" role="group" aria-labelledby="party-label">
+              <button type="button" class="stepper__btn" data-step="-1" aria-label="Fewer guests">&minus;</button>
+              <output class="stepper__val num" data-party aria-live="polite">2</output>
+              <button type="button" class="stepper__btn" data-step="1" aria-label="More guests">+</button>
+            </div>
+          </div>
+          <div class="bk-field">
+            <label class="label" for="bk-occasion">Occasion</label>
+            <div class="select"><select id="bk-occasion" name="occasion">
+              <option>None</option><option>Birthday</option><option>Anniversary</option><option>Business</option><option>Private dining</option>
+            </select></div>
+          </div>
+        </div>
+        <div class="bk-private" data-private-note hidden>
+          <p>Nine or more? The private room seats fourteen at one table.</p>
+          <button type="button" class="link label" data-make-private>Make it a private-dining enquiry</button>
+        </div>
+        <div class="bk-field">
+          <label class="label" for="bk-name">Name</label>
+          <input id="bk-name" name="name" type="text" autocomplete="name" required aria-describedby="err-name">
+          <p class="bk-err" id="err-name" hidden></p>
+        </div>
+        <div class="bk-row">
+          <div class="bk-field">
+            <label class="label" for="bk-phone">Phone</label>
+            <input id="bk-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="err-phone">
+            <p class="bk-err" id="err-phone" hidden></p>
+          </div>
+          <div class="bk-field">
+            <label class="label" for="bk-email">Email</label>
+            <input id="bk-email" name="email" type="email" autocomplete="email" required aria-describedby="err-email">
+            <p class="bk-err" id="err-email" hidden></p>
+          </div>
+        </div>
+        <div class="bk-field">
+          <label class="label" for="bk-notes">Notes <span class="muted">(optional)</span></label>
+          <textarea id="bk-notes" name="notes" rows="3" placeholder="Allergies, a special request, how you like your steak"></textarea>
+        </div>
+        <div class="bk-submit">
+          <button class="btn btn-solid" type="submit" data-submit>Hold my table <span class="arr" aria-hidden="true"></span></button>
+          <p class="bk-preview muted">Preview build: bookings are not sent yet.</p>
+        </div>
+      </form>
+      <div class="booking__done" data-done hidden tabindex="-1">
+        <img class="booking__seal" src="assets/logo/xxviii-seal-brass.svg" alt="" width="120" height="120" loading="lazy">
+        <h3 data-done-title>Your table is held</h3>
+        <p class="booking__note" data-done-note hidden></p>
+        <dl class="booking__sum" data-summary></dl>
+        <div class="booking__acts">
+          <button class="btn btn-solid" type="button" data-ics>Add to calendar</button>
+          <a class="btn btn-solid" data-tel data-call href="tel:+63200000028" hidden>Call us now</a>
+          <button class="btn btn-line" type="button" data-again>Change the booking</button>
+        </div>
+        <p class="bk-preview muted">Preview build: bookings are not sent yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. Visit -->
+<section class="visit" id="visit" aria-labelledby="visit-title">
+  <div class="wrap visit__grid">
+    <div class="visit__copy">
+      <h2 id="visit-title">Find us in Bonifacio Global City.</h2>
+      <address class="visit__addr">
+        <span data-bind="brand.contact.street">[Street], Bonifacio Global City</span><br>
+        <span>Taguig, Metro Manila</span>
+      </address>
+      <table class="hours" data-hours>
+        <caption class="sr-only">Opening hours</caption>
+        <tbody>
+          <tr><th scope="row">Tuesday – Thursday</th><td>5:30 PM – 11:00 PM</td></tr>
+          <tr><th scope="row">Friday – Saturday</th><td>5:30 PM – 12:00 AM</td></tr>
+          <tr><th scope="row">Sunday</th><td>12:00 PM – 3:00 PM<br>5:30 PM – 10:00 PM</td></tr>
+          <tr><th scope="row">Monday</th><td>Closed. The beef rests, and so do we.</td></tr>
+        </tbody>
+      </table>
+      <ul class="visit__contact">
+        <li><span class="label muted">Phone</span><a class="link nw" data-tel href="tel:+63200000028">+63 (2) 0000 0028</a></li>
+        <li><span class="label muted">Email</span><a class="link" data-mail href="mailto:reservations@xxviii.example">reservations@xxviii.example</a></li>
+      </ul>
+      <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Bonifacio+Global+City+Taguig" target="_blank" rel="noopener">Get directions <span class="arr" aria-hidden="true"></span></a>
+    </div>
+    <div class="map" aria-hidden="true">
+      <svg class="map__svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice">
+        <g class="map__grid" transform="rotate(-24 300 300)"></g>
+        <g class="map__pin" transform="translate(318 286)">
+          <circle class="map__ring" r="18" fill="none" stroke="#c29a5b" stroke-width="1.5"/>
+          <circle class="map__ring map__ring--2" r="18" fill="none" stroke="#c29a5b" stroke-width="1"/>
+          <path class="map__drop" d="M0 0 C-14 -16 -18 -24 -18 -34 A18 18 0 0 1 18 -34 C18 -24 14 -16 0 0 Z" fill="#c29a5b"/>
+          <circle cx="0" cy="-34" r="6" fill="#141110"/>
+        </g>
+      </svg>
+      <p class="map__label label"><span>XXVIII</span> Bonifacio Global City</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- 14. Footer -->
+<footer class="ftr" id="footer">
+  <div class="wrap ftr__grid">
+    <form class="news" novalidate data-news>
+      <h2 class="news__title">The Ageing List</h2>
+      <p class="news__line muted">A short note when a new cut reaches its day.</p>
+      <div class="news__row">
+        <label class="sr-only" for="news-email">Email address</label>
+        <input id="news-email" type="email" autocomplete="email" placeholder="Your email" aria-describedby="news-msg">
+        <button class="btn btn-solid" type="submit">Join</button>
+      </div>
+      <p class="news__msg" id="news-msg" aria-live="polite"></p>
+    </form>
+    <nav class="ftr__nav" aria-label="Footer">
+      <ul>
+        <li><a class="link" href="#story">Story</a></li>
+        <li><a class="link" href="#menu">Menu</a></li>
+        <li><a class="link" href="#private">Private Dining</a></li>
+        <li><a class="link" href="#reserve">Reserve</a></li>
+        <li><a class="link" href="#visit">Visit</a></li>
+      </ul>
+      <ul class="ftr__social" data-social aria-label="Social handles (to be confirmed)">
+        <li><span>Instagram</span></li>
+        <li><span>Facebook</span></li>
+        <li><span>TikTok</span></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap ftr__base">
+    <img class="ftr__mark" src="assets/logo/xxviii-wordmark-brass.svg" alt="XXVIII Twenty-Eight Steakhouse" width="705" height="170" loading="lazy">
+    <p class="ftr__tag" data-bind="brand.taglines.1">Worth the wait.</p>
+    <p class="label muted ftr__copy">© <span data-bind="brand.est">MMXXVI</span> Twenty-Eight Steakhouse</p>
+  </div>
+</footer>
+
+<!-- Phone action bar -->
+<nav class="actbar" aria-label="Quick actions">
+  <a href="tel:+63200000028" data-tel><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.4 4.2-2 1.3a11 11 0 0 0 6 6l1.3-2 4.2 1.4v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2.1-2.2Z"/></svg><span>Call</span></a>
+  <a href="https://www.google.com/maps/search/?api=1&amp;query=Bonifacio+Global+City+Taguig" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Directions</span></a>
+  <a href="#menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5c2.8-.9 5.4-.6 8 1 2.6-1.6 5.2-1.9 8-1v13c-2.8-.9-5.4-.6-8 1-2.6-1.6-5.2-1.9-8-1Z"/><path d="M12 6.5v13"/></svg><span>Menu</span></a>
+  <a class="actbar__cta" href="#reserve"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="1"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg><span>Reserve</span></a>
+</nav>
+
+<!-- Video viewer (enhancements; opened on tap or click) -->
+<dialog class="vdlg" id="vdlg" aria-labelledby="vdlg-title">
+  <div class="vdlg__in">
+    <div class="vdlg__frame"></div>
+    <div class="vdlg__info"><h3 id="vdlg-title"></h3><p class="muted" data-vdlg-desc></p><p class="price" data-vdlg-price></p></div>
+    <button class="vdlg__close label" type="button">Close</button>
+  </div>
+</dialog>
+
+<script src="assets/data/xxviii.js"></script>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/SplitText.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="site/site.js"></script>
+</body>
+</html>

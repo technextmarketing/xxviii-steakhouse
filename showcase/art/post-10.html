@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>XXVIII · post 10 · Reservations open</title>
+<link rel="stylesheet" href="../../assets/css/brand.css">
+<link rel="stylesheet" href="art.css">
+<style>
+.ab{background:radial-gradient(90% 55% at 50% 45%,#231c19 0%,var(--char) 75%)}
+.seal{position:absolute;left:-220px;top:150px;width:900px;opacity:.07}
+.hl{position:absolute;left:64px;top:96px;font-size:128px;line-height:.95}
+.stub{position:absolute;left:64px;top:520px;width:952px;height:460px;background:var(--char-2);border:1px solid var(--line);
+ -webkit-mask:radial-gradient(circle 26px at 600px 0,#0000 97%,#000),radial-gradient(circle 26px at 600px 100%,#0000 97%,#000);-webkit-mask-composite:source-in;
+ mask:radial-gradient(circle 26px at 600px 0,#0000 97%,#000),radial-gradient(circle 26px at 600px 100%,#0000 97%,#000);mask-composite:intersect}
+.stub::before{content:'';position:absolute;inset:14px;border:1px solid var(--line)}
+.tear{position:absolute;left:600px;top:44px;bottom:44px;border-left:3px dotted rgba(194,154,91,.6)}
+.l{position:absolute;left:56px;top:56px;width:500px}
+.l .lbl{color:var(--brass);font-size:24px}
+.l h2{font:700 100px/.92 var(--f-label);letter-spacing:.01em;text-transform:uppercase;margin:22px 0 28px;color:var(--bone)}
+.l p{font-size:32px;line-height:1.3;color:var(--ash)}
+.l p b{color:var(--bone);font-weight:500}
+.r{position:absolute;left:640px;top:0;width:312px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.r img.qr{width:200px;height:200px;display:block}
+.r .lbl{font-size:22px;color:var(--bone);letter-spacing:.14em;text-align:center}
+.r .lbl.s{color:var(--brass)}
+.band{position:absolute;left:0;right:0;bottom:0;height:290px;background:linear-gradient(180deg,var(--ox) 0%,var(--ox-deep) 100%)}
+.band .logo{position:absolute;left:64px;top:64px;width:260px}
+.band .t{position:absolute;right:64px;top:64px;text-align:right;font:600 26px/1.5 var(--f-label);letter-spacing:.24em;text-transform:uppercase;color:var(--bone)}
+.band .handle{position:absolute;left:64px;bottom:64px;color:var(--bone);opacity:.85}
+</style></head><body>
+<div class="ab post">
+  <img class="seal" src="../../assets/logo/xxviii-seal-brass.svg" alt="">
+  <h1 class="disp hl">Your table<br>has waited too.</h1>
+  <div class="stub">
+    <div class="l"><span class="lbl">Reservations</span><h2>Tables<br>are open</h2><p><b>From Day 28.</b> Opening night.</p></div>
+    <div class="tear"></div>
+    <div class="r"><img class="qr" src="qr-reserve-brass.svg" alt="QR code to reserve"><span class="lbl s">Scan to reserve</span><span class="lbl">xxviii.example/reserve</span></div>
+  </div>
+  <div class="band"><img class="logo" src="../../assets/logo/xxviii-horizontal-bone.svg" alt="XXVIII"><div class="t">Bonifacio Global City<br>Taguig</div><div class="handle">@xxviii.steakhouse</div></div>
+  <div class="vignette"></div><div class="grain-ab"></div>
+</div></body></html>

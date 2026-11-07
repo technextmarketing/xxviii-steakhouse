@@ -1,0 +1,23 @@
+/* XXVIII showcase artboards: shared base. Every artboard is ONE fixed-size canvas (.ab) at exact px.
+   Link AFTER ../../assets/css/brand.css. Artboard sizes: post / ad-feed 1080x1350, story / ad-story 1080x1920. */
+html, body { margin: 0; padding: 0; background: #0b0908; overflow: hidden; }
+body { width: max-content; }
+.ab { position: relative; overflow: hidden; background: var(--char); color: var(--bone); isolation: isolate; }
+.ab.post, .ab.feed { width: 1080px; height: 1350px; }
+.ab.story { width: 1080px; height: 1920px; }
+
+/* the handle row every post may carry (logo + handle). Keep it small. */
+.handle { font: 600 22px/1 var(--f-label); letter-spacing: .26em; text-transform: uppercase; color: var(--ash); }
+.ab .lbl { font: 600 24px/1.2 var(--f-label); letter-spacing: .26em; text-transform: uppercase; }
+.ab .num { font-family: var(--f-label); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
+.ab .disp { font-family: var(--f-display); font-weight: 400; line-height: .95; letter-spacing: -.01em; margin: 0; }
+
+/* light pool + vignette helpers */
+.pool { position: absolute; pointer-events: none; border-radius: 50%; background: radial-gradient(closest-side, rgba(226,196,142,.22), rgba(194,154,91,.08) 45%, transparent 72%); }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%); z-index: 5; }
+.grain-ab { position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: .09; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.cut-shadow { filter: drop-shadow(0 40px 50px rgba(0,0,0,.6)) drop-shadow(0 8px 14px rgba(0,0,0,.45)); }
+
+/* stories: ?still=1 freezes animation at a representative frame (export). Safe zones: top 250px, bottom 340px. */
+.still *, .still *::before, .still *::after { animation-play-state: paused !important; }

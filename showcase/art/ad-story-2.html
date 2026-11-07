@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>XXVIII · ad story 2 · Dinner for two takes 45 days</title>
+<link rel="stylesheet" href="../../assets/css/brand.css">
+<link rel="stylesheet" href="art.css">
+<style>
+.cta{position:absolute;left:72px;top:1486px;width:936px;height:92px;background:var(--brass);color:var(--char);display:flex;align-items:center;justify-content:center;gap:26px;font:700 36px/1 var(--f-label);letter-spacing:.34em;z-index:6;overflow:hidden;box-shadow:0 18px 34px rgba(0,0,0,.45)}
+.cta .ar{width:44px;height:2px;background:var(--char);position:relative}
+.cta .ar::after{content:"";position:absolute;right:0;top:-6px;width:12px;height:12px;border-top:2px solid var(--char);border-right:2px solid var(--char);transform:rotate(45deg)}
+.cta::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:22%;background:linear-gradient(100deg,transparent,rgba(255,244,214,.45),transparent);transform:translateX(0) skewX(-18deg);opacity:0}
+.live .cta::after{animation:sheen 6s ease-in-out infinite}
+@keyframes sheen{0%,55%{transform:translateX(0) skewX(-18deg);opacity:0}60%{opacity:1}100%{transform:translateX(620%) skewX(-18deg);opacity:0}}
+.logo{position:absolute;z-index:8}
+
+.ab{background:radial-gradient(90% 55% at 50% 40%,#6a1a20 0%,var(--ox-deep) 55%,#2c0b0e 100%)}
+.logo{left:72px;top:272px;width:200px}
+.top{position:absolute;left:72px;top:262px;font-size:128px;line-height:1;white-space:nowrap;z-index:3}
+.pool.p{left:-60px;top:360px;width:1200px;height:900px;background:radial-gradient(closest-side,rgba(226,196,142,.30),rgba(194,154,91,.08) 50%,transparent 72%)}
+.plate{position:absolute;left:-20px;top:400px;width:1120px;transform:rotate(-6deg);z-index:2}
+.plate img{width:100%;height:auto}
+.head{position:absolute;left:72px;top:1090px;font-size:152px;line-height:.93;white-space:nowrap;z-index:3}
+.head em{font-style:normal;color:var(--brass-hi)}
+.row{position:absolute;left:72px;right:72px;top:1412px;display:flex;align-items:center;justify-content:space-between;z-index:3}
+.row .age-tag{font-size:26px;background:rgba(20,17,16,.35)}
+.row .pr{font:600 40px/1 var(--f-label);letter-spacing:.14em;color:var(--bone)}
+@keyframes arc{0%{transform:rotate(-8deg) translateY(0)}100%{transform:rotate(-3deg) translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
+.live .plate{animation:arc 8s ease-in-out infinite alternate}
+.live .pool.p{animation:pulse 8s ease-in-out infinite}
+</style>
+</head>
+<body>
+<div class="ab story">
+  <img class="logo" src="../../assets/logo/xxviii-horizontal-bone.svg" alt="XXVIII">
+  <h2 class="disp top">Dinner for two</h2>
+  <div class="pool p"></div>
+  <div class="plate cut-shadow"><img src="../../assets/img/cutout/porterhouse-for-two-lg.webp" width="1200" height="709" alt=""></div>
+  <h1 class="disp head">takes<br><em>45 days.</em></h1>
+  <div class="row"><div class="age-tag">Aged <b>45</b> days</div><div class="pr">PORTERHOUSE FOR TWO · ₱9,800</div></div>
+  
+  <div class="grain-ab"></div><div class="vignette"></div>
+</div>
+<script>
+(function(){
+  var still=/still=1/.test(location.search)||(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+  document.documentElement.classList.add(still?"still":"live");
+})();
+</script>
+</body>
+</html>

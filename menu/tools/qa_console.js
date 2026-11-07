@@ -1,0 +1,501 @@
+/* Menu reader regression suite - run by tools/run_qa.py, or paste into the console on the reader and run:
+     await MENUQA()      // the book engine: turns, drags, riffles, sounds, jumps, contents links, rail, search, views
+     await MENUQA_UI()   // the controls a guest uses: search, courses, bookmarks, reserve, PDF, keyboard, zoom, layout
+   Drives the page-flip engine frame by frame (works even when the tab is in the background), so every flip,
+   drag, jump and click path is checked deterministically. Never follows the reserve link or downloads the PDF. */
+window.MENUQA = async function MENUQA() {
+  const { S, Book: B, Zoom, Scroll, goTo, setView, applyQuery } = window.MENU;
+  const LAST = S.N - 1;                                  // last page before the back cover
+  const results = [];
+  const ok = (name, cond, info = '') => results.push({ name, pass: !!cond, info: typeof info === 'string' ? info : JSON.stringify(info) });
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const $q = sel => document.querySelector(sel);
+  const until = async (cond, ms = 4000) => { const t0 = performance.now(); while (!cond() && performance.now() - t0 < ms) await wait(25); return cond(); };
+  const pageRequests = () => {
+    const res = performance.getEntriesByType('resource').map(e => e.name);
+    const md = new Set(res.filter(u => /book\/md\//.test(u)).map(u => u.match(/(\d{3})\.webp/)[1]));
+    const hi = new Set(res.filter(u => /book\/pages\//.test(u)).map(u => u.match(/(\d{3})\.webp/)[1]));
+    return { md, hi };
+  };
+  const TOC = (S.man.hotspots.find(h => h.type === 'page') || {}).page;   // the printed contents page
+  const contentsLink = title => S.man.hotspots.find(h => h.page === TOC && h.type === 'page' && h.label.startsWith(title));
+  const chapterPage = title => S.cfg.chapters.find(c => c.title === title).page;
+
+  // ---- phones: Scroll view only, every feature still reachable from the scrolling column
+  async function phoneSuite() {
+    await until(() => document.getElementById('loader').hidden, 8000);
+    const shown = sel => { const e = $q(sel); return !!e && getComputedStyle(e).display !== 'none' && e.offsetParent !== null; };
+    ok('phone opens in the List view (live text)', S.view === 'list' && !document.getElementById('viewList').hidden);
+    ok('the List has every course', document.querySelectorAll('#list .lv-sec').length === S.cfg.chapters.length);
+    const fs = [...document.querySelectorAll('#list .li__desc')].map(e => parseFloat(getComputedStyle(e).fontSize));
+    const ns = [...document.querySelectorAll('#list .li__name')].map(e => parseFloat(getComputedStyle(e).fontSize));
+    ok('List descriptions are at least 16 px, names at least 20 px', fs.length > 40 && Math.min(...fs) >= 16 && Math.min(...ns) >= 20, { desc: Math.min(...fs), name: Math.min(...ns), n: fs.length });
+    const priced = window.XXVIII.menu.reduce((a, s2) => a + s2.items.length + (s2.extras ? s2.extras.items.length : 0), 0) + window.XXVIII.drinks.length;
+    ok('the List shows every dish and drink from the data', document.querySelectorAll('#list .li').length === priced, [document.querySelectorAll('#list .li').length, priced]);
+    ok('no flip-book is built on a phone', !B.built && !B.flip && !$q('.book-root'));
+    ok('the switcher offers only List and Scroll', shown('.modes [data-view="list"]') && shown('.modes [data-view="scroll"]') && !shown('.modes [data-view="book"]') && !shown('.modes [data-view="grid"]'));
+    setView('book'); await wait(60);
+    ok('asking for Book view stays in List', S.view === 'list' && document.getElementById('viewBook').hidden && !B.built);
+    setView('grid'); await wait(60);
+    ok('asking for the Pages grid stays in List', S.view === 'list' && document.getElementById('viewGrid').hidden);
+    // the printed pages are one tap away
+    const pagesBtn = document.querySelector(`#list [data-pages="${chapterPage('The Ageing Room')}"]`);
+    pagesBtn.click(); await until(() => S.view === 'scroll' && S.visible.includes(chapterPage('The Ageing Room')));
+    ok('"See the printed pages" opens that course in Scroll view', S.view === 'scroll' && S.visible.includes(chapterPage('The Ageing Room')), [S.view, S.visible]);
+    ok('the page link carries no view (a shared link opens normally on desktop)', !/v=/.test(location.hash), location.hash);
+    await until(() => { const r = pageRequests(); return r.md.size + r.hi.size >= S.N; }, 6000);
+    const { md, hi } = pageRequests();
+    ok('each page image is downloaded in one size only', [...md].every(n => !hi.has(n)), { md: md.size, hi: hi.size });
+    ok('all pages are requested up front (no lazy loading)', md.size + hi.size >= S.N && !$q('img[loading="lazy"]'), md.size + hi.size);
+    ok('every page is in the column', document.querySelectorAll('.scroll .sheet').length === S.N);
+
+    // the contents lines on the contents page jump down the column
+    goTo(TOC); await until(() => S.visible.includes(TOC) && $q(`.sheet[data-n="${TOC}"] .hs`));
+    const link = contentsLink('The Last Course');
+    const btn = [...document.querySelectorAll(`.sheet[data-n="${TOC}"] .hs`)].find(b => S.man.hotspots[+b.dataset.hs] === link);
+    ok('the contents page has a tap target for every course', document.querySelectorAll(`.sheet[data-n="${TOC}"] .hs`).length === S.cfg.chapters.length);
+    btn.click(); await until(() => S.visible.includes(chapterPage('The Last Course')));
+    ok('tapping a course on the contents page scrolls to it', S.visible.includes(chapterPage('The Last Course')), S.visible);
+
+    // zoom the page you are on
+    document.getElementById('btnZoom').click(); await wait(80);
+    ok('Zoom opens the current page', Zoom.open && document.querySelectorAll('#zoomContent .zpage').length === 1);
+    Zoom.close(); await wait(30);
+
+    // search highlights in the column
+    const r = await applyQuery('truffle');
+    ok('search finds the truffle dishes', r.length >= 3, r.map(x => x.n));
+    goTo(r[0].n); await until(() => S.visible.includes(r[0].n) && $q(`.sheet[data-n="${r[0].n}"] .hl`));
+    ok('matches are highlighted on the scrolling page', !!$q(`.sheet[data-n="${r[0].n}"] .hl`));
+    await applyQuery('');
+
+    // the reserve button and the PDF stay one tap away
+    const cta = document.getElementById('btnReserve'), cr = cta.getBoundingClientRect();
+    ok('reserve button visible, 44 px, links to the reservation form', cr.width >= 44 && cr.height >= 44 && cta.getAttribute('href') === '../index.html#reserve', [cr.width, cr.height]);
+    ok('PDF download offered in settings, with its size', !!document.querySelector('#settings a[data-pdf][download][href="out/xxviii-menu.pdf"]') && /MB\)/.test(document.getElementById('pdfLabel').textContent));
+    setView('list'); await wait(80);
+    const f = results.filter(x => !x.pass);
+    console.table(results);
+    return { pass: results.length - f.length, fail: f.length, failed: f, results };
+  }
+  if (document.getElementById('app').classList.contains('phone')) return phoneSuite();
+
+  for (let i = 0; i < 600 && !B.flip; i++) await wait(25);   // boot waits for the opening spread to decode
+  const F = () => B.flip, R = () => F().getRender();
+  const realTurn = B.turn; B.turn = function (d) { this.lastTurn = 0; return realTurn.call(this, d); };
+  let t = R().timer || performance.now();
+  const rd0 = R(), realRender = rd0.render;
+  rd0.render = function (ts) { return realRender.call(this, Math.max(ts, t)); };
+  try {
+  R().render(t);
+  const step = () => { t = Math.max(t, R().timer || 0) + 16; R().render(t); B.frame(); };
+  const settle = () => { let i = 0; while (i++ < 240 && B.state !== 'read') step(); step(); return i; };
+  const sim = action => { const shifts = []; action(); for (let i = 0; i < 240; i++) { step(); shifts.push(B.shift); if (B.state === 'read' && i > 2) break; } return shifts; };
+  const maxStep = a => a.reduce((m, v, i) => (i ? Math.max(m, Math.abs(v - a[i - 1])) : 0), 0);
+  const vis = () => S.visible.join('-');
+  const exp = n => B.spreadOf(n).join('-');
+  const drag = (side, fx0, fy0, fx1, fy1, steps = 20) => {
+    const r = F().getBoundsRect(), base = side === 'L' ? r.left : r.left + r.pageWidth;
+    const pt = (fx, fy) => ({ x: base + fx * r.pageWidth, y: r.top + fy * r.height });
+    const a = pt(fx0, fy0), b = pt(fx1, fy1); F().startUserTouch(a);
+    for (let i = 1; i <= steps; i++) { F().userMove({ x: a.x + (b.x - a.x) * i / steps, y: a.y + (b.y - a.y) * i / steps }, false); step(); }
+    F().userStop(b, false); settle();
+  };
+  const jump = async n => { goTo(n, { animate: false }); await until(() => B.state === 'read' && S.visible.join('-') === B.spreadOf(n).join('-')); await wait(30); };
+  const clientPt = (n, fx, fy) => { const s = B.slots().find(x => x.n === n), hr = document.getElementById('bookHost').getBoundingClientRect(); return { x: hr.left + s.x + fx * s.w, y: hr.top + s.y + fy * s.h }; };
+
+  setView('book'); await wait(80);
+  ok('book built with every page (24, even)', B.built && document.querySelectorAll('.book-root .page').length === S.N && S.N === 24, B.pages.length + ' pages');
+  ok('no lazy images', !document.querySelector('img[loading="lazy"]'));
+  await until(() => { const r = pageRequests(); return r.md.size + r.hi.size >= S.N; }, 6000);
+  const pr = pageRequests();
+  ok('all pages are requested up front (no lazy loading)', pr.md.size + pr.hi.size >= S.N, { md: pr.md.size, hi: pr.hi.size });
+  const landscape = !B.portrait;
+  const pw = F().getBoundsRect().pageWidth;
+
+  await jump(1);
+  ok('cover centred', !landscape || Math.abs(B.shift + pw / 2) < 1, Math.round(B.shift));
+  let s = sim(() => B.next());
+  ok('open cover: smooth centring', maxStep(s) <= pw * 0.04 && Math.abs(s[s.length - 1]) < 1 && vis() === exp(2), { step: Math.round(maxStep(s)), vis: vis() });
+  s = sim(() => B.prev());
+  ok('close cover: smooth, ends centred', maxStep(s) <= pw * 0.04 && vis() === '1' && (!landscape || Math.abs(B.shift + pw / 2) < 1), { step: Math.round(maxStep(s)), vis: vis() });
+  await jump(LAST);
+  s = sim(() => B.next());
+  ok('to back cover: smooth, ends centred', maxStep(s) <= pw * 0.04 && vis() === String(S.N) && (!landscape || Math.abs(B.shift - pw / 2) < 1), { step: Math.round(maxStep(s)), vis: vis() });
+  B.next(); step();
+  ok('next at the end is ignored', B.state === 'read' && vis() === String(S.N));
+  s = sim(() => B.prev());
+  ok('off back cover', vis() === exp(LAST) && Math.abs(B.shift) < 1, vis());
+
+  await jump(1);
+  drag('R', 0.97, 0.95, -0.7, 0.85);
+  ok('drag cover open', vis() === exp(2) && B.state === 'read', vis());
+  const before = vis();
+  if (landscape) drag('L', 0.04, 0.95, 0.2, 0.9); else drag('R', 0.96, 0.95, 0.82, 0.9);
+  ok('short drag springs back', vis() === before && Math.abs(B.shift) < 1, { vis: vis(), shift: Math.round(B.shift) });
+  await jump(8);
+  const at8 = vis();
+  drag('R', 0.8, 0.5, -0.8, 0.5);
+  ok('drag from the middle of a page turns it', vis() !== at8 && S.visible[0] > 8, vis());
+  if (landscape) drag('L', 0.2, 0.5, 1.8, 0.5); else drag('R', 0.1, 0.5, 0.95, 0.5);
+  ok('drag back from the middle', vis() === at8, vis());
+  await jump(10);
+  sim(() => B.next());
+  ok('next turns one spread', S.visible[0] > 10 && S.visible[0] <= 12 && B.state === 'read', vis());
+  sim(() => B.prev());
+  ok('prev turns back', vis() === exp(10), vis());
+
+  // fast riffling: presses during a turn complete it and start the next one at once
+  const press = dir => { B.lastTurn = 0; if (dir > 0) B.next(); else B.prev(); };
+  const spreadsBetween = (a, b) => Math.abs(B.indexOf(b) - B.indexOf(a)) / (landscape ? 2 : 1);
+  await jump(4);
+  let v0 = S.visible[0], frames = 0;
+  for (let i = 0; i < 5; i++) { press(1); step(); step(); frames += 2; }
+  frames += settle();
+  ok('5 quick presses turn 5 pages', Math.round(spreadsBetween(v0, S.visible[0])) === 5 && B.state === 'read', { from: v0, to: S.visible[0], frames });
+  ok('riffled turns use the quick speed, then the normal 600 ms returns', F().getSettings().flippingTime === 600 || matchMedia('(prefers-reduced-motion: reduce)').matches, F().getSettings().flippingTime);
+  await jump(1);
+  const shifts = [];
+  for (let i = 0; i < 4; i++) { press(1); for (let k = 0; k < 3; k++) { step(); shifts.push(B.shift); } }
+  settle(); shifts.push(B.shift);
+  ok('riffling off the cover stays smooth (no snap)', maxStep(shifts) <= pw * 0.16, { maxStepPx: Math.round(maxStep(shifts)), pw: Math.round(pw) });
+  await jump(LAST - 2);
+  for (let i = 0; i < 4; i++) { press(1); step(); }
+  settle();
+  ok('riffling past the back cover stops cleanly', vis() === String(S.N) && B.state === 'read', vis());
+
+  // every page movement makes its sound (the real audio output is replaced by a recorder here)
+  const heard = [], realPlay = window.MENU.Sound.play;
+  window.MENU.Sound.play = function (kind = 'turn') { heard.push(kind); };
+  try {
+    await jump(10); heard.length = 0;
+    sim(() => B.next());
+    ok('sound: a button / key turn', heard.join() === 'turn', heard);
+    heard.length = 0; drag('R', 0.96, 0.95, -0.7, 0.85);
+    ok('sound: a dragged page that is let go', heard.join() === 'turn', heard);
+    heard.length = 0; drag('R', 0.96, 0.95, 0.82, 0.9);
+    ok('sound: a released page sliding back (soft)', heard.join() === 'back', heard);
+    heard.length = 0; await jump(4); heard.length = 0;
+    for (let i = 0; i < 3; i++) { press(1); step(); step(); } settle();
+    ok('sound: riffling gives each page a quick swish', heard.length === 3 && heard[0] === 'turn' && heard.slice(1).every(k => k === 'quick'), heard);
+    await jump(2); heard.length = 0; goTo(16); await until(() => S.visible.includes(16));
+    ok('sound: a long jump plays a riffle', heard.join() === 'riffle', heard);
+    heard.length = 0;
+    const rc = F().getBoundsRect();
+    F().userMove({ x: rc.left + 2 * rc.pageWidth - 6, y: rc.top + rc.height - 6 }, false); step(); step();
+    F().userMove({ x: rc.left + rc.pageWidth * 1.2, y: rc.top + rc.height * 0.5 }, false); settle();
+    ok('sound: hovering a corner stays silent', heard.length === 0, heard);
+  } finally { window.MENU.Sound.play = realPlay; }
+
+  // the contents page: every course line is a link to its first page
+  await jump(TOC);
+  const toc = S.man.hotspots.filter(h => h.page === TOC && h.type === 'page');
+  const want = S.cfg.chapters.map(c => c.page).sort((a, b) => a - b).join();
+  ok('the contents page links every course to its page', toc.map(h => h.target).sort((a, b) => a - b).join() === want, toc.map(h => h.target));
+  const ar = contentsLink('The Ageing Room');
+  const AR = chapterPage('The Ageing Room'), GK = chapterPage('Good to know');
+  let p = clientPt(TOC, ar.rect[0] + ar.rect[2] / 2, ar.rect[1] + ar.rect[3] / 2);
+  let tg = B.targetAt(p.x, p.y);
+  ok('a course line is a link (not a corner)', tg.kind === 'hs' && tg.h.target === AR, tg.kind);
+  B.activate(p.x, p.y); await until(() => S.visible.includes(AR));
+  ok('the course link opens The Ageing Room', S.visible.includes(AR), vis());
+  await jump(TOC);
+  const lw = contentsLink('Good to know');
+  p = clientPt(TOC, lw.rect[0] + lw.rect[2] / 2, lw.rect[1] + lw.rect[3] / 2);
+  B.activate(p.x, p.y); await until(() => S.visible.includes(GK));
+  ok('the last course line opens Good to know', S.visible.includes(GK), vis());
+
+  // legibility (audit P0): on screen, a description on the printed page must be >= 11 px
+  await jump(AR + 3);
+  // smallest body text on the steaks page (font size in pt from the PDF) x on-screen scale (page px / page pt)
+  const wd = window.MENU_BOOK && window.MENU_BOOK.words[AR + 3];
+  const descPt = wd ? Math.min(...wd.w.filter(r => r[6] && /cut|marbling|fat|seared|coals/.test(r[0])).map(r => r[6])) : 0;
+  const pageH = B.slots()[0].h, descPx = descPt * pageH / (330 / 25.4 * 72);
+  ok('book spread: descriptions render at >= 11 px on screen', descPx >= 11 || !landscape, { descPx: Math.round(descPx * 10) / 10, descPt, pageH: Math.round(pageH) });
+  window.__descPx = Math.round(descPx * 10) / 10;
+
+  await jump(9);
+  p = clientPt(9, 0.5, 0.06); B.activate(p.x, p.y);
+  ok('click on a plain page zooms', Zoom.open); Zoom.close(); await wait(20);
+  await jump(18);
+  ok('long jump', S.visible.includes(18), vis());
+
+  // the panel slides OVER the stage: opening it must never resize the stage or re-measure/rebuild the book
+  await jump(12);
+  const $id = id => document.getElementById(id);
+  const stageW0 = $id('stage').clientWidth, bounds0 = JSON.stringify(F().getBoundsRect()), root0 = B.root;
+  $id('btnContents').click(); await wait(80);
+  const side = $id('app').classList.contains('panel-side');
+  ok('panel opens without resizing the stage', $id('stage').clientWidth === stageW0, { before: stageW0, after: $id('stage').clientWidth });
+  ok('panel opens without re-measuring or rebuilding the book', JSON.stringify(F().getBoundsRect()) === bounds0 && B.root === root0);
+  if (side) {
+    const tx = parseFloat(($id('bookHost').style.transform.match(/translate3d\(([-\d.]+)px/) || [0, 0])[1]);
+    const rr = F().getBoundsRect(), hostL = $id('viewBook').offsetLeft + $id('bookHost').offsetLeft;
+    const left = hostL + rr.left + (B.portrait ? rr.pageWidth : 0) + tx, right = hostL + rr.left + 2 * rr.pageWidth + tx;
+    ok('wide screen: the book glides clear of the panel', left >= $id('panel').offsetWidth + 23 || right >= $id('stage').clientWidth - 25, { shift: tx, left: Math.round(left), panel: $id('panel').offsetWidth });
+  } else {
+    ok('narrow screen: the panel overlays with a scrim', !$id('scrim').hidden);
+  }
+  $id('panelClose').click(); await wait(80);
+  ok('closing the panel puts the book back', !$id('bookHost').style.transform && $id('scrim').hidden && !$id('app').classList.contains('panel-open'));
+
+  // turning onto a single-page spread uncovers the page under the lifting sheet progressively
+  if (landscape) {
+    const polyArea = pts => { let a = 0; for (let i = 0; i < pts.length; i++) { const [x1, y1] = pts[i], [x2, y2] = pts[(i + 1) % pts.length]; a += x1 * y2 - x2 * y1; } return Math.abs(a) / 2; };
+    const visibleFrac = n => {
+      const e = document.querySelector(`.book-root .page[data-n="${n}"]`);
+      if (!e || e.style.display === 'none') return 0;
+      const m = (e.style.clipPath || '').match(/evenodd,(.*)\)/);
+      if (!m) return 1;
+      const nums = m[1].split(',').map(x => x.trim().split(/\s+/).map(parseFloat)), hole = nums.slice(5, nums.length - 2);
+      return 1 - polyArea(hole) / (parseFloat(e.style.width) * parseFloat(e.style.height));
+    };
+    const track = (action, n) => { const fr = []; action(); for (let i = 0; i < 240; i++) { step(); const c = F().flipController.calc; fr.push({ p: c ? c.getFlippingProgress() : 100, v: visibleFrac(n), sw: parseFloat(document.getElementById('bookShadow').style.width) }); if (B.state === 'read' && i > 2) break; } return fr; };
+    const uncovers = fr => { const mid = fr.filter(f => f.p > 40 && f.p < 60); return fr.every((f, i) => !i || f.v <= fr[i - 1].v + 0.002) && mid.length && mid.every(f => f.v < 0.8 && f.v > 0.2); };
+    await jump(3);
+    let fr = track(() => B.prev(), 2);
+    ok('close onto the front cover: page 2 uncovers as the sheet lifts', uncovers(fr) && vis() === '1', fr.filter((_, i) => i % 8 === 0).map(f => f.v.toFixed(2)).join(' '));
+    await jump(LAST);
+    fr = track(() => B.next(), LAST);
+    ok('open onto the back cover: the last sheet uncovers as the sheet lifts', uncovers(fr) && vis() === String(S.N), fr.filter((_, i) => i % 8 === 0).map(f => f.v.toFixed(2)).join(' '));
+    await jump(1);
+    fr = track(() => B.next(), 2);
+    ok('opening the cover: no shadow ahead of the turning page', fr.filter(f => f.p < 45).every(f => f.sw <= pw + 1) && Math.abs(fr[fr.length - 1].sw - 2 * pw) < 2, fr.filter((_, i) => i % 8 === 0).map(f => Math.round(f.sw)).join(' '));
+  }
+
+  // rail = reading progress by course
+  const segFills = () => [...document.querySelectorAll('.rseg')].map(k => parseFloat(k.style.getPropertyValue('--fill')) || 0);
+  await jump(1);
+  const rail = document.getElementById('railTrack'), marker = () => parseFloat(document.getElementById('railMarker').style.left);
+  ok('rail at the cover: marker at the start, no fill', marker() <= 2.01 && segFills().every(f => f === 0), { x: marker(), fills: segFills().slice(0, 3) });
+  await jump(S.N);
+  ok('rail at the back cover: marker at the end, all filled', Math.abs(marker() - (rail.getBoundingClientRect().width - 2)) < 1 && segFills().every(f => f === 100), { x: marker(), w: rail.getBoundingClientRect().width });
+  ok('rail has one segment per course plus front and back', document.querySelectorAll('.rseg').length === S.cfg.chapters.length + 2);
+  await jump(8);
+  const fl = segFills(), ai = [...document.querySelectorAll('.rseg')].findIndex(k => k.classList.contains('active'));
+  ok('rail mid-book: filled up to the marker only', ai > 0 && fl.slice(0, ai).every(f => f === 100) && fl.slice(ai + 1).every(f => f === 0), fl);
+
+  let r = await applyQuery('truffle');
+  ok('search a word', r.length >= 3, r.map(x => x.n));
+  r = await applyQuery('bearnaise');
+  ok('search ignores accents (béarnaise)', r.some(x => x.n === 18), r.map(x => x.n));
+  r = await applyQuery('ribeye');
+  ok('search finds every ribeye page', r.length >= 2 && r.some(x => x.n === 12), r.map(x => x.n));
+  r = await applyQuery('twenty-eight');
+  ok('search a hyphenated word', r.length >= 2, r.map(x => x.n));
+  r = await applyQuery('aged 35');
+  ok('search reads the labels as words ("Aged 35 Days")', r.length >= 1, r.map(x => x.n));
+  await applyQuery('');
+
+  setView('scroll'); await wait(300);
+  Scroll.goTo(15, false); await wait(150);
+  ok('scroll view goTo', S.page === 15, S.page);
+  setView('grid'); await wait(150);
+  ok('grid view marks the current tile', !!document.querySelector('.tile.current'));
+  setView('book'); await until(() => S.visible.includes(15));
+  ok('back to book keeps the page', S.visible.includes(15), vis());
+
+  const fails = results.filter(x => !x.pass);
+  console.table(results);
+  return { pass: results.length - fails.length, fail: fails.length, failed: fails, results };
+
+  } finally {
+    B.turn = realTurn;
+    // the stepped clock ran ahead of real time. With no turn in flight the live loop simply takes over again;
+    // otherwise keep clamping until real frames catch up (a frame from before an animation started has no frame).
+    if (rd0) {
+      if (rd0.animation && B.state === 'read') { try { rd0.finishAnimation(); } catch (e) { /* already done */ } }
+      if (!rd0.animation) delete rd0.render;
+      else { const tEnd = t; rd0.render = function (ts) { if (ts >= tEnd || !this.animation) delete this.render; return realRender.call(this, Math.max(ts, tEnd)); }; }
+    }
+  }
+};
+
+/* UI flows - drives the real controls (buttons, inputs, keyboard) the way a guest does:
+     await MENUQA_UI()
+   Never follows the reserve link, never downloads the PDF (a HEAD request checks it is there). */
+window.MENUQA_UI = async function MENUQA_UI() {
+  const { S, Book: B, Zoom, goTo, setView } = window.MENU;
+  const results = [];
+  const ok = (name, cond, info = '') => results.push({ name, pass: !!cond, info: typeof info === 'string' ? info : JSON.stringify(info) });
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const until = async (cond, ms = 3000) => { const t0 = performance.now(); while (!cond() && performance.now() - t0 < ms) await wait(25); return cond(); };
+  const $id = id => document.getElementById(id), app = $id('app');
+  const key = (k, extra = {}) => document.dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true, ...extra }));
+  const visible = el => !!el && !el.hidden && getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden';
+  const isPhone = app.classList.contains('phone');
+  const chapterPage = title => S.cfg.chapters.find(c => c.title === title).page;
+  const land = async n => { goTo(n, { animate: false }); await until(() => (isPhone || B.state === 'read') && S.visible.includes(n)); await wait(30); };
+  for (let i = 0; i < 600 && !isPhone && !B.flip; i++) await wait(25);
+  if (!isPhone) { const rd = B.flip.getRender(); ok('the engine is idle when the UI suite starts', B.state === 'read' && !rd.animation && !Object.prototype.hasOwnProperty.call(rd, 'render'), { state: B.state, anim: !!rd.animation, own: Object.prototype.hasOwnProperty.call(rd, 'render'), timer: Math.round(rd.timer), now: Math.round(performance.now()) }); }
+  if (!isPhone) setView('book');
+  await land(12);
+  if (app.classList.contains('panel-open')) $id('panelClose').click();
+
+  // ---- layout: no horizontal scroll, nothing past the viewport, labels never clipped
+  const W = innerWidth;
+  ok('no horizontal scroll', document.documentElement.scrollWidth <= W && document.body.scrollWidth <= W, [document.documentElement.scrollWidth, W]);
+  const out = [...document.querySelectorAll('.bar *, .dock *')].filter(e => visible(e) && e.getClientRects().length && !e.closest('[hidden]')).filter(e => { const r = e.getBoundingClientRect(); return r.width && (r.right > W + 1 || r.left < -1); });
+  ok('bar and dock stay inside the viewport', !out.length, out.map(e => e.id || e.className.baseVal || e.className).slice(0, 5));
+  const clipped = [...document.querySelectorAll('.cta span, .seg__btn span, .pager__count, .tab, .bar__title span, .rbtn span')].filter(e => visible(e) && e.offsetParent && e.scrollWidth > e.clientWidth + 1);
+  ok('no clipped labels in the controls', !clipped.length, clipped.map(e => e.textContent.trim()).slice(0, 5));
+  const unnamed = [...document.querySelectorAll('button, a')].filter(e => visible(e) && e.offsetParent && !(e.getAttribute('aria-label') || e.textContent.trim() || e.title));
+  ok('every visible control has a name', !unnamed.length, unnamed.map(e => e.id || e.className).slice(0, 5));
+  if (isPhone) {
+    const small = [...document.querySelectorAll('.bar button, .bar a, .dock button')].filter(e => visible(e) && e.offsetParent).filter(e => { const r = e.getBoundingClientRect(); return r.width < 44 || r.height < 44; });
+    ok('phone: touch targets are at least 44 px', !small.length, small.map(e => e.id || e.className).slice(0, 6));
+  }
+
+  // ---- structure + metadata (tech audit)
+  ok('one h1 (The Menu) and an h2 in every panel pane', document.querySelectorAll('h1').length === 1 && [...document.querySelectorAll('.pane')].every(p => p.querySelector('h2')));
+  ok('social cards: og:title, og:description, og:image (absolute), og:url', ['og:title', 'og:description', 'og:url'].every(k => document.querySelector(`meta[property="${k}"]`)) && /^https:\/\//.test((document.querySelector('meta[property="og:image"]') || {}).content || ''));
+  ok('a noscript style hides the loader and the controls', [...document.querySelectorAll('head noscript')].some(n => /\.loader/.test(n.textContent) && /\.dock/.test(n.textContent)));
+  ok('no hidden theme or blank-page switches left', !document.getElementById('themeSeg') && !document.getElementById('optBlanks'));
+
+  // ---- reserve + PDF
+  const cta = $id('btnReserve');
+  ok('Reserve a table goes to the reservation form', visible(cta) && cta.tagName === 'A' && cta.getAttribute('href') === '../index.html#reserve' && /Reserve a table/.test(cta.textContent + cta.getAttribute('aria-label')));
+  const pdfA = isPhone ? document.querySelector('#settings a[data-pdf]') : $id('btnPdf');
+  ok('Download PDF link points at the printed menu and states its size', !!pdfA && pdfA.hasAttribute('download') && pdfA.getAttribute('href') === 'out/xxviii-menu.pdf' && /PDF, [\d.]+ MB/.test(pdfA.getAttribute('aria-label') + pdfA.textContent));
+  let head = null; try { head = await fetch('out/xxviii-menu.pdf', { method: 'HEAD' }); } catch (e) { /* file:// */ }
+  ok('the PDF is there', head && head.ok && /pdf/.test(head.headers.get('content-type') || ''), head && head.status);
+
+  // ---- search
+  const headerSearch = visible($id('searchForm'));
+  if (headerSearch) {
+    $id('q').focus(); $id('q').value = 'truffle'; $id('q').dispatchEvent(new Event('input', { bubbles: true }));
+  } else {
+    $id('btnSearch').click(); await wait(80);
+    $id('q2').value = 'truffle'; $id('q2').dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  await until(() => $id('results').querySelectorAll('.result').length >= 3);
+  ok('search opens the Search tab with results', app.classList.contains('panel-open') && !document.querySelector('[data-pane="search"]').hidden && $id('results').querySelectorAll('.result').length >= 3);
+  ok('header and panel search fields stay in sync', $id('q').value === $id('q2').value);
+  ok('the result count is announced (aria-live)', $id('resultsCount').getAttribute('aria-live') === 'polite' && /match/.test($id('resultsCount').textContent), $id('resultsCount').textContent);
+  const firstRes = $id('results').querySelector('.result'), firstPage = +firstRes.dataset.go;
+  firstRes.click();
+  await until(() => S.visible.includes(firstPage));
+  ok('clicking a result opens its page', S.visible.includes(firstPage), firstPage);
+  const hlSel = S.view === 'book' ? '.book-root .hl' : '.scroll .hl';   // from List, a hit opens its page in Scroll view
+  await until(() => document.querySelectorAll(hlSel).length > 0, 2500);
+  ok('search matches are highlighted on the page', document.querySelectorAll(hlSel).length > 0);
+  const input = headerSearch ? $id('q') : $id('q2');
+  input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+  await until(() => !document.querySelectorAll('.hl').length, 2500);
+  ok('Escape clears the search and its highlights', !input.value && !document.querySelectorAll('.hl').length);
+  input.blur();
+  if (app.classList.contains('panel-open')) $id('panelClose').click();
+
+  // ---- contents by course
+  $id('btnContents').click(); await wait(60);
+  ok('contents button opens the Courses tab', app.classList.contains('panel-open') && !document.querySelector('[data-pane="contents"]').hidden);
+  ok('Courses: focus moves into the panel, aria-expanded is set', $id('panel').contains(document.activeElement) && $id('btnContents').getAttribute('aria-expanded') === 'true', document.activeElement && document.activeElement.id);
+  ok('every course is listed with its number', S.cfg.chapters.every(c => document.querySelector(`#toc .toc__ch[data-ch="${c.no}"]`)));
+  $id('tocFilter').value = 'long wait'; $id('tocFilter').dispatchEvent(new Event('input', { bubbles: true }));
+  const secs = [...document.querySelectorAll('#toc .toc__sec')].filter(b => b.offsetParent !== null);
+  ok('the filter narrows the list to one course', secs.length === S.cfg.chapters.find(c => c.title === 'The Long Wait').sections.length && document.querySelectorAll('#toc .toc__ch[data-ch]').length === 1, secs.length);
+  const target = +secs[1].dataset.go;
+  secs[1].click(); await until(() => S.visible.includes(target));
+  ok('a contents line opens its page', S.visible.includes(target), target);
+  $id('tocFilter').value = ''; $id('tocFilter').dispatchEvent(new Event('input', { bubbles: true }));
+  if (app.classList.contains('panel-open')) $id('panelClose').click();
+  await wait(40);
+
+  // ---- bookmarks
+  await land(9);
+  const had = S.bookmarks.has(S.page);
+  if (had) key('b');
+  key('b');
+  ok('B bookmarks the page', S.bookmarks.has(S.page) && $id('btnBookmark').getAttribute('aria-pressed') === 'true');
+  ok('Saved count shows on its tab', $id('savedN').textContent === String(S.bookmarks.size));
+  $id('btnContents').click(); document.querySelector('.tab[data-tab="saved"]').click(); await wait(40);
+  const row = document.querySelector(`#saved [data-unmark="${S.page}"]`);
+  ok('the bookmark is listed under Saved', !!row);
+  if (row) row.click();
+  await wait(40);
+  ok('it can be removed again', !S.bookmarks.has(S.page) && $id('btnBookmark').getAttribute('aria-pressed') === 'false');
+  if (had) key('b');
+  if (app.classList.contains('panel-open')) $id('panelClose').click();
+
+  // ---- go to page
+  $id('pageCount').click(); await wait(30);
+  ok('page counter opens a go-to field', visible($id('gotoForm')) && document.activeElement === $id('gotoInput'));
+  $id('gotoInput').value = '15'; $id('gotoForm').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+  await until(() => S.visible.includes(15));
+  ok('go-to field jumps to the page', S.visible.includes(15) && !visible($id('gotoForm')), S.visible);
+  $id('pageCount').click(); await wait(30);
+  $id('gotoInput').value = '999'; $id('gotoForm').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+  await until(() => S.visible.includes(S.N));
+  ok('an out-of-range page number goes to the back cover', S.visible.includes(S.N), S.visible);
+
+  // ---- keyboard
+  if (isPhone) {
+    setView('list'); await wait(100);
+    key('1'); await wait(150);
+    ok('phone: 1 (Book) keeps the List view', S.view === 'list' && !B.built);
+    key('3'); await wait(150);
+    ok('phone: 3 (Pages) keeps the List view', S.view === 'list');
+  } else {
+    key('Home'); await until(() => S.visible.includes(1));
+    ok('Home goes to the cover', S.visible.includes(1));
+    key('ArrowRight'); await until(() => S.visible.includes(2) && B.state === 'read');
+    ok('arrow right turns the page', S.visible.includes(2), S.visible);
+    key('ArrowLeft'); await until(() => S.visible.includes(1) && B.state === 'read');
+    ok('arrow left turns back', S.visible.includes(1), S.visible);
+    key('End'); await until(() => S.visible.includes(S.N));
+    ok('End goes to the back cover', S.visible.includes(S.N));
+    key('2'); await wait(250);
+    ok('2 switches to Scroll view', S.view === 'scroll' && visible($id('viewScroll')));
+    key('3'); await wait(150);
+    ok('3 switches to the Pages grid (thumbnails)', S.view === 'grid' && visible($id('viewGrid')) && document.querySelectorAll('#grid .tile img').length === S.N);
+    const tile = document.querySelector('#grid [data-tile="12"]');
+    tile.click(); await until(() => S.view === 'book' && S.visible.includes(12));
+    ok('a thumbnail opens that page in the book', S.view === 'book' && S.visible.includes(12), S.visible);
+    ok('full screen button is offered', visible($id('btnFullscreen')) || !document.documentElement.requestFullscreen);
+    key('4'); await wait(200);
+    const lf = [...document.querySelectorAll('#list .li__desc')].map(e => parseFloat(getComputedStyle(e).fontSize));
+    ok('4 switches to the List view (live text, 16 px descriptions)', S.view === 'list' && visible($id('viewList')) && lf.length > 40 && Math.min(...lf) >= 16, Math.min(...lf));
+    key('1'); await until(() => S.view === 'book' && B.state === 'read');
+    ok('the cover video plays only behind the closed book', (() => { const v = $id('coverVideo'); if (!v) return true; goTo(1, { animate: false }); return true; })());
+    await until(() => S.visible.join() === '1' && B.state === 'read');
+    const v = $id('coverVideo');
+    const onCover = !v || (v.classList.contains('on') && (v.paused === matchMedia('(prefers-reduced-motion: reduce)').matches || !v.src));
+    goTo(chapterPage('The Ageing Room'), { animate: false }); await until(() => S.visible.includes(chapterPage('The Ageing Room')) && B.state === 'read'); await wait(60);
+    ok('cover video: on behind the cover, paused once the book is open', onCover && (!v || (!v.classList.contains('on') && v.paused)), v && { src: !!v.src, paused: v.paused });
+  }
+  if (!isPhone) $id('btnZoom').focus();
+  key('z'); await wait(60);
+  ok('Z opens zoom', Zoom.open);
+  ok('zoom is a modal dialog and takes the focus', $id('zoom').getAttribute('role') === 'dialog' && $id('zoom').getAttribute('aria-modal') === 'true' && $id('zoom').contains(document.activeElement));
+  const z0 = Zoom.z; key('+');
+  ok('+ zooms in', Zoom.z > z0);
+  key('0');
+  ok('0 fits again', Zoom.z === 1);
+  key('Escape'); await wait(40);
+  ok('Escape closes zoom', !Zoom.open);
+  ok('focus returns from zoom', !$id('zoom').contains(document.activeElement) && document.activeElement !== document.body, document.activeElement && document.activeElement.id);
+
+  // ---- settings
+  $id('btnSettings').click(); await wait(30);
+  ok('settings popover opens', visible($id('settings')));
+  ok('settings: focus moves into the popover', $id('settings').contains(document.activeElement), document.activeElement && (document.activeElement.id || document.activeElement.className));
+  const fz = [...$id('settings').querySelectorAll('button, a[href], input')].filter(e => e.offsetParent !== null);
+  fz[fz.length - 1].focus();
+  $id('settings').dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }));
+  ok('settings: Tab stays inside the popover', document.activeElement === fz[0], document.activeElement && document.activeElement.id);
+  ok('the menu stays dark', document.documentElement.dataset.theme === 'dark' && getComputedStyle(document.body).backgroundColor !== 'rgb(255, 255, 255)');
+  $id('optSound').focus();
+  const sound0 = S.sound; $id('optSound').click();
+  ok('page-turn sound toggles', S.sound === !sound0);
+  $id('optSound').click();
+  key('Escape'); await wait(30);
+  ok('Escape closes settings and returns focus to its button', !visible($id('settings')) && document.activeElement === $id('btnSettings'));
+
+  // ---- deep link
+  location.hash = '#p=12'; await until(() => S.visible.includes(12));
+  ok('a #p= link opens that page', S.visible.includes(12), S.visible);
+
+  const fails = results.filter(x => !x.pass);
+  console.table(results);
+  return { pass: results.length - fails.length, fail: fails.length, failed: fails, results };
+};

@@ -1,0 +1,60 @@
+/* XXVIII motion artboards: stories, reels, video ads (footage + type). Link after brand.css + art.css. */
+.ab.feed { width: 1080px; height: 1350px; }
+html.ov, html.ov body, html.ov .ab { background: transparent !important; }
+html.ov [data-bg] { display: none !important; }
+[data-part][hidden] { display: none !important; }
+
+/* footage area: the 16:9 source cropped to a slice, dropped below a dark band ("one pool of light") */
+.vid { position: absolute; left: 0; width: 1080px; overflow: hidden; background: var(--char); }
+.vid img { position: absolute; top: 0; max-width: none; height: 100%; width: auto; }
+.fade-top { position: absolute; left: 0; width: 1080px; height: 300px; background: linear-gradient(var(--char) 0%, rgba(20,17,16,.86) 30%, rgba(20,17,16,0) 100%); }
+.fade-bot { position: absolute; left: 0; right: 0; bottom: 0; height: 420px; background: linear-gradient(rgba(20,17,16,0), rgba(20,17,16,.55)); }
+.band { position: absolute; left: 0; top: 0; width: 1080px; background: radial-gradient(70% 120% at 30% 0%, #221c19 0%, var(--char) 70%); }
+
+/* type */
+.m-logo { position: absolute; width: 190px; }
+.m-lbl { position: absolute; font: 600 24px/1.2 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--ash); white-space: nowrap; }
+.m-lbl.br { color: var(--brass); }
+.m-h { position: absolute; margin: 0; font: 400 150px/.92 var(--f-display); letter-spacing: -.015em; color: var(--bone); white-space: nowrap; }
+.m-h em { font-style: normal; color: var(--brass); }
+.m-sub { position: absolute; font: 400 36px/1.38 var(--f-body); color: var(--ash); }
+.m-sub b { font-weight: 400; color: var(--bone); }
+.m-num { position: absolute; font: 700 30px/1 var(--f-label); letter-spacing: .2em; color: var(--brass); text-transform: uppercase; white-space: nowrap; }
+
+/* 28-segment day bar */
+.segs { position: absolute; display: flex; gap: 6px; }
+.segs i { flex: 1; height: 14px; border: 1px solid rgba(194,154,91,.5); }
+.segs i.f { background: var(--brass); border-color: var(--brass); }
+
+/* ageing tag (clipped corner) */
+.mtag { position: absolute; background: var(--bone); color: var(--char); clip-path: polygon(26px 0, 100% 0, 100% 100%, 0 100%, 0 26px); padding: 26px 34px 24px; box-shadow: 0 30px 40px rgba(0,0,0,.45); }
+.mtag .k { font: 600 24px/1 var(--f-label); letter-spacing: .3em; color: var(--ox); }
+.mtag .n { font: 700 150px/.9 var(--f-label); letter-spacing: -.01em; margin-top: 12px; font-variant-numeric: lining-nums tabular-nums; }
+.mtag .d { font: 700 34px/1 var(--f-label); letter-spacing: .3em; margin-top: 4px; }
+.mtag .hole { position: absolute; right: 30px; top: 28px; width: 26px; height: 26px; border-radius: 50%; background: #2a2320; box-shadow: inset 0 2px 4px rgba(0,0,0,.6); }
+
+/* stickers (generic, no platform branding) */
+.stk { position: absolute; background: var(--bone); color: var(--char); box-shadow: 0 30px 50px rgba(0,0,0,.5), 0 6px 12px rgba(0,0,0,.35); }
+.stk .k { font: 600 24px/1 var(--f-label); letter-spacing: .3em; color: var(--ox); }
+.stk .q { font: 400 64px/1.05 var(--f-display); margin-top: 14px; }
+.opt { display: flex; justify-content: space-between; align-items: center; border: 2px solid var(--char); height: 92px; padding: 0 30px; margin-top: 20px; font: 400 40px/1 var(--f-display); }
+.opt em { font: 700 30px/1 var(--f-label); font-style: normal; letter-spacing: .1em; color: var(--ox); }
+.link-chip { position: absolute; display: flex; align-items: center; gap: 22px; background: var(--bone); color: var(--char); padding: 26px 36px; font: 700 36px/1 var(--f-label); letter-spacing: .14em; box-shadow: 0 24px 40px rgba(0,0,0,.45); white-space: nowrap; }
+.link-chip svg { width: 40px; height: 40px; flex: none; }
+.dots28 { display: flex; justify-content: space-between; margin-top: 22px; }
+.dots28 i { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #a7998a; }
+.dots28 i.f { background: var(--brass); border-color: var(--brass); }
+.dots28 i.x { background: var(--ox); border-color: var(--ox); }
+
+/* end card */
+.end { position: absolute; inset: 0; background: radial-gradient(60% 40% at 50% 42%, rgba(226,196,142,.16), rgba(194,154,91,.05) 50%, transparent 75%), var(--char); }
+.end .mk { position: absolute; left: 50%; transform: translateX(-50%); }
+.end .eh { position: absolute; left: 0; right: 0; text-align: center; margin: 0; font: 400 120px/1 var(--f-display); color: var(--bone); }
+.end .el { position: absolute; left: 0; right: 0; text-align: center; font: 600 28px/1.5 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--brass); }
+.end .es { position: absolute; left: 0; right: 0; text-align: center; font: 400 34px/1.4 var(--f-body); color: var(--ash); }
+.end .rule { position: absolute; left: 50%; width: 120px; margin-left: -60px; height: 1px; background: var(--brass); opacity: .7; }
+
+/* static poll story */
+.slate { position: absolute; inset: 0; background: linear-gradient(rgba(20,17,16,.5), rgba(20,17,16,.72)), url(../../assets/img/texture/dark-slate-herb-scatter-frame-lg.webp) center / cover; }
+.cut { position: absolute; }
+.cut img { width: 100%; height: auto; }

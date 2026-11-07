@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>XXVIII · ad story 3 · Some things can't be hurried</title>
+<link rel="stylesheet" href="../../assets/css/brand.css">
+<link rel="stylesheet" href="art.css">
+<style>
+.cta{position:absolute;left:72px;top:1486px;width:936px;height:92px;background:var(--brass);color:var(--char);display:flex;align-items:center;justify-content:center;gap:26px;font:700 36px/1 var(--f-label);letter-spacing:.34em;z-index:6;overflow:hidden;box-shadow:0 18px 34px rgba(0,0,0,.45)}
+.cta .ar{width:44px;height:2px;background:var(--char);position:relative}
+.cta .ar::after{content:"";position:absolute;right:0;top:-6px;width:12px;height:12px;border-top:2px solid var(--char);border-right:2px solid var(--char);transform:rotate(45deg)}
+.cta::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:22%;background:linear-gradient(100deg,transparent,rgba(255,244,214,.45),transparent);transform:translateX(0) skewX(-18deg);opacity:0}
+.live .cta::after{animation:sheen 6s ease-in-out infinite}
+@keyframes sheen{0%,55%{transform:translateX(0) skewX(-18deg);opacity:0}60%{opacity:1}100%{transform:translateX(620%) skewX(-18deg);opacity:0}}
+.logo{position:absolute;z-index:8}
+
+.ab{background:linear-gradient(180deg,#191413 0%,var(--char) 100%)}
+.logo{left:72px;top:272px;width:200px}
+.loc{position:absolute;left:72px;top:262px;color:var(--brass);font-size:24px}
+.head{position:absolute;left:72px;top:318px;font-size:158px;line-height:.93;white-space:nowrap;z-index:3}
+.head em{font-style:normal;color:var(--brass)}
+.ph{position:absolute;left:0;top:880px;width:1080px;height:560px;overflow:hidden;z-index:2;box-shadow:0 -20px 60px rgba(0,0,0,.4)}
+.ph img{max-width:none;position:absolute;left:0;top:-300px;width:1080px;height:1080px;object-fit:cover;transform:scale(1.04)}
+.hair{position:absolute;left:72px;top:850px;width:936px;height:1px;background:var(--line);z-index:3}
+@keyframes drift{0%{transform:translateY(0) scale(1.04)}100%{transform:translateY(-40px) scale(1.04)}}
+.live .ph img{animation:drift 9s ease-in-out infinite alternate}
+</style>
+</head>
+<body>
+<div class="ab story">
+  <img class="logo" src="../../assets/logo/xxviii-horizontal-bone.svg" alt="XXVIII">
+  <div class="lbl loc">Twenty-Eight · Bonifacio Global City</div>
+  <h1 class="disp head">Some things<br>can't be<br><em>hurried.</em></h1>
+  <div class="hair"></div>
+  <div class="ph"><img src="../../assets/img/plated/prime-ribeye-lg.webp" width="1600" height="1600" alt=""></div>
+  
+  <div class="grain-ab"></div><div class="vignette"></div>
+</div>
+<script>
+(function(){
+  var still=/still=1/.test(location.search)||(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+  document.documentElement.classList.add(still?"still":"live");
+})();
+</script>
+</body>
+</html>

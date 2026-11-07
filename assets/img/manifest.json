@@ -1,0 +1,666 @@
+{
+ "pommes-puree": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "001_Pommes_Puree_Plated_Shot_TCDqqSSd.png"
+  },
+  "cutout": {
+   "w": 1990,
+   "h": 1424,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "009_Pommes_Puree_Cutout_Alpha_XpJH6SPG.png"
+  }
+ },
+ "truffle-pommes-frites": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "002_Truffle_Pommes_Frites_Plated_Shot_GeZ8yWmR.png"
+  },
+  "cutout": {
+   "w": 2023,
+   "h": 1661,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "010_Truffle_Pommes_Frites_Cutout_Alpha_Px2FCJiF.png"
+  }
+ },
+ "duck-fat-roasted-potatoes": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "003_Duck_Fat_Roasted_Potatoes_Plated_Shot_EhmrF587.png"
+  },
+  "cutout": {
+   "w": 1947,
+   "h": 1471,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "011_Duck_Fat_Roasted_Potatoes_Cutout_Alpha_wAMsgYhv.png"
+  }
+ },
+ "gratin-dauphinois": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "004_Gratin_Dauphinois_Plated_Shot_aKrdAArC.png"
+  },
+  "cutout": {
+   "w": 1951,
+   "h": 1312,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "012_Gratin_Dauphinois_Cutout_Alpha_3xPX0_Vp.png"
+  }
+ },
+ "lobster-macaroni": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "005_Lobster_Macaroni_Plated_Shot_swtz7q7J.png"
+  },
+  "cutout": {
+   "w": 1953,
+   "h": 1315,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "013_Lobster_Macaroni_Cutout_Alpha_KQyGebQT.png"
+  }
+ },
+ "creamed-spinach": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "006_Creamed_Spinach_Plated_Shot_6trqgoYu.png"
+  },
+  "cutout": {
+   "w": 1854,
+   "h": 1310,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "014_Creamed_Spinach_Cutout_Alpha_dVEZI4sh.png"
+  }
+ },
+ "charred-broccolini": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "007_Charred_Broccolini_Plated_Shot_wtPZxPfG.png"
+  },
+  "cutout": {
+   "w": 1919,
+   "h": 1304,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "015_Charred_Broccolini_Cutout_Alpha_Evy7uRLE.png"
+  }
+ },
+ "wild-mushroom-fricassee": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "008_Wild_Mushroom_Fricassee_Plated_Shot_-ICGN-4w.png"
+  },
+  "cutout": {
+   "w": 1878,
+   "h": 1316,
+   "src_folder": "Accompaniments \u2014 8 Sides",
+   "src": "016_Wild_Mushroom_Fricassee_Cutout_Alpha_SZDpwZjC.png"
+  }
+ },
+ "pan-roasted-chilean-sea-bass": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "001_Pan-Roasted_Chilean_Sea_Bass_Plated_mBvu_RbN.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 996,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "010_Pan-Roasted_Chilean_Sea_Bass_Cutout_QG2zMLd5.png"
+  }
+ },
+ "lobster-thermidor": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "002_Lobster_Thermidor_Plated_lQYnfI9G.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 1118,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "011_Lobster_Thermidor_Cutout_HBnohfHZ.png"
+  }
+ },
+ "herb-crusted-rack-of-lamb": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "003_Herb-Crusted_Rack_of_Lamb_Plated_j2dDX70F.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 1229,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "012_Herb-Crusted_Rack_of_Lamb_Cutout_4ekxEgDz.png"
+  }
+ },
+ "wild-mushroom-risotto": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "004_Wild_Mushroom_Risotto_Plated_jIwoQ7d.png"
+  },
+  "cutout": {
+   "w": 1883,
+   "h": 1167,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "021_Wild_Mushroom_Risotto_Cutout_Fixed_eLDjeztq.png"
+  }
+ },
+ "dark-chocolate-fondant": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "005_Dark_Chocolate_Fondant_Plated_unvJ_N4U.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 969,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "014_Dark_Chocolate_Fondant_Cutout_CzO4ibIh.png"
+  }
+ },
+ "creme-brulee": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "006_Creme_Brulee_Plated_EUXl06x9.png"
+  },
+  "cutout": {
+   "w": 1892,
+   "h": 1305,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "019_Creme_Brulee_Cutout_Fixed_D2xCgGTX.png"
+  }
+ },
+ "bananas-foster": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "007_Bananas_Foster_Plated_jfEjQQbi.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 998,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "016_Bananas_Foster_Cutout_eTFv8g61.png"
+  }
+ },
+ "sticky-toffee-pudding": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "008_Sticky_Toffee_Pudding_Plated_4ahl-A4D.png"
+  }
+ },
+ "petit-fours": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "009_Petit_Fours_Plated_vIhq3Xy6.png"
+  },
+  "cutout": {
+   "w": 1886,
+   "h": 1350,
+   "src_folder": "Beyond the Fire + The Final Act \u2014 9 Dishes",
+   "src": "020_Petit_Fours_Cutout_Fixed_LkD6HNdc.png"
+  }
+ },
+ "filet-mignon": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "001_Filet_Mignon_Plated_Shot_ZHVstHqK.png"
+  },
+  "cutout": {
+   "w": 1491,
+   "h": 996,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "006_Filet_Mignon_Cutout_BEvzGtN7.png"
+  }
+ },
+ "new-york-strip": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "002_New_York_Strip_Plated_Shot_gMSxfUBp.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 998,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "007_New_York_Strip_Cutout_xghAOrA6.png"
+  }
+ },
+ "prime-ribeye": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "003_Prime_Ribeye_Plated_Shot_Q23qqmCT.png"
+  },
+  "cutout": {
+   "w": 1492,
+   "h": 996,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "008_Prime_Ribeye_Cutout_vGP4XhK3.png"
+  }
+ },
+ "cowboy-cut": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "004_Cowboy_Cut_Plated_Shot_2qeI7iW3.png"
+  },
+  "cutout": {
+   "w": 1982,
+   "h": 1439,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "009_Cowboy_Cut_Cutout_U8gvpzMK.png"
+  }
+ },
+ "picanha": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "005_Picanha_Plated_Shot_AUwOkw_K.png"
+  },
+  "cutout": {
+   "w": 1921,
+   "h": 1453,
+   "src_folder": "Butcher's Selection \u2014 6 Steaks + Cutouts",
+   "src": "010_Picanha_Cutout_eggaudu1.png"
+  }
+ },
+ "chateaubriand-for-two": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "001_Chateaubriand_For_Two_Plated_Shot_J4QhHKyC.png"
+  },
+  "cutout": {
+   "w": 1993,
+   "h": 1050,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "009_Chateaubriand_For_Two_Cutout_wDM-C6EH.png"
+  }
+ },
+ "porterhouse-for-two": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "002_Porterhouse_For_Two_Plated_Shot_zwFGnjpE.png"
+  },
+  "cutout": {
+   "w": 2010,
+   "h": 1188,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "008_Porterhouse_For_Two_Cutout_Ga-9w_Xf.png"
+  }
+ },
+ "sovereign-tomahawk": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "003_Sovereign_Tomahawk_Plated_Shot_CnA24o--.png"
+  },
+  "cutout": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "010_Sovereign_Tomahawk_Cutout_-NX2NlW2.png"
+  }
+ },
+ "oscar-enhancement": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "004_Oscar_Enhancement_Plated_Shot_ZbJQsmiS.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 998,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "011_Oscar_Enhancement_Cutout_fftOSNey.png"
+  }
+ },
+ "foie-gras-crown": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "005_Foie_Gras_Crown_Plated_Shot_gAzpBpDY.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 994,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "012_Foie_Gras_Crown_Cutout_-Pqw-i3p.png"
+  }
+ },
+ "black-truffle-shavings": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "006_Black_Truffle_Shavings_Plated_Shot_j3Q_OcJ6.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 996,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "013_Black_Truffle_Shavings_Cutout_Cozg1Zg9.png"
+  }
+ },
+ "bone-marrow-crust": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "007_Bone_Marrow_Crust_Plated_Shot_NvDIbnqi.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 998,
+   "src_folder": "For the Table + Enhancements \u2014 7 Dishes",
+   "src": "014_Bone_Marrow_Crust_Cutout_NO-3rQFd.png"
+  }
+ },
+ "bearnaise-sauce": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "001_Bearnaise_Sauce_Plated_Shot_18lG98mx.png"
+  },
+  "cutout": {
+   "w": 1923,
+   "h": 1455,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "009_Bearnaise_Sauce_Cutout_Transparent_ZFM1QCw.png"
+  }
+ },
+ "bordelaise-sauce": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "002_Bordelaise_Sauce_Plated_Shot_SFOYUwnZ.png"
+  },
+  "cutout": {
+   "w": 1868,
+   "h": 1396,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "010_Bordelaise_Sauce_Cutout_Transparent_9gw-hTHT.png"
+  }
+ },
+ "green-peppercorn-cognac-sauce": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "003_Green_Peppercorn_Cognac_Sauce_Plated_Shot_EjbyojCW.png"
+  },
+  "cutout": {
+   "w": 1663,
+   "h": 1266,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "011_Green_Peppercorn_Cognac_Sauce_Cutout_Transparent_UvclTju1.png"
+  }
+ },
+ "chimichurri-verde": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "004_Chimichurri_Verde_Plated_Shot_2MqmVzmb.png"
+  },
+  "cutout": {
+   "w": 1868,
+   "h": 1368,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "012_Chimichurri_Verde_Cutout_Transparent_uA2NouHq.png"
+  }
+ },
+ "black-truffle-butter": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "005_Black_Truffle_Butter_Plated_Shot_NOn6j8p-.png"
+  }
+ },
+ "cafe-de-paris-butter": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "006_Cafe_de_Paris_Butter_Plated_Shot_5tZv1sag.png"
+  },
+  "cutout": {
+   "w": 1896,
+   "h": 1400,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "013_Cafe_de_Paris_Butter_Cutout_Transparent_9Lz_ze-x.png"
+  }
+ },
+ "horseradish-cream": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "007_Horseradish_Cream_Plated_Shot_P8wjBaV9.png"
+  },
+  "cutout": {
+   "w": 1815,
+   "h": 1350,
+   "src_folder": "Sauces and Butters \u2014 7 Items",
+   "src": "014_Horseradish_Cream_Cutout_Transparent_n-2Ju-7M.png"
+  }
+ },
+ "french-onion-soup-gratinee": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "001_French_Onion_Soup_Gratinee_Plated_HoFyG8oV.png"
+  },
+  "cutout": {
+   "w": 1962,
+   "h": 1662,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "008_French_Onion_Soup_Gratinee_Cutout_-WpfHCKX.png"
+  }
+ },
+ "caesar-prepared-tableside": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "002_Caesar_Prepared_Tableside_Plated_kuEXrWE3.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 1000,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "005_Caesar_Prepared_Tableside_Cutout_Yx1zkYii.png"
+  }
+ },
+ "classic-wedge": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "003_Classic_Wedge_Plated_8EmlcbjT.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 1073,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "006_Classic_Wedge_Cutout_3ghSkw1E.png"
+  }
+ },
+ "burrata-heirloom-tomato": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "004_Burrata_Heirloom_Tomato_Plated_opvUrfDZ.png"
+  },
+  "cutout": {
+   "w": 1490,
+   "h": 998,
+   "src_folder": "Soup and Garden \u2014 4 Dishes + Cutouts",
+   "src": "007_Burrata_Heirloom_Tomato_Cutout_-psKeI5K.png"
+  }
+ },
+ "steak-tartare": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "001_Steak_Tartare_Plated_Shot_wXg95U2d.png"
+  },
+  "cutout": {
+   "w": 1968,
+   "h": 1521,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "013_Steak_Tartare_Cutout_W9z2vOqP.png"
+  }
+ },
+ "wagyu-carpaccio": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "002_Wagyu_Carpaccio_Plated_Shot_bC_9Ph4g.png"
+  },
+  "cutout": {
+   "w": 1494,
+   "h": 1075,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "008_Wagyu_Carpaccio_Cutout_OkpeoETs.png"
+  }
+ },
+ "seared-foie-gras": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "003_Seared_Foie_Gras_Plated_Shot_nar_nhGg.png"
+  },
+  "cutout": {
+   "w": 1978,
+   "h": 1484,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "014_Seared_Foie_Gras_Cutout_ceJwFiD.png"
+  }
+ },
+ "roasted-bone-marrow": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "004_Roasted_Bone_Marrow_Plated_Shot_6Q-EEqGb.png"
+  },
+  "cutout": {
+   "w": 1968,
+   "h": 1469,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "012_Roasted_Bone_Marrow_Cutout_ghrntuol.png"
+  }
+ },
+ "tiger-prawn-cocktail": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "005_Tiger_Prawn_Cocktail_Plated_Shot_GAiiIR9h.png"
+  },
+  "cutout": {
+   "w": 1431,
+   "h": 1428,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "011_Tiger_Prawn_Cocktail_Cutout_qPWHJD_G.png"
+  }
+ },
+ "oysters-half-shell": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "006_Oysters_Half_Shell_Plated_Shot_q8ebES-B.png"
+  },
+  "cutout": {
+   "w": 1492,
+   "h": 1075,
+   "src_folder": "To Begin Section \u2014 6 Dishes + Cutouts",
+   "src": "010_Oysters_Half_Shell_Cutout_-yoFxPnX.png"
+  }
+ },
+ "bone-marrow-white": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "White Plates, No Utensils or Glass",
+   "src": "001_Bone_Marrow_White_Plate_Shot_H5FeELX0.png"
+  }
+ },
+ "wagyu-tallow-white": {
+  "plated": {
+   "w": 2048,
+   "h": 2048,
+   "src_folder": "White Plates, No Utensils or Glass",
+   "src": "002_Wagyu_Tallow_White_Plate_Shot_Pd0RSF_7.png"
+  }
+ },
+ "bone-marrow": {
+  "cutout": {
+   "w": 1866,
+   "h": 1427,
+   "src_folder": "White Plates, No Utensils or Glass",
+   "src": "003_Bone_Marrow_White_Plate_Cutout_iWZ3lEMV.png"
+  }
+ },
+ "wagyu-tallow": {
+  "cutout": {
+   "w": 1797,
+   "h": 1491,
+   "src_folder": "White Plates, No Utensils or Glass",
+   "src": "004_Wagyu_Tallow_White_Plate_Cutout_pDp01SaO.png"
+  }
+ }
+}

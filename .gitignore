@@ -1,0 +1,7 @@
+_research/
+qa/
+.impeccable/
+.claude-launch-note.txt
+menu/_import/
+__pycache__/
+*.pyc

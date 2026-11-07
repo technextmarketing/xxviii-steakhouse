@@ -1,0 +1,258 @@
+{
+ "video": {
+  "picanha": {
+   "move": "glide-left",
+   "hd": "picanha-hd.mp4",
+   "sd": "picanha-sd.mp4",
+   "poster": "picanha-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "new-york-strip": {
+   "move": "glide-right",
+   "hd": "new-york-strip-hd.mp4",
+   "sd": "new-york-strip-sd.mp4",
+   "poster": "new-york-strip-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "prime-ribeye": {
+   "move": "glide-left",
+   "hd": "prime-ribeye-hd.mp4",
+   "sd": "prime-ribeye-sd.mp4",
+   "poster": "prime-ribeye-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "filet-mignon": {
+   "move": "glide-right",
+   "hd": "filet-mignon-hd.mp4",
+   "sd": "filet-mignon-sd.mp4",
+   "poster": "filet-mignon-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "cowboy-cut": {
+   "move": "glide-left",
+   "hd": "cowboy-cut-hd.mp4",
+   "sd": "cowboy-cut-sd.mp4",
+   "poster": "cowboy-cut-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "black-truffle-shavings": {
+   "move": "tilt-down",
+   "hd": "black-truffle-shavings-hd.mp4",
+   "sd": "black-truffle-shavings-sd.mp4",
+   "poster": "black-truffle-shavings-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "bone-marrow-crust": {
+   "move": "dolly-rise",
+   "hd": "bone-marrow-crust-hd.mp4",
+   "sd": "bone-marrow-crust-sd.mp4",
+   "poster": "bone-marrow-crust-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "chateaubriand-for-two": {
+   "move": "orbit",
+   "hd": "chateaubriand-for-two-hd.mp4",
+   "sd": "chateaubriand-for-two-sd.mp4",
+   "poster": "chateaubriand-for-two-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "foie-gras-crown": {
+   "move": "arc",
+   "hd": "foie-gras-crown-hd.mp4",
+   "sd": "foie-gras-crown-sd.mp4",
+   "poster": "foie-gras-crown-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "oscar-enhancement": {
+   "move": "push-in",
+   "hd": "oscar-enhancement-hd.mp4",
+   "sd": "oscar-enhancement-sd.mp4",
+   "poster": "oscar-enhancement-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "porterhouse-for-two": {
+   "move": "overhead-descend",
+   "hd": "porterhouse-for-two-hd.mp4",
+   "sd": "porterhouse-for-two-sd.mp4",
+   "poster": "porterhouse-for-two-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  },
+  "sovereign-tomahawk": {
+   "move": "crane",
+   "hd": "sovereign-tomahawk-hd.mp4",
+   "sd": "sovereign-tomahawk-sd.mp4",
+   "poster": "sovereign-tomahawk-poster.webp",
+   "w": 1920,
+   "h": 1080,
+   "sec": 8
+  }
+ },
+ "block": {
+  "cowboy-cut": {
+   "w": 2048,
+   "h": 1152
+  },
+  "filet-mignon": {
+   "w": 2048,
+   "h": 1152
+  },
+  "new-york-strip": {
+   "w": 2048,
+   "h": 1152
+  },
+  "picanha": {
+   "w": 2048,
+   "h": 1152
+  },
+  "prime-ribeye": {
+   "w": 2048,
+   "h": 1152
+  },
+  "black-truffle-shavings": {
+   "w": 2048,
+   "h": 1152
+  },
+  "bone-marrow-crust": {
+   "w": 2048,
+   "h": 1152
+  },
+  "chateaubriand-for-two": {
+   "w": 2048,
+   "h": 1152
+  },
+  "foie-gras-crown": {
+   "w": 2048,
+   "h": 1152
+  },
+  "oscar-enhancement": {
+   "w": 2048,
+   "h": 1152
+  },
+  "porterhouse-for-two": {
+   "w": 2048,
+   "h": 1152
+  },
+  "sovereign-tomahawk": {
+   "w": 2048,
+   "h": 1152
+  }
+ },
+ "texture": {
+  "scorched-oak-butcher-block": {
+   "kind": "texture",
+   "w": 2880,
+   "h": 2880,
+   "sizes": [
+    "lg",
+    "sm"
+   ]
+  },
+  "charcoal-slate-stone": {
+   "kind": "texture",
+   "w": 2880,
+   "h": 2880,
+   "sizes": [
+    "lg",
+    "sm"
+   ]
+  },
+  "dark-polished-walnut-grain": {
+   "kind": "texture",
+   "w": 2880,
+   "h": 2880,
+   "sizes": [
+    "lg",
+    "sm"
+   ]
+  },
+  "oxblood-tufted-leather": {
+   "kind": "texture",
+   "w": 2880,
+   "h": 2880,
+   "sizes": [
+    "lg",
+    "sm"
+   ]
+  },
+  "brushed-antique-brass": {
+   "kind": "texture",
+   "w": 2880,
+   "h": 2880,
+   "sizes": [
+    "lg",
+    "sm"
+   ]
+  },
+  "dark-slate-herb-scatter-frame": {
+   "kind": "texture",
+   "w": 2880,
+   "h": 2880,
+   "sizes": [
+    "lg",
+    "sm"
+   ]
+  },
+  "butcher-block-slate-wall-empty": {
+   "kind": "scene",
+   "w": 3840,
+   "h": 2160,
+   "sizes": [
+    "lg",
+    "md",
+    "sm"
+   ]
+  },
+  "walnut-table-steakhouse-dining-room": {
+   "kind": "scene",
+   "w": 3840,
+   "h": 2160,
+   "sizes": [
+    "lg",
+    "md",
+    "sm"
+   ]
+  },
+  "overhead-butcher-block-herb-frame": {
+   "kind": "scene",
+   "w": 3840,
+   "h": 2160,
+   "sizes": [
+    "lg",
+    "md",
+    "sm"
+   ]
+  },
+  "dark-slate-counter-smoke": {
+   "kind": "scene",
+   "w": 3840,
+   "h": 2160,
+   "sizes": [
+    "lg",
+    "md",
+    "sm"
+   ]
+  }
+ }
+}

@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worth the Wait · XXVIII launch marketing</title>
+<meta name="description" content="The launch marketing for Twenty-Eight, a dry-aged steakhouse in Bonifacio Global City: campaign, 28-day calendar, social, ads, email, loyalty and press.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141110">
+<link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/Gloock-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/BigShoulders.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/brand.css">
+<link rel="stylesheet" href="showcase.css">
+<script>document.documentElement.classList.add('js'); window.XXVIII_BASE = '../';</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <a class="top-mark" href="#hero" aria-label="XXVIII, back to top"><img src="../assets/logo/xxviii-horizontal-bone.svg" alt="" width="186" height="29"></a>
+  <nav class="top-nav" aria-label="Showcase sections">
+    <a href="#calendar">28 days</a><a href="#posts">Social</a><a href="#stories">Stories</a><a href="#ads">Ads</a><a href="#email">Email</a><a href="#club">Club</a><a href="#instore">In-store</a><a href="#press">Press</a><a href="#month">Month</a><a href="#track">Track</a><a href="#downloads">Files</a>
+  </nav>
+  <div class="top-day" aria-hidden="true"><span class="label">Day</span> <b class="num" id="topDay">01</b></div>
+</header>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<main id="main">
+
+<!-- 1 · HERO -------------------------------------------------------->
+<section class="hero" id="hero" aria-labelledby="hero-h">
+  <div class="hero-pool" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <h1 id="hero-h" class="hero-h"><span class="ln">Worth</span> <span class="ln">the wait.</span></h1>
+    <p class="hero-line">The first cuts go into the ageing room 28 days before we open. Everyone can watch them age.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#calendar">See the 28 days <span class="arr"></span></a>
+      <a class="btn btn-line" href="#downloads">Get the files</a>
+    </div>
+  </div>
+  <div class="hero-stage" aria-hidden="true">
+    <div class="hero-plate"><img src="../assets/img/cutout/cowboy-cut-lg.webp" alt="" width="1200" height="934" fetchpriority="high" decoding="async"></div>
+    <div class="hero-tag">
+      <i class="hero-string"></i>
+      <div class="tag-face">
+        <i class="tag-hole"></i>
+        <div class="tag-mark"></div>
+        <p class="label tag-room">Ageing room</p>
+        <div class="odo" id="heroOdo"><span class="odo-col"><span class="odo-strip">0<br>1<br>2</span></span><span class="odo-col"><span class="odo-strip">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</span></span></div>
+        <p class="label tag-day">Day <span id="heroDayWord">one</span> of twenty-eight</p>
+        <div class="tag-bar"><i id="heroBar"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <span class="label">The launch campaign · Twenty-Eight · Bonifacio Global City</span>
+    <span class="label hero-scroll">Scroll, slowly</span>
+  </div>
+</section>
+
+<!-- 2 · 28-DAY CALENDAR ---------------------------------------------->
+<section class="sec cal" id="calendar" aria-labelledby="cal-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="cal-h">Twenty-eight days, one piece a day.</h2>
+      <p class="sec-intro">Day 01 the first cuts go in. Day 28 is opening night. Open any day to see the piece and its caption.</p>
+    </div>
+    <ul class="ch-key" aria-label="Channel key" id="calKey"></ul>
+    <ol class="cal-grid" id="calGrid"></ol>
+  </div>
+</section>
+
+<dialog class="panel" id="dayPanel" aria-labelledby="dp-title">
+  <div class="panel-in">
+    <div class="panel-prev" id="dpPrev"></div>
+    <div class="panel-copy">
+      <p class="label panel-meta"><span id="dpDay"></span> · <span id="dpCh"></span></p>
+      <h3 id="dp-title"></h3>
+      <p class="panel-fmt" id="dpFmt"></p>
+      <div class="cap-box">
+        <pre class="cap-text" id="dpCap"></pre>
+        <button class="copy" type="button" data-copy-from="dpCap">Copy caption</button>
+      </div>
+      <div class="panel-nav">
+        <button type="button" class="pn" id="dpBack" aria-label="Previous day">Previous</button>
+        <button type="button" class="pn" id="dpNext" aria-label="Next day">Next</button>
+      </div>
+    </div>
+    <button class="x" type="button" id="dpClose" aria-label="Close">Close</button>
+  </div>
+</dialog>
+
+<!-- 3 · SOCIAL FEED --------------------------------------------------->
+<section class="sec feed" id="posts" aria-labelledby="posts-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="posts-h">Twelve posts, twelve ideas.</h2>
+      <p class="sec-intro">Each one composed on its own. Tap a square on the profile, or step through them large.</p>
+    </div>
+    <div class="feed-grid">
+      <div class="phone phone-profile" aria-label="Profile preview">
+        <div class="phone-screen">
+          <div class="pf-bar"><span class="label">@xxviii.steakhouse</span><span class="pf-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="pf-head">
+            <img class="pf-avatar" src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="64" height="64">
+            <div class="pf-counts"><p><b class="num">12</b><span>posts</span></p><p><b class="num">·</b><span>followers</span></p><p><b class="num">·</b><span>following</span></p></div>
+          </div>
+          <div class="pf-bio">
+            <p class="pf-name">XXVIII · Twenty-Eight</p>
+            <p>Dry-aged steakhouse. Every steak lists its age.<br>Bonifacio Global City. Opening night: Day 28.</p>
+            <p class="pf-link">xxviii.example/reserve</p>
+          </div>
+          <div class="pf-btns"><span>Follow</span><span>Message</span></div>
+          <ul class="pf-hl" aria-hidden="true"><li><i>Day</i>Ageing</li><li><i>₱</i>Menu</li><li><i>P</i>Patience</li><li><i>14</i>Room</li></ul>
+          <div class="pf-tabs" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+          <div class="pf-grid" id="pfGrid" role="list"></div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-frame">
+          <button class="stage-img" type="button" id="stageOpen" aria-label="Open the post full screen"><img id="stageImg" src="exports/web/post-01.webp" alt="" width="600" height="750" decoding="async"></button>
+        </div>
+        <div class="stage-ctrl">
+          <button class="st-arrow prev" type="button" id="stPrev" aria-label="Previous post"><span></span></button>
+          <button class="st-arrow next" type="button" id="stNext" aria-label="Next post"><span></span></button>
+          <span class="label">Tap the post to open it full size</span>
+        </div>
+        <div class="stage-info">
+          <p class="label stage-count"><span class="num" id="stNum">01</span> / 12 · <span id="stIdea"></span></p>
+          <h3 id="stTitle"></h3>
+          <div class="tabs" role="tablist" aria-label="Caption by platform" id="capTabs">
+            <button role="tab" type="button" aria-selected="true" data-pl="ig" id="tab-ig" aria-controls="capPanel">Instagram</button>
+            <button role="tab" type="button" aria-selected="false" data-pl="fb" id="tab-fb" aria-controls="capPanel" tabindex="-1">Facebook</button>
+            <button role="tab" type="button" aria-selected="false" data-pl="tt" id="tab-tt" aria-controls="capPanel" tabindex="-1">TikTok</button>
+          </div>
+          <div class="cap-box" role="tabpanel" id="capPanel" aria-labelledby="tab-ig">
+            <pre class="cap-text" id="capText"></pre>
+            <div class="cap-foot"><span class="label muted" id="capCount"></span><button class="copy" type="button" data-copy-from="capText">Copy caption</button></div>
+          </div>
+          <a class="dl-link label" id="stDl" href="exports/posts/post-01.png" download>Download PNG · 1080 × 1350</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dialog class="lightbox" id="lightbox" aria-label="Post, full screen">
+  <img id="lbImg" src="" alt="" width="1080" height="1350">
+  <button class="x" type="button" id="lbClose" aria-label="Close">Close</button>
+  <button class="st-arrow prev" type="button" id="lbPrev" aria-label="Previous post"><span></span></button>
+  <button class="st-arrow next" type="button" id="lbNext" aria-label="Next post"><span></span></button>
+</dialog>
+
+<!-- 4 · STORIES + REEL ---------------------------------------------------->
+<section class="sec stories" id="stories" aria-labelledby="stories-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="stories-h">Stories that move slowly.</h2>
+      <p class="sec-intro">Four animated 9:16 stories, playing live. Then a twenty-second reel, frame by frame.</p>
+    </div>
+    <div class="story-row" id="storyRow"></div>
+
+    <div class="reel" aria-labelledby="reel-h">
+      <div class="reel-head">
+        <h3 id="reel-h">Reel · Into the room · 20 seconds</h3>
+        <button class="btn btn-line reel-play" type="button" id="reelPlay" aria-pressed="false">Play the timing</button>
+      </div>
+      <div class="reel-time" aria-hidden="true"><i id="reelHead"></i><div class="reel-ticks" id="reelTicks"></div></div>
+      <ol class="reel-frames" id="reelFrames"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · PAID ADS ----------------------------------------------------------->
+<section class="sec ads" id="ads" aria-labelledby="ads-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="ads-h">Paid, but never pushy.</h2>
+      <p class="sec-intro">Three Meta variants in feed and story, a responsive search ad, and the Business Profile.</p>
+    </div>
+    <div class="tabs ad-tabs" role="tablist" aria-label="Ad variant" id="adTabs"></div>
+    <div class="ad-pair" role="tabpanel" id="adPanel" aria-live="polite">
+      <article class="meta-feed" aria-label="Feed ad preview">
+        <header class="mf-head"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="40" height="40"><div><b>XXVIII Steakhouse</b><span>Sponsored</span></div></header>
+        <p class="mf-primary" id="mfPrimary"></p>
+        <img class="mf-img" id="mfImg" src="exports/web/ad-feed-1.webp" alt="" width="600" height="750" loading="lazy" decoding="async">
+        <div class="mf-foot"><div><span class="mf-url">xxviii.example</span><b id="mfHead"></b><span id="mfDesc"></span></div><span class="mf-cta">Book now</span></div>
+      </article>
+      <div class="phone phone-story" aria-label="Story ad preview">
+        <div class="phone-screen"><img id="msImg" src="exports/web/ad-story-1.webp" alt="" width="600" height="1067" loading="lazy" decoding="async">
+          <div class="ms-top"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="28" height="28"><b>XXVIII Steakhouse</b><span>Sponsored</span></div>
+          <div class="ms-cta"><span>Book now</span></div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <p class="label muted">Copy for this variant</p>
+        <dl class="kv" id="adKv"></dl>
+        <div class="ad-dl"><a class="dl-link label" id="adDlF" href="exports/ads/meta-feed-1.png" download>Feed PNG</a><a class="dl-link label" id="adDlS" href="exports/ads/meta-story-1.png" download>Story PNG</a></div>
+      </div>
+    </div>
+
+    <div class="g-wrap">
+      <div class="rsa">
+        <h3>Search · responsive ad</h3>
+        <div class="serp" aria-label="Search result preview">
+          <p class="serp-spons">Sponsored</p>
+          <p class="serp-url"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="22" height="22"><span>xxviii.example<br><small>https://xxviii.example › reserve</small></span></p>
+          <p class="serp-h" id="serpH"></p>
+          <p class="serp-d" id="serpD"></p>
+        </div>
+        <button class="btn btn-line rsa-shuffle" type="button" id="rsaShuffle">Show another combination</button>
+        <p class="rsa-note muted">Edit any line: the counter checks the limit as you type.</p>
+        <div class="rsa-cols">
+          <div><p class="label">Headlines · max 30</p><ol class="rsa-list" id="rsaH"></ol></div>
+          <div><p class="label">Descriptions · max 90</p><ol class="rsa-list" id="rsaD"></ol></div>
+        </div>
+      </div>
+
+      <div class="gbp" aria-label="Business Profile listing preview">
+        <img class="gbp-cover" src="../assets/img/plated/porterhouse-for-two-md.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
+        <div class="gbp-body">
+          <h3>XXVIII Twenty-Eight Steakhouse</h3>
+          <p class="gbp-cat">Steakhouse · ₱₱₱₱ · <span>New</span></p>
+          <p class="gbp-rev muted">No reviews yet</p>
+          <div class="gbp-acts"><a class="gbp-res" href="#ads">Reserve a table</a><span>Directions</span><span>Call</span><span>Menu</span></div>
+          <dl class="gbp-facts">
+            <dt>Address</dt><dd>[Street], Bonifacio Global City, Taguig</dd>
+            <dt>Hours</dt><dd><ul class="gbp-hours" id="gbpHours"></ul></dd>
+            <dt>Menu</dt><dd><a class="link" href="../menu/">xxviii.example/menu</a></dd>
+            <dt>Phone</dt><dd>+63 (2) 0000 0028</dd>
+          </dl>
+          <div class="gbp-post">
+            <img src="exports/web/post-10.webp" alt="" width="600" height="750" loading="lazy" decoding="async">
+            <div><p class="label muted">Update</p><p>Tables are open from opening night. Every steak lists its age.</p><span class="gbp-postcta">Reserve</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · EMAIL + MESSAGING ---------------------------------------------------->
+<section class="sec email" id="email" aria-labelledby="email-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="email-h">Letters from the ageing room.</h2>
+      <p class="sec-intro">Four emails for The Ageing List and every booking, with SMS and Viber to match.</p>
+    </div>
+    <div class="mail-ui">
+      <div class="mail-side">
+        <div class="tabs vtabs" role="tablist" aria-label="Email" id="mailTabs"></div>
+        <div class="seg" role="group" aria-label="Preview width">
+          <button type="button" aria-pressed="true" data-w="600">Desktop</button>
+          <button type="button" aria-pressed="false" data-w="375">Mobile</button>
+        </div>
+        <dl class="kv mail-kv" id="mailKv"></dl>
+      </div>
+      <div class="mail-stage" id="mailStage">
+        <div class="mail-chrome"><i></i><i></i><i></i><span id="mailSubj"></span></div>
+        <iframe id="mailFrame" title="Email preview" src="about:blank" loading="lazy"></iframe>
+      </div>
+    </div>
+    <h3 class="sub-h">SMS and Viber</h3>
+    <ul class="sms-list" id="smsList"></ul>
+  </div>
+</section>
+
+<!-- 7 · LOYALTY ------------------------------------------------------------>
+<section class="sec club" id="club" aria-labelledby="club-h">
+  <div class="wrap club-grid">
+    <div class="club-copy">
+      <h2 id="club-h">The Ageing Club.</h2>
+      <p class="sec-intro">Your card ages like the beef. Every visit adds seven days.</p>
+      <ol class="tiers" id="tiers">
+        <li data-at="7"><b class="num">Day 07</b><span>A Patience on the house.</span></li>
+        <li data-at="14"><b class="num">Day 14</b><span>A sauce flight for the table.</span></li>
+        <li data-at="21"><b class="num">Day 21</b><span>First call on The Long Wait cuts.</span></li>
+        <li data-at="28"><b class="num">Day 28</b><span>Two seats at the Chef's table.</span></li>
+      </ol>
+      <p class="muted small">Rewards are a proposal, to confirm with the owner.</p>
+    </div>
+    <div class="club-play">
+      <div class="club-card" id="clubCard">
+        <div class="cc-top"><img src="../assets/logo/xxviii-wordmark-bone.svg" alt="XXVIII" width="140" height="34"><span class="label">The Ageing Club</span></div>
+        <div class="cc-mid"><span class="label">Your card</span><p class="cc-day"><span class="label">Day</span> <b class="num" id="ccDay">00</b></p></div>
+        <div class="cc-ticks" id="ccTicks" aria-hidden="true"></div>
+        <div class="cc-foot"><span class="label">Member · [Guest name]</span><span class="label" id="ccNext">Next: Day 07</span></div>
+      </div>
+      <div class="club-btns">
+        <button class="btn btn-solid" type="button" id="ccAdd">Add a visit <span class="arr"></span></button>
+        <button class="btn btn-line" type="button" id="ccReset">Start again</button>
+      </div>
+      <p class="club-msg" id="ccMsg" role="status" aria-live="polite">A new card. Your first visit takes it to Day 07.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · IN-STORE TO ONLINE --------------------------------------------------->
+<section class="sec instore" id="instore" aria-labelledby="instore-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="instore-h">From the table to the phone.</h2>
+      <p class="sec-intro">Four small objects that turn a good dinner into a booking, a review or a sign-up.</p>
+    </div>
+    <div class="is-grid">
+      <figure class="is-item is-tent">
+        <div class="is-stage"><div class="tent" aria-label="QR table tent">
+          <div class="tent-face tent-a"><img src="../assets/logo/xxviii-monogram-brass.svg" alt="" width="64" height="64"><p class="tent-h">Book your<br>next table.</p><img class="tent-qr" src="art/qr-reserve-brass.svg" alt="QR code to the booking page" width="120" height="120"><p class="label">xxviii.example/reserve</p></div>
+          <div class="tent-face tent-b" aria-hidden="true"></div>
+        </div></div>
+        <figcaption><b>QR table tent</b> Folded card on every table: book again, on the way out.</figcaption>
+      </figure>
+      <figure class="is-item is-stand">
+        <div class="is-stage"><div class="stand" aria-label="Review stand">
+          <div class="stand-block"><p class="tent-h">Worth<br>the wait?</p><p>Say so. It helps the next table find us.</p><img src="art/qr-review-char.svg" alt="QR code to the review page" width="110" height="110"><img class="stand-logo" src="../assets/logo/xxviii-horizontal-char.svg" alt="" width="120" height="19"></div>
+        </div></div>
+        <figcaption><b>Review stand</b> Bone acrylic block at the host stand. No incentives for reviews.</figcaption>
+      </figure>
+      <figure class="is-item is-wifi">
+        <div class="is-stage"><div class="phone phone-mini" aria-label="Wi-Fi splash page">
+          <div class="phone-screen wifi">
+            <img src="../assets/logo/xxviii-primary-brass.svg" alt="" width="150" height="64">
+            <p class="wifi-h">Welcome in.<br>Stay a while.</p>
+            <label class="wifi-f"><span class="label">Email, for The Ageing List (optional)</span><span class="wifi-in">name@example.com</span></label>
+            <span class="wifi-btn">Connect</span>
+            <span class="wifi-skip">Connect without joining</span>
+            <p class="wifi-small">Network: XXVIII-Guests</p>
+          </div>
+        </div></div>
+        <figcaption><b>Wi-Fi splash</b> Joining the list is optional; the Wi-Fi never is.</figcaption>
+      </figure>
+      <figure class="is-item is-receipt">
+        <div class="is-stage"><div class="receipt" aria-label="Receipt footer">
+          <p class="r-row"><span>The Twenty-Eight</span><span>5,800.00</span></p>
+          <p class="r-row"><span>Patience ×2</span><span>1,440.00</span></p>
+          <p class="r-row"><span>Pommes Purée</span><span>420.00</span></p>
+          <p class="r-row r-sum"><span>Total</span><span>₱7,660.00</span></p>
+          <p class="r-foot">Your steak waited 28 days.<br>Thank you for waiting with us.</p>
+          <p class="r-club">Ageing Club · this visit adds 7 days</p>
+          <img src="art/qr-club-char.svg" alt="QR code to join the Ageing Club" width="80" height="80">
+          <p class="r-url">xxviii.example/club</p>
+        </div></div>
+        <figcaption><b>Receipt footer</b> The last thing guests read, so it says thank you and asks once.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · PR + PARTNERS ------------------------------------------------------->
+<section class="sec press" id="press" aria-labelledby="press-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="press-h">For the people who write about food.</h2>
+      <p class="sec-intro">A tasting before the doors open, a release with facts only, and a kit that answers questions first.</p>
+    </div>
+    <div class="pr-grid">
+      <div class="invite-wrap">
+        <button class="invite" type="button" id="invite" aria-pressed="false" aria-label="Turn the invitation card over">
+          <span class="inv-face inv-front">
+            <img src="../assets/logo/xxviii-seal-brass.svg" alt="" width="120" height="120">
+            <span class="inv-h">Before the doors open, taste the first cuts.</span>
+            <span class="label">For [Name] · [Publication]</span>
+          </span>
+          <span class="inv-face inv-back">
+            <span class="label">A tasting at Twenty-Eight</span>
+            <span class="inv-row"><b>Day 26</b> of the first ageing</span>
+            <span class="inv-row"><b>7:00 PM</b> for you and one guest</span>
+            <span class="inv-row"><b>[Street]</b> Bonifacio Global City</span>
+            <span class="inv-small">Kindly reply by Day 22 · reservations@xxviii.example</span>
+          </span>
+        </button>
+        <p class="muted small">Tap the card to turn it over. Printed on heavy bone stock, delivered by hand with a brass tag.</p>
+      </div>
+      <article class="release">
+        <p class="label muted">Press release · for release on opening day</p>
+        <h3 id="prHead"></h3>
+        <p class="release-sf" id="prSf"></p>
+        <div id="prBody"></div>
+        <p class="release-bp" id="prBp"></p>
+        <button class="copy" type="button" id="prCopy">Copy release</button>
+      </article>
+      <div class="kit">
+        <h3>Media kit</h3>
+        <ul class="kit-list" id="kitList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · MONTH VIEW -------------------------------------------------------->
+<section class="sec month" id="month" aria-labelledby="month-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="month-h">The first month open.</h2>
+      <p class="sec-intro">The rhythm after opening night. Mondays are closed: the beef rests, and so do we.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter by channel" id="monthFilters"></div>
+    <div class="mo-wrap"><div class="mo" id="monthGrid" role="grid" aria-label="Month one content calendar"></div></div>
+  </div>
+</section>
+
+<!-- 11 · TRACK ------------------------------------------------------------>
+<section class="sec track" id="track" aria-labelledby="track-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="track-h">What we will measure.</h2>
+      <p class="sec-intro">No forecasts. These are the numbers to read every week, from Day 01.</p>
+    </div>
+    <ol class="metrics" id="metrics"></ol>
+  </div>
+</section>
+
+<!-- 12 · DOWNLOADS --------------------------------------------------------->
+<section class="sec dl" id="downloads" aria-labelledby="dl-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="dl-h">Every file, ready to post.</h2>
+      <p class="sec-intro">Exported at platform size from the artboards on this page.</p>
+    </div>
+    <div class="dl-grid">
+      <div class="dl-col"><h3>Feed posts · 1080 × 1350</h3><ul id="dlPosts"></ul><a class="dl-sheet" href="exports/posts/contact-sheet-posts.png">Contact sheet, all twelve</a></div>
+      <div class="dl-col"><h3>Stories · 1080 × 1920</h3><ul id="dlStories"></ul><a class="dl-sheet" href="exports/stories/contact-sheet-vertical.png">Contact sheet, stories and story ads</a></div>
+      <div class="dl-col"><h3>Meta ads</h3><ul id="dlAds"></ul><a class="dl-sheet" href="exports/ads/contact-sheet-ads.png">Contact sheet, feed ads</a></div>
+      <div class="dl-col"><h3>Email · 600 px</h3><ul id="dlMail"></ul></div>
+      <div class="dl-col dl-cap"><h3>Captions</h3><p class="muted">Every caption per platform, ad copy, search ad lines, SMS and the release, in one text file.</p><a class="btn btn-solid" href="exports/captions.txt" download>Download captions.txt <span class="arr"></span></a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <img src="../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse" width="190" height="82">
+    <p class="muted">Launch marketing, draft for review. Dates, contacts and prices are placeholders until the owner confirms them.</p>
+    <p class="label">Some things can't be hurried.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><style>.cal-grid,.pf-grid{display:none}</style><p class="wrap muted">The interactive parts of this page need JavaScript. All files are listed under Downloads.</p></noscript>
+
+<script src="../assets/data/xxviii.js"></script>
+<script src="showcase-data.js"></script>
+<script src="../assets/vendor/gsap.min.js"></script>
+<script src="../assets/vendor/ScrollTrigger.min.js"></script>
+<script src="../assets/vendor/SplitText.min.js"></script>
+<script src="../assets/vendor/lenis.min.js"></script>
+<script src="showcase.js"></script>
+</body>
+</html>

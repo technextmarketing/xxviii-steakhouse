@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>XXVIII · post 11 · Time is the finest ingredient</title>
+<link rel="stylesheet" href="../../assets/css/brand.css">
+<link rel="stylesheet" href="art.css">
+<style>
+.ab{background:radial-gradient(80% 60% at 20% 25%,#261e1a 0%,var(--char) 70%)}
+.hl{position:absolute;left:64px;top:130px;font-size:176px;line-height:.96;letter-spacing:-.015em;white-space:nowrap}
+.hl em{font-style:normal;color:var(--brass)}
+.dial{position:absolute;left:300px;top:640px;width:1040px;height:1040px}
+.logo{position:absolute;left:64px;bottom:64px;width:150px}
+.pool.a{left:430px;top:700px;width:900px;height:900px}
+</style></head><body>
+<div class="ab post">
+  <div class="pool a"></div>
+  <h1 class="disp hl">Time is<br>the <em>finest</em><br>ingredient.</h1>
+  <svg class="dial" viewBox="-520 -520 1040 1040" data-bleed id="dial"></svg>
+  <img class="logo" src="../../assets/logo/xxviii-primary-bone.svg" alt="XXVIII">
+  <div class="vignette"></div><div class="grain-ab"></div>
+</div>
+<script>
+(function(){var s='<circle r="470" fill="none" stroke="#c29a5b" stroke-opacity=".12" stroke-width="1.5"/><circle r="300" fill="none" stroke="#c29a5b" stroke-opacity=".1" stroke-width="1.5"/>',i,a,lit;
+for(i=1;i<=28;i++){a=(-128+(i-1)*(360/28))*Math.PI/180;lit=(i===28);
+var r1=lit?330:390,r2=lit?500:470,c=Math.cos(a),n=Math.sin(a);
+s+='<line x1="'+(r1*c).toFixed(1)+'" y1="'+(r1*n).toFixed(1)+'" x2="'+(r2*c).toFixed(1)+'" y2="'+(r2*n).toFixed(1)+'" stroke="'+(lit?'#e2c48e':'#a39686')+'" stroke-opacity="'+(lit?1:.4)+'" stroke-width="'+(lit?9:5)+'"/>';}
+document.getElementById('dial').innerHTML=s;})();
+</script></body></html>

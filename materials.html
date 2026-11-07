@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>XXVIII · Brand &amp; marketing materials</title>
+<link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/brand.css">
+<style>
+  body { min-height: 100vh; display: grid; align-content: center; padding: 64px 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, #2a1d16 0%, var(--char) 70%); }
+  header { text-align: center; margin-bottom: clamp(40px, 6vw, 72px); }
+  header img { width: min(320px, 70vw); margin: 0 auto 20px; }
+  header p { color: var(--ash); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  a.card { background: var(--char); padding: 28px 26px 30px; display: grid; gap: 10px; min-height: 230px; align-content: start; position: relative; overflow: hidden; transition: background .5s var(--ease-out); }
+  a.card:hover, a.card:focus-visible { background: var(--char-2); }
+  a.card .label { color: var(--brass); }
+  a.card h2 { font-size: clamp(1.9rem, 1.4rem + 1.2vw, 2.5rem); }
+  a.card p { color: var(--ash); font-size: .95rem; }
+  a.card .go { margin-top: auto; padding-top: 18px; font: 600 .78rem/1 var(--f-label); letter-spacing: .24em; text-transform: uppercase; color: var(--bone); }
+  a.card .go::after { content: ' \2192'; transition: margin .4s var(--ease-out); }
+  a.card:hover .go::after { margin-left: 8px; }
+  footer { margin-top: 40px; text-align: center; color: var(--ash); font-size: .85rem; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <img src="assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse" width="560" height="330">
+    <p>Brand and launch materials · Edition I · Preview</p>
+  </header>
+  <nav class="grid" aria-label="Materials">
+    <a class="card" href="index.html"><span class="label">I · Website</span><h2>The website</h2><p>Video hero, the Ageing Room board, the menu, reservations.</p><span class="go">Open</span></a>
+    <a class="card" href="brand/index.html"><span class="label">II · Brand kit</span><h2>Brand guidelines</h2><p>Logo, colour, type, photography, motion, print and digital materials.</p><span class="go">Open</span></a>
+    <a class="card" href="menu/index.html"><span class="label">III · Menu</span><h2>The menu book</h2><p>Page-turning menu and the printable PDF.</p><span class="go">Open</span></a>
+    <a class="card" href="showcase/index.html"><span class="label">IV · Launch</span><h2>Worth the Wait</h2><p>The 28-day launch campaign: posts, reels, ads, emails.</p><span class="go">Open</span></a>
+  </nav>
+  <footer>Preview build. Prices, contacts and hours are placeholders to confirm.</footer>
+</main>
+</body>
+</html>

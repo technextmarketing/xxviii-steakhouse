@@ -1,0 +1,392 @@
+[
+ {
+  "name": "post-01",
+  "file": "posts/post-01.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-02",
+  "file": "posts/post-02.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-03",
+  "file": "posts/post-03.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-04",
+  "file": "posts/post-04.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-05",
+  "file": "posts/post-05.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-06",
+  "file": "posts/post-06.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-07",
+  "file": "posts/post-07.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-08",
+  "file": "posts/post-08.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-09",
+  "file": "posts/post-09.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-10",
+  "file": "posts/post-10.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-11",
+  "file": "posts/post-11.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-12",
+  "file": "posts/post-12.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "story-01",
+  "file": "stories/story-01.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "story-02",
+  "file": "stories/story-02.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "story-03",
+  "file": "stories/story-03.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "story-04",
+  "file": "stories/story-04.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "ad-feed-1",
+  "file": "ads/meta-feed-1.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "ad-feed-2",
+  "file": "ads/meta-feed-2.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "ad-feed-3",
+  "file": "ads/meta-feed-3.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "ad-story-1",
+  "file": "ads/meta-story-1.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "ad-story-2",
+  "file": "ads/meta-story-2.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "ad-story-3",
+  "file": "ads/meta-story-3.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "email-welcome",
+  "file": "email/email-welcome.png",
+  "size": [
+   600,
+   1513
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "email-confirmation",
+  "file": "email/email-confirmation.png",
+  "size": [
+   600,
+   1612
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "email-birthday",
+  "file": "email/email-birthday.png",
+  "size": [
+   600,
+   1272
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "email-thankyou",
+  "file": "email/email-thankyou.png",
+  "size": [
+   600,
+   1200
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ }
+]
