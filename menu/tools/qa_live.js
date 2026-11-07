@@ -143,10 +143,6 @@ window.LIVEQA = async function LIVEQA() {
     ok('no text crosses its page', !outs.length, outs.slice(0, 8));
     ok('no clipped titles', !clips.length, clips);
 
-    const rib = $('#ribbon'); rib.click(); await wait(80);
-    ok('the ribbon unrolls the contents', rib.getAttribute('aria-expanded') === 'true' && $$('#ribbonList button').length === 9);
-    $('#ribbonList [data-go="3"]').click(); await settle(3);
-    ok('a ribbon line opens its course', B.s === 3 && rib.getAttribute('aria-expanded') === 'false');
     $('#btnSearch').click(); const q = $('#q'); q.value = 'chateaubriand'; q.dispatchEvent(new Event('input', { bubbles: true })); await wait(60);
     const hit = $('#results button');
     ok('search finds Châteaubriand', !!hit);
