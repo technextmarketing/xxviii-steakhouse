@@ -110,9 +110,11 @@ video { background: var(--char-2); }
 
 /* ───────── 2. Hero (video) ───────── */
 .hero { min-height: max(640px, 100svh); display: flex; flex-direction: column; justify-content: center; overflow: hidden; isolation: isolate; background: var(--char); }
-.hero__media { position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: -1; }
-.hero__frame { position: absolute; inset: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%); mask-image: linear-gradient(90deg, transparent 0, #000 9%); }
-@media (max-width: 899px) { .hero__frame { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%); mask-image: linear-gradient(180deg, transparent 0, #000 12%); } }
+.hero__media { position: absolute; top: 0; right: 0; bottom: 0; width: 58%; width: round(58%, 1px); z-index: -1; }
+.hero__frame { position: absolute; inset: 0; overflow: hidden; }
+/* edge fade on the whole media layer (video + pool + shade) so no half-pixel seam can show (7 Nov) */
+.hero__media { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%); mask-image: linear-gradient(90deg, transparent 0, #000 12%); }
+@media (max-width: 899px) { .hero__media { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%); mask-image: linear-gradient(180deg, transparent 0, #000 14%); } }
 .hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; transform-origin: 70% 60%; opacity: 0; transition: opacity 1.1s var(--ease-io); }
 .hero__video.is-on { opacity: 1; }
 .hero__pool { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light; background: radial-gradient(42% 40% at 62% 60%, color-mix(in srgb, var(--brass-hi) 55%, transparent), transparent 70%); }
