@@ -103,10 +103,13 @@
   /* ---------- IV · values ---------- */
   var IW = [['sm', 640], ['md', 1200], ['lg', 1920]];
   var iset = function (slug) { return IW.map(function (w) { return X.interior(slug, w[0]) + ' ' + w[1] + 'w'; }).join(', '); };
-  var VALUE_ROOM = { Patience: ['bar', 'The bar, where Patience is stirred slowly.'], Craft: ['open-kitchen-chefs-counter', 'The open kitchen. Every cut seared by hand.'], Honesty: ['dry-aging-cabinet', 'The cabinet by the door. Nothing is hidden.'], Gathering: ['private-dining-room', 'The private room. One long table for fourteen.'] };
+  var DRY = (X.media && X.media.dryage) || {};
+  var pic = function (slug, size) { return DRY[slug] ? X.dryage(slug, size) : X.interior(slug, size); };   // the ageing room set, or the other interiors
+  var pset = function (slug) { return IW.map(function (w) { return pic(slug, w[0]) + ' ' + w[1] + 'w'; }).join(', '); };
+  var VALUE_ROOM = { Patience: ['bar', 'The bar, where Patience is stirred slowly.'], Craft: ['open-kitchen-chefs-counter', 'The open kitchen. Every cut seared by hand.'], Honesty: ['room-through-the-glass', 'The ageing room, through the glass. Nothing is hidden.'], Gathering: ['private-dining-room', 'The private room. One long table for fourteen.'] };
   $('#values').innerHTML = B.values.map(function (v) {
     var r = VALUE_ROOM[v.name];
-    return '<li><span class="v-name">' + esc(v.name) + '</span><p>' + esc(v.line) + '</p>' + (r && X.interior ? '<figure class="v-room"><img src="' + X.interior(r[0], 'sm') + '" srcset="' + iset(r[0]) + '" sizes="(max-width: 760px) 92vw, 220px" alt="" width="640" height="360" loading="lazy" decoding="async"><figcaption>' + esc(r[1]) + '</figcaption></figure>' : '') + '</li>';
+    return '<li><span class="v-name">' + esc(v.name) + '</span><p>' + esc(v.line) + '</p>' + (r && X.interior ? '<figure class="v-room"><img src="' + pic(r[0], 'sm') + '" srcset="' + pset(r[0]) + '" sizes="(max-width: 760px) 92vw, 220px" alt="" width="640" height="360" loading="lazy" decoding="async"><figcaption>' + esc(r[1]) + '</figcaption></figure>' : '') + '</li>';
   }).join('');
 
   /* ---------- V · taglines ---------- */
@@ -343,22 +346,29 @@
   var SERIES_NOTE = {
     dining: '<b>I · The dining room.</b> 48 plates on the walnut table, oxblood booths behind, one lamp. For the menu, the website and anything that should feel like sitting down. The backdrop repeats on purpose, so outside this library show no more than three side by side.',
     block: '<b>II · The butcher block.</b> Twelve cuts on scorched oak, with garlic, salt and herbs kept to the frame edge. For the butcher’s story, the ageing room and the steak pages. The dark top third stays empty for type.',
-    room: '<b>IV · The room.</b> Six views of the restaurant at the same hour: daylight through tall windows, brass pendants on, tables set, nobody posing. Shoot wide and level at standing eye height. For the website, the press kit and the private-dining pack, and as the breathing space between food.',
+    room: '<b>IV · The room.</b> It starts with the ageing room: the glass wall to the dining room, the salt-brick wall lit warm, steel racks, ribs on hooks, every cut tagged with its day. Shoot it from the dining room first, then through the glass, then inside; one close crust detail; the butcher only with a cut in hand. Then the rest of the house at the same hour: daylight, brass pendants on, tables set, nobody posing. Shoot wide and level at standing eye height.',
     cutout: '<b>III · Cut-outs.</b> Every plate on transparency. For the background kit, the menu book and motion. Always add a soft contact shadow and one pool of light. Never set two at the same scale side by side.'
   };
   var ROOM_LINES = {
-    'dry-aging-cabinet': ['The cabinet by the door', 'You pass the beef before you sit down. Three shelves, brass frame, one banquette beside it.'],
+    'room-wide-feature-wall': ['The ageing room', 'The glass room from the dining room: the salt-brick wall lit warm behind hanging ribs.'],
+    'room-through-the-glass': ['Through the glass', 'Ribs on hooks and on steel racks, the salt wall glowing behind.'],
+    'room-rack-aisle': ['Inside the room', 'The rack aisle. Every cut tagged with its day.'],
+    'room-butcher-moment': ['The butcher', 'Checking a tagged rib on the rack. People only with a cut in hand.'],
+    'rib-crust-close-detail': ['The crust', 'Dark, dry bark on ribs hanging from steel hooks. The detail shot.'],
     'main-dining-room': ['The dining room', 'White linen, oxblood leather, brass pendants and room between the tables.'],
     'bar': ['The bar', 'Dark wood, oxblood stools, the back bar lit low. Patience is stirred here.'],
     'private-dining-room': ['The private room', 'One long table for fourteen, panelled in walnut.'],
     'entrance-host-stand': ['The entrance', 'The host stand, and a first look through to the room.'],
     'open-kitchen-chefs-counter': ['The open kitchen', 'The pass, the grill and the counter seats facing them.']
   };
-  var roomItems = Object.keys((X.media && X.media.interior) || {}).map(function (slug) { return { slug: slug, name: (ROOM_LINES[slug] || [slug])[0], desc: (ROOM_LINES[slug] || ['', ''])[1], sec: 'The room', alt: X.media.interior[slug] }; });
+  var ROOM_ORDER = ['room-wide-feature-wall', 'room-through-the-glass', 'room-rack-aisle', 'rib-crust-close-detail', 'room-butcher-moment', 'main-dining-room', 'bar', 'private-dining-room', 'entrance-host-stand', 'open-kitchen-chefs-counter'];
+  var roomItems = ROOM_ORDER.filter(function (slug) { return DRY[slug] || (X.media.interior || {})[slug]; }).map(function (slug) {
+    return { slug: slug, name: (ROOM_LINES[slug] || [slug])[0], desc: (ROOM_LINES[slug] || ['', ''])[1], sec: DRY[slug] ? 'The ageing room' : 'The room', alt: DRY[slug] || X.media.interior[slug], dry: !!DRY[slug] };
+  });
   var rgrid = $('#roomGrid');
   rgrid.innerHTML = roomItems.map(function (d, i) {
     return '<li class="rm-' + i + '"><button type="button" class="lib-tile rm-tile" data-r="' + i + '" aria-label="' + esc(d.name) + ', open larger">' +
-      '<span class="lib-img lib-img-wide"><img src="' + X.interior(d.slug, 'sm') + '" srcset="' + iset(d.slug) + '" sizes="(max-width: 760px) 92vw, ' + (i === 0 ? '64vw' : '32vw') + '" alt="' + esc(d.alt) + '" width="640" height="360" loading="lazy" decoding="async"></span>' +
+      '<span class="lib-img lib-img-wide"><img src="' + pic(d.slug, 'sm') + '" srcset="' + pset(d.slug) + '" sizes="(max-width: 760px) 92vw, ' + (i === 0 ? '64vw' : '32vw') + '" alt="' + esc(d.alt) + '" width="640" height="360" loading="lazy" decoding="async"></span>' +
       '<span class="lib-name">' + esc(d.name) + '</span><span class="rm-line">' + esc(d.desc) + '</span></button></li>';
   }).join('');
   var series = 'dining', cutsLoaded = false, capped = true, NARROW = window.matchMedia('(max-width: 760px)');
@@ -421,7 +431,7 @@
     lbI = i;
     var isR = lbMode === 'room', isB = lbMode === 'block' || isR, d = isR ? roomItems[i] : lbMode === 'block' ? blockItems[i] : dishes[i], first = $('#lbPlated');
     $('.lb-figs').classList.toggle('is-block', isB);
-    if (isR) { first.srcset = iset(d.slug); first.src = X.interior(d.slug, 'lg'); first.alt = d.alt; $('#lbFirstCap').textContent = 'The room'; }
+    if (isR) { first.srcset = pset(d.slug); first.src = pic(d.slug, 'lg'); first.alt = d.alt; $('#lbFirstCap').textContent = d.sec; }
     else if (isB) { first.srcset = srcset('block', d.slug); first.src = X.block(d.slug, 'lg'); first.alt = d.name + ', on the butcher block'; $('#lbFirstCap').textContent = 'Butcher block'; }
     else { first.srcset = srcset('plated', d.img); first.src = X.img(d.img, 'plated', 'lg'); first.alt = d.name + ', plated'; $('#lbFirstCap').textContent = 'Plated'; }
     var cutFig = $('.lb-cut');
@@ -432,7 +442,7 @@
     $('#lbDesc').textContent = d.desc || '';
     $('#lbAge').innerHTML = d.age ? '<span class="age-tag">Aged <b>' + d.age + '</b> days</span>' + (d.weight ? ' <span class="label muted">' + esc(d.weight) + '</span>' : '') : '';
     $('#lbPrice').textContent = d.note && !d.price ? d.note : X.peso(d.price);
-    $('#lbFiles').textContent = isR ? 'interior/' + d.slug + '-lg.webp' : isB ? 'block/' + d.slug + '-lg.webp · video/' + d.slug + '-hd.mp4' : 'plated/' + d.img + '-lg.webp' + (d.cut ? ' · cutout/' + d.cut + '-lg.webp' : '');
+    $('#lbFiles').textContent = isR ? (d.dry ? 'dryage/' : 'interior/') + d.slug + '-lg.webp' : isB ? 'block/' + d.slug + '-lg.webp · video/' + d.slug + '-hd.mp4' : 'plated/' + d.img + '-lg.webp' + (d.cut ? ' · cutout/' + d.cut + '-lg.webp' : '');
     var vis = visibleIdx(), p = vis.indexOf(i);
     $('#lbPos').textContent = pad(p + 1) + ' / ' + pad(vis.length);
     if (MOTION) gsap.fromTo('.lb-figs img', { opacity: 0, scale: 1.03 }, { opacity: 1, scale: 1, duration: .8, ease: 'expo.out' });
@@ -656,8 +666,8 @@
   $('#arBody').innerHTML = cuts.map(function (c) {
     return '<tr><td class="ar-cut">' + nb(c.name) + '<small>' + esc(c.weight) + '</small></td><td><span class="ar-day" data-day="' + c._day + '">' + pad(c._day) + '</span><i class="ar-of">/' + c.age + '</i><span class="ar-prog"><i style="transform:scaleX(' + (c._day / c.age).toFixed(3) + ')"></i></span></td><td class="ar-ready">Day ' + c.age + '</td></tr>';
   }).join('');
-  /* tags clipped to the three shelves of the real cabinet (positions in % of the photograph) */
-  var SHELF = [[33.5, 25.5], [24.5, 44.2], [36, 59.4]];
+  /* day tags hung on three ribs in the ageing room, seen through the glass (positions in % of the photograph) */
+  var SHELF = [[39, 36], [50.4, 40], [61.5, 37]];
   $('#arTags').innerHTML = cuts.slice(0, 3).map(function (c, i) {
     var short = c.name.replace(/^The /, '');
     return '<div class="ar-hang" style="left:' + SHELF[i][0] + '%;top:' + SHELF[i][1] + '%"><div class="ar-tag"><b>' + pad(c._day) + '</b><small>' + esc(short) + '</small></div></div>';
@@ -732,8 +742,8 @@
   (function () {
     var t = function (cls, html) { return '<li class="' + cls + '">' + html + '</li>'; };
     var ph = function (slug) { return '<li><img src="' + X.img(slug, 'plated', 'sm') + '" srcset="' + srcset('plated', slug) + '" sizes="96px" alt="" width="420" height="420" loading="lazy" decoding="async"></li>'; };
-    var room = function (slug) { return '<li><img src="' + X.interior(slug, 'sm') + '" srcset="' + iset(slug) + '" sizes="96px" alt="" width="640" height="360" loading="lazy" decoding="async"></li>'; };
-    $('#igGrid').innerHTML = [ph('cowboy-cut'), t('igt igt-ox', esc(B.taglines[0])), room('dry-aging-cabinet'),
+    var room = function (slug) { return '<li><img src="' + pic(slug, 'sm') + '" srcset="' + pset(slug) + '" sizes="96px" alt="" width="640" height="360" loading="lazy" decoding="async"></li>'; };
+    $('#igGrid').innerHTML = [ph('cowboy-cut'), t('igt igt-ox', esc(B.taglines[0])), room('room-butcher-moment'),
       t('igt igt-day', '<span>Day</span><b>21</b><span>The ageing room</span>'), room('bar'), ph('creme-brulee'),
       room('private-dining-room'), t('igt', esc(B.taglines[1])), ph('steak-tartare')].join('');
   })();

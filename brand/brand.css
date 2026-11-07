@@ -1327,7 +1327,7 @@ figcaption span, .sub, .ch-intro, .series-note, .sc-for, .dl-who, .bg-meta > spa
 .sg-grid-2 { grid-template-columns: 1fr; }
 .sg-grid-2 .sg-host { max-width: 560px; }
 
-/* the cabinet in the brand-touches case */
+/* the ageing room in the brand-touches case */
 .ar-case { margin: 0; background: #0e0b0a; }
 .ar-photo { position: absolute; top: 0; bottom: 0; left: 50%; aspect-ratio: 16 / 9; transform: translateX(-30.5%); }
 .ar-photo > img { width: 100%; height: 100%; object-fit: cover; }
@@ -1488,4 +1488,26 @@ figcaption span, .sub, .ch-intro, .series-note, .sc-for, .dl-who, .bg-meta > spa
   .ct-aa { grid-row: auto; font-size: 1.1rem; }
   .ct-ratio { font-size: .66rem; letter-spacing: 0; }
   .ct-badge { font-size: .5rem; padding: 2px 3px; letter-spacing: .04em; white-space: nowrap; }
+}
+
+/* dry-age room (media batch 4) */
+.ar-photo { transform: translateX(-50%); }
+.ch-hero-crust .chh-media { object-position: 50% 40%; }
+.ch-hero-crust::after { background: linear-gradient(90deg, rgba(14,11,10,.96) 0%, rgba(14,11,10,.9) 46%, rgba(14,11,10,.35) 74%, rgba(14,11,10,.12) 100%), linear-gradient(0deg, rgba(14,11,10,.5), transparent 40%); }
+.ch-hero-crust { min-height: clamp(320px, 34vw, 460px); align-content: end; align-items: end; }
+.rs-room .rs-decal { left: 23%; width: 65%; top: 7.2%; }
+.rs-room .rs-decal span { font-size: 1.4cqw; }
+.rs-room .rs-board { left: 88.6%; top: 14%; width: 10.6%; padding: .9cqw .8cqw; }
+.rs-room .rs-board img { width: 70%; }
+.rs-room .rs-board .label { font-size: .58cqw; letter-spacing: .18em; }
+.rs-room .rs-board li { font-size: .78cqw; gap: .4cqw; padding: .35cqw 0; }
+.rs-room .rs-board li b { font-size: .95cqw; }
+.rs-room .rs-board li i { display: none; }
+@media (max-width: 1024px) {
+  .rs-room .rs-board { position: static; width: auto; padding: 20px; }
+  .rs-room .rs-board img { width: 120px; }
+  .rs-room .rs-board .label { font-size: .66rem; }
+  .rs-room .rs-board li { font-size: 1rem; padding: 8px 0; gap: 14px; }
+  .rs-room .rs-board li b { font-size: 1.15rem; }
+  .rs-room .rs-board li i { display: inline; }
 }
