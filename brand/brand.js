@@ -836,7 +836,9 @@
     var els = $$(sel); if (!els.length) return;
     gsap.set(els, from);
     ScrollTrigger.batch(els, { start: 'top 90%', once: true, onEnter: function (b) {
-      gsap.to(b, Object.assign({ opacity: 1, y: 0, x: 0, rotation: 0, scale: 1, duration: 1.1, ease: 'power3.out', stagger: .08, overwrite: true }, opts || {}));
+      var o = Object.assign({ opacity: 1, y: 0, x: 0, rotation: 0, scale: 1, duration: 1.1, ease: 'power3.out', stagger: .08, overwrite: true }, opts || {});
+      o.stagger = Math.min(o.stagger, .6 / b.length);   // a long jump can queue dozens of items: keep the whole batch under ~0.6 s
+      gsap.to(b, o);
     } });
   }
   batch('.mo-grid li, .bg-tile, .mo-list li, .sc-ages li, .lk, .sw, .misuse-grid li, .dd, .el, .pair, .sample, .pat, .sg, .ph-rules li, .tone-words li, .say-list li, .clear-list li, .wasnow-list li, .mr-list li, .dl-list li, .dl-logos li, .minsize figure', { opacity: 0, y: 36 });

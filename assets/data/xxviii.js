@@ -126,7 +126,7 @@ window.XXVIII = {
       { name: 'Bordelaise', price: 260, img: 'bordelaise-sauce', cutout: 'bordelaise-sauce' },
       { name: 'Green Peppercorn & Cognac', price: 260, img: 'green-peppercorn-cognac-sauce', cutout: 'green-peppercorn-cognac-sauce' },
       { name: 'Chimichurri Verde', price: 180, img: 'chimichurri-verde', cutout: 'chimichurri-verde' },
-      { name: 'Black Truffle Butter', price: 450, img: 'black-truffle-butter', cutout: null },
+      { name: 'Black Truffle Butter', price: 450, img: 'black-truffle-butter', cutout: 'black-truffle-butter' },
       { name: 'Café de Paris Butter', price: 220, img: 'cafe-de-paris-butter', cutout: 'cafe-de-paris-butter' },
       { name: 'Horseradish Cream', price: 180, img: 'horseradish-cream', cutout: 'horseradish-cream' }
     ]}},

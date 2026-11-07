@@ -21,21 +21,23 @@
   #fb-cover { display: none; }
   #fb-cover.on { display: grid; grid-template-columns: 54% 46%; }
   .fb-photo { position: relative; overflow: hidden; }
-  .fb-photo img { position: absolute; left: 0; top: -22%; width: 100%; height: auto; }
+  .fb-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 62%; }
   .fb-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(270deg, #0f0c0b 0%, rgba(15,12,11,.35) 24%, transparent 48%); }
   .fb-copy { position: relative; display: grid; justify-items: center; align-content: center; gap: 2.4cqw; text-align: center; padding-right: 12cqw; background: radial-gradient(60% 80% at 40% 50%, rgba(194,154,91,.1), transparent 70%); }
   .fb-copy img { width: 26cqw; }
   .fb-copy p { font: 400 2.5cqw/1.1 var(--f-display); color: var(--bone); margin: 0; }
   /* story 1080 x 1920 */
-  .st-photo { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 1; height: auto; object-fit: cover; }
-  .st-fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,12,11,.6) 0%, transparent 16%, transparent 40%, #0f0c0b 58%); }
-  .st-mono { position: absolute; left: 50%; top: 15cqw; width: 12cqw; translate: -50% 0; }
-  .st-copy { position: absolute; left: 9cqw; right: 9cqw; bottom: 38cqw; display: grid; justify-items: start; gap: 2.4cqw; }
+  .st-photo { position: absolute; left: 0; top: -9%; width: 100%; aspect-ratio: 1; height: auto; object-fit: cover; }
+  .st-fade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,12,11,.85) 0%, rgba(15,12,11,.35) 30%, transparent 42%, #0f0c0b 60%); }
+  .st-mono { position: absolute; left: 50%; top: 27cqw; width: 12cqw; translate: -50% 0; }
+  .st-copy { position: absolute; left: 9cqw; right: 9cqw; bottom: 46cqw; display: grid; justify-items: start; gap: 2.4cqw; }
   .st-copy .label { font-size: 3.4cqw; color: var(--ash); letter-spacing: .3em; }
-  .st-num { font: 700 32cqw/.85 var(--f-label); color: var(--brass); letter-spacing: .01em; }
+  .st-num { font: 700 26cqw/.85 var(--f-label); color: var(--brass); letter-spacing: .01em; }
   .st-line { font: 400 9cqw/1.04 var(--f-display); color: var(--bone); margin: 0; }
   .st-rule { width: 100%; margin-top: 3cqw; }
-  .st-foot { position: absolute; left: 9cqw; right: 9cqw; bottom: 22cqw; display: flex; justify-content: space-between; align-items: center; font: 600 3cqw/1 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--ash); }
+  .st-foot { position: absolute; left: 9cqw; right: 9cqw; bottom: 33cqw; display: flex; justify-content: space-between; align-items: center; gap: 4cqw; font: 600 3cqw/1 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--ash); }
+  .st-foot img { width: 8cqw; }
+  .st-foot span:first-of-type { margin-right: auto; }
   /* email header 1200 x 400 */
   #email-header.on { display: grid; grid-template-columns: 1fr 1fr; }
   .mh-copy { display: grid; align-content: center; justify-items: start; gap: 3cqw; padding: 0 5cqw; position: relative; }
@@ -63,17 +65,16 @@
 <div class="board" id="avatar-seal" data-w="1080" data-h="1080"><div class="pool"></div><div class="center"><img src="../../assets/logo/xxviii-seal-brass.svg" alt="XXVIII seal"></div><div class="grain-s"></div></div>
 
 <div class="board" id="fb-cover" data-w="1640" data-h="624">
-  <div class="fb-photo"><img src="../../assets/img/plated/porterhouse-for-two-lg.webp" alt=""></div>
+  <div class="fb-photo"><img src="../../assets/img/block/porterhouse-for-two-lg.webp" alt=""></div>
   <div class="fb-copy"><img src="../../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse"><p>Some things can’t be hurried.</p></div>
   <div class="grain-s"></div>
 </div>
 
 <div class="board" id="ig-story" data-w="1080" data-h="1920">
-  <img class="st-photo" src="../../assets/img/plated/prime-ribeye-lg.webp" alt="">
+  <img class="st-photo" src="../../assets/img/block/new-york-strip-lg.webp" alt="">
   <div class="st-fade"></div>
-  <img class="st-mono" src="../../assets/logo/xxviii-monogram-brass.svg" alt="">
-  <div class="st-copy"><span class="label">Day</span><span class="st-num">31</span><p class="st-line">Friday’s ribeyes are nearly there.</p><div class="rule-diamond st-rule"><i></i></div></div>
-  <div class="st-foot"><span>The ageing room</span><span>xxviii.example</span></div>
+  <div class="st-copy"><span class="label">Day</span><span class="st-num">24</span><p class="st-line">Friday’s strips are nearly there.</p><div class="rule-diamond st-rule"><i></i></div></div>
+  <div class="st-foot"><img src="../../assets/logo/xxviii-monogram-brass.svg" alt="XXVIII"><span>The ageing room</span><span>xxviii.example</span></div>
   <div class="grain-s"></div>
 </div>
 
