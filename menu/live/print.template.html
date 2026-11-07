@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>XXVIII · The Menu</title>
+<link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/brand.css">
+<link rel="stylesheet" href="live/live.css">
+<link rel="stylesheet" href="assets/print/print.css">
+<script>window.XXVIII_BASE = '../'; window.LIVE_PRINT = true;</script>
+<script src="../assets/data/xxviii.js"></script>
+<script src="../assets/vendor/gsap.min.js"></script>
+</head>
+<body>
+<!-- The printed menu: the same pages as the live book (live/live.js, print mode), set at 230 x 330 mm.
+     Every name, line and price comes from window.XXVIII (assets/data/xxviii.js). Render: python -B _src/render.py -->
+<template id="tpl-logo">{{LOGO}}</template>
+<main id="book" aria-label="Twenty-Eight menu"></main>
+<script src="live/live.js"></script>
+</body>
+</html>

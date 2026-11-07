@@ -6,7 +6,7 @@
     python -B tools/build_book.py
 
 Chrome DevTools Page.printToPDF at the exact page size (230 x 330 mm), backgrounds on.
-Then _src/compress_pdf.py re-encodes the photos as JPEG. Before printing it runs the page's text-fit check (window.__overflow) - it must print [].
+Then _src/compress_pdf.py re-encodes the photos as JPEG. Before printing it checks every page: text inside the content box (overflow must print []), no clipped titles, emptiness per page, minimum type sizes.
 The contents (book/book.json) come from the page plan in assets/print/print.js (window.PLAN).
 """
 import base64
@@ -27,6 +27,21 @@ CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 PORT = 9640                      # parallel builders use 9600-9649
 PDF = os.path.join(ROOT, "out", "xxviii-menu.pdf")
 MM = 1 / 25.4
+CHECK = r"""(() => {
+  const pts = v => parseFloat(v) * .75, out = [];
+  // text must stay inside its page's content box (photos may bleed: the page clips them on purpose)
+  document.querySelectorAll('.pp').forEach((pp, i) => {
+    const inner = pp.querySelector('.pg-in'); if (!inner) return;
+    const b = inner.getBoundingClientRect();
+    pp.querySelectorAll('.pg-in h2, .pg-in h3, .pg-in p, .pg-in dt, .pg-in dd, .pg-in .pr, .pg-in figcaption').forEach(e => {
+      const q = e.getBoundingClientRect(); if (!q.width) return;
+      if (q.bottom > b.bottom + 1 || q.top < b.top - 1 || q.right > b.right + 1 || q.left < b.left - 1) out.push([i + 1, 'outside', e.className || e.tagName, e.textContent.trim().slice(0, 24)]);
+    });
+  });
+  const min = sel => { const a = [...document.querySelectorAll(sel)].map(e => pts(getComputedStyle(e).fontSize)); return a.length ? Math.round(Math.min(...a) * 10) / 10 : null; };
+  return { overflow: out, clipped: window.__clipped(document), empty: window.__emptiness([...document.querySelectorAll('.pp')]),
+    type: { descPt: min('.t__d'), namePt: min('.t__n, .bt__n'), pricePt: min('.pr:not(.pr--note)'), labelPt: min('.rh, .sub, .fo, .mac figcaption, .age-tag, .lw__m, .bt__m') } };
+})()"""
 
 
 def main():
@@ -79,9 +94,11 @@ def main():
             print("MISSING IMAGES:", missing)
         call("Emulation.setEmulatedMedia", media="print")
         time.sleep(.3)
-        ovf = ev("JSON.stringify(window.__overflow())")
-        print("overflow:", ovf)
-        print("type (pt):", ev("JSON.stringify(window.__typeCheck())"))
+        chk = ev(CHECK)
+        print("overflow:", json.dumps(chk["overflow"]))
+        print("clipped titles:", chk["clipped"])
+        print("empty % per page:", chk["empty"])
+        print("type (pt):", json.dumps(chk["type"]))
         plan = ev("window.PLAN")
         n_pages = ev("document.querySelectorAll('.pg').length")
         res = call("Page.printToPDF", paperWidth=230 * MM, paperHeight=330 * MM, marginTop=0, marginBottom=0,
@@ -131,7 +148,7 @@ def main():
     tw = 300
     th = round(tw * r.height / r.width)
     gap = 18
-    cols = 6
+    cols = 5
     rows = (len(thumbs) + cols - 1) // cols
     sheet = Image.new("RGB", (cols * tw + (cols + 1) * gap, rows * th + (rows + 1) * gap), (8, 7, 6))
     for i, t in enumerate(thumbs):

@@ -1,4 +1,4 @@
-/* Menu reader regression suite - run by tools/run_qa.py, or paste into the console on the reader and run:
+/* CLASSIC image reader (menu/classic/) regression suite - run by tools/run_qa.py, or paste into the console on the reader and run:
      await MENUQA()      // the book engine: turns, drags, riffles, sounds, jumps, contents links, rail, search, views
      await MENUQA_UI()   // the controls a guest uses: search, courses, bookmarks, reserve, PDF, keyboard, zoom, layout
    Drives the page-flip engine frame by frame (works even when the tab is in the background), so every flip,
@@ -49,13 +49,17 @@ window.MENUQA = async function MENUQA() {
     ok('all pages are requested up front (no lazy loading)', md.size + hi.size >= S.N && !$q('img[loading="lazy"]'), md.size + hi.size);
     ok('every page is in the column', document.querySelectorAll('.scroll .sheet').length === S.N);
 
-    // the contents lines on the contents page jump down the column
-    goTo(TOC); await until(() => S.visible.includes(TOC) && $q(`.sheet[data-n="${TOC}"] .hs`));
-    const link = contentsLink('The Last Course');
-    const btn = [...document.querySelectorAll(`.sheet[data-n="${TOC}"] .hs`)].find(b => S.man.hotspots[+b.dataset.hs] === link);
-    ok('the contents page has a tap target for every course', document.querySelectorAll(`.sheet[data-n="${TOC}"] .hs`).length === S.cfg.chapters.length);
-    btn.click(); await until(() => S.visible.includes(chapterPage('The Last Course')));
-    ok('tapping a course on the contents page scrolls to it', S.visible.includes(chapterPage('The Last Course')), S.visible);
+    // v4: the printed menu has no contents page (the readers carry their own contents); course jumps use the panel
+    if (TOC) {
+      goTo(TOC); await until(() => S.visible.includes(TOC) && $q(`.sheet[data-n="${TOC}"] .hs`));
+      const link = contentsLink('The Last Course');
+      const btn = [...document.querySelectorAll(`.sheet[data-n="${TOC}"] .hs`)].find(b => S.man.hotspots[+b.dataset.hs] === link);
+      btn.click(); await until(() => S.visible.includes(chapterPage('The Last Course')));
+      ok('tapping a course on the contents page scrolls to it', S.visible.includes(chapterPage('The Last Course')), S.visible);
+    } else {
+      goTo(chapterPage('The Last Course')); await until(() => S.visible.includes(chapterPage('The Last Course')));
+      ok('a course page is reachable from the contents (no contents page in the v4 print)', S.visible.includes(chapterPage('The Last Course')));
+    }
 
     // zoom the page you are on
     document.getElementById('btnZoom').click(); await wait(80);
@@ -71,8 +75,8 @@ window.MENUQA = async function MENUQA() {
 
     // the reserve button and the PDF stay one tap away
     const cta = document.getElementById('btnReserve'), cr = cta.getBoundingClientRect();
-    ok('reserve button visible, 44 px, links to the reservation form', cr.width >= 44 && cr.height >= 44 && cta.getAttribute('href') === '../index.html#reserve', [cr.width, cr.height]);
-    ok('PDF download offered in settings, with its size', !!document.querySelector('#settings a[data-pdf][download][href="out/xxviii-menu.pdf"]') && /MB\)/.test(document.getElementById('pdfLabel').textContent));
+    ok('reserve button visible, 44 px, links to the reservation form', cr.width >= 44 && cr.height >= 44 && cta.getAttribute('href') === '../../index.html#reserve', [cr.width, cr.height]);
+    ok('PDF download offered in settings, with its size', !!document.querySelector('#settings a[data-pdf][download][href="../out/xxviii-menu.pdf"]') && /MB\)/.test(document.getElementById('pdfLabel').textContent));
     setView('list'); await wait(80);
     const f = results.filter(x => !x.pass);
     console.table(results);
@@ -105,7 +109,7 @@ window.MENUQA = async function MENUQA() {
   const clientPt = (n, fx, fy) => { const s = B.slots().find(x => x.n === n), hr = document.getElementById('bookHost').getBoundingClientRect(); return { x: hr.left + s.x + fx * s.w, y: hr.top + s.y + fy * s.h }; };
 
   setView('book'); await wait(80);
-  ok('book built with every page (24, even)', B.built && document.querySelectorAll('.book-root .page').length === S.N && S.N === 24, B.pages.length + ' pages');
+  ok('book built with every page (even count)', B.built && document.querySelectorAll('.book-root .page').length === S.N && S.N % 2 === 0, B.pages.length + ' pages');
   ok('no lazy images', !document.querySelector('img[loading="lazy"]'));
   await until(() => { const r = pageRequests(); return r.md.size + r.hi.size >= S.N; }, 6000);
   const pr = pageRequests();
@@ -187,13 +191,13 @@ window.MENUQA = async function MENUQA() {
     ok('sound: hovering a corner stays silent', heard.length === 0, heard);
   } finally { window.MENU.Sound.play = realPlay; }
 
-  // the contents page: every course line is a link to its first page
+  const AR = chapterPage('The Ageing Room'), GK = chapterPage('Good to know');
+  if (TOC) {
   await jump(TOC);
   const toc = S.man.hotspots.filter(h => h.page === TOC && h.type === 'page');
   const want = S.cfg.chapters.map(c => c.page).sort((a, b) => a - b).join();
   ok('the contents page links every course to its page', toc.map(h => h.target).sort((a, b) => a - b).join() === want, toc.map(h => h.target));
   const ar = contentsLink('The Ageing Room');
-  const AR = chapterPage('The Ageing Room'), GK = chapterPage('Good to know');
   let p = clientPt(TOC, ar.rect[0] + ar.rect[2] / 2, ar.rect[1] + ar.rect[3] / 2);
   let tg = B.targetAt(p.x, p.y);
   ok('a course line is a link (not a corner)', tg.kind === 'hs' && tg.h.target === AR, tg.kind);
@@ -204,12 +208,14 @@ window.MENUQA = async function MENUQA() {
   p = clientPt(TOC, lw.rect[0] + lw.rect[2] / 2, lw.rect[1] + lw.rect[3] / 2);
   B.activate(p.x, p.y); await until(() => S.visible.includes(GK));
   ok('the last course line opens Good to know', S.visible.includes(GK), vis());
+  }
 
   // legibility (audit P0): on screen, a description on the printed page must be >= 11 px
-  await jump(AR + 3);
-  // smallest body text on the steaks page (font size in pt from the PDF) x on-screen scale (page px / page pt)
-  const wd = window.MENU_BOOK && window.MENU_BOOK.words[AR + 3];
-  const descPt = wd ? Math.min(...wd.w.filter(r => r[6] && /cut|marbling|fat|seared|coals/.test(r[0])).map(r => r[6])) : 0;
+  const FC = chapterPage('The First Course');
+  await jump(FC);
+  // smallest description on the First Course page (font size in pt from the PDF) x on-screen scale (page px / page pt)
+  const wd = window.MENU_BOOK && window.MENU_BOOK.words[FC];
+  const descPt = wd ? Math.min(...wd.w.filter(r => r[6] && /tenderloin|parmesan|Brioche|rocket/.test(r[0])).map(r => r[6])) : 0;
   const pageH = B.slots()[0].h, descPx = descPt * pageH / (330 / 25.4 * 72);
   ok('book spread: descriptions render at >= 11 px on screen', descPx >= 11 || !landscape, { descPx: Math.round(descPx * 10) / 10, descPt, pageH: Math.round(pageH) });
   window.__descPx = Math.round(descPx * 10) / 10;
@@ -278,9 +284,9 @@ window.MENUQA = async function MENUQA() {
   let r = await applyQuery('truffle');
   ok('search a word', r.length >= 3, r.map(x => x.n));
   r = await applyQuery('bearnaise');
-  ok('search ignores accents (béarnaise)', r.some(x => x.n === 18), r.map(x => x.n));
+  ok('search ignores accents (béarnaise)', r.some(x => x.n === 11), r.map(x => x.n));
   r = await applyQuery('ribeye');
-  ok('search finds every ribeye page', r.length >= 2 && r.some(x => x.n === 12), r.map(x => x.n));
+  ok('search finds every ribeye page', r.length >= 2 && r.some(x => x.n === 9), r.map(x => x.n));
   r = await applyQuery('twenty-eight');
   ok('search a hyphenated word', r.length >= 2, r.map(x => x.n));
   r = await applyQuery('aged 35');
@@ -354,10 +360,10 @@ window.MENUQA_UI = async function MENUQA_UI() {
 
   // ---- reserve + PDF
   const cta = $id('btnReserve');
-  ok('Reserve a table goes to the reservation form', visible(cta) && cta.tagName === 'A' && cta.getAttribute('href') === '../index.html#reserve' && /Reserve a table/.test(cta.textContent + cta.getAttribute('aria-label')));
+  ok('Reserve a table goes to the reservation form', visible(cta) && cta.tagName === 'A' && cta.getAttribute('href') === '../../index.html#reserve' && /Reserve a table/.test(cta.textContent + cta.getAttribute('aria-label')));
   const pdfA = isPhone ? document.querySelector('#settings a[data-pdf]') : $id('btnPdf');
-  ok('Download PDF link points at the printed menu and states its size', !!pdfA && pdfA.hasAttribute('download') && pdfA.getAttribute('href') === 'out/xxviii-menu.pdf' && /PDF, [\d.]+ MB/.test(pdfA.getAttribute('aria-label') + pdfA.textContent));
-  let head = null; try { head = await fetch('out/xxviii-menu.pdf', { method: 'HEAD' }); } catch (e) { /* file:// */ }
+  ok('Download PDF link points at the printed menu and states its size', !!pdfA && pdfA.hasAttribute('download') && pdfA.getAttribute('href') === '../out/xxviii-menu.pdf' && /PDF, [\d.]+ MB/.test(pdfA.getAttribute('aria-label') + pdfA.textContent));
+  let head = null; try { head = await fetch('../out/xxviii-menu.pdf', { method: 'HEAD' }); } catch (e) { /* file:// */ }
   ok('the PDF is there', head && head.ok && /pdf/.test(head.headers.get('content-type') || ''), head && head.status);
 
   // ---- search

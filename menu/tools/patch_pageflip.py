@@ -13,7 +13,7 @@ import os
 import re
 import sys
 
-P = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "vendor", "page-flip.browser.js")
+P = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "classic", "vendor", "page-flip.browser.js")
 HEADER = ("/*! StPageFlip 2.0.7 (MIT, github.com/Nodlik/StPageFlip) - vendored and PATCHED by tools/patch_pageflip.py:\n"
           "   flipPrev corner fix, deduplicated per-frame cssText writes, soft covers, eased turns, proper shadows. */\n")
 HELPER = "function __nvlCss(e,v){if(e.__nvlCss!==v){e.style.cssText=v;e.__nvlCss=v}}\n"

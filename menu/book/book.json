@@ -20,31 +20,26 @@
    1
   ],
   [
-   "Our story",
+   "The dining room",
    2
-  ],
-  [
-   "Contents",
-   3
   ]
  ],
  "back": [
   [
    "Back cover",
-   24
+   20
   ]
  ],
  "pageLabels": {
   "1": "Cover",
-  "2": "Our story",
-  "3": "Contents",
-  "24": "Back cover"
+  "2": "The dining room",
+  "20": "Back cover"
  },
  "chapters": [
   {
    "no": "I",
    "title": "Day One",
-   "page": 4,
+   "page": 3,
    "ids": [
     "day-one"
    ],
@@ -52,14 +47,14 @@
    "sections": [
     [
      "Wagyu Tallow Toast",
-     4
+     3
     ]
    ]
   },
   {
    "no": "II",
    "title": "The First Course",
-   "page": 5,
+   "page": 4,
    "ids": [
     "first-course"
    ],
@@ -67,110 +62,98 @@
    "sections": [
     [
      "Raw, cured and seared",
-     5
+     4
     ],
     [
      "Marrow, prawns, oysters",
-     6
-    ],
-    [
-     "Steak Tartare",
-     7
+     5
     ]
    ]
   },
   {
    "no": "III",
    "title": "From the Garden",
-   "page": 8,
+   "page": 6,
    "ids": [
     "garden"
    ],
-   "photo": "../assets/img/plated/french-onion-soup-gratinee-md.webp",
+   "photo": "../assets/img/interior/open-kitchen-chefs-counter-md.webp",
    "sections": [
     [
      "Soup, leaves, tomatoes",
-     8
+     6
+    ],
+    [
+     "The open kitchen",
+     7
     ]
    ]
   },
   {
    "no": "IV",
    "title": "The Ageing Room",
-   "page": 9,
+   "page": 8,
    "ids": [
     "ageing-room"
    ],
-   "photo": "../assets/img/block/cowboy-cut-md.webp",
+   "photo": "../assets/img/interior/dry-aging-cabinet-md.webp",
    "sections": [
+    [
+     "The glass room",
+     8
+    ],
     [
      "The board by the door",
      9
     ],
     [
-     "Prime Ribeye",
+     "The Twenty-Eight",
      10
     ],
     [
-     "The Twenty-Eight",
+     "Sauces & Butters",
      11
-    ],
-    [
-     "Ribeye, strip, filet, picanha",
-     12
     ]
    ]
   },
   {
    "no": "V",
    "title": "The Long Wait",
-   "page": 13,
+   "page": 12,
    "ids": [
     "long-wait"
    ],
    "photo": "../assets/img/block/sovereign-tomahawk-md.webp",
    "sections": [
     [
-     "Sharing cuts, 45 days",
+     "Châteaubriand and porterhouse",
+     12
+    ],
+    [
+     "Tomahawk and enhancements",
      13
-    ],
-    [
-     "Enhancements",
-     14
-    ],
-    [
-     "The Sovereign Tomahawk",
-     15
     ]
    ]
   },
   {
    "no": "VI",
    "title": "Alongside",
-   "page": 16,
+   "page": 14,
    "ids": [
     "alongside"
    ],
    "photo": "../assets/img/plated/truffle-pommes-frites-md.webp",
    "sections": [
     [
-     "Potatoes and gratin",
-     16
-    ],
-    [
-     "Macaroni and greens",
-     17
-    ],
-    [
-     "Sauces & Butters",
-     18
+     "Sides",
+     14
     ]
    ]
   },
   {
    "no": "VII",
    "title": "Beyond the Ageing Room",
-   "page": 19,
+   "page": 15,
    "ids": [
     "beyond"
    ],
@@ -178,14 +161,27 @@
    "sections": [
     [
      "Sea, lamb and risotto",
-     19
+     15
     ]
    ]
   },
   {
    "no": "VIII",
+   "title": "How we cook your steak",
+   "page": 16,
+   "ids": [],
+   "photo": "../assets/img/block/new-york-strip-md.webp",
+   "sections": [
+    [
+     "Doneness",
+     16
+    ]
+   ]
+  },
+  {
+   "no": "IX",
    "title": "The Last Course",
-   "page": 20,
+   "page": 17,
    "ids": [
     "last-course"
    ],
@@ -193,44 +189,40 @@
    "sections": [
     [
      "Desserts",
-     20
-    ]
-   ]
-  },
-  {
-   "no": "IX",
-   "title": "The Bar",
-   "page": 21,
-   "ids": [
-    "drinks"
-   ],
-   "photo": "../assets/img/texture/dark-slate-counter-smoke-md.webp",
-   "sections": [
-    [
-     "Patience and the bar",
-     21
+     17
     ]
    ]
   },
   {
    "no": "X",
+   "title": "The Bar",
+   "page": 18,
+   "ids": [
+    "drinks"
+   ],
+   "photo": "../assets/img/interior/bar-md.webp",
+   "sections": [
+    [
+     "Patience and the bar",
+     18
+    ]
+   ]
+  },
+  {
+   "no": "XI",
    "title": "Good to know",
-   "page": 22,
+   "page": 19,
    "ids": [
     "notes"
    ],
-   "photo": null,
+   "photo": "../assets/img/interior/entrance-host-stand-md.webp",
    "sections": [
     [
-     "How we cook your steak",
-     22
-    ],
-    [
      "Prices, hours, private dining",
-     23
+     19
     ]
    ]
   }
  ],
- "pdfMB": 5.9
+ "pdfMB": 5.8
 }
