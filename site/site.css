@@ -173,68 +173,6 @@ video { background: var(--char-2); }
 @media (max-width: 479px) { .btn { letter-spacing: .16em; padding: 0 20px; } [data-private-enquire] { font-size: .76rem; } }
 
 /* ───────── 3. Twenty-eight days ───────── */
-.story { background: radial-gradient(60% 50% at 72% 42%, var(--char-1) 0%, var(--char) 70%); }
-.story__pin { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: clamp(24px, 4vh, 48px); padding: calc(var(--hdr-h) + 16px) 0 40px; }
-.story__grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: center; }
-.story__left { grid-column: 1 / span 5; }
-.story__title { font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.7rem); line-height: 1.04; color: var(--bone); max-width: 14em; }
-.odo { position: relative; margin-top: 10px; display: flex; align-items: flex-start; gap: 14px; }
-.odo__label { color: var(--brass); padding-top: .9em; writing-mode: vertical-rl; transform: rotate(180deg); }
-.odo__digits { display: flex; font-size: clamp(8rem, 3.6rem + 12vw, 16rem); font-weight: 800; line-height: 1.06; letter-spacing: -.02em; color: var(--bone);
-  -webkit-mask: linear-gradient(180deg, transparent 0, #000 4%, #000 96%, transparent 100%); mask: linear-gradient(180deg, transparent 0, #000 4%, #000 96%, transparent 100%); }
-.odo__reel { display: block; height: 1.06em; overflow: hidden; width: .54em; }
-.odo__strip { display: block; will-change: transform; transition: transform .55s var(--ease-out); }
-.odo__strip span { display: block; height: 1.06em; line-height: 1.06; text-align: center; }
-.odo__static { display: none; }
-.no-js .odo__static { display: block; }
-.no-js .odo__reel { display: none; }
-.story__lines { margin-top: 16px; max-width: 30em; }
-.story__line { font-size: clamp(1.04rem, .98rem + .28vw, 1.2rem); color: var(--bone-2); }
-.story__line + .story__line { margin-top: 14px; }
-.story__line--last { font-family: var(--f-display); font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); line-height: 1.18; color: var(--bone); text-wrap: balance; }
-.story--pinned .story__lines { display: grid; }
-.story--pinned .story__line { grid-area: 1 / 1; margin: 0; align-self: start; }
-.story__stage { grid-column: 6 / span 7; position: relative; width: 100%; justify-self: end; display: grid; place-items: center; padding: 4% 0; }
-.story__glow { position: absolute; inset: -12% -8%; pointer-events: none; background: radial-gradient(48% 52% at 52% 50%, color-mix(in srgb, var(--brass) 30%, transparent), color-mix(in srgb, var(--ox) 16%, transparent) 46%, transparent 72%); filter: blur(10px); }
-.story__win { position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 62vh; overflow: hidden; background: var(--char-2);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--brass) 35%, transparent), 0 70px 120px -50px rgba(0, 0, 0, .95); }
-.story__shot { position: absolute; inset: 0; margin: 0; clip-path: inset(100% 0 0 0); }
-.story__shot.is-on { clip-path: inset(0 0 0 0); }
-.story__shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; transform: scale(1.1); will-change: transform; }
-.story__tag { position: absolute; left: 18px; bottom: 16px; z-index: 2; display: flex; align-items: center; gap: 12px; padding: 10px 14px 9px; color: var(--bone);
-  background: color-mix(in srgb, var(--char) 72%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border: 1px solid var(--line); }
-.story__tag b { color: var(--brass-hi); font-weight: 700; }
-.story__tag-sep { width: 18px; height: 1px; background: var(--brass); }
-.story__corner { position: absolute; width: 22px; height: 22px; z-index: 2; border-color: var(--brass-hi); border-style: solid; pointer-events: none; }
-.story__corner--tl { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
-.story__corner--br { right: 12px; bottom: 12px; border-width: 0 1px 1px 0; }
-.story__ruler { position: relative; padding-bottom: 32px; }
-.ruler { position: relative; height: 22px; }
-.ruler__ticks { position: absolute; inset: 0; display: flex; justify-content: space-between; align-items: flex-end; }
-.ruler__ticks i { width: 1px; height: 8px; background: color-mix(in srgb, var(--bone) 25%, transparent); }
-.ruler__ticks i.wk { height: 20px; background: var(--brass); }
-.ruler__fill { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--brass); transform-origin: 0 50%; }
-.ruler::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); z-index: -1; }
-.beats { list-style: none; margin: 0; padding: 0; position: absolute; left: 0; right: 0; top: 30px; height: 56px; }
-.beats li { position: absolute; left: calc((var(--d) - 1) / 27 * 100%); transform: translateX(-50%); text-align: center; display: grid; gap: 4px; transition: opacity .8s var(--ease-out); }
-.beats li:last-child { transform: translateX(-100%); text-align: right; }
-.beats li span { color: var(--brass); font-size: .75rem; }
-.beats b { font: 400 clamp(1.3rem, 1rem + .9vw, 2rem)/1 var(--f-display); color: var(--bone); }
-.story--pinned .beats li, .story--count .beats li { opacity: .22; }
-.story--pinned .beats li.is-on, .story--count .beats li.is-on { opacity: 1; }
-@media (max-width: 899px) {
-  .story__pin { padding: var(--sec) 0 calc(var(--sec) * .5); }
-  .story__grid { grid-template-columns: 1fr; gap: 0; }
-  .story__left { display: contents; }
-  .story__title { order: 1; }
-  .odo { order: 2; }
-  .story__stage { order: 3; grid-column: 1; margin: 8px 0 20px; padding: 0; }
-  .story__win { max-height: none; }
-  .story__lines { order: 4; }
-  .beats { position: static; display: grid; grid-template-columns: repeat(4, 1fr); height: auto; margin-top: 16px; }
-  .beats li, .beats li:last-child { position: static; transform: none; text-align: left; }
-  .story__ruler { padding-bottom: 0; }
-}
 
 /* ───────── 4. Ageing Room board ───────── */
 .board { background: linear-gradient(180deg, var(--char) 0%, var(--char-1) 40%, var(--char-1) 60%, var(--char) 100%); }
@@ -748,8 +686,6 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
 }
 @media (max-width: 359px) { .hdr__logo img { height: 22px; } .hdr__in { gap: 16px; } .hdr__burger-txt { display: none; } }
 
-/* story: the four frames go from the empty block to the plate */
-.story__shot--cab img { object-view-box: inset(6% 54% 46% 6%); object-position: 50% 50%; }
 
 /* board: the glass room by the door, behind the head */
 .board { isolation: isolate; overflow: hidden; }
@@ -897,4 +833,3 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
 .wait.tex-on .wait__intro::before { content: ''; position: absolute; z-index: -1; inset: -18% -30% -18% -40%; opacity: .22;
   background: url(../assets/img/texture/dark-slate-herb-scatter-frame-sm.webp) 50% 50% / cover no-repeat;
   -webkit-mask: radial-gradient(closest-side, #000 40%, transparent); mask: radial-gradient(closest-side, #000 40%, transparent); }
-@media (max-width: 599px) { .story__tag { flex-direction: column; align-items: flex-start; gap: 4px; left: 12px; bottom: 12px; } .story__tag-sep { display: none; } }

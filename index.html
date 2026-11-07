@@ -31,7 +31,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
 <link rel="preload" href="assets/fonts/BigShoulders.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/video/cowboy-cut-poster.webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/brand.css?v=3">
-<link rel="stylesheet" href="site/site.css?v=5">
+<link rel="stylesheet" href="site/site.css?v=6">
 <script type="application/ld+json" id="ld-restaurant">
 {"@context":"https://schema.org","@type":"Restaurant","@id":"https://xxviii.example/#restaurant","name":"Twenty-Eight Steakhouse","alternateName":"XXVIII","url":"https://xxviii.example/","servesCuisine":"Steakhouse","priceRange":"₱₱₱₱","acceptsReservations":true,"hasMenu":"https://xxviii.example/menu/","image":"https://xxviii.example/assets/img/plated/cowboy-cut-lg.webp","logo":"https://xxviii.example/assets/logo/xxviii-primary-brass.svg","telephone":"+63 (2) 0000 0028","email":"reservations@xxviii.example","address":{"@type":"PostalAddress","streetAddress":"[Street], Bonifacio Global City","addressLocality":"Taguig","addressRegion":"Metro Manila","addressCountry":"PH"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Tuesday","https://schema.org/Wednesday","https://schema.org/Thursday"],"opens":"17:30","closes":"23:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Friday","https://schema.org/Saturday"],"opens":"17:30","closes":"00:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"17:30","closes":"22:00"}]}
 </script>
@@ -61,7 +61,6 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
     </a>
     <nav class="hdr__nav" aria-label="Primary">
       <ul>
-        <li><a href="#story">Story</a></li>
         <li><a href="#ageing">Ageing Room</a></li>
         <li><a href="#menu">Menu</a></li>
         <li><a href="#private">Private Dining</a></li>
@@ -80,7 +79,6 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
   <div class="overlay__in">
     <nav aria-label="Site index">
       <ol class="overlay__list">
-        <li><a href="#story"><span>Story</span></a></li>
         <li><a href="#ageing"><span>Ageing Room</span></a></li>
         <li><a href="#menu"><span>Menu</span></a></li>
         <li><a href="#private"><span>Private Dining</span></a></li>
@@ -129,54 +127,9 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
       <span class="hero__prog" aria-hidden="true"><i></i></span>
       <button class="hero__pause" type="button" aria-pressed="false" aria-label="Pause the steak films"><span aria-hidden="true"></span></button>
     </div>
-    <a class="hero__cue label" href="#story"><span>Scroll</span><i aria-hidden="true"></i></a>
+    <a class="hero__cue label" href="#ageing"><span>Scroll</span><i aria-hidden="true"></i></a>
   </div>
 </section>
-
-<!-- 3. Twenty-eight days -->
-<section class="story" id="story" aria-labelledby="story-title">
-  <div class="story__pin">
-    <div class="wrap story__grid">
-      <div class="story__left">
-        <h2 class="story__title" id="story-title" data-bind="brand.taglines.2">Time is the finest ingredient.</h2>
-        <div class="odo" aria-hidden="true">
-          <span class="odo__label label">Day</span>
-          <span class="odo__digits num"><span class="odo__static">28</span><span class="odo__reel odo__reel--t"></span><span class="odo__reel odo__reel--o"></span></span>
-        </div>
-        <div class="story__lines">
-          <p class="story__line" data-bind="brand.story.0">Twenty-eight days. That is how long it takes for good beef to become great: still, cold, quiet, patient.</p>
-          <p class="story__line" data-bind="brand.story.2">Every steak we serve has waited for this moment, and so has your table.</p>
-          <p class="story__line story__line--last" data-bind="brand.story.1">We don’t rush the beef, so we never rush you.</p>
-        </div>
-      </div>
-      <div class="story__stage" aria-hidden="true">
-        <div class="story__glow"></div>
-        <div class="story__win">
-          <figure class="story__shot is-on" data-word="Still" data-note="The block waits"><img src="assets/img/texture/butcher-block-slate-wall-empty-md.webp" srcset="assets/img/texture/butcher-block-slate-wall-empty-sm.webp 640w, assets/img/texture/butcher-block-slate-wall-empty-md.webp 1200w, assets/img/texture/butcher-block-slate-wall-empty-lg.webp 1920w" sizes="(min-width: 900px) 56vw, 92vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
-          <figure class="story__shot story__shot--cab" data-word="Cold" data-note="Behind the glass"><img src="assets/img/interior/dry-aging-cabinet-md.webp" srcset="assets/img/interior/dry-aging-cabinet-sm.webp 640w, assets/img/interior/dry-aging-cabinet-md.webp 1200w, assets/img/interior/dry-aging-cabinet-lg.webp 1920w" sizes="(min-width: 900px) 90vw, 160vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
-          <figure class="story__shot" data-word="Quiet" data-dish="filet-mignon"><img src="assets/img/block/filet-mignon-md.webp" srcset="assets/img/block/filet-mignon-sm.webp 640w, assets/img/block/filet-mignon-md.webp 1200w, assets/img/block/filet-mignon-lg.webp 1920w" sizes="(min-width: 900px) 56vw, 92vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
-          <figure class="story__shot" data-word="Patient" data-dish="cowboy-cut"><img src="assets/img/block/cowboy-cut-md.webp" srcset="assets/img/block/cowboy-cut-sm.webp 640w, assets/img/block/cowboy-cut-md.webp 1200w, assets/img/block/cowboy-cut-lg.webp 1920w" sizes="(min-width: 900px) 56vw, 92vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
-          <span class="story__tag label"><b data-shot-word>Still</b><span class="story__tag-sep"></span><span data-shot-dish>The block waits</span></span>
-          <i class="story__corner story__corner--tl"></i><i class="story__corner story__corner--br"></i>
-        </div>
-      </div>
-    </div>
-    <div class="wrap story__ruler" aria-hidden="true">
-      <div class="ruler">
-        <div class="ruler__ticks"></div>
-        <div class="ruler__fill"></div>
-      </div>
-      <ol class="beats" data-beats>
-        <li style="--d:7"><span class="label">Day 07</span><b>Still</b></li>
-        <li style="--d:14"><span class="label">Day 14</span><b>Cold</b></li>
-        <li style="--d:21"><span class="label">Day 21</span><b>Quiet</b></li>
-        <li style="--d:28"><span class="label">Day 28</span><b>Patient</b></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<div class="seam" aria-hidden="true"><div class="rule-diamond"><i></i></div></div>
 
 <!-- 4. The Ageing Room board -->
 <section class="board" id="ageing" aria-labelledby="board-title">
@@ -566,7 +519,6 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
     </form>
     <nav class="ftr__nav" aria-label="Footer">
       <ul>
-        <li><a class="link" href="#story">Story</a></li>
         <li><a class="link" href="#ageing">Ageing Room</a></li>
         <li><a class="link" href="#menu">Menu</a></li>
         <li><a class="link" href="#private">Private Dining</a></li>
@@ -609,6 +561,6 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/vendor/SplitText.min.js"></script>
 <script src="assets/vendor/lenis.min.js"></script>
-<script src="site/site.js?v=5"></script>
+<script src="site/site.js?v=6"></script>
 </body>
 </html>
