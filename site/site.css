@@ -115,7 +115,7 @@ video { background: var(--char-2); }
 /* edge fade on the whole media layer (video + pool + shade) so no half-pixel seam can show (7 Nov) */
 .hero__media { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%); mask-image: linear-gradient(90deg, transparent 0, #000 12%); }
 @media (max-width: 899px) { .hero__media { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%); mask-image: linear-gradient(180deg, transparent 0, #000 14%); } }
-.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; transform-origin: 70% 60%; opacity: 0; transition: opacity 1.1s var(--ease-io); }
+.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 38% 52%; transform-origin: 60% 55%; opacity: 0; transition: opacity 1.1s var(--ease-io); }
 .hero__video.is-on { opacity: 1; }
 .hero__pool { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light; background: radial-gradient(42% 40% at 62% 60%, color-mix(in srgb, var(--brass-hi) 55%, transparent), transparent 70%); }
 .hero__shade { position: absolute; inset: 0; pointer-events: none;
@@ -157,7 +157,7 @@ video { background: var(--char-2); }
 @media (max-width: 899px) {
   .hero { justify-content: flex-start; min-height: max(620px, 100svh); }
   .hero__media { left: 0; width: 100%; top: auto; height: 56%; }
-  .hero__video { object-position: 72% 50%; }
+  .hero__video { object-position: 54% 50%; }
   .hero__shade { background: linear-gradient(180deg, var(--char) 0%, color-mix(in srgb, var(--char) 55%, transparent) 18%, transparent 40%), linear-gradient(0deg, var(--char) 0%, transparent 20%); }
   .hero__tag { display: none; }
   .hero__copy { padding-top: calc(var(--hdr-h) + 18px); padding-bottom: 0; }

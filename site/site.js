@@ -491,13 +491,29 @@
   });
   tabsBox.appendChild(ink);
   var DESK = matchMedia('(min-width: 900px)');
+  /* One plate at a time (8 Nov fix: fast hovering used to stack several half-faded cut-outs).
+     Each call gets a token; the new image is added only once decoded and only if it is still the latest;
+     every older image is cleared at once except the one on screen, which fades out quickly. */
   function peekShow(panel, slug, animate) {
     var fig = $('.mpeek', panel); if (!fig || !slug || !DESK.matches || fig._slug === slug) return;
     fig._slug = slug;
+    var token = fig._tok = (fig._tok || 0) + 1;
     var im = el('img', { src: img(slug, 'cutout', 'lg'), alt: '', width: 1200, height: 860, decoding: 'async' });
-    var olds = $$('img', fig); fig.appendChild(im);
-    if (MOTION && animate) G.fromTo(im, { opacity: 0, scale: .92, rotation: -4 }, { opacity: 1, scale: 1, rotation: 0, duration: .7, ease: 'expo.out', onComplete: function () { olds.forEach(function (o) { o.remove(); }); } });
-    else olds.forEach(function (o) { o.remove(); });
+    var done = false;
+    var go = function () {
+      if (done || fig._tok !== token) return; done = true;
+      var olds = $$('img', fig);
+      if (G) G.killTweensOf(olds);
+      olds.slice(0, -1).forEach(function (o) { o.remove(); });
+      var last = olds[olds.length - 1];
+      fig.appendChild(im);
+      if (MOTION && animate) {
+        if (last) { G.to(last, { opacity: 0, duration: .16, ease: 'power1.out', onComplete: function () { last.remove(); } }); setTimeout(function () { last.remove(); }, 260); }
+        G.fromTo(im, { opacity: 0, scale: .95, rotation: -3 }, { opacity: 1, scale: 1, rotation: 0, duration: .5, delay: .06, ease: 'expo.out' });
+      } else if (last) last.remove();
+    };
+    if (im.complete && im.naturalWidth) go();
+    else { im.addEventListener('load', go); im.addEventListener('error', go); setTimeout(go, 600); }
   }
   function peekInit(panel) { var f = $('.mpeek', panel); if (f && !f._slug) peekShow(panel, f.getAttribute('data-peek'), false); }
   var mCur = M0;
@@ -543,7 +559,9 @@
     var row = e.target.closest && e.target.closest('.dish'); if (!row) return;
     var slug = row.getAttribute('data-img'), panel = row.closest('.mpanel'); if (!slug || !panel) return;
     $$('.dish.is-peek', panel).forEach(function (r) { r.classList.remove('is-peek'); }); row.classList.add('is-peek');
-    peekShow(panel, slug, true);
+    /* rows the pointer only skims over (under 70 ms) never load their plate */
+    clearTimeout(onDish._t);
+    onDish._t = setTimeout(function () { if (row.classList.contains('is-peek')) peekShow(panel, slug, true); }, 70);
   }
   panelsBox.addEventListener('pointerover', onDish);
   /* the cut-out turns with the pointer (max 6 deg), as if lifted off the walnut */
