@@ -259,16 +259,16 @@ Tell us about allergies when you book. Menu: xxviii.example/menu
 A, B, C or D. Comment below. #XXVIII #SteakTok #BGCEats
 
 ------------------------------------------------------------
-POST-13 · Day 14, behind the glass (The ageing cabinet by the door (interior))
+POST-13 · Day 14, behind the glass (The ageing room, through the glass)
 File: exports/posts/post-13.png (1080 x 1350)
 
 [FACEBOOK]
-Day 14. The first Twenty-Eights hang behind the glass by our entrance, halfway there. Every guest walks past the cuts that will be on the menu.
+Day 14. The first Twenty-Eights hang in the glass room by our entrance, halfway there. Every cut is tagged with its day, and every guest walks past them.
 
 [INSTAGRAM]
 Day 14, behind the glass.
 
-The ageing cabinet sits by the door, in plain sight. The first Twenty-Eights went in on Day 01 and come out on Day 28, opening night.
+The ageing room sits by the door, behind glass, in plain sight. The first Twenty-Eights went in on Day 01 and come out on Day 28, opening night.
 
 Halfway.
 
@@ -297,10 +297,30 @@ The bar, from opening night. Please drink responsibly.
 Where Patience is stirred, slowly. #XXVIII #OldFashioned #BGCBars
 
 ------------------------------------------------------------
+POST-15 · Checked by hand (The butcher in the ageing room)
+File: exports/posts/post-15.png (1080 x 1350)
+
+[FACEBOOK]
+Inside the ageing room: every rib carries a tag with the day it went in, and we read them one by one. The first Twenty-Eights come out on Day 28, opening night.
+
+[INSTAGRAM]
+Checked by hand.
+
+Every rib in the ageing room carries a tag with the day it went in. We read them, one by one.
+
+Day 08 of 28 for the first Twenty-Eights.
+
+#XXVIII #TwentyEightSteakhouse #WorthTheWait #DryAgedBeef #AgeingRoom #Butcher #BGC #BGCEats #TaguigEats #ManilaEats
+
+[TIKTOK]
+Every rib has a tag. Every tag has a day. #XXVIII #AgeingRoom #DryAged #BGCEats
+
+------------------------------------------------------------
 STORIES (exports/stories)
 story-01 · Day 14. Halfway. — The Twenty-Eight glide; the day count rolls to 14 of 28.
 story-02 · Which butter? — Poll on the butcher block: Café de Paris or black truffle. Clean copy for the in-app poll.
 story-03 · Day 25 of 28 — The strip glide; the days count up, 19 to 25, in the glass room.
+story-05 · Inside the glass room — A slow push down the rack aisle: steel racks, the lit salt-brick wall, tagged cuts.
 story-04 · Tables are open — The front door and host stand, slow push-in. Clean copy for the in-app link sticker.
 
 ------------------------------------------------------------
@@ -311,7 +331,7 @@ reel-c · The Long Wait — Châteaubriand orbit, porterhouse overhead, then the
 
 ------------------------------------------------------------
 REEL STORYBOARD · INTO THE ROOM · 20 SECONDS (to shoot)
-Frame 1 00:00–00:03 | Shot: The glass ageing cabinet by the entrance. Slow push in on the hanging cuts. | On screen: The first Twenty-Eights go in today. | Sound: Cold-room hum. The soft release of the door seal.
+Frame 1 00:00–00:03 | Shot: The glass ageing room by the entrance. Slow push in through the glass on the hanging ribs. | On screen: The first Twenty-Eights go in today. | Sound: Cold-room hum. The soft release of the door seal.
 Frame 2 00:03–00:06 | Shot: A hand chalks DAY 01 · THE TWENTY-EIGHT · IN on the slate board. | On screen: Twenty-eight days. No shortcuts. | Sound: Chalk on slate. One low piano note.
 Frame 3 00:06–00:10 | Shot: Locked-off time-lapse of The Twenty-Eight darkening; a day counter rolls 01 to 28. | On screen: Day 01 → Day 28 | Sound: A clock that ticks slower and slower.
 Frame 4 00:10–00:13 | Shot: Overhead: the cut hits the grill. Smoke crosses the lamp light. | On screen: Cut today. | Sound: The sear, close-miked. Nothing else.
@@ -401,8 +421,8 @@ Day 03 · Email · Email · welcome · The Ageing List opens for sign-ups.
 Day 04 · Feed post · Feed · 4:5 · Meet The Twenty-Eight.
 Day 05 · Story · Story · poll · Which butter? Café de Paris or black truffle.
 Day 06 · Meta ads · Meta ad · image + video · Worth the wait. Join the list, book first.
-Day 07 · Feed post · Feed · 4:5 · Day 07. Still.
-Day 08 · Feed post · Feed · 4:5 · Patience, the house cocktail.
+Day 07 · Feed post · Feed · 4:5 + story · Day 07. Still.  + Story · Inside the glass room
+Day 08 · Feed post · Feed · 4:5 · Checked by hand.
 Day 09 · PR · Invitation card · Tasting invitations go to food writers.
 Day 10 · Reel · Reel · 9:16 · 17 s · Worth the Wait: the teaser.
 Day 11 · Feed post · Feed · 4:5 · The Caesar is made at your table.
@@ -414,7 +434,7 @@ Day 16 · Feed post · Feed · 4:5 · poll · Sauce or butter: A, B, C or D.
 Day 17 · Reel · Reel · 9:16 · 20 s · Every steak lists its age: 21, 28, 35, 45.
 Day 18 · Feed post · Feed · 4:5 · A room for fourteen.
 Day 19 · SMS / Viber · SMS · Ageing List · The list gets first access to tables.
-Day 20 · Feed post · Feed · 4:5 · Patience is poured here.
+Day 20 · Feed post · Feed · 4:5 carousel · Patience is poured here.  + Slide 2 · the Patience recipe card
 Day 21 · Feed post · Feed · 4:5 + story · Your table has waited too.  + Story · link sticker to xxviii.example/reserve
 Day 22 · Google · Search ads · RSA · Search campaign goes live for BGC.
 Day 23 · Meta ads · Meta ad · image + video · Dinner for two takes 45 days.

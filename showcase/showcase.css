@@ -607,3 +607,6 @@ button.btn { background: none; }
 
 @media (max-width: 400px) { .club-play { padding: 12px; } .club-card { aspect-ratio: auto; min-height: 200px; } .cc-foot { flex-direction: column; gap: 4px; } .cc-top .label, .cc-foot .label { letter-spacing: .14em; } }
 .peso-band { font-family: var(--f-display); letter-spacing: .04em; }
+.rf-vis img.crust { object-position: 30% 50%; }
+.story-row:not(.reel-row) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .story-row:not(.reel-row) { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(220px, 46%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; } .story-row:not(.reel-row) > * { scroll-snap-align: start; } }

@@ -210,6 +210,21 @@
   "broken": []
  },
  {
+  "name": "post-15",
+  "file": "posts/post-15.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
   "name": "story-01",
   "file": "stories/story-01.png",
   "size": [
@@ -257,6 +272,21 @@
  {
   "name": "story-04",
   "file": "stories/story-04.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "story-05",
+  "file": "stories/story-05.png",
   "size": [
    1080,
    1920

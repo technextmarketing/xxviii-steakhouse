@@ -202,7 +202,7 @@
   $('#reelTicks').innerHTML = ticks;
   function reelVis(v, text) {
     var img = function (src, cls) { return '<img class="' + (cls || '') + '" src="' + src + '" alt="" loading="lazy" decoding="async">'; };
-    var inner = v === 'cabinet' ? img(X.interior('dry-aging-cabinet', 'sm'), 'cab') :
+    var inner = v === 'room' ? img(X.dryage('room-through-the-glass', 'sm'), 'cab') : v === 'crust' ? img(X.dryage('rib-crust-close-detail', 'sm'), 'crust') :
       v === 'board' ? img(X.texture('butcher-block-slate-wall-empty', 'sm'), 'cab') + '<div class="rf-board"><span>AGEING ROOM</span><b>DAY 01</b><span>THE TWENTY&#8209;EIGHT · IN</span></div>' :
       v === 'mark' ? '<div class="rf-mark"></div>' : v === 'cowboy-cut-cut' ? img(X.img('cowboy-cut', 'cutout', 'sm'), 'cut') :
       v === 'block-cowboy-cut' ? img(X.block('cowboy-cut', 'sm'), 'cab') + '<div class="rf-card">Aged 28 days.<br>Cut today.<br>Yours tonight.</div>' : img(X.img(v, 'plated', 'sm'));

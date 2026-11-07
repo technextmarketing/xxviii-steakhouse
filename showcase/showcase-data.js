@@ -60,14 +60,18 @@
       fb: 'Help us choose for opening week. A Café de Paris butter, B Béarnaise, C Green Peppercorn & Cognac, D Chimichurri Verde. Tell us in the comments.',
       ig: ig(['Sauce or butter?', 'A Café de Paris butter\nB Béarnaise\nC Green Peppercorn & Cognac\nD Chimichurri Verde', 'Comment a letter. The most-chosen goes on every table in opening week.'], '#SteakSauce #Steakhouse #DryAged'),
       tt: 'A, B, C or D. Comment below. #XXVIII #SteakTok #BGCEats' },
-    { id: 'post-13', title: 'Day 14, behind the glass', idea: 'The ageing cabinet by the door (interior)',
-      fb: 'Day 14. The first Twenty-Eights hang behind the glass by our entrance, halfway there. Every guest walks past the cuts that will be on the menu.',
-      ig: ig(['Day 14, behind the glass.', 'The ageing cabinet sits by the door, in plain sight. The first Twenty-Eights went in on Day 01 and come out on Day 28, opening night.', 'Halfway.'], '#DryAgedBeef #AgeingRoom #Steakhouse'),
+    { id: 'post-13', title: 'Day 14, behind the glass', idea: 'The ageing room, through the glass',
+      fb: 'Day 14. The first Twenty-Eights hang in the glass room by our entrance, halfway there. Every cut is tagged with its day, and every guest walks past them.',
+      ig: ig(['Day 14, behind the glass.', 'The ageing room sits by the door, behind glass, in plain sight. The first Twenty-Eights went in on Day 01 and come out on Day 28, opening night.', 'Halfway.'], '#DryAgedBeef #AgeingRoom #Steakhouse'),
       tt: 'Halfway. Day 14 of 28, behind the glass by our door. #XXVIII #AgeingRoom #DryAged #BGCEats' },
     { id: 'post-14', title: 'Patience is poured here', idea: 'The bar (interior)',
       fb: 'Patience is poured here: a beef-fat-washed bourbon Old Fashioned, stirred slowly, over one clear ice cube. ₱720. The bar opens with the dining room on opening night.',
       ig: ig(['Patience is poured here.', 'Beef-fat-washed bourbon. Stirred slowly. One clear ice cube.', 'The bar, from opening night. Please drink responsibly.'], '#OldFashioned #CocktailBar #BGCBars'),
-      tt: 'Where Patience is stirred, slowly. #XXVIII #OldFashioned #BGCBars' }
+      tt: 'Where Patience is stirred, slowly. #XXVIII #OldFashioned #BGCBars' },
+    { id: 'post-15', title: 'Checked by hand', idea: 'The butcher in the ageing room',
+      fb: 'Inside the ageing room: every rib carries a tag with the day it went in, and we read them one by one. The first Twenty-Eights come out on Day 28, opening night.',
+      ig: ig(['Checked by hand.', 'Every rib in the ageing room carries a tag with the day it went in. We read them, one by one.', 'Day 08 of 28 for the first Twenty-Eights.'], '#DryAgedBeef #AgeingRoom #Butcher'),
+      tt: 'Every rib has a tag. Every tag has a day. #XXVIII #AgeingRoom #DryAged #BGCEats' }
   ];
   /* food captions carry the allergen line (fb + ig) */
   ['post-01', 'post-03', 'post-04', 'post-06', 'post-07', 'post-08', 'post-12'].forEach(function (id) {
@@ -78,6 +82,7 @@
     { id: 'story-01', title: 'Day 14. Halfway.', line: 'The Twenty-Eight glide; the day count rolls to 14 of 28.', video: 'cowboy-cut' },
     { id: 'story-02', title: 'Which butter?', line: 'Poll on the butcher block: Café de Paris or black truffle. Clean copy for the in-app poll.', video: null, clean: true },
     { id: 'story-03', title: 'Day 25 of 28', line: 'The strip glide; the days count up, 19 to 25, in the glass room.', video: 'new-york-strip' },
+    { id: 'story-05', title: 'Inside the glass room', line: 'A slow push down the rack aisle: steel racks, the lit salt-brick wall, tagged cuts.', video: null },
     { id: 'story-04', title: 'Tables are open', line: 'The front door and host stand, slow push-in. Clean copy for the in-app link sticker.', video: null, clean: true }
   ];
 
@@ -91,9 +96,9 @@
   ];
 
   var reel = [
-    { t: '00:00–00:03', shot: 'The glass ageing cabinet by the entrance. Slow push in on the hanging cuts.', text: 'The first Twenty-Eights go in today.', sound: 'Cold-room hum. The soft release of the door seal.', vis: 'cabinet' },
+    { t: '00:00–00:03', shot: 'The glass ageing room by the entrance. Slow push in through the glass on the hanging ribs.', text: 'The first Twenty-Eights go in today.', sound: 'Cold-room hum. The soft release of the door seal.', vis: 'room' },
     { t: '00:03–00:06', shot: 'A hand chalks DAY 01 · THE TWENTY-EIGHT · IN on the slate board.', text: 'Twenty-eight days. No shortcuts.', sound: 'Chalk on slate. One low piano note.', vis: 'board' },
-    { t: '00:06–00:10', shot: 'Locked-off time-lapse of The Twenty-Eight darkening; a day counter rolls 01 to 28.', text: 'Day 01 → Day 28', sound: 'A clock that ticks slower and slower.', vis: 'cowboy-cut-cut' },
+    { t: '00:06–00:10', shot: 'Locked-off time-lapse of The Twenty-Eight darkening; a day counter rolls 01 to 28.', text: 'Day 01 → Day 28', sound: 'A clock that ticks slower and slower.', vis: 'crust' },
     { t: '00:10–00:13', shot: 'Overhead: the cut hits the grill. Smoke crosses the lamp light.', text: 'Cut today.', sound: 'The sear, close-miked. Nothing else.', vis: 'cowboy-cut' },
     { t: '00:13–00:17', shot: 'The plate is set on the block; a hand places the small card beside it.', text: 'Yours tonight.', sound: 'Dining-room murmur, a glass set on walnut.', vis: 'block-cowboy-cut' },
     { t: '00:17–00:20', shot: 'End card: the XXVIII mark on charcoal, brass light sweeps across.', text: 'Worth the wait. Tables open soon.', sound: 'The hum cuts to silence on the last frame.', vis: 'mark' }
@@ -112,7 +117,7 @@
   };
 
   var emails = [
-    { id: 'email-welcome', name: 'Welcome to The Ageing List', when: 'On sign-up (from Day 03)', subject: 'Welcome to The Ageing List', pre: 'The first Twenty-Eights went in on Day 01. You will hear from us again before tables open.', header: 'dry-aging-cabinet' },
+    { id: 'email-welcome', name: 'Welcome to The Ageing List', when: 'On sign-up (from Day 03)', subject: 'Welcome to The Ageing List', pre: 'The first Twenty-Eights went in on Day 01. You will hear from us again before tables open.', header: 'room-wide-feature-wall' },
     { id: 'email-confirmation', name: 'Reservation confirmation', when: 'Instantly on booking', subject: 'Your table is set · Twenty-Eight', pre: 'Opening night, 7:30 PM, two guests. Everything you need is inside.' },
     { id: 'email-birthday', name: 'Birthday invitation', when: '21 days before a guest’s birthday', subject: 'Another year, aged well', pre: 'A table kept for you in your birthday month.' },
     { id: 'email-thankyou', name: 'Thank you + review ask', when: 'The morning after a visit', subject: 'Thank you for waiting with us', pre: 'If it was worth the wait, tell people. If not, tell us.' }
@@ -139,20 +144,20 @@
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Meet The Twenty-Eight.', prev: 'post-01' },
     { ch: 'story', fmt: 'Story · poll', hook: 'Which butter? Café de Paris or black truffle.', prev: 'story-02', cap: 'Story poll: Which butter? Café de Paris / Black truffle. Share the result on Day 06.' },
     { ch: 'ads', fmt: 'Meta ad · image + video', hook: 'Worth the wait. Join the list, book first.', prev: 'ad-feed-1' },
-    { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Day 07. Still.', prev: 'post-02' },
-    { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Patience, the house cocktail.', prev: 'post-05' },
+    { ch: 'feed', fmt: 'Feed · 4:5 + story', hook: 'Day 07. Still.', prev: 'post-02', also: { ch: 'story', prev: 'story-05', label: 'Story · Inside the glass room' } },
+    { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Checked by hand.', prev: 'post-15' },
     { ch: 'pr', fmt: 'Invitation card', hook: 'Tasting invitations go to food writers.', prev: 'pr', cap: 'Printed invitation, hand-delivered with a small tag. Tasting on Day 26, 7:00 PM. Reply by Day 22.' },
     { ch: 'reel', fmt: 'Reel · 9:16 · 17 s', hook: 'Worth the Wait: the teaser.', prev: 'reel-a', cap: 'Twenty-eight days in the ageing room for the New York Strip and The Twenty-Eight. Worth the wait. Join The Ageing List, link in bio. #XXVIII #WorthTheWait #DryAged #BGCEats\n[Add licensed audio in-app]' },
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'The Caesar is made at your table.', prev: 'post-07' },
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'The Long Wait: 45 days for the table.', prev: 'post-06' },
-    { ch: 'google', fmt: 'Business Profile post', hook: 'The listing goes live with hours and menu.', prev: 'gbp', cap: 'Business Profile update: "Opening soon. Every steak lists its age." Button: Learn more (Reserve from Day 21). Photos: the dining room, the ageing cabinet, the bar, the private room.' },
+    { ch: 'google', fmt: 'Business Profile post', hook: 'The listing goes live with hours and menu.', prev: 'gbp', cap: 'Business Profile update: "Opening soon. Every steak lists its age." Button: Learn more (Reserve from Day 21). Photos: the dining room, the glass ageing room, the bar, the private room.' },
     { ch: 'feed', fmt: 'Feed · 4:5 + story', hook: 'Day 14, behind the glass.', prev: 'post-13', also: { ch: 'story', prev: 'story-01', label: 'Story · Day 14. Halfway.' } },
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Aged 28 days. Cut today. Yours tonight.', prev: 'post-04' },
     { ch: 'feed', fmt: 'Feed · 4:5 · poll', hook: 'Sauce or butter: A, B, C or D.', prev: 'post-12' },
     { ch: 'reel', fmt: 'Reel · 9:16 · 20 s', hook: 'Every steak lists its age: 21, 28, 35, 45.', prev: 'reel-b', cap: 'Filet, 21 days. Strip, 28. Ribeye, 35. Porterhouse, 45. Every steak lists its age. #XXVIII #DryAged #SteakTok #BGCEats\n[Add licensed audio in-app]' },
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'A room for fourteen.', prev: 'post-09' },
     { ch: 'sms', fmt: 'SMS · Ageing List', hook: 'The list gets first access to tables.', prev: 'sms', cap: sms[2].text },
-    { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Patience is poured here.', prev: 'post-14' },
+    { ch: 'feed', fmt: 'Feed · 4:5 carousel', hook: 'Patience is poured here.', prev: 'post-14', also: { ch: 'feed', prev: 'post-05', label: 'Slide 2 · the Patience recipe card' } },
     { ch: 'feed', fmt: 'Feed · 4:5 + story', hook: 'Your table has waited too.', prev: 'post-10', also: { ch: 'story', prev: 'story-04', label: 'Story · link sticker to ' + C.web + '/reserve' } },
     { ch: 'google', fmt: 'Search ads · RSA', hook: 'Search campaign goes live for BGC.', prev: 'search', cap: 'Responsive search ad: 15 headlines (≤ 30 characters), 4 descriptions (≤ 90). Final URL ' + C.web + '/reserve' },
     { ch: 'ads', fmt: 'Meta ad · image + video', hook: 'Dinner for two takes 45 days.', prev: 'ad-feed-2' },
@@ -216,7 +221,8 @@
     boilerplate: 'About Twenty-Eight. Twenty-Eight is a dry-aged steakhouse in Bonifacio Global City built on one idea: some things can’t be hurried. Every steak is aged on site and lists its age on the menu, and no table is ever rushed. Reservations at ' + C.web + '. Press enquiries: ' + C.email + '.',
     kit: [
       ['Logo pack', 'Primary, horizontal, wordmark, monogram, seal and tag lockups in brass, bone, charcoal and oxblood (SVG)'],
-      ['Interior photography', 'Six photographs of the room: the ageing cabinet, the dining room, the bar, the private room, the entrance, the open kitchen'],
+      ['The ageing room', 'Five photographs: the glass room from the dining room, through the glass, the rack aisle, the crust close up, the butcher at work'],
+      ['Interior photography', 'Five photographs of the restaurant: the dining room, the bar, the private room, the entrance, the open kitchen'],
       ['Dish photography', '50 plated photographs and transparent cut-outs, named by dish'],
       ['Fact sheet', 'Address, hours, capacity (84, private room for 14), booking details'],
       ['The ageing room, explained', 'One page on how and why every cut is dry-aged on site'],

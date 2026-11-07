@@ -51,6 +51,9 @@
     'story-04-clean': { fmt: 's', id: 'story-04', out: 'stories/story-04-clean', segs: [{ still: 'bg', d: 7, zoom: .05,
       ov: [{ part: 'head', at: .6 }] }], still: { parts: ['bg', 'head'] } },
 
+    'story-05': { fmt: 's', out: 'stories/story-05', segs: [{ still: 'bg', d: 7, zoom: .1, pan: 1,
+      ov: [{ part: 'head', at: .6 }, { part: 'sub', at: 2.2 }] }], still: { parts: ['bg', 'head', 'sub'] } },
+
     'reel-a': { fmt: 's', out: 'reels/reel-a-worth-the-wait', segs: [
       { v: 'new-york-strip', ss: .2, d: 7, p0: .40, p1: .58, ov: [{ part: 't1', at: .9, out: 6.0 }] },
       { v: 'cowboy-cut', ss: .3, d: 7, p0: .36, p1: .5, ov: [{ part: 't2', at: .9 }] },
@@ -111,6 +114,11 @@
       bg: function () { return cover('interior/entrance-host-stand', '55% 50%', 'The entrance: walnut host stand, a view through to the room') + '<div class="shade-top" style="height:960px"></div>'; },
       head: function (F) { return L('The door is open', 330, 72, 'br') + H(F, 'Tables<br>are <em>open.</em>', 168, 380); },
       link: function () { return '<div class="link-chip" style="left:72px;top:750px">' + LINK + 'XXVIII.EXAMPLE/RESERVE</div>'; }
+    },
+    'story-05': {
+      bg: function () { return cover('dryage/room-rack-aisle', '58% 50%', 'Inside the ageing room: the rack aisle, tagged cuts on steel shelves, the salt-brick wall at the end') + '<div class="shade-top" style="height:1180px"></div><div class="fade-bot" style="height:700px;background:linear-gradient(rgba(20,17,16,0),rgba(20,17,16,.85))"></div>'; },
+      head: function (F) { return L('The ageing room · Day 07', 330, 72, 'br') + H(F, 'Inside the<br>glass room.', 168, 380); },
+      sub: function (F) { return T(F, '<b style="text-shadow:0 2px 14px rgba(0,0,0,.9)">Steel racks, a lit salt-brick wall, and every cut tagged with its day.</b>', 790, 860); }
     },
     'reel-a': {
       t1: function (F) { return H(F, 'Twenty-eight<br>days in the<br>ageing room.', 128, 340) + N(F, 'New York Strip · aged 28 days', 730); },

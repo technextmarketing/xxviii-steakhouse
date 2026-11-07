@@ -96,7 +96,8 @@ def seg_video(sh, pid, F, D, seg, i, out):
         frames = int(round(d * FPS))
         z = seg.get("zoom", .035)
         ins += ["-loop", "1", "-framerate", str(FPS), "-t", f"{d:.3f}", "-i", bg]
-        filt.append(f"[0:v]scale=2160:-2,zoompan=z='1+{z}*on/{frames}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x{H}:fps={FPS},setsar=1,format=yuv420p[b1]")
+        zx = "(iw-iw/zoom)*(0.15+0.7*on/" + str(frames) + ")" if seg.get("pan") else "iw/2-(iw/zoom/2)"
+        filt.append(f"[0:v]scale=2160:-2,zoompan=z='1+{z}*on/{frames}':x='{zx}':y='ih/2-(ih/zoom/2)':d=1:s=1080x{H}:fps={FPS},setsar=1,format=yuv420p[b1]")
         k, cur = 1, "b1"
     for o in seg.get("ov", []):
         if o["part"] == "n":
