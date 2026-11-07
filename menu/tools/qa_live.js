@@ -59,7 +59,7 @@ window.LIVEQA = async function LIVEQA() {
 
   // ---------------------------------------------------------------- desktop: the book
   ok('book: 10 sheets, 20 live faces', B.N === 10 && $$('.sheet .face').length === 20);
-  ok('closed: the cover, the book centred on it, the table video on', B.s === 0 && /translateX\(-/.test($('#book').style.transform) && $('#tableVideo') && $('#tableVideo').classList.contains('on'));
+  ok('closed: the cover, the book centred on it, no video behind it', B.s === 0 && /translateX\(-/.test($('#book').style.transform) && !$('video.table__video, #tableVideo'));
   ok('closed: only the cover is reachable', $$('.face').filter(f => !f.inert).length === 1);
   const g0 = $('.foilg').getAttribute('gradientTransform') || '';
   window.dispatchEvent(new PointerEvent('pointermove', { clientX: 200, clientY: 300 }));
@@ -74,7 +74,6 @@ window.LIVEQA = async function LIVEQA() {
     await settle(1); on = false; frames.coverOpen = tf.slice(2);
     ok('ArrowRight opens the cover (hard cover, thud)', B.s === 1 && (rm || heard.includes('thud')), heard);
     ok('open: exactly two faces reachable', $$('.face').filter(f => !f.inert).length === 2);
-    ok('the table video pauses once the book is open', !$('#tableVideo').classList.contains('on') && $('#tableVideo').paused);
     heard.length = 0;
     await wait(100);
     const tt = []; let last2 = performance.now(), on2 = true; const loop2 = t => { tt.push(t - last2); last2 = t; if (on2) requestAnimationFrame(loop2); }; requestAnimationFrame(loop2);

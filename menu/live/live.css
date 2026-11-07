@@ -43,9 +43,6 @@ body { margin: 0; background: #0b0908; color: var(--bone); overflow: hidden; }
 .scene { position: fixed; inset: 0; overflow: hidden; background: #0d0a08; }
 .table { position: absolute; inset: -4%; background: url("../../assets/img/texture/dark-polished-walnut-grain-lg.webp") center / cover no-repeat; filter: brightness(.42) saturate(.9); }
 .table::after { content: ""; position: absolute; inset: 0; background: radial-gradient(62% 70% at 50% 52%, rgba(13, 10, 8, 0) 20%, rgba(13, 10, 8, .72) 70%, #0b0908 100%); }
-.table__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; filter: brightness(.5) saturate(.85); transition: opacity 1.1s var(--ease-out); pointer-events: none; }
-.table__video.on { opacity: .42; }
-.table__video::after { content: ""; }
 .lamp {
   position: absolute; left: 0; top: 0; width: 120vmin; height: 120vmin; margin: -60vmin 0 0 -60vmin; z-index: 3; pointer-events: none;
   background: radial-gradient(circle, rgba(255, 214, 160, .2) 0%, rgba(255, 214, 160, .08) 28%, rgba(255, 214, 160, 0) 58%); mix-blend-mode: soft-light; will-change: transform;
