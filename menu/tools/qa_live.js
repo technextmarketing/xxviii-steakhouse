@@ -27,7 +27,9 @@ window.LIVEQA = async function LIVEQA() {
   ok('every dish in the data is pictured', pictured.length === dishes.length, dishes.filter(d => !pictured.includes(d)).map(d => d.name));
   const txt = norm(root.textContent);
   ok('every dish name and price from the data is set', [...dishes, ...X.drinks].every(i => txt.includes(i.name) && (!i.price || txt.includes(num(i.price)))), [...dishes, ...X.drinks].filter(i => !txt.includes(i.name)).map(i => i.name));
-  ok('all six interiors are used', ['dry-aging-cabinet', 'main-dining-room', 'bar', 'private-dining-room', 'entrance-host-stand', 'open-kitchen-chefs-counter'].every(s => $$('img', root).some(i => (i.src + (i.dataset.src || '')).includes('interior/' + s))));
+  ok('the interiors and all five shots of the dry-age room are used', ['interior/main-dining-room', 'interior/bar', 'interior/private-dining-room', 'interior/entrance-host-stand', 'interior/open-kitchen-chefs-counter',
+    'dryage/room-wide-feature-wall', 'dryage/room-through-the-glass', 'dryage/room-rack-aisle', 'dryage/rib-crust-close-detail', 'dryage/room-butcher-moment'].every(s => $$('img', root).some(i => (i.src + (i.dataset.src || '')).includes(s))));
+  ok('no cabinet: the ageing place is a room', !$$('img', root).some(i => /cabinet/.test(i.src + (i.dataset.src || ''))) && !/cabinet/i.test(root.textContent));
   ok('every menu page carries the currency and allergy line', $$('.pg', root).every(p => /Prices in PHP/.test(p.textContent) && /allergy/i.test(p.textContent)));
 
   // ---------------------------------------------------------------- phones: course cards

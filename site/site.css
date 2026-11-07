@@ -687,11 +687,11 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
 @media (max-width: 359px) { .hdr__logo img { height: 22px; } .hdr__in { gap: 16px; } .hdr__burger-txt { display: none; } }
 
 
-/* board: the glass room by the door, behind the head */
+/* board: the ageing room behind glass, behind the head */
 .board { isolation: isolate; overflow: hidden; }
 .board__room { position: absolute; left: 0; right: 0; top: 0; height: min(78vh, 760px); z-index: -1; opacity: .3;
   -webkit-mask: linear-gradient(180deg, #000 0, #000 30%, transparent 100%); mask: linear-gradient(180deg, #000 0, #000 30%, transparent 100%); }
-.board__room img { width: 100%; height: 100%; object-fit: cover; object-position: 22% 38%; }
+.board__room img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; }
 .board__room::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--char) 0%, color-mix(in srgb, var(--char) 55%, transparent) 45%, color-mix(in srgb, var(--char) 20%, transparent) 100%); }
 .board__door { grid-column: 1; color: var(--ash); max-width: 46ch; }
 .board.tex-on .board__glass { background-image: linear-gradient(180deg, color-mix(in srgb, var(--char) 82%, transparent), color-mix(in srgb, var(--char) 90%, transparent)), url(../assets/img/texture/charcoal-slate-stone-sm.webp); background-size: cover; }
@@ -721,9 +721,9 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
 .rm--door { grid-column: 1 / span 3; margin-top: clamp(40px, 8vw, 120px); }
 .rm--door .rm__frame { aspect-ratio: 3 / 4; }
 .rm--door img { object-position: 46% 50%; }
-.rm--cabinet { grid-column: 4 / span 4; }
-.rm--cabinet .rm__frame { aspect-ratio: 4 / 5; }
-.rm--cabinet img { object-position: 14% 40%; }
+.rm--glass { grid-column: 4 / span 4; }
+.rm--glass .rm__frame { aspect-ratio: 4 / 5; }
+.rm--glass img { object-position: 46% 40%; }
 .rm--kitchen { grid-column: 8 / span 5; margin-top: clamp(60px, 8vw, 120px); }
 .rm--kitchen .rm__frame { aspect-ratio: 4 / 3; }
 .rm--kitchen img { object-position: 62% 50%; }
@@ -738,7 +738,7 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
   .rm--dining { grid-column: 1 / -1; margin-inline: calc(var(--gutter) * -1); }
   .rm--dining figcaption { padding-inline: var(--gutter); }
   .rm--door { grid-column: 1 / span 3; margin-top: 0; }
-  .rm--cabinet { grid-column: 4 / span 3; margin-top: 48px; }
+  .rm--glass { grid-column: 4 / span 3; margin-top: 48px; }
   .rm--kitchen { grid-column: 1 / -1; margin-top: 0; }
   .rm--bar { grid-column: 1 / span 3; }
   .rm--private { grid-column: 4 / span 3; margin-top: 48px; }
@@ -833,3 +833,25 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
 .wait.tex-on .wait__intro::before { content: ''; position: absolute; z-index: -1; inset: -18% -30% -18% -40%; opacity: .22;
   background: url(../assets/img/texture/dark-slate-herb-scatter-frame-sm.webp) 50% 50% / cover no-repeat;
   -webkit-mask: radial-gradient(closest-side, #000 40%, transparent); mask: radial-gradient(closest-side, #000 40%, transparent); }
+
+/* dry-age room (batch 4): the butcher in the tour, the rack aisle behind the Long Wait intro, a crust band */
+.rm--bar { grid-column: 1 / span 3; }
+.rm--butcher { grid-column: 4 / span 3; margin-top: clamp(40px, 6vw, 96px); }
+.rm--butcher .rm__frame { aspect-ratio: 3 / 4; }
+.rm--butcher img { object-position: 38% 50%; }
+.rm--bar .rm__frame { aspect-ratio: 4 / 5; }
+@media (max-width: 899px) {
+  .rm--bar { grid-column: 1 / span 3; }
+  .rm--butcher { grid-column: 4 / span 3; margin-top: 48px; }
+  .rm--private { grid-column: 1 / -1; margin-top: 0; }
+  .rm--private .rm__frame { aspect-ratio: 16 / 10; }
+}
+.wait.tex-on .wait__intro::before { display: none; }
+.wait__aisle { position: absolute; z-index: -1; inset: -14% -18% -14% -12%; opacity: .26; pointer-events: none;
+  -webkit-mask: radial-gradient(closest-side, #000 35%, transparent); mask: radial-gradient(closest-side, #000 35%, transparent); }
+.wait__aisle img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.crust { position: relative; height: clamp(160px, 24vh, 260px); overflow: hidden; background: var(--char); }
+.crust__img { position: absolute; inset: -20% 0; }
+.crust__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+.crust::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--char) 0%, transparent 28%, transparent 72%, var(--char) 100%), linear-gradient(90deg, color-mix(in srgb, var(--char) 40%, transparent), transparent 30%, transparent 70%, color-mix(in srgb, var(--char) 40%, transparent)); pointer-events: none; }
+.crust__tag { position: absolute; z-index: 2; left: var(--gutter); bottom: 22px; padding: 9px 14px 8px; color: var(--bone); background: color-mix(in srgb, var(--char) 82%, transparent); border: 1px solid var(--line); }

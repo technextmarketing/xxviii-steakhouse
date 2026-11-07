@@ -943,7 +943,7 @@
     G.from($('.rm__frame', f), { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: f, start: 'top 86%', once: true } });
     G.from($('figcaption', f), { autoAlpha: 0, y: 14, duration: 1, ease: 'expo.out', delay: .5, scrollTrigger: { trigger: f, start: 'top 86%', once: true } });
   });
-  $$('.rm__frame img, .patience__frame img, .private__frame img').forEach(function (im) {
+  $$('.rm__frame img, .patience__frame img, .private__frame img, .crust__img img').forEach(function (im) {
     G.fromTo(im, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: im.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
 

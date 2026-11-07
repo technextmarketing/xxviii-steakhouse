@@ -178,3 +178,14 @@ window.XXVIII.media.interior = {
   'open-kitchen-chefs-counter': 'The open kitchen: chef at the pass, steel line, chef’s counter with oxblood stools.'
 };
 window.XXVIII.interior = function (slug, size) { return (window.XXVIII_BASE || '') + 'assets/img/interior/' + slug + '-' + (size || 'md') + '.webp'; };
+/* Media batch 4 (8 Nov): THE DRY-AGE ROOM — replaces the old 'dry-aging-cabinet' interior as the ageing location everywhere.
+   A glass-walled room beside the dining room, a glowing Himalayan salt-brick wall, steel racks, hanging bone-in ribs with day tags.
+   assets/img/dryage/<slug>-{lg 1920|md 1200|sm 640}.webp (16:9) */
+window.XXVIII.media.dryage = {
+  'room-wide-feature-wall': 'The glass ageing room seen from the dining room: salt-brick wall glowing behind hanging ribs, a set table in front.',
+  'room-through-the-glass': 'Through the glass: rows of bone-in ribs hanging and on racks, the salt wall lit warm behind.',
+  'room-rack-aisle': 'Inside the room: the rack aisle, tagged cuts on steel shelves, the salt-brick wall at the end.',
+  'rib-crust-close-detail': 'Close on the crust: dark, dry bark on ribs hanging from steel hooks against the salt wall.',
+  'room-butcher-moment': 'The butcher checks a tagged rib on the rack.'
+};
+window.XXVIII.dryage = function (slug, size) { return (window.XXVIII_BASE || '') + 'assets/img/dryage/' + slug + '-' + (size || 'md') + '.webp'; };

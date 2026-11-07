@@ -175,19 +175,21 @@
     R: n => { const cb = X.block('cowboy-cut', 'lg'), pr = X.block('prime-ribeye', 'lg'), tm = X.block('sovereign-tomahawk', 'lg'); return `<div class="pg-in kitchen">${RH('The kitchen', 'Seared by hand')}
       <figure class="kitchen__ph">${pic(X.interior('open-kitchen-chefs-counter', 'lg'), 'kitchen__im', 'The open kitchen and the chef’s counter')}</figure>
       <p class="kitchen__line">${esc(B.values[1].line)}</p>
-      <div class="kitchen__macs">${mac(cb, 31, 60, 3, 'The crust')}${mac(pr, 46, 60, 2.8, 'The marbling')}${mac(tm, 74, 40, 2.6, 'The bone')}${mac(cb, 42, 46, 3.2, 'The butter')}</div>${FO(n)}</div>`; },
+      <div class="kitchen__macs">${mac(cb, 31, 60, 3, 'The crust')}${mac(pr, 46, 60, 2.8, 'The marbling')}${mac(tm, 74, 40, 2.6, 'The bone')}${mac(X.dryage('rib-crust-close-detail', 'lg'), 62, 52, 1.6, 'On the hook')}</div>${FO(n)}</div>`; },
   });
 
   // 4 · The Ageing Room: the glass room by the door (hero) | the board, every cut on its tag
   SP.push({
     id: 'ageing-room', title: M.room.name, course: 'IV',
-    L: n => `${ground(X.interior('dry-aging-cabinet', 'lg'), '19% 50%')}<i class="veil veil--top"></i><i class="veil veil--bottom"></i><div class="pg-in room-hero">${RH('The Menu', 'IV · ' + M.room.name)}
-      ${HD('IV', M.room.name, 'The glass room by the door. Every steak lists its age.', 'hd--light')}
+    L: n => `<div class="pg-in room-hero">${RH('The Menu', 'IV · ' + M.room.name)}
+      ${HD('IV', M.room.name, 'The glass room by the door: a salt-brick wall lit warm, ribs on hooks, every cut tagged with its day.')}
+      <figure class="room__ph">${pic(X.dryage('room-wide-feature-wall', 'lg'), 'room__im', 'The glass ageing room, seen from the dining room', ' style="object-position:44% 40%"')}</figure>
       <div class="room__ctl"><div class="odo" aria-hidden="true"><span class="odo__l">Day</span><span class="odo__d"><span class="odo__c">${[0, 1, 2, 3, 4].map(x => `<i>${x}</i>`).join('')}</span><span class="odo__c">${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(x => `<i>${x}</i>`).join('')}</span></span></div>
         <div class="rail" role="slider" tabindex="0" aria-label="Days in the ageing room" aria-valuemin="1" aria-valuemax="45" aria-valuenow="28" aria-valuetext="Day 28">
           <div class="rail__bar"><i class="rail__fill"></i>${[1, 14, 21, 28, 35, 45].map(d => `<span class="rail__tick" style="left:${(d - 1) / 44 * 100}%">${d}</span>`).join('')}</div><span class="rail__knob"></span></div>
         <p class="room__hint">${PRINT ? 'Each cut is ready on its own day: 21, 28, 35 and 45 days.' : 'Drag the rail: each cut is ready on its own day.'} ${esc(B.launch ? B.launch.note : '')}</p></div>${FO(n)}</div>`,
     R: n => `<div class="pg-in board">${RH(M.room.name, 'The board by the door')}
+      <div class="room__strip">${pic(X.dryage('room-through-the-glass', 'md'), 'room__s', 'Ribs hanging behind the glass')}${pic(X.dryage('room-rack-aisle', 'md'), 'room__s', 'Inside the ageing room: the rack aisle, every cut tagged')}${pic(X.dryage('room-butcher-moment', 'md'), 'room__s', 'The butcher checking a tagged rib')}</div>
       <div class="b8">${allCuts.map(c => `<figure class="bt" data-age="${c.age}" data-dish-alt="${slug(c.name)}"><span class="bt__tag">${tagSvg(c.age)}</span>
         <div class="bt__ph">${pic(cutSrc(c, 'sm'), 'bt__im', c.name)}</div>
         <figcaption><div class="t__row"><h3 class="bt__n">${esc(c.name)}</h3>${price(c)}</div><p class="bt__m"><span>${esc(c.weight)}${c.serves ? ' · serves ' + esc(c.serves) : ''}</span><span class="bt__s"></span></p></figcaption></figure>`).join('')}</div>${FO(n)}</div>`,
@@ -662,7 +664,7 @@
           { no: 'I', title: M.day.name, page: 3, ids: ['day-one'], photo: X.img('wagyu-tallow-white', 'plated', 'md'), sections: [[M.day.items[0].name, 3]] },
           { no: 'II', title: M.first.name, page: 4, ids: ['first-course'], photo: X.img('steak-tartare', 'plated', 'md'), sections: [['Raw, cured and seared', 4], ['Marrow, prawns, oysters', 5]] },
           { no: 'III', title: M.garden.name, page: 6, ids: ['garden'], photo: X.interior('open-kitchen-chefs-counter', 'md'), sections: [['Soup, leaves, tomatoes', 6], ['The open kitchen', 7]] },
-          { no: 'IV', title: M.room.name, page: 8, ids: ['ageing-room'], photo: X.interior('dry-aging-cabinet', 'md'), sections: [['The glass room', 8], ['The board by the door', 9], [roomCuts[0].name, 10], [M.along.extras.name, 11]] },
+          { no: 'IV', title: M.room.name, page: 8, ids: ['ageing-room'], photo: X.dryage('room-rack-aisle', 'md'), sections: [['The glass room', 8], ['The board by the door', 9], [roomCuts[0].name, 10], [M.along.extras.name, 11]] },
           { no: 'V', title: M.wait.name, page: 12, ids: ['long-wait'], photo: X.block('sovereign-tomahawk', 'md'), sections: [['Châteaubriand and porterhouse', 12], ['Tomahawk and enhancements', 13]] },
           { no: 'VI', title: M.along.name, page: 14, ids: ['alongside'], photo: X.img('truffle-pommes-frites', 'plated', 'md'), sections: [['Sides', 14]] },
           { no: 'VII', title: M.beyond.name, page: 15, ids: ['beyond'], photo: X.img('lobster-thermidor', 'plated', 'md'), sections: [['Sea, lamb and risotto', 15]] },

@@ -193,8 +193,14 @@ body.is-back .edge--l { left: 0; width: var(--pw); cursor: pointer; }
 
 /* 4 · the glass room | the board */
 .room-hero .hd__t { font-size: 2.9em; }
+.room__ph { flex: 1; min-height: 0; margin: 0 0 .8em; position: relative; overflow: hidden; box-shadow: 0 1em 1.6em rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(194, 154, 91, .3); }
+.room__im { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.room__strip { flex: none; height: 12%; display: grid; grid-template-columns: repeat(3, 1fr); gap: .5em; margin-bottom: .6em; }
+.room__s { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 0; }
+.card .room__ph { flex: none; height: 64vw; }
+.card .room__strip { height: 26vw; }
 .hd--light .hd__l { color: var(--bone); }
-.room__ctl { margin-top: auto; }
+.room__ctl { flex: none; }
 .odo { display: flex; align-items: flex-end; gap: .5em; color: var(--brass-hi); }
 .odo__l { font: 600 .85em/1 var(--f-label); letter-spacing: .3em; text-transform: uppercase; color: var(--bone); padding-bottom: .55em; }
 .odo__d { display: inline-flex; height: 1em; overflow: hidden; font: 700 4.2em/1 var(--f-label); font-variant-numeric: tabular-nums; }

@@ -96,7 +96,7 @@
    "ids": [
     "ageing-room"
    ],
-   "photo": "../assets/img/interior/dry-aging-cabinet-md.webp",
+   "photo": "../assets/img/dryage/room-rack-aisle-md.webp",
    "sections": [
     [
      "The glass room",
@@ -224,5 +224,5 @@
    ]
   }
  ],
- "pdfMB": 5.8
+ "pdfMB": 5.9
 }
