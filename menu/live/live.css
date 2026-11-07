@@ -226,6 +226,10 @@ body.is-back .edge--l { left: 0; width: var(--pw); cursor: pointer; }
 .book, .edge { user-select: none; -webkit-user-select: none; }
 .cover__hint { position: relative; margin-top: -.6em; font: 600 .8em/1 var(--f-label); letter-spacing: .4em; text-transform: uppercase; color: var(--bone); opacity: .75; }
 body:not(.is-front) .cover__hint { opacity: 0; }
+/* preload progress: a hairline of brass along the cover's bottom-left corner, gone once every page is decoded */
+.cover__load { position: absolute; left: 6%; bottom: 4.5%; width: 22%; height: 2px; background: rgba(194, 154, 91, .18); transition: opacity .6s var(--ease-out); }
+.cover__load::after { content: ""; position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, #8a6a3a, var(--brass-hi)); transition: transform .25s linear; }
+.preloaded .cover__load { opacity: 0; }
 .rail.drag { cursor: grabbing; }
 .rail__bar { position: absolute; left: 0; right: 0; top: 1.1em; height: 4px; background: rgba(239, 231, 218, .2); }
 .rail__fill { position: absolute; inset: 0; background: linear-gradient(90deg, #8a6a3a, #e2c48e 60%, #c29a5b); transform-origin: 0 50%; transform: scaleX(0); }

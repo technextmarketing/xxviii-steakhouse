@@ -36,13 +36,81 @@
   const cap = (el, id) => { try { el.setPointerCapture(id); } catch (e) { /* synthetic or released pointer */ } };
   const tw = (el, vars) => (reduced ? gsap.set(el, Object.fromEntries(Object.entries(vars).filter(([k]) => !['duration', 'ease', 'delay', 'onComplete'].includes(k)))) : gsap.to(el, vars));
 
-  /* ------------------------------------------------------------------ images (decoded only near the open spread) */
+  /* ------------------------------------------------------------------ images: the book preloads and decodes EVERY page image up front
+     (Preload, below) while the cover is closed; hydrate() is only the fallback for a page reached before its turn in the queue */
   const cut = (s, size = 'lg') => X.img(s, 'cutout', size);
-  const pic = (src, cls, alt = '', extra = '') => `<img class="${cls}" data-src="${src}" alt="${esc(alt)}" draggable="false" decoding="async"${extra}>`;
+  const pic = (src, cls, alt = '', extra = '') => `<img class="${cls}" data-src="${src}" alt="${esc(alt)}" draggable="false"${extra}>`;
   function hydrate(root) {
     $$('img[data-src]', root).forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); if (im.decode) im.decode().catch(() => {}); });
-    $$('video[data-src]', root).forEach(v => { v.src = v.dataset.src; v.removeAttribute('data-src'); });
   }
+  // films: the source is attached (preload="auto") only for the open spread and the next; the poster always shows first
+  function films(root) { $$('video[data-src]', root).forEach(v => { v.preload = 'auto'; v.src = v.dataset.src; v.removeAttribute('data-src'); }); }
+  const Preload = {
+    keep: [], n: 0, done: 0, finished: false, t0: 0, t1: 0,
+    // longest side of each size on disk, by folder
+    SIZES: { block: [['sm', 640], ['md', 1200], ['lg', 1920]], dryage: [['sm', 640], ['md', 1200], ['lg', 1920]], interior: [['sm', 640], ['md', 1200], ['lg', 1920]],
+      cutout: [['sm', 600], ['lg', 1200]], plated: [['sm', 420], ['md', 800], ['lg', 1600]], texture: [['sm', 640], ['lg', 1600]] },
+    // the smallest file that still covers the size the image is drawn at (x DPR, + headroom for the lean-in zoom)
+    fit(im) {
+      const m = (im.dataset.src || '').match(/\/img\/(\w+)\/[^/]+-(sm|md|lg)\.webp$/), opts = m && this.SIZES[m[1]];
+      if (!opts) return;
+      const sc = parseFloat(((im.getAttribute('style') || '').match(/scale\(([\d.]+)\)/) || [0, 1])[1]) || 1;
+      const need = Math.max(im.offsetWidth, im.offsetHeight) * sc * Math.min(devicePixelRatio || 1, 2) * 1.2;
+      if (!need) return;
+      const pick = (opts.find(([, w]) => w >= need) || opts[opts.length - 1])[0];
+      im.dataset.src = im.dataset.src.replace(/-(sm|md|lg)\.webp$/, `-${pick}.webp`);
+    },
+    tick() { this.done++; const el = $('#coverLoad'); if (el) el.style.setProperty('--p', (this.done / this.n).toFixed(3)); },
+    inflight: 0, hold: false,
+    // resolves once nothing is decoding and the compositor has caught up (two short frames in a row), capped
+    quiet(cap = 700) {
+      const t0 = performance.now();
+      return new Promise(res => { let l = t0, calm = 0; const f = n => { const d = n - l; l = n; calm = (d < 20 && !this.inflight) ? calm + 1 : 0; if (calm >= 2 || n - t0 > cap) res(); else requestAnimationFrame(f); }; requestAnimationFrame(f); });
+    },
+    run(job) {
+      let p; this.inflight++;
+      if (job.im) {   // a page <img>: set its source, decode it in place; the element stays in the DOM, so the bitmap is kept
+        const im = job.im;
+        if (im.dataset.src) { im.src = im.dataset.src; im.removeAttribute('data-src'); }
+        p = im.decode ? im.decode() : Promise.resolve();
+      } else { const i = new Image(); i.src = job.url; this.keep.push(i); p = i.decode ? i.decode() : Promise.resolve(); }   // CSS grounds, posters: held so they stay decoded
+      return p.catch(() => {}).then(() => { this.inflight--; this.tick(); job.res(); });
+    },
+    // groups: one array of root elements per spread (or card), in reading order. Every group's images are queued;
+    // first: the group indices to decode before anything else. bump(k) moves k +/- 2 to the front of the queue.
+    start(groups, first) {
+      this.t0 = performance.now();
+      const seen = new Set();
+      this.g = groups.map(roots => {
+        const jobs = [], add = j => { j.done = new Promise(r => { j.res = r; }); jobs.push(j); };
+        const bg = el => { (getComputedStyle(el).backgroundImage.match(/url\("?([^")]+)"?\)/g) || []).forEach(x => { const url = x.replace(/^url\("?|"?\)$/g, ''); if (!seen.has(url)) { seen.add(url); add({ url }); } }); };
+        roots.forEach(f => {
+          $$('img[data-src]', f).forEach(im => { this.fit(im); add({ im }); });
+          [f, ...$$('.pg, .cover__leather, .bg, [style*="background"]', f)].forEach(bg);
+          $$('video[poster]', f).forEach(v => { if (!seen.has(v.poster)) { seen.add(v.poster); add({ url: v.poster }); } });
+        });
+        return jobs;
+      });
+      const order = first.concat(this.g.map((_, k) => k).filter(k => !first.includes(k)));
+      this.q = order.flatMap(k => this.g[k]);
+      this.n = this.q.length || 1;
+      this.first = Promise.all(first.flatMap(k => this.g[k].map(j => j.done)));
+      // never start a new image while a page is turning: a bitmap landing mid-turn re-rasters its sheet and drops frames
+      const frame = () => new Promise(r => requestAnimationFrame(r));
+      const worker = () => (this.hold || (this.busy && this.busy())) ? frame().then(worker) : (() => { const j = this.q.shift(); return j ? this.run(j).then(worker) : Promise.resolve(); })();
+      this.ready = Promise.all(Array.from({ length: 6 }, worker)).then(() => {
+        this.finished = true; this.t1 = performance.now(); document.documentElement.classList.add('preloaded');
+      });
+      return this.ready;
+    },
+    bump(k) {
+      if (!this.q || !this.q.length) return;
+      const want = [k, k + 1, k + 2, k - 1, k - 2].filter(i => this.g[i]).flatMap(i => this.g[i]);
+      const front = want.filter(j => this.q.includes(j));
+      if (!front.length) return;
+      this.q = front.concat(this.q.filter(j => !front.includes(j)));
+    },
+  };
 
   /* ------------------------------------------------------------------ sound: soft paper, a leather thud, a sugar tick (synthesised) */
   const Sound = {
@@ -136,7 +204,7 @@
     : `<video class="${cls} film" muted loop playsinline preload="none" poster="${X.video(slug, 'poster')}" data-src="${X.video(slug, 'sd')}" aria-label="${esc(alt)}" style="object-position:${pos}"></video>`;
   const ground = (src, pos = '50% 50%', cls = '') => `<div class="bg ${cls}" aria-hidden="true">${pic(src, 'bg__im', '', ` style="object-position:${pos}"`)}</div>`;
   const tagSvg = n => `<svg viewBox="0 0 36 60" aria-hidden="true"><path class="tag__f" d="M4 0H32L36 4V60H0V4Z"/><circle cx="18" cy="8" r="2.6" class="tag__h"/><text x="18" y="42" text-anchor="middle" class="tag__n">${n}</text></svg>`;
-  const playFilms = (c, on) => c.qa('video.film').forEach(v => { if (on && !reduced) { hydrate(v.parentElement); const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause(); });
+  const playFilms = (c, on) => c.qa('video.film').forEach(v => { if (on && !reduced) { films(v.parentElement); const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause(); });
 
   /* ------------------------------------------------------------------ THE SPREADS. Page numbers: cover 1, spread k = pages 2k and 2k+1, back cover last. */
   const roomCuts = M.room.items, waitCuts = M.wait.items, allCuts = roomCuts.concat(waitCuts);
@@ -318,7 +386,7 @@
 
   /* ------------------------------------------------------------------ covers */
   const LOGO = () => (document.getElementById('tpl-logo') || {}).innerHTML || `<img src="../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse">`;
-  const coverHTML = () => `<div class="cover"><div class="cover__leather" aria-hidden="true"></div><div class="cover__foil">${LOGO()}</div><p class="cover__word">Menu</p>${PRINT ? '' : '<p class="cover__hint" aria-hidden="true">Lift the cover</p>'}</div>`;
+  const coverHTML = () => `<div class="cover"><div class="cover__leather" aria-hidden="true"></div><div class="cover__foil">${LOGO()}</div><p class="cover__word">Menu</p>${PRINT ? '' : '<p class="cover__hint" aria-hidden="true">Lift the cover</p><i class="cover__load" id="coverLoad" aria-hidden="true"></i>'}</div>`;
   const backHTML = () => `<div class="cover cover--back"><div class="cover__leather" aria-hidden="true"></div><img class="cover__seal" src="../assets/logo/xxviii-seal-brass.svg" alt="XXVIII seal: aged twenty-eight days, cut today, yours tonight" draggable="false"><p class="cover__tag">${esc(B.taglines[0])}</p><p class="cover__area">${esc(C.area)}</p></div>`;
 
   /* ------------------------------------------------------------------ context: query across a spread's two faces (or one card) */
@@ -426,10 +494,22 @@
     },
     visibility() {
       const s = this.s;
-      this.sheets.forEach(sh => { const near = (sh.i >= s - 2 && sh.i <= s + 1) || this.moving.has(sh); sh.el.style.visibility = near ? 'visible' : 'hidden'; });
+      // every sheet stays rendered (no visibility / display toggles, so no decoded bitmap is dropped); the open spread
+      // +/- 2 spreads (sheets s-3 .. s+2) and anything turning keep a compositor layer
+      this.sheets.forEach(sh => { const near = (sh.i >= s - 3 && sh.i <= s + 2) || this.moving.has(sh); const wc = near ? 'transform' : 'auto'; if (sh.el.style.willChange !== wc) sh.el.style.willChange = wc; });
     },
     // turn the sheet at index i toward target angle; velocity optional (deg/s)
     go(sh, tgt, v = 0, quick = false) {
+      if (sh.i === 0 && !this.gateOpen && this.openReady && !reduced) {
+        // the cover lifts once the first spreads are decoded and painted and nothing is mid-decode or mid-raster
+        // (usually a frame or two; a click before then is queued and plays the instant the book is ready)
+        sh.tgt = tgt;
+        this.openReady.then(() => { Preload.hold = true; return Preload.quiet(); }).then(() => {   // hold only after the first spreads are in
+          Preload.hold = false; this.openOK = true;
+          if (sh.tgt === tgt) { this.gateOpen = true; this.go(sh, tgt, v, quick); this.gateOpen = false; }
+        });
+        return;
+      }
       sh.tgt = tgt; sh.v = v; sh.quick = quick; sh.hit = false;
       if (reduced) { sh.th = tgt; sh.v = 0; this.moving.delete(sh); this.apply(); this.settled(); return; }
       this.moving.add(sh); this.loop();
@@ -458,6 +538,7 @@
       const open = s === 0 ? [this.sheets[0].f] : s === this.N ? [this.sheets[this.N - 1].b] : [this.sheets[s - 1].b, this.sheets[s].f];
       open.forEach(f => { f.inert = false; f.removeAttribute('aria-hidden'); });
       [s - 1, s, s + 1].forEach(k => { const c = this.ctx[k]; if (c) { hydrate(c.roots[0]); hydrate(c.roots[1]); } });
+      [s, s + 1].forEach(k => { const c = this.ctx[k]; if (c) c.roots.forEach(films); });
       document.body.dataset.spread = s; document.body.classList.toggle('is-front', s === 0); document.body.classList.toggle('is-back', s === this.N);
       $('#book').classList.toggle('closed', s === 0 || s === this.N);
       UI.onSpread(s);
@@ -486,6 +567,7 @@
         if (!edge && !coverHit) return;
         const sh = pick(e.clientX); if (!sh) return;
         e.preventDefault(); Sound.unlock();
+        if (!this.openOK && this.openReady && !reduced && this.s === 0 && sh.i === 0) { this.next(); return; }
         const k = sh.th > -90 ? sh.i + 1 : sh.i; this.prepare(k);
         this.dragging = { sh, x0: e.clientX, t0: performance.now(), samples: [[performance.now(), sh.th]], moved: false, id: e.pointerId, from: sh.th };
         this.moving.add(sh); cap(host, e.pointerId); host.classList.add('grabbing'); this.loop();
@@ -532,11 +614,13 @@
         const c = this.ctx[+e.target.dataset.k];
         if (e.isIntersecting && e.intersectionRatio > .35) {
           if (current && current !== c && current && current.spec.leave) current.spec.leave(current);
-          current = c; UI.onSpread(+e.target.dataset.k);
+          current = c; UI.onSpread(+e.target.dataset.k); Preload.bump(+e.target.dataset.k);
           if (c && c.spec.enter && !c.entered) { if (c.spec.prepare) c.spec.prepare(c); c.spec.enter(c); c.entered = true; } else if (c && c.spec.enter && c.spec.id === 'long-wait') c.spec.enter(c);
         }
       }), { threshold: [0, .35, .6] });
       $$('.card', wrap).forEach(el => { near.observe(el); seen.observe(el); });
+      // every card's images are fetched and decoded up front, in order, the card in view +/- 2 always first
+      document.fonts.ready.then(() => Preload.start($$('.card', wrap).map(el => [el]), [0, 1, 2]));
     },
     // images above the target load while we travel and push it down: decode everything on the way first,
     // then glide, then correct once the layout has settled
@@ -658,7 +742,18 @@
     document.documentElement.classList.add(mobile ? 'is-cards' : 'is-book');
     if (reduced) document.documentElement.classList.add('rm');
     if (mobile) { Cards.build(); $('#bookStage').remove(); }
-    else { Book.build(); Book.bindDrag(); $('#cards').remove(); }
+    else {
+      Book.build(); Book.bindDrag(); $('#cards').remove();
+      const faces = k => k === 0 ? [Book.sheets[0].f] : k === Book.N ? [Book.sheets[Book.N - 1].b] : [Book.sheets[k - 1].b, Book.sheets[k].f];
+      // the cover lifts only once the first spreads are decoded and have been painted (two frames); a click before
+      // that is queued in go() and plays the moment this resolves
+      Book.openReady = document.fonts.ready.then(() => {
+        Book.fontsOK = true;
+        Preload.busy = () => Book.moving.size > 0 || !!Book.dragging;
+        Preload.start(Array.from({ length: Book.N + 1 }, (_, k) => faces(k)), [0, 1, 2]);
+        return Preload.first;
+      }).then(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+    }
     UI.bind(); UI.onSpread(0);
     const v = $('#tableVideo');
     if (v && !mobile && !(navigator.connection && navigator.connection.saveData)) { v.poster = X.video('cowboy-cut', 'poster'); if (!reduced) { v.src = X.video('cowboy-cut', 'sd'); const p = v.play(); if (p && p.catch) p.catch(() => {}); } }
@@ -715,6 +810,6 @@
     }
     return false;
   }).map(e => e.textContent.trim().slice(0, 30));
-  window.LIVE = { Book, Cards, UI, SP, Sound, Print, get mobile() { return mobile; } };   // for QA (tools/qa_live.js)
+  window.LIVE = { Book, Cards, UI, SP, Sound, Print, Preload, get mobile() { return mobile; } };   // for QA (tools/qa_live.js)
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
