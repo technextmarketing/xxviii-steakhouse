@@ -8,6 +8,7 @@
   var HAS_G = !!window.gsap;
   var pad = function (n) { return (n < 10 ? '0' : '') + n; };
   var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  function nw(t) { return esc(t).replace(/Twenty-Eight(s?)/g, '<span class="nw">Twenty&#8209;Eight$1</span>'); }
   var WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four', 'twenty-five', 'twenty-six', 'twenty-seven', 'twenty-eight'];
   var lenis = null;
 
@@ -39,12 +40,15 @@
         var b = v.parentNode.querySelector('.vbtn'); if (b) { b.textContent = v.paused ? 'Play' : 'Pause'; b.setAttribute('aria-pressed', !v.paused); }
       });
     }
+    var pio = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting && e.target.dataset.poster) { e.target.poster = e.target.dataset.poster; pio.unobserve(e.target); } });
+    }, { rootMargin: '600px 0px' }) : null;
     var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
       es.forEach(function (e) { seen.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); }); pick();
     }, { threshold: [0, .25, .45, .7, 1] }) : null;
     function add(v) {
       v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'none';
-      seen.set(v, 0); if (io) io.observe(v);
+      seen.set(v, 0); if (io) io.observe(v); if (pio && v.dataset.poster) pio.observe(v); else if (v.dataset.poster) v.poster = v.dataset.poster;
       if (RM && !v.parentNode.querySelector('.vbtn')) {
         var b = document.createElement('button'); b.type = 'button'; b.className = 'vbtn'; b.textContent = 'Play'; b.setAttribute('aria-pressed', 'false');
         b.setAttribute('aria-label', 'Play or pause ' + (v.getAttribute('aria-label') || 'video'));
@@ -55,7 +59,7 @@
     return { add: add, refresh: pick };
   })();
   function vid(src, poster, label, cls) {
-    return '<video class="vplay ' + (cls || '') + '" muted loop playsinline preload="none" poster="' + poster + '" aria-label="' + esc(label) + '"><source src="' + src + '" type="video/mp4"></video>';
+    return '<video class="vplay ' + (cls || '') + '" muted loop playsinline preload="none" ' + (cls === 'dp-vid' ? 'poster' : 'data-poster') + '="' + poster + '" aria-label="' + esc(label) + '"><source src="' + src + '" type="video/mp4"></video>';
   }
 
   /* ---------- odometer (hero) ---------- */
@@ -82,7 +86,7 @@
     return '<li class="cal-tile' + (d.day === 28 ? ' last' : '') + '"><button class="cal-btn" type="button" data-i="' + i + '" aria-haspopup="dialog" aria-label="Day ' + pad(d.day) + ', ' + S.CH[d.ch].name + ': ' + esc(d.hook) + '">' +
       '<span class="cal-day"><b>' + pad(d.day) + '</b><span class="label">' + (d.day === 28 ? 'Opening night' : 'Day') + '</span></span>' +
       '<span class="cal-ch"><span class="mk" data-ch="' + d.ch + '"></span>' + esc(d.fmt) + '</span>' +
-      '<span class="cal-hook">' + esc(d.hook) + '</span></button></li>';
+      '<span class="cal-hook">' + nw(d.hook) + '</span>' + (d.also ? '<span class="cal-also"><span class="mk" data-ch="' + d.also.ch + '"></span>+ ' + S.CH[d.also.ch].short + '</span>' : '') + '</button></li>';
   }).join('');
 
   var dlg = $('#dayPanel'), dlgI = 0;
@@ -93,8 +97,8 @@
     if (/^(post|ad-feed|ad-story)/.test(key)) return webImg(key, /story/.test(key) ? 'tall' : '');
     if (/^email/.test(key)) return '<div style="width:100%;max-width:380px;height:62vh;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)">' + webImg(key) + '</div>';
     if (key === 'reel') return '<div class="mini"><span class="label">Storyboard to shoot · 6 frames · 20 s</span><p class="mini-h">The first Twenty-Eights go in today.</p>' + S.reel.map(function (r, i) { return '<p class="small muted">' + (i + 1) + ' · ' + r.t + ' · ' + esc(r.text) + '</p>'; }).join('') + '</div>';
-    if (key === 'pr') return '<div class="mini" style="background:var(--bone);color:var(--char)"><img src="../assets/logo/xxviii-seal-char.svg" alt="" width="70" height="70" style="margin:0 auto 14px"><p class="mini-h" style="text-align:center">Before the doors open, taste the first cuts.</p><p class="small" style="text-align:center">For [Name] · [Publication]<br>Day 26 · 7:00 PM</p></div>';
-    if (key === 'gbp') return '<div class="mini"><span class="label">Business Profile post</span><img src="exports/web/post-01.webp" alt="" style="margin-bottom:12px"><p class="mini-h">Opening soon. Every steak lists its age.</p><p class="small muted">Button: Learn more (Reserve from Day 20)</p></div>';
+    if (key === 'pr') return '<div class="mini" style="background:var(--bone);color:var(--char)"><img src="../assets/logo/xxviii-seal-char.svg" alt="" width="70" height="70" style="margin:0 auto 14px"><p class="mini-h" style="text-align:center">Before the doors open, taste the first <span class="nw">Twenty&#8209;Eights</span>.</p><p class="small" style="text-align:center">For [Name] · [Publication]<br>Day 26 · 7:00 PM</p></div>';
+    if (key === 'gbp') return '<div class="mini"><span class="label">Business Profile post</span><img src="../assets/img/interior/main-dining-room-sm.webp" alt="The dining room" style="margin-bottom:12px"><p class="mini-h">Opening soon. Every steak lists its age.</p><p class="small muted">Button: Learn more (Reserve from Day 21)</p></div>';
     if (key === 'search') return '<div class="mini" style="background:var(--bone);color:#2b2523"><p class="small" style="font-weight:700">Sponsored</p><p class="small">xxviii.example › reserve</p><p class="mini-h" style="color:var(--ox-deep);font-family:var(--f-body);font-size:1.15rem">' + esc(S.search.headlines[0] + ' | ' + S.search.headlines[2] + ' | ' + S.search.headlines[4]) + '</p><p class="small">' + esc(S.search.descriptions[0]) + '</p></div>';
     if (key === 'sms') return '<div class="mini"><span class="label">SMS · The Ageing List</span><p class="bubble">' + esc(S.sms[2].text) + '</p></div>';
     return '';
@@ -103,10 +107,10 @@
     dlgI = (i + 28) % 28; var d = S.days[dlgI];
     $('#dpDay').textContent = 'Day ' + pad(d.day) + (d.day === 28 ? ' · Opening night' : '');
     $('#dpCh').textContent = S.CH[d.ch].name;
-    $('#dp-title').textContent = d.hook;
+    $('#dp-title').innerHTML = nw(d.hook);
     $('#dpFmt').textContent = d.fmt;
-    $('#dpCap').textContent = d.cap || '';
-    $('#dpPrev').innerHTML = miniPreview(d.prev);
+    $('#dpCap').textContent = (d.cap || '') + (d.also ? '\n\nAlso today: ' + d.also.label + '.' : '');
+    $('#dpPrev').innerHTML = miniPreview(d.prev) + (d.also ? '<div class="dp-also"><span class="label">Also today · ' + esc(d.also.label) + '</span>' + miniPreview(d.also.prev) + '</div>' : '');
     $$('#dpPrev video').forEach(function (v) { v.muted = true; if (!RM) { v.preload = 'auto'; v.autoplay = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.controls = true; });
     if (!dlg.open) { dlg.showModal(); if (lenis) lenis.stop(); $('#dpClose').focus(); }
   }
@@ -121,6 +125,7 @@
     if (e.key === 'ArrowRight') { e.preventDefault(); openDay(dlgI + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); openDay(dlgI - 1); }
   });
 
+  $$('.cap-text').forEach(function (p) { p.tabIndex = 0; });
   /* ---------- 3 · posts ---------- */
   var cur = 0, plat = 'ig';
   $('#pfGrid').innerHTML = S.posts.map(function (p, i) {
@@ -134,14 +139,14 @@
     $('#capCount').textContent = t.length + ' characters' + (plat !== 'fb' ? ' · limit ' + lim.toLocaleString('en-GB') : '');
   }
   function showPost(i, dir) {
-    cur = (i + 12) % 12; var p = S.posts[cur];
+    var NP = S.posts.length; cur = (i + NP) % NP; var p = S.posts[cur];
     var img = $('#stageImg');
     var swap = function () { img.src = 'exports/web/' + p.id + '.webp'; img.alt = 'Post ' + pad(cur + 1) + ', ' + p.title; };
     if (HAS_G && !RM && dir !== undefined) {
       gsap.timeline().to(img, { opacity: 0, x: -24 * (dir || 1), duration: .28, ease: 'power2.in', onComplete: swap })
         .fromTo(img, { opacity: 0, x: 24 * (dir || 1), scale: 1.03 }, { opacity: 1, x: 0, scale: 1, duration: .9, ease: 'expo.out' });
     } else swap();
-    $('#stNum').textContent = pad(cur + 1); $('#stIdea').textContent = p.idea; $('#stTitle').textContent = p.title;
+    $('#stNum').textContent = pad(cur + 1); $('#stIdea').textContent = p.idea; $('#stTitle').innerHTML = nw(p.title);
     $('#stDl').href = 'exports/posts/' + p.id + '.png';
     $$('.pf-cell').forEach(function (c, k) { c.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
     setCaption();
@@ -174,18 +179,20 @@
   showPost(0);
 
   /* ---------- 4 · stories (live iframes, loaded only on screen) ---------- */
-  function phoneCard(src, poster, title, line, dl, dlLabel, bars) {
+  function phoneCard(src, poster, title, line, links, bars) {
     var pb = ''; for (var b = 0; b < bars; b++) pb += '<i class="' + (b === 0 ? 'on' : '') + '"></i>';
     return '<article class="story-card"><div class="phone phone-story"><div class="phone-screen"><div class="vwrap">' + vid(src, poster, title) + '</div>' +
       (bars ? '<div class="pb-ui" aria-hidden="true">' + pb + '</div>' : '') + '</div></div>' +
-      '<h3>' + esc(title) + '</h3><p>' + esc(line) + '</p><a class="dl-link label" href="' + dl + '" download>' + dlLabel + '</a></article>';
+      '<h3>' + nw(title) + '</h3><p>' + nw(line) + '</p><div class="dls">' + links.map(function (l) { return '<a class="dl-link label" href="' + l[0] + '" download>' + l[1] + '</a>'; }).join('') + '</div></article>';
   }
   $('#storyRow').innerHTML = S.stories.map(function (s) {
-    return phoneCard('exports/stories/' + s.id + '.mp4', 'exports/web/' + s.id + '.webp', s.title, s.line, 'exports/stories/' + s.id + '.mp4', 'MP4 · 7 s · PNG still too', 4);
+    var L = [['exports/stories/' + s.id + '.mp4', 'MP4'], ['exports/stories/' + s.id + '.png', 'PNG']];
+    if (s.clean) L.push(['exports/stories/' + s.id + '-clean.png', 'Clean PNG']);
+    return phoneCard('exports/stories/' + s.id + '.mp4', 'exports/web/' + s.id + '.webp', s.title, s.line, L, 4);
   }).join('');
   $('#reelRow').innerHTML = S.reels.map(function (r) {
     var f = REEL_FILE[r.id];
-    return phoneCard('exports/reels/' + f + '.mp4', 'exports/web/' + f + '.webp', r.title, r.line, 'exports/reels/' + f + '.mp4', 'MP4 · silent, add licensed audio in-app', 0);
+    return phoneCard('exports/reels/' + f + '.mp4', 'exports/web/' + f + '.webp', r.title, r.line, [['exports/reels/' + f + '.mp4', 'MP4'], ['exports/reels/' + f + '-poster.png', 'Poster']], 0);
   }).join('');
   $$('#storyRow video, #reelRow video').forEach(VM.add);
   function fitFrames() {}
@@ -194,8 +201,11 @@
   var ticks = ''; for (var t = 0; t <= 20; t++) ticks += '<span class="' + (t % 5 === 0 ? 'major' : '') + '">' + (t % 5 === 0 ? '<b>' + pad(t) + 's</b>' : '') + '</span>';
   $('#reelTicks').innerHTML = ticks;
   function reelVis(v, text) {
-    var inner = v === 'tag' ? '<div class="rf-tag"><b>DAY<br>01</b></div>' : v === 'board' ? '<div class="rf-board"><span>AGEING ROOM</span><b>DAY 01</b><span>PRIME RIBEYE · IN</span></div>' :
-      v === 'mark' ? '<div class="rf-mark"></div>' : '<img class="' + (v === 'prime-ribeye' ? 'cut' : '') + '" src="' + (v === 'prime-ribeye' ? X.img(v, 'cutout', 'sm') : X.img(v, 'plated', 'sm')) + '" alt="" loading="lazy" decoding="async">';
+    var img = function (src, cls) { return '<img class="' + (cls || '') + '" src="' + src + '" alt="" loading="lazy" decoding="async">'; };
+    var inner = v === 'cabinet' ? img(X.interior('dry-aging-cabinet', 'sm'), 'cab') :
+      v === 'board' ? img(X.texture('butcher-block-slate-wall-empty', 'sm'), 'cab') + '<div class="rf-board"><span>AGEING ROOM</span><b>DAY 01</b><span>THE TWENTY&#8209;EIGHT · IN</span></div>' :
+      v === 'mark' ? '<div class="rf-mark"></div>' : v === 'cowboy-cut-cut' ? img(X.img('cowboy-cut', 'cutout', 'sm'), 'cut') :
+      v === 'block-cowboy-cut' ? img(X.block('cowboy-cut', 'sm'), 'cab') + '<div class="rf-card">Aged 28 days.<br>Cut today.<br>Yours tonight.</div>' : img(X.img(v, 'plated', 'sm'));
     return '<div class="rf-vis">' + inner + '<p class="rf-text">' + esc(text) + '</p></div>';
   }
   $('#reelFrames').innerHTML = S.reel.map(function (r, i) {
@@ -222,7 +232,7 @@
   var adShown = false;
   function showAd(i) {
     var a = S.adsFeed[i], n = i + 1;
-    $('#mfPrimary').textContent = a.primary; $('#mfHead').textContent = a.headline; $('#mfDesc').textContent = a.desc;
+    $('#mfPrimary').textContent = a.primary; $('#mfHead').textContent = a.headline; $('#mfDesc').textContent = a.desc; $('#mfCta').textContent = a.cta; $('#msCta').textContent = a.cta;
     $('#mfImg').src = 'exports/web/' + a.id + '.webp'; $('#msImg').src = 'exports/web/' + a.story + '.webp';
     [['#mfVid', 'feed'], ['#msVid', 'story']].forEach(function (x) {
       var v = $(x[0]), base = 'meta-video-' + n + '-' + x[1];
@@ -231,7 +241,7 @@
     });
     $('#adKv').innerHTML = '<dt>Primary text</dt><dd>' + esc(a.primary) + '<span class="cnt">' + a.primary.length + ' / 125 shown</span></dd>' +
       '<dt>Headline</dt><dd>' + esc(a.headline) + '<span class="cnt">' + a.headline.length + ' / 40</span></dd>' +
-      '<dt>Description</dt><dd>' + esc(a.desc) + '</dd><dt>Call to action</dt><dd>' + a.cta + '</dd><dt>Runs</dt><dd>' + esc(a.runs || '') + '</dd><dt>Video</dt><dd>8 s · 4:5 and 9:16 · silent, captions burnt in</dd><dt>Link</dt><dd>xxviii.example/reserve?utm_source=meta&amp;utm_campaign=worth-the-wait&amp;utm_content=v' + n + '</dd>';
+      '<dt>Description</dt><dd>' + esc(a.desc) + '</dd><dt>Call to action</dt><dd>' + a.cta + '</dd><dt>Runs</dt><dd>' + esc(a.runs || '') + '</dd><dt>Video</dt><dd>8 s · 4:5 and 9:16 · silent, captions burnt in</dd><dt>Link</dt><dd>' + esc(a.url) + '?utm_source=meta&amp;utm_campaign=worth-the-wait&amp;utm_content=v' + n + '</dd>';
     $('#adDlFV') && ($('#adDlFV').href = 'exports/ads/video/meta-video-' + n + '-feed.mp4'); $('#adDlSV') && ($('#adDlSV').href = 'exports/ads/video/meta-video-' + n + '-story.mp4');
     $('#adDlF').href = 'exports/ads/meta-feed-' + n + '.png'; $('#adDlS').href = 'exports/ads/meta-story-' + n + '.png';
     $('#adPanel').setAttribute('aria-labelledby', 'adt' + i);
@@ -366,14 +376,25 @@
 
   /* ---------- 11 · metrics, 12 · downloads ---------- */
   $('#metrics').innerHTML = S.metrics.map(function (m) { return '<li class="metric"><h3>' + esc(m.name) + '</h3><p>' + esc(m.where) + '</p><p>' + esc(m.why) + '</p><span class="m-when">' + esc(m.when) + '</span></li>'; }).join('');
-  function li(href, name, meta) { return '<li><a href="' + href + '" download>' + name + '<span>' + meta + '</span></a></li>'; }
+  var FILES = window.SHOWCASE_FILES || {};
+  function size(href) { var b = FILES[href.replace(/^exports\//, '')]; if (!b) return ''; return b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.round(b / 1024) + ' KB'; }
+  function li(href, name, meta) { var z = size(href); return '<li><a href="' + href + '" download>' + nw(name) + '<span>' + meta + (z ? ' · ' + z : '') + '</span></a></li>'; }
+  if (FILES['xxviii-launch-kit-images.zip']) $('#dlZip').textContent = 'Images and copy (ZIP · ' + size('exports/xxviii-launch-kit-images.zip') + ')';
+  if (FILES['xxviii-launch-kit-video.zip'] && $('#dlZipV')) $('#dlZipV').textContent = 'Video (ZIP · ' + size('exports/xxviii-launch-kit-video.zip') + ')';
   $('#dlPosts').innerHTML = S.posts.map(function (p, i) { return li('exports/posts/' + p.id + '.png', pad(i + 1) + ' · ' + esc(p.title), 'PNG'); }).join('');
-  $('#dlStories').innerHTML = S.stories.map(function (s, i) { return li('exports/stories/' + s.id + '.png', pad(i + 1) + ' · ' + esc(s.title), 'PNG'); }).join('');
+  $('#dlStories').innerHTML = S.stories.map(function (s, i) { return li('exports/stories/' + s.id + '.png', pad(i + 1) + ' · ' + s.title, 'PNG') + (s.clean ? li('exports/stories/' + s.id + '-clean.png', pad(i + 1) + ' · clean, no sticker', 'PNG') : ''); }).join('');
   $('#dlAds').innerHTML = [1, 2, 3].map(function (n) { return li('exports/ads/meta-feed-' + n + '.png', 'Feed ' + n + ' · ' + esc(S.adsFeed[n - 1].name), '4:5'); }).join('') + [1, 2, 3].map(function (n) { return li('exports/ads/meta-story-' + n + '.png', 'Story ' + n + ' · ' + esc(S.adsFeed[n - 1].name), '9:16'); }).join('');
   $('#dlMail').innerHTML = S.emails.map(function (m) { return li('exports/email/' + m.id + '.png', esc(m.name), 'PNG'); }).join('');
   $('#dlReels').innerHTML = S.reels.map(function (r) { return li('exports/reels/' + REEL_FILE[r.id] + '.mp4', esc(r.title), 'MP4') + li('exports/reels/' + REEL_FILE[r.id] + '-poster.png', esc(r.title) + ' · poster', 'PNG'); }).join('');
-  $('#dlStoryVid').innerHTML = S.stories.map(function (s, i) { return li('exports/stories/' + s.id + '.mp4', pad(i + 1) + ' · ' + esc(s.title), 'MP4'); }).join('');
-  $('#dlVidAds').innerHTML = [1, 2, 3].map(function (n) { return li('exports/ads/video/meta-video-' + n + '-feed.mp4', 'Video ' + n + ' · ' + esc(S.adsFeed[n - 1].name), '4:5') + li('exports/ads/video/meta-video-' + n + '-story.mp4', 'Video ' + n + ' · ' + esc(S.adsFeed[n - 1].name), '9:16'); }).join('');
+  $('#dlStoryVid').innerHTML = S.stories.map(function (s, i) { return li('exports/stories/' + s.id + '.mp4', pad(i + 1) + ' · ' + s.title, 'MP4') + li('exports/stories/' + s.id + '-poster.png', pad(i + 1) + ' · poster', 'PNG'); }).join('');
+  $('#dlVidAds').innerHTML = [1, 2, 3].map(function (n) { return li('exports/ads/video/meta-video-' + n + '-feed.mp4', 'Video ' + n + ' · ' + esc(S.adsFeed[n - 1].name), '4:5') + li('exports/ads/video/meta-video-' + n + '-story.mp4', 'Video ' + n + ' · ' + esc(S.adsFeed[n - 1].name), '9:16') + li('exports/ads/video/meta-video-' + n + '-feed-poster.png', 'Video ' + n + ' · poster', '4:5') + li('exports/ads/video/meta-video-' + n + '-story-poster.png', 'Video ' + n + ' · poster', '9:16'); }).join('');
+
+  /* section menu for phones and tablets */
+  var sm = $('#secMenu');
+  $('#secBtn').onclick = function () { sm.showModal(); if (lenis) lenis.stop(); };
+  $('#secClose').onclick = function () { sm.close(); };
+  sm.addEventListener('click', function (e) { if (e.target === sm) sm.close(); var a = e.target.closest('a'); if (a) { e.preventDefault(); sm.close(); var t = $(a.getAttribute('href')); if (lenis) { lenis.start(); lenis.scrollTo(t, { offset: -64 }); } else t.scrollIntoView(); } });
+  sm.addEventListener('close', function () { if (lenis) lenis.start(); });
 
   /* ---------- nav state + scroll day ---------- */
   var navLinks = $$('.top-nav a');
@@ -429,8 +450,8 @@
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function () {
     $$('.sec-head h2, .club-copy h2').forEach(function (h) {
       if (!window.SplitText) return;
-      var sp = new SplitText(h, { type: 'lines', mask: 'lines', linesClass: 'ln' });
-      gsap.from(sp.lines, { yPercent: 105, duration: 1.2, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: h, start: 'top 85%', once: true } });
+      var sp = new SplitText(h, { type: 'lines', mask: 'lines', linesClass: 'ln', autoSplit: false });
+      gsap.from(sp.lines, { yPercent: 115, duration: 1.2, stagger: .08, ease: 'expo.out', onComplete: function () { sp.revert(); }, scrollTrigger: { trigger: h, start: 'top 85%', once: true } });
     });
     ScrollTrigger.refresh();
   });
@@ -453,7 +474,8 @@
   });
   /* in-store objects drift gently with scroll */
   gsap.utils.toArray('.tent, .stand-block, .receipt').forEach(function (el, i) {
-    gsap.fromTo(el, { y: 30 }, { y: -30, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+    var a = el.classList.contains('receipt') ? 10 : 24;
+    gsap.fromTo(el, { y: a }, { y: -a, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
   window.addEventListener('load', function () { ScrollTrigger.refresh(); fitFrames(); });
 })();

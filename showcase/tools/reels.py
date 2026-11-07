@@ -34,8 +34,8 @@ class Shooter:
     def __init__(self, cdp, base, tmp):
         self.cdp, self.base, self.tmp, self.cache, self.fit = cdp, base, tmp, {}, []
 
-    def png(self, pid, fmt, W, H, part, seg=0, n=None, ov=True):
-        q = f"id={pid}&fmt={fmt}&seg={seg}&part={part}" + (f"&n={n}" if n else "") + ("&ov=1" if ov else "")
+    def png(self, pid, fmt, W, H, part, seg=0, n=None, ov=True, extra=""):
+        q = f"id={pid}&fmt={fmt}&seg={seg}&part={part}" + (f"&n={n}" if n else "") + ("&ov=1" if ov else "") + extra
         if q in self.cache:
             return self.cache[q]
         cdp = self.cdp
@@ -80,6 +80,16 @@ def seg_video(sh, pid, F, D, seg, i, out):
         ins += ["-loop", "1", "-framerate", str(FPS), "-t", f"{d:.3f}", "-i", frame]
         filt.append(f"[1:v]format=rgba[fr];[b0][fr]overlay=0:0[b1]")
         k, cur = 2, "b1"
+    elif seg.get("sweep"):
+        # end card with the brass light sweeping across the mark: one rendered frame per step, eased
+        part, nfr = seg.get("end"), seg["sweep"]
+        pat = os.path.join(sh.tmp, f"sw-{pid}-{fmt_key}-{i}-%03d.png")
+        for j in range(nfr):
+            t = j / (nfr - 1); e = t * t * (3 - 2 * t)
+            shutil.copyfile(sh.png(pid, fmt_key, W, H, part, i, ov=False, extra=f"&sw={e:.3f}"), pat % j)
+        ins += ["-framerate", f"{nfr / d:.4f}", "-i", pat]
+        filt.append(f"[0:v]fps={FPS},setsar=1,format=yuv420p[b1]")
+        k, cur = 1, "b1"
     else:
         part = seg.get("end") or seg.get("still")
         bg = sh.png(pid, fmt_key, W, H, part, i, ov=False)

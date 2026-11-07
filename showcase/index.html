@@ -23,9 +23,11 @@
   <nav class="top-nav" aria-label="Showcase sections">
     <a href="#calendar">28 days</a><a href="#posts">Social</a><a href="#stories">Stories</a><a href="#ads">Ads</a><a href="#email">Email</a><a href="#club">Club</a><a href="#instore">In-store</a><a href="#press">Press</a><a href="#month">Month</a><a href="#track">Track</a><a href="#downloads">Files</a>
   </nav>
+  <button class="sec-btn" type="button" id="secBtn" aria-haspopup="dialog" aria-controls="secMenu">Sections</button>
   <div class="top-day" aria-hidden="true"><span class="label">Day</span> <b class="num" id="topDay">01</b></div>
 </header>
 <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+<dialog class="sec-menu" id="secMenu" aria-label="Showcase sections"><nav><a href="#calendar">The 28 days</a><a href="#posts">Social posts</a><a href="#stories">Stories and reels</a><a href="#ads">Paid ads</a><a href="#email">Email and SMS</a><a href="#club">The Ageing Club</a><a href="#instore">In-store</a><a href="#press">Press</a><a href="#month">Month one</a><a href="#track">What we measure</a><a href="#downloads">Files</a></nav><button class="x" type="button" id="secClose">Close</button></dialog>
 
 <main id="main">
 
@@ -34,14 +36,14 @@
   <div class="hero-pool" aria-hidden="true"></div>
   <div class="hero-copy">
     <h1 id="hero-h" class="hero-h"><span class="ln">Worth</span> <span class="ln">the wait.</span></h1>
-    <p class="hero-line">The first cuts go into the ageing room 28 days before we open. Everyone can watch them age.</p>
+    <p class="hero-line">The first <span class="nw">Twenty&#8209;Eights</span> go into the ageing room 28 days before we open. Everyone can watch them age.</p>
     <div class="hero-cta">
       <a class="btn btn-solid" href="#calendar">See the 28 days <span class="arr"></span></a>
       <a class="btn btn-line" href="#downloads">Get the files</a>
     </div>
   </div>
   <div class="hero-stage" aria-hidden="true">
-    <div class="hero-plate"><img src="../assets/img/cutout/cowboy-cut-lg.webp" srcset="../assets/img/cutout/cowboy-cut-sm.webp 600w, ../assets/img/cutout/cowboy-cut-lg.webp 1200w" sizes="(max-width: 900px) 100vw, 55vw" alt="" width="1200" height="934" fetchpriority="high" decoding="async"></div>
+    <div class="hero-plate"><img src="../assets/img/cutout/cowboy-cut-lg.webp" srcset="../assets/img/cutout/cowboy-cut-sm.webp 600w, ../assets/img/cutout/cowboy-cut-lg.webp 1200w" sizes="(max-width: 900px) 118vw, 58vw" alt="" width="1200" height="934" fetchpriority="high" decoding="async"></div>
     <div class="hero-tag">
       <i class="hero-string"></i>
       <div class="tag-face">
@@ -55,7 +57,7 @@
     </div>
   </div>
   <div class="hero-foot">
-    <span class="label">The launch campaign · Twenty-Eight · Bonifacio Global City</span>
+    <span class="label"><span class="hf-long">The launch campaign · <span class="nw">Twenty&#8209;Eight</span> · </span>Bonifacio Global City</span>
     <span class="label hero-scroll">Scroll, slowly</span>
   </div>
 </section>
@@ -96,7 +98,7 @@
 <section class="sec feed" id="posts" aria-labelledby="posts-h">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="posts-h">Twelve posts, twelve ideas.</h2>
+      <h2 id="posts-h">Fourteen posts, fourteen ideas.</h2>
       <p class="sec-intro">Each one composed on its own. Tap a square on the profile, or step through them large.</p>
     </div>
     <div class="feed-grid">
@@ -105,7 +107,7 @@
           <div class="pf-bar"><span class="label">@xxviii.steakhouse</span><span class="pf-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="pf-head">
             <img class="pf-avatar" src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="64" height="64">
-            <div class="pf-counts"><p><b class="num">12</b><span>posts</span></p><p><b class="num">·</b><span>followers</span></p><p><b class="num">·</b><span>following</span></p></div>
+            <div class="pf-counts"><p><b class="num">14</b><span>posts</span></p><p><b class="num">·</b><span>followers</span></p><p><b class="num">·</b><span>following</span></p></div>
           </div>
           <div class="pf-bio">
             <p class="pf-name">XXVIII · Twenty-Eight</p>
@@ -113,7 +115,7 @@
             <p class="pf-link">xxviii.example/reserve</p>
           </div>
           <div class="pf-btns"><span>Follow</span><span>Message</span></div>
-          <ul class="pf-hl" aria-hidden="true"><li><i>Day</i>Ageing</li><li><i>₱</i>Menu</li><li><i>P</i>Patience</li><li><i>14</i>Room</li></ul>
+          <ul class="pf-hl" aria-hidden="true"><li><i>Day</i>Ageing</li><li><i class="peso">₱</i>Menu</li><li><i>Pa</i>Patience</li><li><i>14</i>Room</li></ul>
           <div class="pf-tabs" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
           <div class="pf-grid" id="pfGrid" role="list"></div>
         </div>
@@ -128,7 +130,7 @@
           <span class="label">Tap the post to open it full size</span>
         </div>
         <div class="stage-info">
-          <p class="label stage-count"><span class="num" id="stNum">01</span> / 12 · <span id="stIdea"></span></p>
+          <p class="label stage-count"><span class="num" id="stNum">01</span> / 14 · <span id="stIdea"></span></p>
           <h3 id="stTitle"></h3>
           <div class="tabs" role="tablist" aria-label="Caption by platform" id="capTabs">
             <button role="tab" type="button" aria-selected="true" data-pl="ig" id="tab-ig" aria-controls="capPanel">Instagram</button>
@@ -158,7 +160,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2 id="stories-h">Stories and reels, on our own footage.</h2>
-      <p class="sec-intro">Four stories and three reels cut from the client's camera moves, silent until licensed audio is added in-app.</p>
+      <p class="sec-intro">Four stories and three reels cut from our own camera moves, silent until licensed audio is added in-app.</p>
     </div>
     <div class="story-row" id="storyRow"></div>
     <h3 class="sub-h">Reels · 9:16 · 17 to 23 seconds</h3>
@@ -188,12 +190,12 @@
         <header class="mf-head"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="40" height="40"><div><b>XXVIII Steakhouse</b><span>Sponsored</span></div></header>
         <p class="mf-primary" id="mfPrimary"></p>
         <div class="mf-media"><img class="mf-img" id="mfImg" src="exports/web/ad-feed-1.webp" alt="" width="600" height="750" loading="lazy" decoding="async"><video class="mf-img vplay" id="mfVid" muted loop playsinline preload="none" width="600" height="750" aria-label="Feed video ad"></video></div>
-        <div class="mf-foot"><div><span class="mf-url">xxviii.example</span><b id="mfHead"></b><span id="mfDesc"></span></div><span class="mf-cta">Book now</span></div>
+        <div class="mf-foot"><div><span class="mf-url">xxviii.example</span><b id="mfHead"></b><span id="mfDesc"></span></div><span class="mf-cta" id="mfCta">Sign up</span></div>
       </article>
       <div class="phone phone-story" aria-label="Story ad preview">
         <div class="phone-screen"><img id="msImg" src="exports/web/ad-story-1.webp" alt="" width="600" height="1067" loading="lazy" decoding="async"><video class="vplay" id="msVid" muted loop playsinline preload="none" aria-label="Story video ad"></video>
           <div class="ms-top"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="28" height="28"><b>XXVIII Steakhouse</b><span>Sponsored</span></div>
-          <div class="ms-cta"><span>Book now</span></div>
+          <div class="ms-cta"><span id="msCta">Sign up</span></div>
         </div>
       </div>
       <div class="ad-copy">
@@ -221,17 +223,19 @@
       </div>
 
       <div class="gbp" aria-label="Business Profile listing preview">
-        <img class="gbp-cover" src="../assets/img/plated/porterhouse-for-two-md.webp" alt="" width="800" height="800" loading="lazy" decoding="async">
+        <img class="gbp-cover" src="../assets/img/interior/main-dining-room-md.webp" alt="The dining room: white linen, oxblood leather chairs, brass pendants" width="1200" height="675" loading="lazy" decoding="async">
+        <ul class="gbp-photos" aria-label="Listing photos"><li><img src="../assets/img/interior/dry-aging-cabinet-sm.webp" alt="The glass ageing cabinet by the entrance" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/bar-sm.webp" alt="The bar" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/private-dining-room-sm.webp" alt="The private room for fourteen" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/open-kitchen-chefs-counter-sm.webp" alt="The open kitchen and counter" width="640" height="360" loading="lazy" decoding="async"></li></ul>
         <div class="gbp-body">
-          <h3>XXVIII Twenty-Eight Steakhouse</h3>
-          <p class="gbp-cat">Steakhouse · ₱₱₱₱ · <span>New</span></p>
+          <h3>XXVIII <span class="nw">Twenty&#8209;Eight</span> Steakhouse</h3>
+          <p class="gbp-cat">Steakhouse · <span class="peso-band">₱₱₱₱</span> · <span>New</span></p>
           <p class="gbp-rev muted">No reviews yet</p>
-          <div class="gbp-acts"><a class="gbp-res" href="#ads">Reserve a table</a><span>Directions</span><span>Call</span><span>Menu</span></div>
+          <div class="gbp-acts"><a class="gbp-res" href="../index.html#reserve">Reserve a table</a><span>Directions</span><span>Call</span><span>Menu</span></div>
           <dl class="gbp-facts">
             <dt>Address</dt><dd>[Street], Bonifacio Global City, Taguig</dd>
             <dt>Hours</dt><dd><ul class="gbp-hours" id="gbpHours"></ul></dd>
             <dt>Menu</dt><dd><a class="link" href="../menu/">xxviii.example/menu</a></dd>
             <dt>Phone</dt><dd>+63 (2) 0000 0028</dd>
+            <dt>Allergies</dt><dd>Tell us when you book.</dd>
           </dl>
           <div class="gbp-post">
             <img src="exports/web/post-10.webp" alt="" width="600" height="750" loading="lazy" decoding="async">
@@ -309,20 +313,21 @@
     <div class="is-grid">
       <figure class="is-item is-tent">
         <div class="is-stage"><div class="tent" aria-label="QR table tent">
-          <div class="tent-face tent-a"><img src="../assets/logo/xxviii-monogram-brass.svg" alt="" width="64" height="64"><p class="tent-h">Book your<br>next table.</p><img class="tent-qr" src="art/qr-reserve-brass.svg" alt="QR code to the booking page" width="120" height="120"><p class="label">xxviii.example/reserve</p></div>
+          <div class="tent-face tent-a"><img src="../assets/logo/xxviii-monogram-brass.svg" alt="" width="64" height="64"><p class="tent-h">Book your<br>next table.</p><img class="tent-qr" src="art/qr-reserve-ink.svg" alt="QR code to the booking page" width="120" height="120"><p class="label">xxviii.example/reserve</p></div>
           <div class="tent-face tent-b" aria-hidden="true"></div>
         </div></div>
         <figcaption><b>QR table tent</b> Folded card on every table: book again, on the way out.</figcaption>
       </figure>
       <figure class="is-item is-stand">
         <div class="is-stage"><div class="stand" aria-label="Review stand">
-          <div class="stand-block"><p class="tent-h">Worth<br>the wait?</p><p>Say so. It helps the next table find us.</p><img src="art/qr-review-char.svg" alt="QR code to the review page" width="110" height="110"><img class="stand-logo" src="../assets/logo/xxviii-horizontal-char.svg" alt="" width="120" height="19"></div>
+          <div class="stand-block"><p class="tent-h">Worth<br>the wait?</p><p>Say so. It helps the next table find us.</p><img src="art/qr-review-ink.svg" alt="QR code to the review page" width="110" height="110"><img class="stand-logo" src="../assets/logo/xxviii-horizontal-char.svg" alt="" width="120" height="19"></div>
         </div></div>
         <figcaption><b>Review stand</b> Bone acrylic block at the host stand. No incentives for reviews.</figcaption>
       </figure>
       <figure class="is-item is-wifi">
         <div class="is-stage"><div class="phone phone-mini" aria-label="Wi-Fi splash page">
           <div class="phone-screen wifi">
+            <img class="wifi-room" src="../assets/img/interior/entrance-host-stand-sm.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
             <img src="../assets/logo/xxviii-primary-brass.svg" alt="" width="150" height="64">
             <p class="wifi-h">Welcome in.<br>Stay a while.</p>
             <label class="wifi-f"><span class="label">Email, for The Ageing List (optional)</span><span class="wifi-in">name@example.com</span></label>
@@ -341,9 +346,9 @@
           <p class="r-row r-sum"><span>Total</span><span>₱7,660.00</span></p>
           <p class="r-row r-small"><span>VAT incl. · service charge</span><span>[ ]</span></p>
           <p class="r-row r-small"><span>OR no.</span><span>[0000]</span></p>
-          <p class="r-foot">Your steak waited 28 days.<br>Thank you for waiting with us.</p>
+          <p class="r-foot">Your steak waited [age] days.<br>Thank you for waiting with us.</p>
           <p class="r-club">Ageing Club · this visit adds 7 days</p>
-          <img src="art/qr-club-char.svg" alt="QR code to join the Ageing Club" width="80" height="80">
+          <img src="art/qr-club-ink.svg" alt="QR code to join the Ageing Club" width="80" height="80">
           <p class="r-url">xxviii.example/club</p>
         </div></div>
         <figcaption><b>Receipt footer</b> The last thing guests read, so it says thank you and asks once.</figcaption>
@@ -364,7 +369,8 @@
         <button class="invite" type="button" id="invite" aria-pressed="false" aria-label="Turn the invitation card over">
           <span class="inv-face inv-front">
             <img src="../assets/logo/xxviii-seal-brass.svg" alt="" width="120" height="120">
-            <span class="inv-h">Before the doors open, taste the first cuts.</span>
+            <span class="inv-tag">Day 26 · a tasting</span>
+            <span class="inv-h">Before the doors open, taste the first <span class="nw">Twenty&#8209;Eights</span>.</span>
             <span class="label">For [Name] · [Publication]</span>
           </span>
           <span class="inv-face inv-back">
@@ -387,6 +393,7 @@
       </article>
       <div class="kit">
         <h3>Media kit</h3>
+        <ul class="kit-thumbs" aria-label="Interior photographs in the kit"><li><img src="../assets/img/interior/dry-aging-cabinet-sm.webp" alt="The ageing cabinet" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/main-dining-room-sm.webp" alt="The dining room" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/bar-sm.webp" alt="The bar" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/private-dining-room-sm.webp" alt="The private room" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/entrance-host-stand-sm.webp" alt="The entrance" width="640" height="360" loading="lazy" decoding="async"></li><li><img src="../assets/img/interior/open-kitchen-chefs-counter-sm.webp" alt="The open kitchen" width="640" height="360" loading="lazy" decoding="async"></li></ul>
         <ul class="kit-list" id="kitList"></ul>
       </div>
     </div>
@@ -424,14 +431,14 @@
       <p class="sec-intro">Exported at platform size from the artboards on this page.</p>
     </div>
     <div class="dl-grid">
-      <div class="dl-col"><h3>Feed posts · 1080 × 1350</h3><ul id="dlPosts"></ul><a class="dl-sheet" href="exports/posts/contact-sheet-posts.png">Contact sheet, all twelve</a></div>
+      <div class="dl-col"><h3>Feed posts · 1080 × 1350</h3><ul id="dlPosts"></ul><a class="dl-sheet" href="exports/posts/contact-sheet-posts.png">Contact sheet, all fourteen</a></div>
       <div class="dl-col"><h3>Stories · 1080 × 1920</h3><ul id="dlStories"></ul><a class="dl-sheet" href="exports/stories/contact-sheet-vertical.png">Contact sheet, stories and story ads</a></div>
       <div class="dl-col"><h3>Meta ads</h3><ul id="dlAds"></ul><a class="dl-sheet" href="exports/ads/contact-sheet-ads.png">Contact sheet, feed ads</a></div>
       <div class="dl-col"><h3>Email · 600 px</h3><ul id="dlMail"></ul></div>
       <div class="dl-col"><h3>Reels · MP4 · 9:16</h3><ul id="dlReels"></ul><a class="dl-sheet" href="exports/reels/contact-sheet-reels.png">Contact sheet, 1 frame per 2 s</a></div>
       <div class="dl-col"><h3>Story MP4 · 7 s</h3><ul id="dlStoryVid"></ul></div>
       <div class="dl-col"><h3>Video ads · MP4</h3><ul id="dlVidAds"></ul></div>
-      <div class="dl-col dl-cap"><h3>Captions</h3><p class="muted">Every caption per platform, ad copy, search ad lines, SMS and the release, in one text file.</p><a class="btn btn-solid" href="exports/captions.txt" download>Download captions.txt <span class="arr"></span></a></div>
+      <div class="dl-col dl-cap"><h3>Everything</h3><p class="muted">All exports in two ZIPs: images and copy (posts, stories, ads, email, captions), and video (reels, stories, ads).</p><a class="btn btn-line" id="dlZip" href="exports/xxviii-launch-kit-images.zip" download>Images and copy (ZIP)</a> <a class="btn btn-line" id="dlZipV" href="exports/xxviii-launch-kit-video.zip" download>Video (ZIP)</a><h3>Captions</h3><p class="muted">Every caption per platform, ad copy, search ad lines, SMS and the release, in one text file.</p><a class="btn btn-solid" href="exports/captions.txt" download>Download captions.txt <span class="arr"></span></a></div>
     </div>
   </div>
 </section>
@@ -441,7 +448,8 @@
   <div class="wrap foot-in">
     <img src="../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse" width="190" height="82">
     <p class="muted">Launch marketing, draft for review. Dates, contacts and prices are placeholders until the owner confirms them.</p>
-    <p class="label">Some things can't be hurried.</p>
+    <nav class="foot-links" aria-label="Related pages"><a href="../index.html">Website</a><a href="../index.html#reserve">Reserve</a><a href="../menu/">Menu</a><a href="../index.html#visit">Hours and address</a><a href="../brand/">Brand kit</a></nav>
+    <p class="label">Some things can’t be hurried.</p>
   </div>
 </footer>
 
@@ -451,6 +459,7 @@
 
 <script src="../assets/data/xxviii.js"></script>
 <script src="showcase-data.js"></script>
+<script src="exports/manifest.js"></script>
 <script src="../assets/vendor/gsap.min.js"></script>
 <script src="../assets/vendor/ScrollTrigger.min.js"></script>
 <script src="../assets/vendor/SplitText.min.js"></script>

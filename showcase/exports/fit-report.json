@@ -180,6 +180,36 @@
   "broken": []
  },
  {
+  "name": "post-13",
+  "file": "posts/post-13.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "post-14",
+  "file": "posts/post-14.png",
+  "size": [
+   1080,
+   1350
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
   "name": "story-01",
   "file": "stories/story-01.png",
   "size": [
@@ -227,6 +257,36 @@
  {
   "name": "story-04",
   "file": "stories/story-04.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "story-02-clean",
+  "file": "stories/story-02-clean.png",
+  "size": [
+   1080,
+   1920
+  ],
+  "issues": [],
+  "fonts": [
+   true,
+   true,
+   true
+  ],
+  "broken": []
+ },
+ {
+  "name": "story-04-clean",
+  "file": "stories/story-04-clean.png",
   "size": [
    1080,
    1920
@@ -333,8 +393,8 @@
   "name": "email-welcome",
   "file": "email/email-welcome.png",
   "size": [
-   600,
-   1541
+   1200,
+   2818
   ],
   "issues": [],
   "fonts": [
@@ -348,8 +408,8 @@
   "name": "email-confirmation",
   "file": "email/email-confirmation.png",
   "size": [
-   600,
-   1637
+   1200,
+   4514
   ],
   "issues": [],
   "fonts": [
@@ -363,8 +423,8 @@
   "name": "email-birthday",
   "file": "email/email-birthday.png",
   "size": [
-   600,
-   1300
+   1200,
+   2524
   ],
   "issues": [],
   "fonts": [
@@ -378,8 +438,8 @@
   "name": "email-thankyou",
   "file": "email/email-thankyou.png",
   "size": [
-   600,
-   1200
+   1200,
+   2988
   ],
   "issues": [],
   "fonts": [

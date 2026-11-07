@@ -2,7 +2,7 @@
  {
   "file": "ads/video/meta-video-1-feed.mp4",
   "duration": 8.1,
-  "mb": 2.56,
+  "mb": 2.52,
   "codec": "h264",
   "size": "1080x1350",
   "pix": "yuv420p",
@@ -12,7 +12,7 @@
  {
   "file": "ads/video/meta-video-1-story.mp4",
   "duration": 8.1,
-  "mb": 2.86,
+  "mb": 2.8,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -22,7 +22,7 @@
  {
   "file": "ads/video/meta-video-2-feed.mp4",
   "duration": 8.1,
-  "mb": 3.09,
+  "mb": 3.08,
   "codec": "h264",
   "size": "1080x1350",
   "pix": "yuv420p",
@@ -32,7 +32,7 @@
  {
   "file": "ads/video/meta-video-2-story.mp4",
   "duration": 8.1,
-  "mb": 3.16,
+  "mb": 3.1,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -42,7 +42,7 @@
  {
   "file": "ads/video/meta-video-3-feed.mp4",
   "duration": 8.1,
-  "mb": 2.49,
+  "mb": 2.47,
   "codec": "h264",
   "size": "1080x1350",
   "pix": "yuv420p",
@@ -52,7 +52,7 @@
  {
   "file": "ads/video/meta-video-3-story.mp4",
   "duration": 8.1,
-  "mb": 2.84,
+  "mb": 2.86,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -61,8 +61,8 @@
  },
  {
   "file": "reels/reel-a-worth-the-wait.mp4",
-  "duration": 17.5,
-  "mb": 6.56,
+  "duration": 15.4,
+  "mb": 6.7,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -71,8 +71,8 @@
  },
  {
   "file": "reels/reel-b-every-steak-lists-its-age.mp4",
-  "duration": 20.2,
-  "mb": 8.48,
+  "duration": 17.4,
+  "mb": 4.11,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -81,8 +81,8 @@
  },
  {
   "file": "reels/reel-c-the-long-wait.mp4",
-  "duration": 22.3,
-  "mb": 9.89,
+  "duration": 22.7,
+  "mb": 10.42,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -92,7 +92,17 @@
  {
   "file": "stories/story-01.mp4",
   "duration": 7.0,
-  "mb": 3.23,
+  "mb": 3.17,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "stories/story-02-clean.mp4",
+  "duration": 7.0,
+  "mb": 2.17,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -102,7 +112,7 @@
  {
   "file": "stories/story-02.mp4",
   "duration": 7.0,
-  "mb": 1.79,
+  "mb": 1.96,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -112,7 +122,17 @@
  {
   "file": "stories/story-03.mp4",
   "duration": 7.0,
-  "mb": 3.23,
+  "mb": 3.22,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "stories/story-04-clean.mp4",
+  "duration": 7.0,
+  "mb": 1.09,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
@@ -122,7 +142,7 @@
  {
   "file": "stories/story-04.mp4",
   "duration": 7.0,
-  "mb": 3.4,
+  "mb": 1.1,
   "codec": "h264",
   "size": "1080x1920",
   "pix": "yuv420p",
