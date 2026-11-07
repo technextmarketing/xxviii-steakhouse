@@ -12,7 +12,7 @@ import pymupdf
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PDF = os.path.join(ROOT, "out", "xxviii-menu.pdf")
-DPI, QUALITY = 115, 52
+DPI, QUALITY = 110, 52
 GROUND_PAGES = {21}             # the back cover leather under its wash: detail is invisible, so 100 dpi / q 55
 GROUND_DPI, GROUND_Q = 100, 55
 

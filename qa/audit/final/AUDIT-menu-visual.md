@@ -109,3 +109,22 @@ Margins and folios were consistent before and after on every page: the content b
   - 1440x900 reduced motion: 40 pass, 0 fail.
   - Page turn p95 12.6 ms.
 - **`_src/render.py`:** overflow [], clipped titles [], emptiness ≤ 14 % per page, type ≥ 12.7 pt.
+
+## Round 2: smaller type, bigger pictures (client: "make the text smaller make the image bigger")
+
+- **Type, desktop:**
+  - Course titles `.hd__t` 2.55 → 2.3em.
+  - Dish names `.t__n` 1.7 → 1.45em. In context: `.tbl` 1.25, `.g4` 1.25, sides and enhancements 1.12, `.b3` 1.2, `.dt` 1.3, `.bt__n` 1.5, `.t28__n` 2.1em.
+  - Prices 1.3 → 1.15em; descriptions .9em (sides and enhancements .84em).
+  - Story lead 1.45em, Patience 2.6em, kitchen line 1.5em.
+- **Type, phones:** descriptions stay at 16 px (QA legibility rule).
+- **Pictures:**
+  - First Course plates 1.25fr → 1.4fr of each row.
+  - Dessert plates 39 → 42 % wide, re-spaced (captions 128 % of the plate).
+  - Photo share at 1440: Garden L 35 → 40 %, Long Wait L 36 → 39 % and R 39 → 45 %, Alongside L 29 → 39 % and R 36 → 43 %.
+- **Checks:**
+  - Emptiness ≤ 14 % on every page at every size.
+  - 0 clipped glyphs, 0 text on photographs, 0 one-word title lines, 0 console errors.
+  - QA suite all pass: 40 / 40 / 17 / 17 tests, plus reduced motion.
+  - Flip check: 0 half-loaded images over 2,045 frames.
+  - PDF 5.78 MB (photos 110 dpi).

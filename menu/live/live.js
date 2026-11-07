@@ -366,7 +366,7 @@
   // 8 · How we cook your steak: the scale beside real slices | The Last Course: a dessert table
   const BANDS = [['Blue', '46–49', 'Seared hard outside, cool and deep red within.', '#5a0f1b'], ['Rare', '50–52', 'Cool red centre.', '#8a1c28'], ['Medium rare', '55–57', 'Warm red centre. Our suggestion for aged beef.', '#b03a43'], ['Medium', '60–63', 'Warm pink centre.', '#b8665c'], ['Medium well', '65–68', 'A trace of pink.', '#9c7766']];
   const lc = M.last.items;
-  const DESS = [[0, 0, 39, 'r'], [61, 19, 39, 'l'], [0, 38.5, 39, 'r'], [61, 57.5, 39, 'l'], [0, 76.5, 38, 'r']];
+  const DESS = [[0, 0, 42, 'r'], [58, 18.5, 42, 'l'], [0, 37, 42, 'r'], [58, 55.5, 42, 'l'], [0, 74, 42, 'r']];
   SP.push({
     id: 'last-course', title: M.last.name, course: 'VIII',
     L: n => `<div class="pg-in done">${RH('Good to know', 'How we cook your steak')}${HD('', 'How we cook your steak', 'Every steak rests before it reaches you. Tell us how you like it.')}
