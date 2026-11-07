@@ -855,3 +855,17 @@ select:focus-visible, input:focus-visible, textarea:focus-visible { outline: non
 .crust__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
 .crust::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--char) 0%, transparent 28%, transparent 72%, var(--char) 100%), linear-gradient(90deg, color-mix(in srgb, var(--char) 40%, transparent), transparent 30%, transparent 70%, color-mix(in srgb, var(--char) 40%, transparent)); pointer-events: none; }
 .crust__tag { position: absolute; z-index: 2; left: var(--gutter); bottom: 22px; padding: 9px 14px 8px; color: var(--bone); background: color-mix(in srgb, var(--char) 82%, transparent); border: 1px solid var(--line); }
+
+/* 8 Nov: menu left column filled — the column stretches to the list height; the plate fills it; a caption card names the dish on screen */
+.mpeek__cap { display: none; }
+@media (min-width: 900px) {
+  .mpanel { align-items: stretch; }
+  .mpanel__head { grid-column: 1 / span 5; align-self: stretch; position: relative; top: auto; display: flex; flex-direction: column; padding-right: clamp(8px, 2vw, 32px); }
+  .mpeek { flex: 1 1 0; width: 100%; min-height: 300px; max-height: 760px; aspect-ratio: auto; margin-top: 26px; }
+  .mpeek img { inset: 6%; width: 88%; height: 88%; }
+  .mpeek__cap { display: grid; gap: 12px; width: 100%; margin-top: 16px; padding: 18px 20px 20px;
+    border: 1px solid var(--line); background: linear-gradient(180deg, color-mix(in srgb, var(--bone) 3%, transparent), transparent); }
+  .mpeek__n { font: 400 clamp(1.5rem, 1.1rem + 1vw, 2.1rem)/1.08 var(--f-display); color: var(--bone); text-wrap: balance; }
+  .mpeek__meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 30px; }
+  .mpeek__p { font: 600 1.25rem/1 var(--f-label); letter-spacing: .06em; color: var(--brass); }
+}

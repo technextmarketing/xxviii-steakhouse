@@ -478,7 +478,8 @@
     /* the default peek is never the signature dish (it fills the screen just above) */
     var first = s.items.filter(function (it) { return it.cutout && it.img !== sigItem.img; })[0] || s.items[0];
     var head = el('div', { class: 'mpanel__head' }, '<h3>' + esc(s.name) + '</h3><p>' + esc(LINE_OVERRIDE[s.id] || s.line) + '</p><p class="label mpanel__count">' + (WORDS[n] || n) + ' ' + (n === 1 ? 'dish' : 'dishes') + '</p>' +
-      '<figure class="mpeek" aria-hidden="true" data-peek="' + esc(first.cutout || '') + '"></figure>');
+      '<figure class="mpeek" aria-hidden="true" data-peek="' + esc(first.cutout || '') + '"></figure>' +
+      '<div class="mpeek__cap" aria-hidden="true"><span class="mpeek__n"></span><span class="mpeek__meta"><span class="mpeek__a"></span><span class="mpeek__p"></span></span></div>');
     var rows = el('div', { class: 'mpanel__rows' });
     s.items.forEach(function (it) { rows.appendChild(dishRow(it)); });
     if (s.extras) {
@@ -497,6 +498,7 @@
   function peekShow(panel, slug, animate) {
     var fig = $('.mpeek', panel); if (!fig || !slug || !DESK.matches || fig._slug === slug) return;
     fig._slug = slug;
+    peekCap(panel, slug, animate);
     var token = fig._tok = (fig._tok || 0) + 1;
     var im = el('img', { src: img(slug, 'cutout', 'lg'), alt: '', width: 1200, height: 860, decoding: 'async' });
     var done = false;
@@ -514,6 +516,21 @@
     };
     if (im.complete && im.naturalWidth) go();
     else { im.addEventListener('load', go); im.addEventListener('error', go); setTimeout(go, 600); }
+  }
+  /* caption card under the plate: the dish on screen, its age and price (fills the column; 8 Nov) */
+  function dishBySlug(slug) {
+    for (var i = 0; i < X.menu.length; i++) {
+      var s = X.menu[i], all = (s.items || []).concat(s.extras ? s.extras.items : []);
+      for (var k = 0; k < all.length; k++) if (all[k].cutout === slug || all[k].img === slug) return all[k];
+    }
+    return null;
+  }
+  function peekCap(panel, slug, animate) {
+    var cap = $('.mpeek__cap', panel), it = dishBySlug(slug); if (!cap || !it) return;
+    $('.mpeek__n', cap).textContent = it.name;
+    $('.mpeek__a', cap).innerHTML = it.age ? '<span class="age-tag">Aged <b>' + it.age + '</b> days</span>' : (it.note ? '<span class="label">' + esc(it.note) + '</span>' : '');
+    $('.mpeek__p', cap).textContent = it.price ? peso(it.price) : '';
+    if (MOTION && animate && G) G.fromTo(cap.children, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: .45, ease: 'expo.out', stagger: .05, overwrite: true });
   }
   function peekInit(panel) { var f = $('.mpeek', panel); if (f && !f._slug) peekShow(panel, f.getAttribute('data-peek'), false); }
   var mCur = M0;
