@@ -29,6 +29,10 @@
 @keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
 .live .plate{animation:arc 8s ease-in-out infinite alternate}
 .live .pool.p{animation:pulse 8s ease-in-out infinite}
+
+/* safe zones: nothing in the top 250 px; Meta draws the CTA and the profile, so no logo or CTA bar */
+.ab > .logo{display:none}
+.ab > :not(.grain-ab):not(.vignette):not(.pool){translate:0 170px}
 </style>
 </head>
 <body>

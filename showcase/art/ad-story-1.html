@@ -30,6 +30,10 @@
 .live .ph img{animation:ken 8s ease-in-out infinite alternate}
 .live .lamp{animation:pulse 5s ease-in-out infinite}
 .lamp{left:560px;top:-120px;width:760px;height:760px;z-index:1;opacity:.8}
+
+/* safe zones: nothing in the top 250 px; Meta draws the CTA and the profile, so no logo or CTA bar */
+.ab > .logo{display:none}
+.ab > :not(.grain-ab):not(.vignette):not(.pool){translate:0 190px}
 </style>
 </head>
 <body>

@@ -142,3 +142,24 @@ open(out + 'xxviii-tag-brass.svg', 'w').write(tag(C['brass'], C['char']))
 open(out + 'xxviii-tag-ox.svg', 'w').write(tag(C['bone'], C['ox']))
 open(out + 'favicon.svg', 'w').write(monogram(C['brass'], C['char']))
 print(len(os.listdir(out)), 'files')
+
+
+def lockup_header(fill, sub):
+    """Header lockup (7 Nov): descriptor set larger so it stays legible at 32-40 px tall."""
+    d1, w1 = run(gloock, 'XXVIII', 120, 0.075); ch1 = cap_height(gloock, 120)
+    d2, w2 = run(bs, 'TWENTY-EIGHT', 44, 0.22); ch2 = cap_height(bs, 44)
+    d3, w3 = run(bsl, 'STEAKHOUSE', 34, 0.42); ch3 = cap_height(bsl, 34)
+    pad = 6; gap = 26; gapv = (ch1 - ch2 - ch3) 
+    x2 = pad + w1 + gap * 2 + 2
+    W = x2 + max(w2, w3) + pad; H = ch1 + pad * 2
+    body = (f'<g fill="{fill}"><path transform="translate({pad} {pad+ch1:.1f})" d="{d1}"/>'
+            f'<rect x="{pad+w1+gap:.1f}" y="{pad+4}" width="2" height="{ch1-8:.1f}"/>'
+            f'<path transform="translate({x2:.1f} {pad+ch2+2:.1f})" d="{d2}"/>'
+            f'<path fill="{sub}" transform="translate({x2:.1f} {pad+ch1-1:.1f})" d="{d3}"/></g>')
+    return svg(W, H, body, 'XXVIII Twenty-Eight Steakhouse')
+
+
+LIT = '#E2C48E'
+open(out + 'xxviii-header-lit.svg', 'w').write(lockup_header(LIT, C['bone']))
+open(out + 'xxviii-header-brass.svg', 'w').write(lockup_header(C['brass'], C['bone']))
+print('header lockups written')

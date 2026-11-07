@@ -163,8 +163,79 @@
     return el('video', { class: cls || '', 'data-vid': slug, 'data-poster': X.video(slug, 'poster'), width: 1920, height: 1080, muted: '', loop: '', playsinline: '', preload: 'none', disablepictureinpicture: '', 'aria-hidden': 'true' });
   }
   d.addEventListener('visibilitychange', function () { if (d.hidden) VIDS.forEach(function (v) { v.pause(); }); else schedule(); });
-  var heroVideo = $('.hero__video');
-  if (heroVideo) register(heroVideo, 3, false);
+  /* Hero reel (7 Nov, client request): a random, steak-first rotation through every client film.
+     Two stacked layers crossfade; each film plays once (8 s); every 2 steaks one enhancement film. */
+  var heroVids = $$('.hero__video'), heroVideo = heroVids[0];
+  (function heroReel() {
+    if (!heroVideo) return;
+    var STEAKS = ['cowboy-cut', 'prime-ribeye', 'new-york-strip', 'filet-mignon', 'picanha', 'sovereign-tomahawk', 'porterhouse-for-two', 'chateaubriand-for-two'].filter(hasVideo);
+    var EXTRAS = ['black-truffle-shavings', 'bone-marrow-crust', 'foie-gras-crown', 'oscar-enhancement'].filter(hasVideo);
+    if (!STEAKS.length) { register(heroVideo, 3, false); heroVideo.loop = true; return; }
+    function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+    function build(prev) {
+      var s = shuffle(STEAKS), e = shuffle(EXTRAS), q = [];
+      s.forEach(function (x, i) { q.push(x); if (i % 2 === 1 && e.length) q.push(e.shift()); });
+      if (q[0] === prev && q.length > 1) q.push(q.shift());
+      return q;
+    }
+    function dish(slug) {
+      for (var i = 0; i < X.menu.length; i++) {
+        var sct = X.menu[i], all = (sct.items || []).concat(sct.extras ? sct.extras.items : []);
+        for (var k = 0; k < all.length; k++) if (all[k].img === slug) return all[k];
+      }
+      return null;
+    }
+    var reel = $('.hero__reel'), nowP = $('.hero__now'), nowN = $('[data-now]'), nowA = $('[data-now-age]');
+    var prog = $('.hero__prog i'), pauseB = $('.hero__pause');
+    var q = build(null), qi = 0, cur = heroVids[0], nxt = heroVids[1] || null, switching = false, userPaused = false, heroSeen = true;
+    function label(slug) {
+      var dd = dish(slug); if (!dd || !nowN) return;
+      var age = dd.age ? dd.age + ' days' : 'To add to any steak';
+      if (!MOTION) { nowN.textContent = dd.name; nowA.textContent = age; return; }
+      nowP.classList.add('is-swap');
+      setTimeout(function () { nowN.textContent = dd.name; nowA.textContent = age; nowP.classList.remove('is-swap'); }, 450);
+    }
+    function setSlug(v, slug) { v.setAttribute('data-vid', slug); v.setAttribute('poster', X.video(slug, 'poster')); }
+    if (reel) reel.hidden = false;
+    setSlug(cur, q[0]); label(q[0]);
+    if (!VIDEO_OK || !nxt) { if (pauseB) pauseB.hidden = true; if (prog) prog.parentNode.hidden = true; return; }
+    heroVids.forEach(function (v) { register(v, 3, true); v.loop = false; });
+    function step() {
+      if (switching || userPaused) return;
+      switching = true;
+      qi++; if (qi >= q.length) { q = build(q[q.length - 1]); qi = 0; }
+      var slug = q[qi], incoming = nxt, outgoing = cur;
+      freeV(incoming); setSlug(incoming, slug);
+      var go = function () {
+        incoming.removeEventListener('playing', go);
+        incoming.classList.add('is-on'); outgoing.classList.remove('is-on'); label(slug);
+        cur = incoming; nxt = outgoing;
+        setTimeout(function () { want(outgoing, false); freeV(outgoing); switching = false; }, 1200);
+      };
+      incoming.addEventListener('playing', go);
+      try { incoming.currentTime = 0; } catch (e) { }
+      want(incoming, heroSeen);
+      if (!heroSeen) go();
+    }
+    heroVids.forEach(function (v) {
+      v.addEventListener('timeupdate', function () {
+        if (v !== cur || !v.duration) return;
+        if (prog) prog.style.transform = 'scaleX(' + Math.min(1, v.currentTime / v.duration) + ')';
+        if (v.currentTime > v.duration - 1.15) step();
+      });
+      v.addEventListener('ended', function () { if (v === cur) step(); });
+    });
+    if (pauseB) pauseB.addEventListener('click', function () {
+      userPaused = !userPaused;
+      pauseB.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+      pauseB.setAttribute('aria-label', userPaused ? 'Play the steak films' : 'Pause the steak films');
+      want(cur, !userPaused && heroSeen); if (userPaused) cur.pause();
+    });
+    var heroIO = HAS_IO ? new IntersectionObserver(function (es) {
+      heroSeen = es[0].isIntersecting; want(cur, heroSeen && !userPaused);
+    }, { threshold: 0.05 }) : null;
+    if (heroIO) heroIO.observe($('.hero')); else want(cur, true);
+  })();
 
   /* Section textures: add .tex-on when the section is within one viewport */
   $$('.patience, .private, .reserve, .sig').forEach(function (s) {
@@ -714,7 +785,7 @@
     var intro0 = $('#intro'); if (intro0) intro0.remove();
     $('.reel').classList.add('reel--static');
     var tg = $('.reel__toggle'); if (tg) tg.hidden = true;
-    var fr0 = $('.story__frost'); if (fr0) { fr0.style.setProperty('--frost', '0px'); fr0.style.setProperty('--fog', '0'); }
+    var lastShot = $$('.story__shot'); lastShot.forEach(function (x, i) { x.classList.toggle('is-on', i === lastShot.length - 1); });
     return;
   }
 
@@ -757,7 +828,7 @@
     var title = $('.hero__title');
     if (SPLIT) SPLIT.create(title, { type: 'lines', mask: 'lines', autoSplit: true, onSplit: function (self) { return G.from(self.lines, { yPercent: 115, duration: 1.3, ease: 'expo.out', stagger: .09 }); } });
     G.timeline()
-      .fromTo(heroVideo, { scale: 1.1, filter: 'brightness(.45)' }, { scale: 1, filter: 'brightness(1)', duration: 2.4, ease: 'expo.out', clearProps: 'filter' }, 0)
+      .fromTo('.hero__frame', { scale: 1.1, filter: 'brightness(.45)' }, { scale: 1, filter: 'brightness(1)', duration: 2.4, ease: 'expo.out', clearProps: 'filter' }, 0)
       .to('.hero__sub', { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out' }, .35)
       .to('.hero__ctas > *', { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out', stagger: .08 }, .5)
       .to('.hero__strip > *', { autoAlpha: 1, y: 0, duration: .9, ease: 'expo.out', stagger: .1 }, .75)
@@ -812,16 +883,37 @@
   }
 
   /* ───────── Story ───────── */
-  var story = $('.story'), frost = $('.story__frost'), cut = $('.story__cut'), sLines = $$('.story__line');
+  var story = $('.story'), sLines = $$('.story__line');
+  /* Story stage (7 Nov, v3): four sharp butcher-block shots, one per beat, wiping up like the ageing-room
+     door as the days pass; it ends on The Twenty-Eight at Day 28. Replaces the old frosted cut-out. */
+  var shots = $$('.story__shot'), shotWord = $('[data-shot-word]'), shotDish = $('[data-shot-dish]'), shotIdx = 0;
+  function dishName(slug) { for (var i = 0; i < X.menu.length; i++) { var it = X.menu[i].items || []; for (var k = 0; k < it.length; k++) if (it[k].img === slug) return it[k].name; } return ''; }
+  function shotTag(i) {
+    if (i === shotIdx || !shots[i]) return; shotIdx = i;
+    if (shotWord) shotWord.textContent = shots[i].getAttribute('data-word');
+    if (shotDish) shotDish.textContent = dishName(shots[i].getAttribute('data-dish'));
+  }
+  if (shotDish && shots[0]) shotDish.textContent = dishName(shots[0].getAttribute('data-dish'));
+  function shotsInto(tl, span, offset) {
+    shots.forEach(function (sh, i) {
+      var im = $('img', sh);
+      if (i > 0) {
+        var at = offset + span * ((i + 1) * 7 - 1.8) / 28;
+        tl.fromTo(sh, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: span * 1.6 / 28, ease: 'power3.inOut',
+          onStart: function () { shotTag(i); }, onReverseComplete: function () { shotTag(i - 1); } }, at);
+      }
+      tl.fromTo(im, { scale: 1.16, xPercent: i % 2 ? 2 : -2 }, { scale: 1, xPercent: 0, duration: span * 8.5 / 28, ease: 'none' }, offset + (i ? span * ((i + 1) * 7 - 1.8) / 28 : 0));
+    });
+  }
+  if (MOTION) shots.forEach(function (sh, i) { if (i > 0) sh.classList.remove('is-on'); });
   mm.add('(min-width: 900px)', function () {
     story.classList.add('story--pinned');
     var st = { v: 1 }; setDay(1);
     G.set(sLines, { autoAlpha: 0, y: 26 });
     var tl = G.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: story, start: 'top top', end: '+=260%', pin: true, scrub: 1, anticipatePin: 1 } });
     tl.to(st, { v: 28, duration: 27, onUpdate: function () { setDay(st.v); } }, 0)
-      .fromTo(cut, { rotation: -16, scale: 1.3 }, { rotation: 14, scale: 1.46, duration: 28 }, 0)
-      .fromTo(frost, { '--frost': '14px', '--fog': 1 }, { '--frost': '0px', '--fog': 0, duration: 22, ease: 'power1.in' }, .5)
-      .fromTo('.story__glow', { autoAlpha: .35, scale: .85 }, { autoAlpha: 1, scale: 1.08, duration: 27 }, 0)
+      .fromTo('.story__glow', { autoAlpha: .55, scale: .9 }, { autoAlpha: 1, scale: 1.06, duration: 27 }, 0)
+      .fromTo('.story__win', { yPercent: 4 }, { yPercent: -4, duration: 28 }, 0)
       .fromTo('.ruler__fill', { scaleX: 0 }, { scaleX: 1, duration: 27 }, 0)
       .to(sLines[0], { autoAlpha: 1, y: 0, duration: 2, ease: 'power2.out' }, .5)
       .to(sLines[0], { autoAlpha: 0, y: -18, duration: 1.6, ease: 'power2.in' }, 10)
@@ -829,17 +921,16 @@
       .to(sLines[1], { autoAlpha: 0, y: -18, duration: 1.6, ease: 'power2.in' }, 19.6)
       .to(sLines[2], { autoAlpha: 1, y: 0, duration: 2.4, ease: 'power2.out' }, 21.4)
       .to({}, { duration: 3 });
+    shotsInto(tl, 27, 0);
     return function () { story.classList.remove('story--pinned'); G.set(sLines, { clearProps: 'all' }); setDay(28); };
   });
   mm.add('(max-width: 899px)', function () {
     story.classList.add('story--count');
     var st = { v: 1 }; setDay(1);
-    /* one scrubbed trigger drives the stage, the odometer and the ruler together */
-    G.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.story__stage', start: 'top 85%', end: 'center 45%', scrub: .6 } })
-      .to(st, { v: 28, duration: 1, onUpdate: function () { setDay(st.v); } }, 0)
-      .fromTo(cut, { rotation: -16, scale: 1.3 }, { rotation: 6, scale: 1.42, duration: 1 }, 0)
-      .fromTo(frost, { '--frost': '14px', '--fog': 1 }, { '--frost': '0px', '--fog': 0, duration: .85 }, 0)
+    var tl = G.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.story__stage', start: 'top 80%', end: 'bottom 30%', scrub: .6 } });
+    tl.to(st, { v: 28, duration: 1, onUpdate: function () { setDay(st.v); } }, 0)
       .fromTo('.ruler__fill', { scaleX: 0 }, { scaleX: 1, duration: 1 }, 0);
+    shotsInto(tl, 1, 0);
     G.from(sLines, { autoAlpha: 0, y: 22, duration: 1.1, ease: 'expo.out', stagger: .15, scrollTrigger: { trigger: '.story__lines', start: 'top 88%', once: true } });
     return function () { story.classList.remove('story--count'); setDay(28); };
   });

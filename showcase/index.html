@@ -41,15 +41,15 @@
     </div>
   </div>
   <div class="hero-stage" aria-hidden="true">
-    <div class="hero-plate"><img src="../assets/img/cutout/cowboy-cut-lg.webp" alt="" width="1200" height="934" fetchpriority="high" decoding="async"></div>
+    <div class="hero-plate"><img src="../assets/img/cutout/cowboy-cut-lg.webp" srcset="../assets/img/cutout/cowboy-cut-sm.webp 600w, ../assets/img/cutout/cowboy-cut-lg.webp 1200w" sizes="(max-width: 900px) 100vw, 55vw" alt="" width="1200" height="934" fetchpriority="high" decoding="async"></div>
     <div class="hero-tag">
       <i class="hero-string"></i>
       <div class="tag-face">
         <i class="tag-hole"></i>
         <div class="tag-mark"></div>
         <p class="label tag-room">Ageing room</p>
-        <div class="odo" id="heroOdo"><span class="odo-col"><span class="odo-strip">0<br>1<br>2</span></span><span class="odo-col"><span class="odo-strip">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</span></span></div>
-        <p class="label tag-day">Day <span id="heroDayWord">one</span> of twenty-eight</p>
+        <div class="odo" id="heroOdo"><span class="odo-col"><span class="odo-strip" style="--y:-2em">0<br>1<br>2</span></span><span class="odo-col"><span class="odo-strip" style="--y:-8em">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</span></span></div>
+        <p class="label tag-day">Day <span id="heroDayWord">twenty-eight</span> of twenty-eight</p>
         <div class="tag-bar"><i id="heroBar"></i></div>
       </div>
     </div>
@@ -65,7 +65,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2 id="cal-h">Twenty-eight days, one piece a day.</h2>
-      <p class="sec-intro">Day 01 the first cuts go in. Day 28 is opening night. Open any day to see the piece and its caption.</p>
+      <p class="sec-intro">Day 01 the first Twenty-Eights go in. Day 28 they come out: opening night. Open any day to see the piece.</p>
     </div>
     <ul class="ch-key" aria-label="Channel key" id="calKey"></ul>
     <ol class="cal-grid" id="calGrid"></ol>
@@ -147,7 +147,7 @@
 </section>
 
 <dialog class="lightbox" id="lightbox" aria-label="Post, full screen">
-  <img id="lbImg" src="" alt="" width="1080" height="1350">
+  <img id="lbImg" alt="" width="1080" height="1350">
   <button class="x" type="button" id="lbClose" aria-label="Close">Close</button>
   <button class="st-arrow prev" type="button" id="lbPrev" aria-label="Previous post"><span></span></button>
   <button class="st-arrow next" type="button" id="lbNext" aria-label="Next post"><span></span></button>
@@ -157,14 +157,16 @@
 <section class="sec stories" id="stories" aria-labelledby="stories-h">
   <div class="wrap">
     <div class="sec-head">
-      <h2 id="stories-h">Stories that move slowly.</h2>
-      <p class="sec-intro">Four animated 9:16 stories, playing live. Then a twenty-second reel, frame by frame.</p>
+      <h2 id="stories-h">Stories and reels, on our own footage.</h2>
+      <p class="sec-intro">Four stories and three reels cut from the client's camera moves, silent until licensed audio is added in-app.</p>
     </div>
     <div class="story-row" id="storyRow"></div>
+    <h3 class="sub-h">Reels · 9:16 · 17 to 23 seconds</h3>
+    <div class="story-row reel-row" id="reelRow"></div>
 
     <div class="reel" aria-labelledby="reel-h">
       <div class="reel-head">
-        <h3 id="reel-h">Reel · Into the room · 20 seconds</h3>
+        <h3 id="reel-h">Storyboard to shoot · Into the room · 20 seconds</h3>
         <button class="btn btn-line reel-play" type="button" id="reelPlay" aria-pressed="false">Play the timing</button>
       </div>
       <div class="reel-time" aria-hidden="true"><i id="reelHead"></i><div class="reel-ticks" id="reelTicks"></div></div>
@@ -178,18 +180,18 @@
   <div class="wrap">
     <div class="sec-head">
       <h2 id="ads-h">Paid, but never pushy.</h2>
-      <p class="sec-intro">Three Meta variants in feed and story, a responsive search ad, and the Business Profile.</p>
+      <p class="sec-intro">Three Meta variants, each as image and video in feed and story, a responsive search ad, and the Business Profile.</p>
     </div>
-    <div class="tabs ad-tabs" role="tablist" aria-label="Ad variant" id="adTabs"></div>
+    <div class="ad-bar"><div class="tabs ad-tabs" role="tablist" aria-label="Ad variant" id="adTabs"></div><div class="seg" role="group" aria-label="Ad format" id="adFmt"><button type="button" aria-pressed="true" data-m="video">Video</button><button type="button" aria-pressed="false" data-m="image">Image</button></div></div>
     <div class="ad-pair" role="tabpanel" id="adPanel" aria-live="polite">
       <article class="meta-feed" aria-label="Feed ad preview">
         <header class="mf-head"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="40" height="40"><div><b>XXVIII Steakhouse</b><span>Sponsored</span></div></header>
         <p class="mf-primary" id="mfPrimary"></p>
-        <img class="mf-img" id="mfImg" src="exports/web/ad-feed-1.webp" alt="" width="600" height="750" loading="lazy" decoding="async">
+        <div class="mf-media"><img class="mf-img" id="mfImg" src="exports/web/ad-feed-1.webp" alt="" width="600" height="750" loading="lazy" decoding="async"><video class="mf-img vplay" id="mfVid" muted loop playsinline preload="none" width="600" height="750" aria-label="Feed video ad"></video></div>
         <div class="mf-foot"><div><span class="mf-url">xxviii.example</span><b id="mfHead"></b><span id="mfDesc"></span></div><span class="mf-cta">Book now</span></div>
       </article>
       <div class="phone phone-story" aria-label="Story ad preview">
-        <div class="phone-screen"><img id="msImg" src="exports/web/ad-story-1.webp" alt="" width="600" height="1067" loading="lazy" decoding="async">
+        <div class="phone-screen"><img id="msImg" src="exports/web/ad-story-1.webp" alt="" width="600" height="1067" loading="lazy" decoding="async"><video class="vplay" id="msVid" muted loop playsinline preload="none" aria-label="Story video ad"></video>
           <div class="ms-top"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="28" height="28"><b>XXVIII Steakhouse</b><span>Sponsored</span></div>
           <div class="ms-cta"><span>Book now</span></div>
         </div>
@@ -197,7 +199,7 @@
       <div class="ad-copy">
         <p class="label muted">Copy for this variant</p>
         <dl class="kv" id="adKv"></dl>
-        <div class="ad-dl"><a class="dl-link label" id="adDlF" href="exports/ads/meta-feed-1.png" download>Feed PNG</a><a class="dl-link label" id="adDlS" href="exports/ads/meta-story-1.png" download>Story PNG</a></div>
+        <div class="ad-dl"><a class="dl-link label" id="adDlF" href="exports/ads/meta-feed-1.png" download>Feed PNG</a><a class="dl-link label" id="adDlS" href="exports/ads/meta-story-1.png" download>Story PNG</a><a class="dl-link label" id="adDlFV" href="exports/ads/video/meta-video-1-feed.mp4" download>Feed MP4</a><a class="dl-link label" id="adDlSV" href="exports/ads/video/meta-video-1-story.mp4" download>Story MP4</a></div>
       </div>
     </div>
 
@@ -277,7 +279,7 @@
         <li data-at="7"><b class="num">Day 07</b><span>A Patience on the house.</span></li>
         <li data-at="14"><b class="num">Day 14</b><span>A sauce flight for the table.</span></li>
         <li data-at="21"><b class="num">Day 21</b><span>First call on The Long Wait cuts.</span></li>
-        <li data-at="28"><b class="num">Day 28</b><span>Two seats at the Chef's table.</span></li>
+        <li data-at="28"><b class="num">Day 28</b><span>An invitation to the next ageing-room tasting.</span></li>
       </ol>
       <p class="muted small">Rewards are a proposal, to confirm with the owner.</p>
     </div>
@@ -337,6 +339,8 @@
           <p class="r-row"><span>Patience ×2</span><span>1,440.00</span></p>
           <p class="r-row"><span>Pommes Purée</span><span>420.00</span></p>
           <p class="r-row r-sum"><span>Total</span><span>₱7,660.00</span></p>
+          <p class="r-row r-small"><span>VAT incl. · service charge</span><span>[ ]</span></p>
+          <p class="r-row r-small"><span>OR no.</span><span>[0000]</span></p>
           <p class="r-foot">Your steak waited 28 days.<br>Thank you for waiting with us.</p>
           <p class="r-club">Ageing Club · this visit adds 7 days</p>
           <img src="art/qr-club-char.svg" alt="QR code to join the Ageing Club" width="80" height="80">
@@ -424,6 +428,9 @@
       <div class="dl-col"><h3>Stories · 1080 × 1920</h3><ul id="dlStories"></ul><a class="dl-sheet" href="exports/stories/contact-sheet-vertical.png">Contact sheet, stories and story ads</a></div>
       <div class="dl-col"><h3>Meta ads</h3><ul id="dlAds"></ul><a class="dl-sheet" href="exports/ads/contact-sheet-ads.png">Contact sheet, feed ads</a></div>
       <div class="dl-col"><h3>Email · 600 px</h3><ul id="dlMail"></ul></div>
+      <div class="dl-col"><h3>Reels · MP4 · 9:16</h3><ul id="dlReels"></ul><a class="dl-sheet" href="exports/reels/contact-sheet-reels.png">Contact sheet, 1 frame per 2 s</a></div>
+      <div class="dl-col"><h3>Story MP4 · 7 s</h3><ul id="dlStoryVid"></ul></div>
+      <div class="dl-col"><h3>Video ads · MP4</h3><ul id="dlVidAds"></ul></div>
       <div class="dl-col dl-cap"><h3>Captions</h3><p class="muted">Every caption per platform, ad copy, search ad lines, SMS and the release, in one text file.</p><a class="btn btn-solid" href="exports/captions.txt" download>Download captions.txt <span class="arr"></span></a></div>
     </div>
   </div>

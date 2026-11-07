@@ -63,7 +63,7 @@
   var stories = [
     { id: 'story-01', title: 'Day 14. Halfway.', line: 'The Twenty-Eight glide; the day count rolls to 14 of 28.', video: 'cowboy-cut' },
     { id: 'story-02', title: 'Which butter?', line: 'Poll: Café de Paris or black truffle butter, on slate.', video: null },
-    { id: 'story-03', title: 'Day 25. Almost.', line: 'The strip glide; the first Twenty-Eights come out on Day 28.', video: 'new-york-strip' },
+    { id: 'story-03', title: 'Day 25 of 28', line: 'The strip glide; the days count up, 19 to 25, in the glass room.', video: 'new-york-strip' },
     { id: 'story-04', title: 'Tables are open', line: 'Châteaubriand orbit with a link sticker to the booking page.', video: 'chateaubriand-for-two' }
   ];
 
@@ -77,7 +77,7 @@
   ];
 
   var reel = [
-    { t: '00:00–00:03', shot: 'The glass door of the ageing room, condensation on the pane. Slow push in.', text: 'The first cuts go in today.', sound: 'Cold-room hum. The soft release of the door seal.', vis: 'tag' },
+    { t: '00:00–00:03', shot: 'The glass door of the ageing room, condensation on the pane. Slow push in.', text: 'The first Twenty-Eights go in today.', sound: 'Cold-room hum. The soft release of the door seal.', vis: 'tag' },
     { t: '00:03–00:06', shot: 'A hand chalks DAY 01 on the board beside the first rack.', text: 'Twenty-eight days. No shortcuts.', sound: 'Chalk on slate. One low piano note.', vis: 'board' },
     { t: '00:06–00:10', shot: 'Locked-off time-lapse of the ribeye darkening; a day counter rolls 01 to 28.', text: 'Day 01 → Day 28', sound: 'A clock that ticks slower and slower.', vis: 'prime-ribeye' },
     { t: '00:10–00:13', shot: 'Overhead: the cut hits the grill. Smoke crosses the lamp light.', text: 'Cut today.', sound: 'The sear, close-miked. Nothing else.', vis: 'cowboy-cut' },
@@ -132,7 +132,7 @@
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'The Caesar is made at your table.', prev: 'post-07' },
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'The Long Wait: 45 days for the table.', prev: 'post-06' },
     { ch: 'google', fmt: 'Business Profile post', hook: 'The listing goes live with hours and menu.', prev: 'gbp', cap: 'Business Profile update: "Opening soon. Every steak lists its age." Button: Learn more (Reserve from Day 20). Photo: The Twenty-Eight.' },
-    { ch: 'story', fmt: 'Story · video', hook: 'Day 14. Halfway.', prev: 'story-01', cap: 'Story on the Twenty-Eight glide: Day 14 of 28. Sticker: "Remind me" for opening night.' },
+    { ch: 'story', fmt: 'Story · video', hook: 'Day 14. Halfway.', prev: 'story-01', cap: 'Story on the Twenty-Eight glide: Day 14 of 28. The day count rolls up to 14 of 28.' },
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Aged 28 days. Cut today. Yours tonight.', prev: 'post-04' },
     { ch: 'feed', fmt: 'Feed · 4:5 · poll', hook: 'Sauce or butter: A, B, C or D.', prev: 'post-12' },
     { ch: 'reel', fmt: 'Reel · 9:16 · 20 s', hook: 'Every steak lists its age: 21, 28, 35, 45.', prev: 'reel-b', cap: 'Filet, 21 days. Strip, 28. Ribeye, 35. Porterhouse, 45. Every steak lists its age. #XXVIII #DryAged #SteakTok #BGCEats\n[Add licensed audio in-app]' },
@@ -143,7 +143,7 @@
     { ch: 'google', fmt: 'Search ads · RSA', hook: 'Search campaign goes live for BGC.', prev: 'search', cap: 'Responsive search ad: 15 headlines (≤ 30 characters), 4 descriptions (≤ 90). Final URL ' + C.web + '/reserve' },
     { ch: 'ads', fmt: 'Meta ad · image + video', hook: 'Dinner for two takes 45 days.', prev: 'ad-feed-2' },
     { ch: 'reel', fmt: 'Reel · 9:16 · 23 s', hook: 'The Long Wait, and what goes on top.', prev: 'reel-c', cap: 'The Long Wait: 45-day sharing cuts, carved at the table. Then truffle, marrow crust, foie gras, Oscar. Order early. #XXVIII #DryAged #Steakhouse #BGCEats\n[Add licensed audio in-app]' },
-    { ch: 'story', fmt: 'Story · video', hook: 'Day 25. Almost.', prev: 'story-03', cap: 'Story on the strip glide: Day 25 of 28. The first Twenty-Eights come out on Day 28, opening night.' },
+    { ch: 'story', fmt: 'Story · video', hook: 'Day 25 of 28. Still.', prev: 'story-03', cap: 'Story on the strip glide: Day 25 of 28. Twenty-five days in the glass room. They come out on Day 28, opening night.' },
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'Take your time. The Last Course.', prev: 'post-08' },
     { ch: 'ads', fmt: 'Meta ad · image + video', hook: 'Some things can\'t be hurried.', prev: 'ad-feed-3' },
     { ch: 'feed', fmt: 'Feed · 4:5 · all channels', hook: 'Opening night. Time is the finest ingredient.', prev: 'post-11' }

@@ -1,0 +1,132 @@
+[
+ {
+  "file": "ads/video/meta-video-1-feed.mp4",
+  "duration": 8.1,
+  "mb": 2.56,
+  "codec": "h264",
+  "size": "1080x1350",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "ads/video/meta-video-1-story.mp4",
+  "duration": 8.1,
+  "mb": 2.86,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "ads/video/meta-video-2-feed.mp4",
+  "duration": 8.1,
+  "mb": 3.09,
+  "codec": "h264",
+  "size": "1080x1350",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "ads/video/meta-video-2-story.mp4",
+  "duration": 8.1,
+  "mb": 3.16,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "ads/video/meta-video-3-feed.mp4",
+  "duration": 8.1,
+  "mb": 2.49,
+  "codec": "h264",
+  "size": "1080x1350",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "ads/video/meta-video-3-story.mp4",
+  "duration": 8.1,
+  "mb": 2.84,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "reels/reel-a-worth-the-wait.mp4",
+  "duration": 17.5,
+  "mb": 6.56,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "reels/reel-b-every-steak-lists-its-age.mp4",
+  "duration": 20.2,
+  "mb": 8.48,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "reels/reel-c-the-long-wait.mp4",
+  "duration": 22.3,
+  "mb": 9.89,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "stories/story-01.mp4",
+  "duration": 7.0,
+  "mb": 3.23,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "stories/story-02.mp4",
+  "duration": 7.0,
+  "mb": 1.79,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "stories/story-03.mp4",
+  "duration": 7.0,
+  "mb": 3.23,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ },
+ {
+  "file": "stories/story-04.mp4",
+  "duration": 7.0,
+  "mb": 3.4,
+  "codec": "h264",
+  "size": "1080x1920",
+  "pix": "yuv420p",
+  "fps": "30/1",
+  "audio": false
+ }
+]

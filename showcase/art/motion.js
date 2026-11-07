@@ -43,23 +43,23 @@
     'story-02': { fmt: 's', out: 'stories/story-02', segs: [{ still: 'base', d: 7, zoom: .04,
       ov: [{ part: 'poll', at: 1 }] }], still: { parts: ['base', 'poll'] } },
     'story-03': { fmt: 's', out: 'stories/story-03', segs: [{ v: 'new-york-strip', ss: .2, d: 7, p0: .44, p1: .56,
-      ov: [{ part: 'base', at: .2 }, { part: 'head', at: .6 }, { part: 'stk', at: 2.2 }] }], still: { parts: ['base', 'head', 'stk'] } },
+      ov: [{ part: 'base', at: .2 }, { part: 'n', from: 19, to: 25, at: .6, step: .3 }, { part: 'sub', at: 3.2 }] }], still: { parts: ['base', 'n', 'sub'], n: 25 } },
     'story-04': { fmt: 's', out: 'stories/story-04', segs: [{ v: 'chateaubriand-for-two', ss: .2, d: 7, p0: .38, p1: .6,
       ov: [{ part: 'base', at: .2 }, { part: 'head', at: .6 }, { part: 'link', at: 2 }] }], still: { parts: ['base', 'head', 'link'] } },
 
     'reel-a': { fmt: 's', out: 'reels/reel-a-worth-the-wait', segs: [
-      { v: 'sovereign-tomahawk', ss: .2, d: 7, p0: .28, p1: .56, ov: [{ part: 'base', at: .3 }, { part: 't1', at: .9, out: 6.2 }] },
+      { v: 'sovereign-tomahawk', ss: .2, d: 7, p0: .28, p1: .56, vt: 640, ov: [{ part: 'base', at: .3 }, { part: 't1', at: .9, out: 6.2 }] },
       { v: 'cowboy-cut', ss: .3, d: 7, p0: .36, p1: .5, ov: [{ part: 'base', at: 0 }, { part: 't2', at: .8, out: 6.3 }] },
       { end: 'end', d: 4.5 }] },
     'reel-b': { fmt: 's', out: 'reels/reel-b-every-steak-lists-its-age', segs: [
       { v: 'filet-mignon', ss: .3, d: 4.6, p0: .40, p1: .52, ov: [{ part: 'base', at: .2 }, { part: 'c1', at: .5, out: 4.2 }] },
       { v: 'new-york-strip', ss: .3, d: 4.6, p0: .42, p1: .55, ov: [{ part: 'base', at: 0 }, { part: 'c2', at: .5, out: 4.2 }] },
       { v: 'prime-ribeye', ss: .3, d: 4.6, p0: .44, p1: .56, ov: [{ part: 'base', at: 0 }, { part: 'c3', at: .5, out: 4.2 }] },
-      { v: 'porterhouse-for-two', ss: .3, d: 4.8, p0: .38, p1: .56, ov: [{ part: 'base', at: 0 }, { part: 'c4', at: .5, out: 4.4 }] },
+      { v: 'porterhouse-for-two', ss: .3, d: 4.8, p0: .38, p1: .56, vt: 700, ov: [{ part: 'base', at: 0 }, { part: 'c4', at: .5, out: 4.4 }] },
       { end: 'end', d: 3.6 }] },
     'reel-c': { fmt: 's', out: 'reels/reel-c-the-long-wait', segs: [
       { v: 'chateaubriand-for-two', ss: .2, d: 5.5, p0: .34, p1: .62, ov: [{ part: 'base', at: .3 }, { part: 'e1', at: .8, out: 5.1 }] },
-      { v: 'porterhouse-for-two', ss: .3, d: 5, p0: .40, p1: .56, ov: [{ part: 'base', at: 0 }, { part: 'e2', at: .6, out: 4.6 }] },
+      { v: 'porterhouse-for-two', ss: .3, d: 5, p0: .40, p1: .56, vt: 720, ov: [{ part: 'base', at: 0 }, { part: 'e2', at: .6, out: 4.6 }] },
       { v: 'black-truffle-shavings', ss: 1, d: 2.8, p0: .44, p1: .52, ov: [{ part: 'base', at: 0 }, { part: 'x1', at: .3, out: 2.5 }] },
       { v: 'bone-marrow-crust', ss: 1, d: 2.8, p0: .50, p1: .56, ov: [{ part: 'base', at: 0 }, { part: 'x2', at: .3, out: 2.5 }] },
       { v: 'foie-gras-crown', ss: 1, d: 2.8, p0: .44, p1: .52, ov: [{ part: 'base', at: 0 }, { part: 'x3', at: .3, out: 2.5 }] },
@@ -71,7 +71,7 @@
     plan['vad-1-' + F] = { fmt: F, id: 'vad-1', out: 'ads/video/meta-video-1-' + suf, segs: [
       { v: 'cowboy-cut', ss: .3, d: 6, p0: .36, p1: .5, ov: [{ part: 'base', at: 0 }, { part: 'h', at: .4 }, { part: 'sub', at: 1.6 }] }, { end: 'end', d: 2.6 }] };
     plan['vad-2-' + F] = { fmt: F, id: 'vad-2', out: 'ads/video/meta-video-2-' + suf, segs: [
-      { v: 'porterhouse-for-two', ss: .3, d: 6, p0: .38, p1: .56, ov: [{ part: 'base', at: 0 }, { part: 'h', at: .4 }, { part: 'sub', at: 1.6 }] }, { end: 'end', d: 2.6 }] };
+      { v: 'porterhouse-for-two', ss: .3, d: 6, p0: .38, p1: .56, vt: F === 's' ? 720 : 0, ov: [{ part: 'base', at: 0 }, { part: 'h', at: .4 }, { part: 'sub', at: 1.6 }] }, { end: 'end', d: 2.6 }] };
     plan['vad-3-' + F] = { fmt: F, id: 'vad-3', out: 'ads/video/meta-video-3-' + suf, segs: [
       { v: 'prime-ribeye', ss: .3, d: 6, p0: .44, p1: .56, ov: [{ part: 'base', at: 0 }, { part: 'h', at: .4 }, { part: 'sub', at: 1.6 }] }, { end: 'end', d: 2.6 }] };
   });
@@ -94,14 +94,15 @@
     },
     'story-03': {
       base: function (F) { return head(F, 'The ageing room'); },
-      head: function (F) { return H(F, 'Day 25.', 230, 330) + T(F, '<b>Almost.</b> The first Twenty-Eights come out on Day 28, opening night.', 560, 900); },
-      stk: function () { return '<div class="stk" style="left:72px;top:720px;width:936px;padding:30px 36px 30px"><div class="k">Opening night · Day 28</div>' +
-        '<div class="q" style="font-size:52px">Remind me</div><div class="dots28">' + dots(25, true) + '</div></div>'; }
+      n: function (F, o) { return '<div class="segs" style="left:72px;width:936px;top:340px">' + segs(o.n) + '</div>' +
+        '<div class="m-lbl" style="left:72px;top:372px;font-size:20px">Day 01</div><div class="m-lbl" style="right:72px;top:372px;font-size:20px">Day 28</div>' +
+        H(F, 'Day ' + pad(o.n) + ' <span style="font-size:.42em;color:var(--ash);word-spacing:.2em;margin-left:.1em">of 28</span>', 230, 420); },
+      sub: function (F) { return T(F, '<b>Still.</b> Twenty-five days in the glass room. They come out on Day 28, opening night.', 652, 900); }
     },
     'story-04': {
       base: function (F) { return head(F, 'Reservations'); },
       head: function (F) { return H(F, 'Tables<br>are <em>open.</em>', 190, 320); },
-      link: function (F) { return '<div class="link-chip" style="left:72px;top:712px">' + LINK + 'XXVIII.EXAMPLE/RESERVE</div>' + T(F, 'From opening night, Day 28.', 842, 900); }
+      link: function (F) { return '<div class="link-chip" style="left:72px;top:696px">' + LINK + 'XXVIII.EXAMPLE/RESERVE</div>'; }
     },
     'reel-a': {
       base: function (F) { return head(F, 'Worth the wait'); },
@@ -159,9 +160,9 @@
     ab.className = 'ab ' + (F === 'f' ? 'feed' : 'story');
     var h = '';
     if (seg.v) {
-      var iw = Math.round(D.vh * 16 / 9), p = (seg.p0 + seg.p1) / 2;
-      h += '<div class="vid" data-bg style="top:' + D.vt + 'px;height:' + D.vh + 'px"><img src="../../assets/video/' + seg.v + '-poster.webp" alt="" style="left:' + (-Math.round(p * (iw - 1080))) + 'px;width:' + iw + 'px"></div>';
-      h += '<div data-part="frame"><div class="band" style="height:' + (D.vt + 2) + 'px"></div><div class="fade-top" style="top:' + D.vt + 'px;height:' + (F === 'f' ? 220 : 300) + 'px"></div><div class="fade-bot"></div></div>';
+      var vt = seg.vt || D.vt, vh = D.h - vt, iw = Math.round(vh * 16 / 9), p = (seg.p0 + seg.p1) / 2;
+      h += '<div class="vid" data-bg style="top:' + vt + 'px;height:' + vh + 'px"><img src="../../assets/video/' + seg.v + '-poster.webp" alt="" style="left:' + (-Math.round(p * (iw - 1080))) + 'px;width:' + iw + 'px"></div>';
+      h += '<div data-part="frame"><div class="band" style="height:' + (vt + 2) + 'px"></div><div class="fade-top" style="top:' + vt + 'px;height:' + (F === 'f' ? 220 : 300) + 'px"></div><div class="fade-bot"></div></div>';
     }
     want.forEach(function (w) { if (P[key][w]) h += '<div data-part="' + w + '">' + P[key][w](F, { n: n }) + '</div>'; });
     if (!ov && seg.v) h += '<div class="grain-ab" data-bg></div>';

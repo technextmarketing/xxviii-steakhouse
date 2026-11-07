@@ -30,8 +30,8 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
 <link rel="preload" href="assets/fonts/Gloock-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/BigShoulders.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/video/cowboy-cut-poster.webp" fetchpriority="high">
-<link rel="stylesheet" href="assets/css/brand.css">
-<link rel="stylesheet" href="site/site.css">
+<link rel="stylesheet" href="assets/css/brand.css?v=3">
+<link rel="stylesheet" href="site/site.css?v=3">
 <script type="application/ld+json" id="ld-restaurant">
 {"@context":"https://schema.org","@type":"Restaurant","@id":"https://xxviii.example/#restaurant","name":"Twenty-Eight Steakhouse","alternateName":"XXVIII","url":"https://xxviii.example/","servesCuisine":"Steakhouse","priceRange":"₱₱₱₱","acceptsReservations":true,"hasMenu":"https://xxviii.example/menu/","image":"https://xxviii.example/assets/img/plated/cowboy-cut-lg.webp","logo":"https://xxviii.example/assets/logo/xxviii-primary-brass.svg","telephone":"+63 (2) 0000 0028","email":"reservations@xxviii.example","address":{"@type":"PostalAddress","streetAddress":"[Street], Bonifacio Global City","addressLocality":"Taguig","addressRegion":"Metro Manila","addressCountry":"PH"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Tuesday","https://schema.org/Wednesday","https://schema.org/Thursday"],"opens":"17:30","closes":"23:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["https://schema.org/Friday","https://schema.org/Saturday"],"opens":"17:30","closes":"00:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"12:00","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"https://schema.org/Sunday","opens":"17:30","closes":"22:00"}]}
 </script>
@@ -57,7 +57,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
 <header class="hdr" id="hdr">
   <div class="hdr__in">
     <a class="hdr__logo" href="#top" aria-label="XXVIII Twenty-Eight Steakhouse, back to top">
-      <img src="assets/logo/xxviii-horizontal-brass.svg" alt="" width="774" height="122">
+      <img src="assets/logo/xxviii-header-lit.svg" alt="" width="814" height="102">
     </a>
     <nav class="hdr__nav" aria-label="Primary">
       <ul>
@@ -92,7 +92,7 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
       <p class="label muted" data-status-short>Open tonight</p>
       <a class="link nw" data-tel href="tel:+63200000028">+63 (2) 0000 0028</a>
     </div>
-    <img class="overlay__logo" src="assets/logo/xxviii-horizontal-brass.svg" alt="" width="774" height="122">
+    <img class="overlay__logo" src="assets/logo/xxviii-header-lit.svg" alt="" width="814" height="102">
     <button class="overlay__close label" type="button">Close</button>
   </div>
 </div>
@@ -103,8 +103,9 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="hero__media" aria-hidden="true">
     <div class="hero__frame">
-      <video class="hero__video" data-vid="cowboy-cut" data-priority="hero" muted loop playsinline preload="none" disablepictureinpicture
+      <video class="hero__video is-on" data-vid="cowboy-cut" data-priority="hero" muted playsinline preload="none" disablepictureinpicture
         poster="assets/video/cowboy-cut-poster.webp" width="1920" height="1080"></video>
+      <video class="hero__video" data-vid="prime-ribeye" muted playsinline preload="none" disablepictureinpicture width="1920" height="1080"></video>
     </div>
     <div class="hero__pool"></div>
     <div class="hero__shade"></div>
@@ -123,6 +124,11 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
   </div>
   <div class="wrap hero__strip">
     <p class="hero__status label"><span class="dot" aria-hidden="true"></span><span data-status>Open tonight · 5:30 PM – 11:00 PM</span></p>
+    <div class="hero__reel" hidden>
+      <p class="hero__now label" aria-live="off"><span class="hero__now-k">On the pass</span> <span class="hero__now-n" data-now>The Twenty-Eight</span> <span class="hero__now-a" data-now-age>28 days</span></p>
+      <span class="hero__prog" aria-hidden="true"><i></i></span>
+      <button class="hero__pause" type="button" aria-pressed="false" aria-label="Pause the steak films"><span aria-hidden="true"></span></button>
+    </div>
     <a class="hero__cue label" href="#story"><span>Scroll</span><i aria-hidden="true"></i></a>
   </div>
 </section>
@@ -145,10 +151,14 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
       </div>
       <div class="story__stage" aria-hidden="true">
         <div class="story__glow"></div>
-        <div class="story__cutwrap">
-          <img class="story__cut" src="assets/img/cutout/new-york-strip-lg.webp" srcset="assets/img/cutout/new-york-strip-sm.webp 600w, assets/img/cutout/new-york-strip-lg.webp 1200w" sizes="(min-width: 900px) 46vw, 90vw" width="1200" height="804" alt="" loading="lazy" decoding="async">
+        <div class="story__win">
+          <figure class="story__shot is-on" data-word="Still" data-dish="picanha"><img src="assets/img/block/picanha-md.webp" srcset="assets/img/block/picanha-sm.webp 640w, assets/img/block/picanha-md.webp 1200w, assets/img/block/picanha-lg.webp 1920w" sizes="(min-width: 900px) 56vw, 92vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="story__shot" data-word="Cold" data-dish="new-york-strip"><img src="assets/img/block/new-york-strip-md.webp" srcset="assets/img/block/new-york-strip-sm.webp 640w, assets/img/block/new-york-strip-md.webp 1200w, assets/img/block/new-york-strip-lg.webp 1920w" sizes="(min-width: 900px) 56vw, 92vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="story__shot" data-word="Quiet" data-dish="prime-ribeye"><img src="assets/img/block/prime-ribeye-md.webp" srcset="assets/img/block/prime-ribeye-sm.webp 640w, assets/img/block/prime-ribeye-md.webp 1200w, assets/img/block/prime-ribeye-lg.webp 1920w" sizes="(min-width: 900px) 56vw, 92vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
+          <figure class="story__shot" data-word="Patient" data-dish="cowboy-cut"><img src="assets/img/block/cowboy-cut-md.webp" srcset="assets/img/block/cowboy-cut-sm.webp 640w, assets/img/block/cowboy-cut-md.webp 1200w, assets/img/block/cowboy-cut-lg.webp 1920w" sizes="(min-width: 900px) 56vw, 92vw" width="1920" height="1080" alt="" loading="lazy" decoding="async"></figure>
+          <span class="story__tag label"><b data-shot-word>Still</b><span class="story__tag-sep"></span><span data-shot-dish>Picanha</span></span>
+          <i class="story__corner story__corner--tl"></i><i class="story__corner story__corner--br"></i>
         </div>
-        <div class="story__frost"><span class="story__frost-grain"></span></div>
       </div>
     </div>
     <div class="wrap story__ruler" aria-hidden="true">
@@ -548,11 +558,11 @@ setTimeout(function(){if(!window.__xxviiiIntro){d.classList.remove('intro-on');}
   </div>
 </dialog>
 
-<script src="assets/data/xxviii.js"></script>
+<script src="assets/data/xxviii.js?v=3"></script>
 <script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/vendor/SplitText.min.js"></script>
 <script src="assets/vendor/lenis.min.js"></script>
-<script src="site/site.js"></script>
+<script src="site/site.js?v=3"></script>
 </body>
 </html>

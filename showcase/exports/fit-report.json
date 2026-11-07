@@ -334,7 +334,7 @@
   "file": "email/email-welcome.png",
   "size": [
    600,
-   1513
+   1541
   ],
   "issues": [],
   "fonts": [
@@ -349,7 +349,7 @@
   "file": "email/email-confirmation.png",
   "size": [
    600,
-   1612
+   1637
   ],
   "issues": [],
   "fonts": [
@@ -364,7 +364,7 @@
   "file": "email/email-birthday.png",
   "size": [
    600,
-   1272
+   1300
   ],
   "issues": [],
   "fonts": [

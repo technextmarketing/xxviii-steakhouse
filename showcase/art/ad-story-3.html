@@ -24,6 +24,10 @@
 .hair{position:absolute;left:72px;top:850px;width:936px;height:1px;background:var(--line);z-index:3}
 @keyframes drift{0%{transform:translateY(0) scale(1.04)}100%{transform:translateY(-40px) scale(1.04)}}
 .live .ph img{animation:drift 9s ease-in-out infinite alternate}
+
+/* safe zones: nothing in the top 250 px; Meta draws the CTA and the profile, so no logo or CTA bar */
+.ab > .logo{display:none}
+.ab > :not(.grain-ab):not(.vignette):not(.pool){translate:0 130px}
 </style>
 </head>
 <body>
