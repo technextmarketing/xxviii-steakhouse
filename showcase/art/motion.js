@@ -123,7 +123,7 @@
     'reel-a': {
       t1: function (F) { return H(F, 'Twenty-eight<br>days in the<br>ageing room.', 128, 340) + N(F, 'New York Strip · aged 28 days', 730); },
       t2: function (F) { return H(F, 'The<br>' + NB + '.', 150, 340) + N(F, 'Bone-in ribeye · aged 28 days', 650); },
-      end: function (F, o) { return end(F, 'Worth the wait.', 'Sign up · The Ageing List', 'xxviii.example/list', o); }
+      end: function (F, o) { return end(F, 'Worth the wait.', 'Join the list · The Ageing List', 'xxviii.example/#footer', o); }
     },
     'reel-b': {
       bg: function (F, o) { return '<div class="band" style="height:1920px"></div>' + letterbox(o.seg.img); },
@@ -146,19 +146,19 @@
       base: function (F) { return head(F); },
       h: function (F) { return F === 'f' ? H(F, 'Worth<br>the wait.', 88, 52) : H(F, 'Worth<br>the wait.', 160, 340); },
       sub: function (F) { return F === 'f' ? T(F, 'The first ' + NB + 's are in the ageing room.', 232, 760) : T(F, 'The first ' + NB + 's are in the ageing room.', 660, 900); },
-      end: function (F, o) { return end(F, 'The list<br>books first.', 'Sign up · The Ageing List', 'xxviii.example/list', o); }
+      end: function (F, o) { return end(F, 'The list<br>books first.', 'Join the list · The Ageing List', 'xxviii.example/#footer', o); }
     },
     'vad-2': {
       base: function (F) { return head(F); },
       h: function (F) { return F === 'f' ? H(F, 'Dinner for two<br>takes 45 days.', 92, 62) : H(F, 'Dinner for two<br>takes <em>45 days.</em>', 128, 340); },
       sub: function (F) { return F === 'f' ? T(F, '<b>Porterhouse for Two</b> · ₱9,800', 1236, 950) : T(F, '<b>Porterhouse for Two</b> · 45 days · ₱9,800', 610, 900); },
-      end: function (F, o) { return end(F, 'Book a table<br>for two.', 'xxviii.example/reserve', '', o); }
+      end: function (F, o) { return end(F, 'Book a table<br>for two.', 'xxviii.example/#reserve', '', o); }
     },
     'vad-3': {
       base: function (F) { return head(F); },
       h: function (F) { return F === 'f' ? H(F, 'Some things<br>can’t be hurried.', 88, 64) : H(F, 'Some things<br>can’t be<br>hurried.', 140, 340); },
       sub: function (F) { return F === 'f' ? T(F, '<b>Prime Ribeye</b> · aged 35 days', 1236, 950) : T(F, '<b>Prime Ribeye</b> · aged 35 days', 760, 900); },
-      end: function (F, o) { return end(F, 'Never hurried.', 'Book a table · xxviii.example/reserve', '', o); }
+      end: function (F, o) { return end(F, 'Never hurried.', 'Book a table · xxviii.example/#reserve', '', o); }
     }
   };
 

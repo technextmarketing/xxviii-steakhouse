@@ -46,6 +46,13 @@
   /* ───────── Data binding ───────── */
   $$('[data-bind]').forEach(function (n) { var v = get(n.getAttribute('data-bind')); if (typeof v === 'string') n.textContent = v; });
   var C = X.brand.contact;
+  var SEATS = C.privateSeats || 14, ENQ = C.enquiryFrom || 9;
+  var NUMW = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+  function word(n) { return NUMW[n] || String(n); }
+  $$('[data-seats-word]').forEach(function (n) { n.textContent = word(SEATS); });
+  $$('[data-enq-word]').forEach(function (n) { var w = word(ENQ); n.textContent = w.charAt(0).toUpperCase() + w.slice(1); });
+  if (C.mapsUrl) $$('[data-maps]').forEach(function (a) { a.href = C.mapsUrl; });
+  (function () { var cl = C.hours.filter(function (h) { return /^closed/i.test(h.time); }).map(function (h) { return h.days; }); var n = $('[data-closed-hint]'); if (n) n.textContent = cl.length ? 'Closed on ' + cl.join(' and ') + 's.' : ''; })();
   var telHref = 'tel:' + C.phone.replace(/[^\d+]/g, '');
   $$('[data-tel]').forEach(function (a) { a.href = telHref; if (!a.querySelector('svg') && !a.hasAttribute('data-call') && !a.classList.contains('btn')) a.textContent = C.phone; });
   $$('[data-mail]').forEach(function (a) { a.href = 'mailto:' + C.email; a.textContent = C.email; });
@@ -103,7 +110,10 @@
   /* Pre-opening: brand.contact.openingDate ('YYYY-MM-DD', placeholder null). While it is in the future the site says so. */
   var OPEN = null;
   (function () { var od = C.openingDate, m = od && String(od).match(/^(\d{4})-(\d{2})-(\d{2})$/); if (!m) return; var u = Date.UTC(+m[1], +m[2] - 1, +m[3]); if (u > NOW.utc) OPEN = { utc: u, days: Math.round((u - NOW.utc) / 864e5) }; })();
-  var ST_NOW = OPEN ? { open: false, txt: 'Opening ' + longDate(OPEN.utc) + ' · Reservations open', short: 'Opening ' + longDate(OPEN.utc) } : status();
+  /* No date yet in the preview build: never claim to be open. */
+  var PENDING = !OPEN && PREVIEW && !C.openingDate;
+  var ST_NOW = OPEN ? { open: false, txt: 'Opening ' + longDate(OPEN.utc) + ' · Reservations open', short: 'Opening ' + longDate(OPEN.utc) }
+    : PENDING ? { open: false, pending: true, txt: 'Opening soon · Date to be confirmed', short: 'Opening soon' } : status();
   $$('[data-status]').forEach(function (n) { n.textContent = ST_NOW.txt; });
   $$('[data-status-short]').forEach(function (n) { n.textContent = ST_NOW.short; });
   if (!ST_NOW.open) $$('.hero__status').forEach(function (n) { n.classList.add('is-closed'); });
@@ -343,7 +353,7 @@
   var lastGroup = null;
   /* Honesty: the 45-day sharing cuts need notice; only the single cuts are "ready tonight". */
   function statusFor(it) {
-    if (OPEN) return it.age >= 45 ? { txt: 'Order for opening', cls: 'brow__st--order' } : { txt: 'Ready on opening night', cls: '' };
+    if (OPEN || PENDING) return it.age >= 45 ? { txt: 'Order for opening', cls: 'brow__st--order' } : { txt: 'Ready on opening night', cls: '' };
     return it.age >= 45 ? { txt: 'Order early', cls: 'brow__st--order' } : { txt: 'Ready tonight', cls: '' };
   }
   boardCuts.forEach(function (c, i) {
@@ -456,7 +466,9 @@
   cardBtn.addEventListener('click', function () { cardBtn.setAttribute('aria-pressed', cardBtn.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); });
 
   /* ───────── Menu ───────── */
-  var LINE_OVERRIDE = { 'ageing-room': 'Single cuts, weighed and aged in the glass room.' };
+  var WORDS0 = ['None', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+  var LINE_OVERRIDE = {};
+  (function () { var a = section('ageing-room'); if (a) LINE_OVERRIDE['ageing-room'] = (WORDS0[a.items.length] || a.items.length) + ' single cuts, each tagged with its day.'; })();
   var M0 = Math.max(0, X.menu.map(function (s) { return s.id; }).indexOf('ageing-room'));
   var tabsBox = $('[data-menu-tabs]'), panelsBox = $('[data-menu-panels]'), mTabs = [], mPanels = [];
   var ink = el('span', { class: 'menu__ink', 'aria-hidden': 'true' });
@@ -661,7 +673,7 @@
   $('[data-drinks]').innerHTML = X.drinks.filter(function (k) { return !k.house; }).map(function (k) {
     return '<li><b>' + esc(k.name) + (k.house ? ' <em>House</em>' : '') + '</b><span class="price">' + peso(k.price) + '</span><p>' + esc(k.desc) + '</p></li>';
   }).join('');
-  var VALUE_LINE = { Honesty: 'The menu tells you how many days each steak has aged.' };
+  var VALUE_LINE = {};
   $('[data-values]').innerHTML = X.brand.values.map(function (v, i) {
     var pic = ''; /* client, 8 Nov: no image on the values; the open kitchen stays in The room */
     return '<li class="value' + (i === 0 ? ' is-open' : '') + '"><span class="value__word"><span class="value__w">' + esc(v.name) + '</span></span><div class="value__aside">' + pic + '<p class="value__line">' + esc(VALUE_LINE[v.name] || v.line) + '</p></div></li>';
@@ -711,14 +723,14 @@
     g.innerHTML = h;
   })();
   var soc = $$('[data-social] span');
-  [C.instagram, C.facebook, C.tiktok].forEach(function (hnd, i) { if (soc[i]) soc[i].title = hnd + ' (to be confirmed)'; });
+  [C.instagram, C.facebook, C.tiktok].forEach(function (hnd, i) { if (soc[i]) { soc[i].textContent = ['Instagram', 'Facebook', 'TikTok'][i] + ' · ' + hnd + (PREVIEW ? ' (soon)' : ''); soc[i].title = hnd + (PREVIEW ? ' (to be confirmed)' : ''); } });
 
   /* ───────── Booking widget ───────── */
   var form = $('[data-form]'), datesBox = $('[data-dates]'), timesBox = $('[data-times]'), partyOut = $('[data-party]');
   var occ = $('#bk-occasion'), party = 2, chosenUTC = null, submitBtn = $('[data-submit]');
   var SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], MSHORT = MONTHS.map(function (m) { return m.slice(0, 3); });
-  function isEnquiry() { return occ.value === 'Private dining' || party >= 9; }
-  function syncSubmit() { submitBtn.firstChild.nodeValue = isEnquiry() ? 'Send the enquiry ' : 'Hold my table '; }
+  function isEnquiry() { return occ.value === 'Private dining' || party >= ENQ; }
+  function syncSubmit() { submitBtn.firstChild.nodeValue = isEnquiry() ? 'Send the enquiry ' : (PREVIEW ? 'Request my table ' : 'Hold my table '); }
   function slotsFor(utc) {
     var info = dayInfo(utc), h = HOURS[info.wd], out = [];
     if (!h) return out;
@@ -730,7 +742,7 @@
   for (var di = 0; di < 30; di++) {
     var utc = (OPEN ? OPEN.utc : NOW.utc) + di * 864e5, inf = dayInfo(utc), sl = slotsFor(utc), closed = !sl.length;
     var lab = el('label', { class: 'chipr' });
-    var inp = el('input', { type: 'radio', name: 'date', value: inf.y + '-' + pad(inf.m + 1) + '-' + pad(inf.d), 'aria-label': longDate(utc) + (closed ? (inf.wd === 1 ? ', closed' : ', no tables left') : '') });
+    var inp = el('input', { type: 'radio', name: 'date', value: inf.y + '-' + pad(inf.m + 1) + '-' + pad(inf.d), 'aria-label': longDate(utc) + (closed ? (HOURS[inf.wd] ? ', no more seatings' : ', closed') : '') });
     inp.dataset.utc = utc; if (closed) inp.disabled = true;
     lab.appendChild(inp);
     lab.appendChild(el('span', { 'aria-hidden': 'true' }, '<small>' + (di === 0 && !OPEN ? 'Today' : SHORT[inf.wd]) + '</small><b>' + inf.d + '</b><small>' + MSHORT[inf.m] + '</small>'));
@@ -743,7 +755,7 @@
     $('[data-time-for]').textContent = '· ' + longDate(chosenUTC);
     timesBox.innerHTML = sl.length ? sl.map(function (t) {
       return '<label class="tslot"><input type="radio" name="time" value="' + t + '" aria-describedby="err-time"><span>' + fmt(t) + '</span></label>';
-    }).join('') : '<p class="bk-times__none">No tables left on this day.</p>';
+    }).join('') : '<p class="bk-times__none">No more seatings on this day. Please choose another.</p>';
     timeErr(false);
     if (MOTION) G.fromTo($$('.tslot', timesBox), { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: .6, ease: 'expo.out', stagger: .02 });
   }
@@ -752,9 +764,9 @@
   if (firstOpen) { firstOpen.checked = true; chosenUTC = +firstOpen.dataset.utc; renderTimes(); }
   var stepBtns = $$('[data-step]');
   function setParty(n) {
-    party = Math.max(1, Math.min(14, n)); partyOut.textContent = party;
-    stepBtns[0].disabled = party <= 1; stepBtns[1].disabled = party >= 14;
-    var note = $('[data-private-note]'), show = party >= 9 && occ.value !== 'Private dining';
+    party = Math.max(1, Math.min(SEATS, n)); partyOut.textContent = party;
+    stepBtns[0].disabled = party <= 1; stepBtns[1].disabled = party >= SEATS;
+    var note = $('[data-private-note]'), show = party >= ENQ && occ.value !== 'Private dining';
     if (show && note.hidden && MOTION) { note.hidden = false; G.fromTo(note, { autoAlpha: 0, y: -8 }, { autoAlpha: 1, y: 0, duration: .6, ease: 'expo.out' }); }
     else note.hidden = !show;
     syncSubmit();
@@ -764,13 +776,13 @@
   $('[data-make-private]').addEventListener('click', function () { occ.value = 'Private dining'; setParty(party); occ.focus(); });
   setParty(2);
   $('[data-private-enquire]').addEventListener('click', function () {
-    occ.value = 'Private dining'; setParty(party < 9 ? 10 : party);
+    occ.value = 'Private dining'; setParty(party < ENQ ? ENQ + 1 : party);
     scrollToEl($('#reserve'), function () { occ.focus({ preventScroll: true }); });
   });
   var rules = {
     'bk-name': function (v) { return v.trim().length >= 2 ? '' : 'Please tell us the name for the booking.'; },
-    'bk-phone': function (v) { var dg = v.replace(/\D/g, ''); if (!v.trim()) return 'Please add a phone number, in case we need to reach you.'; return /^[+()\d\s.\-]+$/.test(v.trim()) && dg.length >= 7 && dg.length <= 15 ? '' : 'Use digits only, with at least 7 of them.'; },
-    'bk-email': function (v) { if (!v.trim()) return 'Please add an email address for the confirmation.'; return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'That email address looks incomplete. Check the part after the @.'; }
+    'bk-phone': function (v) { var dg = v.replace(/\D/g, ''); if (!v.trim()) return 'Please add a phone number, in case we need to reach you.'; return /^[+()\d\s.\-]+$/.test(v.trim()) && dg.length >= 7 && dg.length <= 15 ? '' : 'Use at least 7 digits. Spaces, + and brackets are fine.'; },
+    'bk-email': function (v) { if (!v.trim()) return (PREVIEW ? 'Please add an email address so we can reply.' : 'Please add an email address for the confirmation.'); return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'That email address looks incomplete. Check the part after the @.'; }
   };
   function check(id) {
     var inp = d.getElementById(id), msg = rules[id](inp.value), err = d.getElementById('err-' + id.slice(3));
@@ -794,8 +806,8 @@
     var rows = [['Date', longDate(booking.utc)], ['Time', fmt(booking.min)], [enq ? 'Party' : 'Guests', booking.party + (booking.party === 1 ? ' guest' : ' guests')], ['Name', booking.name]];
     if (booking.occasion !== 'None') rows.splice(3, 0, ['Occasion', booking.occasion]);
     $('[data-summary]').innerHTML = rows.map(function (r) { return '<dt class="label">' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('');
-    $('[data-done-title]').textContent = enq ? 'Your enquiry is with us' : 'Your table is held';
-    var note = $('[data-done-note]'); note.hidden = !enq; note.textContent = enq ? 'We’ll call you within a day to confirm the room.' : '';
+    $('[data-done-title]').textContent = enq ? 'Your enquiry is noted' : (PREVIEW ? 'Your request is noted' : 'Your table is held');
+    var note = $('[data-done-note]'); note.hidden = !enq; note.textContent = enq ? 'The team will contact you to confirm the room.' : '';
     $('[data-ics]').hidden = enq; $('[data-call]').hidden = !enq;
     $('[data-again]').textContent = enq ? 'Change the enquiry' : 'Change the booking';
     var done = $('[data-done]');
@@ -812,7 +824,7 @@
       'UID:' + start + '-' + Math.random().toString(36).slice(2) + '@' + C.web, 'DTSTAMP:' + icsTime(Date.now()), 'DTSTART:' + icsTime(start), 'DTEND:' + icsTime(end),
       'SUMMARY:' + icsEsc('Dinner at Twenty-Eight (XXVIII), table for ' + booking.party),
       'LOCATION:' + icsEsc(C.street + ', ' + C.area),
-      'DESCRIPTION:' + icsEsc('Table for ' + booking.party + (booking.occasion !== 'None' ? ' · ' + booking.occasion : '') + '. ' + C.phone + '. Preview build: this booking was not sent.'),
+      'DESCRIPTION:' + icsEsc('Table for ' + booking.party + (booking.occasion !== 'None' ? ' · ' + booking.occasion : '') + '. ' + C.phone + '.' + (PREVIEW ? ' Preview build: this request was not sent. Call to confirm.' : '')),
       'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
     var url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
     var a = el('a', { href: url, download: 'xxviii-table-' + new Date(booking.utc).toISOString().slice(0, 10) + '.ics' });
@@ -824,14 +836,14 @@
     e.preventDefault();
     var inp = $('#news-email'), msg = $('#news-msg'), ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(inp.value.trim());
     inp.setAttribute('aria-invalid', ok ? 'false' : 'true'); msg.classList.toggle('is-err', !ok);
-    msg.textContent = ok ? 'You are on the Ageing List. We will write when a cut reaches its day.' : (inp.value.trim() ? 'That email address looks incomplete.' : 'Add your email address to join.');
+    msg.textContent = ok ? (PREVIEW ? 'Thank you. The list opens at launch; we will keep your place.' : 'You are on the Ageing List. We will write when a cut reaches its day.') : (inp.value.trim() ? 'That email address looks incomplete.' : 'Add your email address to join.');
     if (ok) { inp.value = ''; inp.blur(); } else inp.focus();
   });
 
   /* ───────── Hooks for the "Ask the host" chat (site/chat.js) ───────── */
   window.XXSite = {
     now: NOW, open: OPEN, hours: HOURS, fmt: fmt, longDate: longDate, slotsFor: slotsFor,
-    status: function () { return ST_NOW; },
+    status: function () { return ST_NOW; }, pending: PENDING, preview: PREVIEW, seats: SEATS, enquiryFrom: ENQ,
     go: function (id) { var t = d.getElementById(id); if (t) scrollToEl(t); },
     showSection: function (id) {
       var i = X.menu.map(function (s) { return s.id; }).indexOf(id); if (i < 0) return false;

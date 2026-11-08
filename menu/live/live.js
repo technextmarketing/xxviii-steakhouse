@@ -191,7 +191,7 @@
   // running head + folio: the furniture of a printed menu
   const RH = (l, r) => `<div class="rh" aria-hidden="true"><span>${esc(l)}</span><span>${esc(r)}</span></div>`;
   // PLACEHOLDER wording (VAT / service charge) to be confirmed by the owner, as on "Good to know"
-  const FO = n => `<div class="fo"><span class="fo__t">Prices in PHP · VAT inclusive · 10% service charge · Tell us about any allergy</span><b aria-hidden="true">${String(n).padStart(2, '0')}</b></div>`;
+  const FO = n => `<div class="fo"><span class="fo__t">Prices in PHP · Service charge and VAT to be confirmed · Tell us about any allergy</span><b aria-hidden="true">${String(n).padStart(2, '0')}</b></div>`;
   const HD = (no, name, line, cls = '') => `<header class="hd ${cls}"><h2 class="hd__t">${no ? `<span class="hd__no">${no}</span>` : ''}${esc(name)}</h2>${line ? `<p class="hd__l">${esc(line)}</p>` : ''}</header>`;
   // a dish: its picture first, then a place card (name, price, line)
   // names never break badly: a non-breaking hyphen in "Twenty-Eight", and short names (<= 14 letters) kept on one line
@@ -389,9 +389,9 @@
     R: n => { const priv = (C.capacity.match(/private room for (\d+)/) || [])[1]; return `<div class="pg-in know">${RH('Good to know', 'Twenty-Eight')}
       <figure class="know__door">${pic(X.interior('entrance-host-stand', 'lg'), 'know__im', 'The host stand by the door')}</figure>
       <div class="know__g">
-        <section><h3 class="sub">Prices</h3><!-- PLACEHOLDER: VAT, service-charge and discount wording to be confirmed by the owner --><p>Prices in Philippine peso, inclusive of VAT and subject to a 10% service charge. Senior citizen and PWD discounts as required by law.</p></section>
+        <section><h3 class="sub">Prices</h3><!-- PLACEHOLDER: VAT, service-charge and discount wording to be confirmed by the owner --><p>Prices in Philippine peso. Service charge and VAT to be confirmed. Senior citizen and PWD discounts as required by law.</p></section>
         <section><h3 class="sub">Allergies</h3><p>Tell us about any allergy before you order. Our kitchen handles nuts, gluten, dairy, eggs, fish and shellfish. Raw and lightly cooked dishes may increase the risk of food-borne illness.</p>
-          <p class="key"><span class="mk"><i>V</i></span> Vegetarian <span class="mk"><i>GF</i></span> Gluten-free <em>(marks to be confirmed by the kitchen)</em></p></section>
+          <p class="key"><span class="mk"><i>V</i></span> Vegetarian <span class="mk"><i>GF</i></span> Gluten-free <em>(dietary marks to be confirmed)</em></p></section>
         <section class="know__priv"><figure>${pic(X.interior('private-dining-room', 'md'), 'know__pim', 'The private dining room')}</figure><div><h3 class="sub">Private dining</h3><p>${priv ? `A private room for up to ${priv} guests, with the same unhurried evening.` : 'A private room for a long table.'} Ask when you book.</p></div></section>
         <section><h3 class="sub">Hours</h3><dl class="hours">${C.hours.map(h => `<dt>${esc(h.days)}</dt><dd>${esc(h.time)}</dd>`).join('')}</dl></section>
         <section class="know__res"><h3 class="sub">Reservations</h3><p>${esc(C.phone)} · ${esc(C.email)}<br>${esc(C.street)}, ${esc(C.area)}</p>
@@ -619,7 +619,7 @@
   const MOB = () => {
     const frag = h => { const t = document.createElement('template'); t.innerHTML = h; return t.content; };
     const from = (html, sel) => { const e = frag(html).querySelector(sel); return e ? e.outerHTML : ''; };
-    const NOTE = '<p class="m-note">Prices in PHP · VAT inclusive · 10% service charge · Tell us about any allergy</p>';
+    const NOTE = '<p class="m-note">Prices in PHP · Service charge and VAT to be confirmed · Tell us about any allergy</p>';
     const hd = (no, name, line, tag = 'h2') => `<header class="m-hd">${no ? `<span class="m-no">${no}</span>` : ''}<${tag} class="m-t">${esc(name)}</${tag}>${line ? `<p class="m-l">${esc(line)}</p>` : ''}</header>`;
     const hero = (src, alt, pos = '50% 50%', cls = '') => `<figure class="m-hero ${cls}">${pic(src, 'm-im', alt, ` style="object-position:${pos}"`)}</figure>`;
     // a dish: its photograph (plated at the table, cropped to the plate; or on the board), then the name, price, description

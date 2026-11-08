@@ -1020,7 +1020,7 @@
         if (id === 'notes') {
           const C = X.brand.contact;
           // PLACEHOLDER: VAT / service-charge wording to be confirmed by the owner (same as the printed page)
-          h += `<dl class="li-notes"><dt>Prices</dt><dd>Prices in Philippine peso, inclusive of VAT and subject to a 10% service charge.</dd>
+          h += `<dl class="li-notes"><dt>Prices</dt><dd>Prices in Philippine peso. Service charge and VAT to be confirmed.</dd>
             <dt>Allergies</dt><dd>Please tell us about any allergy or dietary need before you order.</dd>
             <dt>Hours</dt><dd>${C.hours.map(x => `${esc(x.days)}: ${esc(x.time)}`).join('<br>')}</dd>
             <dt>Reservations</dt><dd>${esc(C.phone)}<br>${esc(C.email)}</dd><dt>Find us</dt><dd>${esc(C.street)}<br>${esc(C.area)}</dd></dl>`;

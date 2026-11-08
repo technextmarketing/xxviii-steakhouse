@@ -23,7 +23,7 @@ CTA = '''
     <div class="say ctav-say">
       <div class="say-head"><span class="label">We say</span><span class="label">We don’t say</span></div>
       <ul class="say-list">
-        <li><p>Book a table for this cut.</p><p>Book now!</p></li>
+        <li><p>Book a table for this cut.</p><p>Book a table</p></li>
         <li><p>Start the evening with Patience.</p><p>Grab a drink before it’s gone.</p></li>
         <li><p>Book an unhurried dinner.</p><p>Reserve fast, tables are filling up.</p></li>
         <li><p>Pre-order a 45-day cut.</p><p>Limited stock, order today.</p></li>
@@ -115,7 +115,7 @@ rep('''<label class="check"><input type="checkbox" checked><span class="clear-bo
         <figure class="dk-chat">
           <div class="chm"><div class="chm-top"><img src="../assets/logo/xxviii-monogram-avatar.svg" alt="" width="30" height="30"><div><b>Ask the host</b><span>Replies in a moment · not a booking line</span></div></div>
             <p class="chm-you">how long is the ribeye aged</p>
-            <div class="chm-host"><p>Our Prime Ribeye is aged 35 days. 400 g, ₱4,800. The richest cut on the board.</p><div class="chm-card"><img src="../assets/img/plated/prime-ribeye-sm.webp" alt="" width="420" height="420" loading="lazy"><div><span class="age-tag">Aged <b>35</b> days</span><span class="chm-btns"><span>Reserve</span><span>See it on the menu</span></span></div></div></div>
+            <div class="chm-host"><p>Our Prime Ribeye is aged 35 days. 400 g, ₱4,600. The richest cut on the board.</p><div class="chm-card"><img src="../assets/img/plated/prime-ribeye-sm.webp" alt="" width="420" height="420" loading="lazy"><div><span class="age-tag">Aged <b>35</b> days</span><span class="chm-btns"><span>Reserve</span><span>See it on the menu</span></span></div></div></div>
             <div class="chm-chips"><span>The Twenty-Eight</span><span>Book a table</span><span>Sauces</span></div></div>
           <figcaption><b>The host, in chat</b><span>The house voice, typed: calm, exact, no exclamation marks. Every answer shows a photo, a film or a button. When it doesn’t know, it says so and offers the phone.</span></figcaption>
         </figure>

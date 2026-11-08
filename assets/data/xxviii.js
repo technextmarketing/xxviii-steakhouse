@@ -68,8 +68,11 @@ window.XXVIII = {
         { days: 'Monday', time: 'Closed. The beef rests, and so do we.' }
       ],
       capacity: '84 covers · private room for 14',
+      privateSeats: 14,      /* the private room's one long table; also the largest booking the form takes */
+      enquiryFrom: 9,        /* parties this size or larger become a private-room enquiry */
+      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Bonifacio+Global+City+Taguig',
       /* PLACEHOLDER (owner to confirm): opening night as 'YYYY-MM-DD'. While it is set and in the future, the website shows
-         'Opening <date> · Reservations open' instead of live opening hours. null = the restaurant is open. */
+         'Opening <date> · Reservations open' instead of live opening hours. null = no date yet: in the preview build the site says 'Opening soon'; after launch (PREVIEW false) null = open. */
       openingDate: null
     },
     placeholders: ['Street address', 'Phone', 'Email and domain (.example)', 'Social handles', 'Opening hours', 'Capacity and private room size', 'All prices (indicative PHP)', 'Steak weights and ageing days per cut', 'Opening year MMXXVI', 'Name clearance: IPOPHL / DTI (PH), ACRA (SG), domain, handles']

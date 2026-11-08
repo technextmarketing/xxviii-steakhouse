@@ -66,6 +66,7 @@ def tidy(line):
     line = re.sub(r"\b(?:[^\W\d_] ){2,}[^\W\d_]\b", lambda m: m.group(0).replace(" ", ""), line)
     line = re.sub(r"(?<=[^\W\d_])(?=\d)|(?<=\d)(?=[^\W\d_]{2})", " ", line)
     line = re.sub(r"\b([^\W\d_]{2,})\b", lambda m: m.group(1).capitalize() if m.group(1).isupper() and not re.fullmatch(r"[IVXLC]+", m.group(1)) else m.group(1), line)
+    line = re.sub(r"(\d{1,2}:\d{2}) (Am|Pm)", lambda m: m.group(1) + " " + m.group(2).upper(), line)
     return re.sub(r"[ ]{2,}", " ", line).strip()
 
 

@@ -11,7 +11,7 @@
   var C = X.brand.contact;
   var TEL = 'tel:' + C.phone.replace(/[^\d+]/g, '');
   var MAIL = 'mailto:' + C.email;
-  var MAPS = 'https://www.google.com/maps/search/?api=1&query=Bonifacio+Global+City+Taguig';
+  var MAPS = (window.XXVIII && XXVIII.brand.contact.mapsUrl) || 'https://www.google.com/maps/search/?api=1&query=Bonifacio+Global+City+Taguig';
   var MENU_BOOK = 'menu/index.html', MENU_PDF = 'menu/out/xxviii-menu.pdf';
   function S() { return window.XXSite || null; }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -271,6 +271,17 @@
     }) };
   }
   function mapCard() { return { type: 'map', img: interior('entrance-host-stand', 'sm'), street: C.street, area: C.area, buttons: [btn('Get directions', 'href', MAPS, 'solid'), bCall()] }; }
+  function numWord(n) { return ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'][n] || String(n); }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  /* earliest and latest seating each day, from the hours in the data */
+  function seatRange() {
+    var site = S(); if (!site || !site.hours) return '';
+    var DN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], seen = {}, out = [];
+    for (var wd = 0; wd < 7; wd++) { var h = site.hours[wd]; if (!h || !h.sessions.length) continue; var s = []; h.sessions.forEach(function (x) { for (var q = x.o; q <= x.c - 90; q += 30) s.push(q); }); if (!s.length) continue;
+      var k = site.fmt(s[0]) + ' to ' + site.fmt(s[s.length - 1]); if (h.sessions.length > 1) k = h.sessions.map(function (x) { return site.fmt(x.o) + ' to ' + site.fmt(x.c - 90); }).join(' and '); (seen[k] = seen[k] || []).push(DN[wd]); }
+    Object.keys(seen).forEach(function (k) { var d = seen[k]; out.push((d.length > 2 ? d[0] + ' to ' + d[d.length - 1] : d.join(' and ')) + ' ' + k); });
+    return out.length ? ': ' + out.join('; ') : '';
+  }
   function statusTxt() { var st = S() && S().status(); return st ? st.txt : ''; }
   function list(names) { return names.length < 2 ? names.join('') : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1]; }
   function unknown(topic, extra) {
@@ -299,7 +310,7 @@
   }
   function aSteaks() {
     var ages = STEAKS.map(function (x) { return x.it.age; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).sort(function (a, b) { return a - b; });
-    return { intent: 'steaks', text: 'Every steak lists its age: ' + list(ages.map(String)) + ' days. Five single cuts in the ageing room, and three ' + ages[ages.length - 1] + '-day cuts to share.',
+    return { intent: 'steaks', text: 'Every steak lists its age: ' + list(ages.map(String)) + ' days. ' + cap(numWord(STEAKS.filter(function (x) { return x.it.age < 45; }).length)) + ' single cuts in the ageing room, and ' + numWord(STEAKS.filter(function (x) { return x.it.age >= 45; }).length) + ' ' + ages[ages.length - 1] + '-day cuts to share.',
       cards: [carousel(STEAKS, 'The steaks')], chips: ['The Twenty-Eight', 'Which steaks are 45 days?', 'Cheapest steak', 'Ribeye or strip?', 'Book a table'] };
   }
   function aCompare(a, b) {
@@ -387,13 +398,14 @@
       prefill: null, chips: ['Book a table', 'See the steaks', 'House cocktail'] };
   }
   function aMenu() {
-    return { intent: 'menu', text: 'Eight courses of choice, from Day One to the Last Course. Prices in Philippine pesos.', cards: [buttons(SECTIONS.map(function (s) { return btn(s.name, 'ask', s.name); })), buttons([bMenuBook(), btn('Download the menu (PDF)', 'href', MENU_PDF)])],
+    return { intent: 'menu', text: cap(numWord(SECTIONS.length)) + ' sections, from ' + SECTIONS[0].name + ' to ' + SECTIONS[SECTIONS.length - 1].name + '. Prices in Philippine pesos.', cards: [buttons(SECTIONS.map(function (s) { return btn(s.name, 'ask', s.name); })), buttons([bMenuBook(), btn('Download the menu (PDF)', 'href', MENU_PDF)])],
       chips: ['See the steaks', 'Desserts', 'House cocktail'] };
   }
   function aMenuBook() { return { intent: 'menubook', text: 'The menu book turns like the printed menu, and there is a PDF to keep.', cards: [imageCard(img('cowboy-cut', 'plated', 'sm'), 'The Twenty-Eight'), buttons([btn('Open the menu book', 'href', MENU_BOOK, 'solid'), btn('Download the menu (PDF)', 'href', MENU_PDF)])], chips: ['See the steaks', 'Book a table'] }; }
   function aOpening() {
     var op = S() && S().open;
     if (op) return { intent: 'opening', text: 'We open on ' + S().longDate(op.utc) + ', and reservations are open now. The first Twenty-Eights come out on opening night.', cards: [buttons([bReserve({ utc: op.utc })])], chips: ['See the steaks', 'Where are you?'] };
+    if (S() && S().pending) return { intent: 'opening', text: 'Our opening date is still to be confirmed. Planned hours are below; the team will confirm before you book.', cards: [hoursCard(), buttons([bReserve()])], chips: ['See the steaks', 'Where are you?'] };
     return { intent: 'opening', text: 'We are open. ' + statusTxt() + '.', cards: [hoursCard(), buttons([bReserve()])], chips: ['Book a table', 'See the steaks'] };
   }
   function aGroup(P, o) {
@@ -418,7 +430,7 @@
       else if (o.min != null && sl.indexOf(o.min) < 0) { warn = (sl.length ? 'Seatings that day run from ' + site.fmt(sl[0]) + ' to ' + site.fmt(sl[sl.length - 1]) : 'There are no more seatings that day') + ', so I have left the time for you to pick. '; o.min = null; }
     } else if (o.min != null && site) {
       var ok = false; for (var dd = 0; dd < 7; dd++) if (allSlots(dd).indexOf(o.min) >= 0) ok = true;
-      if (!ok) { warn = site.fmt(o.min) + ' is outside our seatings: from 5:30 PM (12:00 PM on Sunday) to 10:30 PM. I have left the time for you to pick. '; o.min = null; }
+      if (!ok) { warn = site.fmt(o.min) + ' is outside our seatings' + seatRange() + '. I have left the time for you to pick. '; o.min = null; }
     }
     if (p) parts.push(p + (p === 1 ? ' guest' : ' guests'));
     if (o.utc != null && site) parts.push(site.longDate(o.utc));
@@ -468,7 +480,7 @@
   function greet() {
     var h = S() && S().now ? Math.floor(S().now.min / 60) : new Date().getHours();
     var g = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
-    return { intent: 'greeting', text: g + '. I am the host at Twenty-Eight. Ask me about the steaks and their ages, the hours, or a table. ' + statusTxt() + '.',
+    return { intent: 'greeting', text: g + '. I am the website’s host assistant for Twenty-Eight. Ask me about the steaks and their ages, the hours, or a table. ' + statusTxt() + '.',
       cards: [buttons([btn('See the steaks', 'ask', 'See the steaks', 'solid'), bReserve(), bMenuBook()])], chips: MAIN_CHIPS };
   }
   function fallback(P) {
@@ -588,6 +600,10 @@
   try { if (!sessionStorage.getItem('xx-chat-cue')) setTimeout(function () { if (!panel || panel.hidden) { launcher.classList.add('is-cue'); try { sessionStorage.setItem('xx-chat-cue', '1'); } catch (e) { } setTimeout(function () { launcher.classList.remove('is-cue'); }, 2600); } }, 8000); } catch (e) { }
   /* 8 Nov mobile audit: tuck the dock away whenever it would sit on a button, a form field or a date/time chip */
   var tucking = false, HIT = 'a.btn, button.btn, input, select, textarea, label.chipr, label.tslot, .stepper, .bk-context, .booking__next a, .chip, .reel__toggle';
+  (function () {
+    var hero = document.querySelector('.hero'); if (!hero || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) { es.forEach(function (e) { var dk = document.querySelector('.xxdock'); if (dk) dk.classList.toggle('is-hero', e.intersectionRatio > .45); }); }, { threshold: [0, .45, 1] }).observe(hero);
+  })();
   function tuckCheck() {
     tucking = false;
     if (panel && !panel.hidden) { dock.classList.remove('is-tuck'); return; }
@@ -628,7 +644,7 @@
     panel.className = 'xxchat'; panel.id = 'xxchat'; panel.hidden = true; panel.setAttribute('data-lenis-prevent', '');
     panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-labelledby', 'xxchat-title');
     panel.innerHTML = '<header class="xxchat__head"><img class="xxchat__mono" src="assets/logo/xxviii-monogram-brass.svg" alt="" width="512" height="512">' +
-      '<div><h2 class="xxchat__title" id="xxchat-title">Ask the host</h2><p class="xxchat__sub">Replies in a moment · not a booking line</p></div>' +
+      '<div><h2 class="xxchat__title" id="xxchat-title">Ask the host</h2><p class="xxchat__sub">Answers from this website · bookings go through the form</p></div>' +
       '<button class="xxchat__close" type="button" aria-label="Close the chat"><span aria-hidden="true"></span></button></header>' +
       '<div class="xxchat__logwrap"><div class="xxchat__log" role="log" aria-live="off" tabindex="0" aria-label="Conversation"></div><button class="xxchat__new" type="button" hidden>New reply <span aria-hidden="true">↓</span></button></div>' +
       '<p class="sr-only" aria-live="polite" data-xx-say></p>' +

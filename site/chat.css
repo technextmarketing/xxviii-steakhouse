@@ -77,7 +77,7 @@
 .xxdish__name { font: 400 1.35rem/1.18 var(--f-display); margin: 0; padding-bottom: .06em; }
 .xxdish__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font: 600 .82rem/1.2 var(--f-label); letter-spacing: .08em; color: var(--ash); }
 .xxdish__meta .price { font-size: 1rem; }
-.xxdish__meta .age-tag { font-size: .72rem; }
+.xxdish__meta .age-tag { font-size: .75rem; }
 .xxdish__desc { color: var(--ash) !important; font-size: .9rem !important; }
 .xxmap__addr { color: var(--bone-2); }
 .xximgcard figcaption, .xxvidcard figcaption { padding: 10px 14px 12px; font-size: .88rem; color: var(--ash); line-height: 1.45; }
@@ -141,29 +141,29 @@
 .xxdish__body { padding: 9px 11px 11px; gap: 6px; }
 .xxdish__sec { font-size: .6rem; }
 .xxdish__name { font-size: 1.08rem; }
-.xxdish__meta { font-size: .72rem; gap: 4px 10px; }
+.xxdish__meta { font-size: .75rem; gap: 4px 10px; }
 .xxdish__meta .price { font-size: .86rem; }
-.xxdish__meta .age-tag { font-size: .62rem; }
+.xxdish__meta .age-tag { font-size: .75rem; }
 .xxdish__desc { font-size: .8rem !important; }
 .xximg { aspect-ratio: 16 / 10; }
 .xximgcard figcaption, .xxvidcard figcaption { padding: 7px 11px 9px; font-size: .78rem; }
 .xxbtns { gap: 6px; }
-.xxbtn { min-height: 34px; padding: 0 11px; font-size: .64rem; letter-spacing: .14em; }
+.xxbtn { min-height: 34px; padding: 0 11px; font-size: .75rem; letter-spacing: .14em; }
 .xxcar__title { font-size: .6rem !important; margin-bottom: 6px; }
 .xxcar__row { margin: 0 -12px; padding: 2px 12px 4px; grid-auto-columns: 112px; gap: 8px; scroll-padding-inline: 12px; }
 .xxcar__item { gap: 4px; padding-bottom: 7px; }
 .xxcar__img { aspect-ratio: 4 / 3; }
 .xxcar__name { font-size: .84rem; padding: 0 8px; }
-.xxcar__meta { font-size: .62rem; padding: 0 8px; }
+.xxcar__meta { font-size: .75rem; padding: 0 8px; }
 .xxhours th, .xxhours td { padding: 6px 10px; font-size: .78rem; }
-.xxhours th { font-size: .62rem; }
+.xxhours th { font-size: .75rem; }
 /* chips: one quiet scrolling row instead of two crowded lines */
 .xxchat__chips { flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding: 7px 12px; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
 .xxchip { min-height: 30px; padding: 0 10px; font-size: .76rem; }
 .xxchat__form { grid-template-columns: 1fr 40px; gap: 6px; padding: 4px 12px 8px; }
 .xxchat__in { min-height: 40px; padding: 9px 12px; font-size: .86rem; }
 .xxchat__send { width: 40px; height: 40px; }
-.xxchat__foot { padding: 0 12px 8px; font-size: .64rem; line-height: 1.35; }
+.xxchat__foot { padding: 0 12px 8px; font-size: .75rem; line-height: 1.35; }
 @media (pointer: coarse) { .xxchip { min-height: 38px; } .xxbtn { min-height: 40px; } .xxchat__close, .xxchat__send { width: 44px; height: 44px; } .xxchat__head { grid-template-columns: 30px 1fr 44px; } .xxchat__form { grid-template-columns: 1fr 44px; } .xxchat__in { min-height: 44px; } }
 
 /* ───────── fix round (8 Nov audit): scroll, targets, legibility ───────── */
@@ -172,11 +172,11 @@
 .xxchat__log { min-height: 0; overscroll-behavior: contain; }
 .xxchat__log:focus-visible { outline: 2px solid var(--brass); outline-offset: -2px; }
 .xxchat__new { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); min-height: 36px; padding: 0 14px; border: 1px solid var(--brass); background: var(--char-2); color: var(--brass-hi); cursor: pointer;
-  font: 600 .72rem/1 var(--f-label); letter-spacing: .14em; text-transform: uppercase; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .9); }
+  font: 600 .75rem/1 var(--f-label); letter-spacing: .14em; text-transform: uppercase; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .9); }
 .xxchat__new[hidden] { display: none; }
-.xxchat__sub, .xxdish__sec, .xxcar__title, .xxcar__meta, .xxhours th, .xxdish__meta .age-tag { font-size: .7rem !important; }
-.xxbtn { font-size: .7rem; min-height: 36px; }
-.xxchat__foot { font-size: .7rem; }
+.xxchat__sub, .xxdish__sec, .xxcar__title, .xxcar__meta, .xxhours th, .xxdish__meta .age-tag { font-size: .75rem !important; }
+.xxbtn { font-size: .75rem; min-height: 36px; }
+.xxchat__foot { font-size: .75rem; }
 @media (pointer: coarse) {
   .xxbtn, .xxchip, .xxchat__new { min-height: 44px; }
   .xxchat__in { font-size: 16px; }
@@ -190,3 +190,17 @@ html.xxchat-lock, html.xxchat-lock body { overscroll-behavior: none; }
 /* 8 Nov mobile audit: the dock steps aside when it would cover a button or field */
 .xxdock > * { transition: opacity .35s var(--ease-out), transform .45s var(--ease-out); }
 .xxdock.is-tuck > * { opacity: 0; transform: translateX(28px); pointer-events: none; }
+
+/* ═════════ 8 Nov full audit: the dock follows the button pair - square, hairline, no solid brass ═════════ */
+.xxdock__ask { border-radius: 2px; background: color-mix(in srgb, var(--char) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: var(--bone); border: 1px solid var(--brass); min-height: 56px; }
+.xxdock__ask:hover { background: color-mix(in srgb, var(--char-2) 92%, transparent); color: var(--brass-hi); }
+.xxdock__ask img { border-radius: 2px; width: 40px; height: 40px; }
+.xxdock__ask::after { border-radius: 2px; }
+.xxdock__book { border-radius: 2px; }
+@media (max-width: 767px) {
+  .xxdock__ask { min-height: 52px; border-radius: 2px; }
+  .xxdock__book { border-radius: 2px; }
+  /* phones: the host waits until the hero plate has gone */
+  .xxdock.is-hero > * { opacity: 0; transform: translateX(28px); pointer-events: none; }
+}

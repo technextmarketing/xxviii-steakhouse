@@ -13,7 +13,7 @@
 
   var posts = [
     { id: 'post-01', title: 'The Twenty-Eight', idea: 'Signature reveal',
-      fb: 'This is The Twenty-Eight. A bone-in ribeye, dry-aged for 28 days, finished with cultured butter that has aged beside it in the same room. ₱5,800. Join The Ageing List to book first: ' + C.web + '/list',
+      fb: 'This is The Twenty-Eight. A bone-in ribeye, dry-aged for 28 days, finished with cultured butter that has aged beside it in the same room. ₱5,800. Join The Ageing List to book first: ' + C.web + '/#footer',
       ig: ig(['The Twenty-Eight.', 'Bone-in ribeye. 600 g. Aged 28 days in the glass room by our door, finished with cultured butter that aged right beside it.', 'Our house signature, from opening night.']),
       tt: 'The steak we named ourselves after. 28 days in the ageing room, then the coals. #XXVIII #WorthTheWait #DryAged #BGCEats' },
     { id: 'post-02', title: 'Day 07 · Still', idea: 'Ageing-room tag close-up',
@@ -49,12 +49,12 @@
       ig: ig(['A room for fourteen.', 'One long table under brass pendants, and no one waiting for it.', 'Private dining enquiries: ' + C.email], '#PrivateDining #Steakhouse #DryAged'),
       tt: 'One table, fourteen chairs, no rush. #XXVIII #PrivateDining #BGC' },
     { id: 'post-10', title: 'Tables are open', idea: 'Reservations open',
-      fb: 'After 48 hours for The Ageing List, reservations are open to everyone, for opening night and the weeks after. Book at ' + C.web + '/reserve or call ' + C.phone + '.',
+      fb: 'After 48 hours for The Ageing List, reservations are open to everyone, for opening night and the weeks after. Book at ' + C.web + '/#reserve or call ' + C.phone + '.',
       ig: ig(['Your table has waited too.', 'Reservations are open from opening night. Link in bio, or scan the code on the post.']),
       tt: 'Tables are open. Link in bio. #XXVIII #WorthTheWait #BGCEats #NewRestaurant' },
     { id: 'post-11', title: 'Time is the finest ingredient', idea: 'Opening night',
       fb: 'Twenty-eight days ago the first Twenty-Eights went into the ageing room. Tonight they come out, and we open. Time is the finest ingredient.',
-      ig: ig(['Time is the finest ingredient.', 'Tonight, Day 28: opening night. The first Twenty-Eights are ready, and so are we. Thank you for waiting with us. Tables: ' + C.web + '/reserve']),
+      ig: ig(['Time is the finest ingredient.', 'Tonight, Day 28: opening night. The first Twenty-Eights are ready, and so are we. Thank you for waiting with us. Tables: ' + C.web + '/#reserve']),
       tt: 'Day 28. Opening night. #XXVIII #WorthTheWait #NewRestaurant #BGC' },
     { id: 'post-12', title: 'Choose your sauce or butter', idea: 'Poll post',
       fb: 'Help us choose for opening week. A Café de Paris butter, B Béarnaise, C Green Peppercorn & Cognac, D Chimichurri Verde. Tell us in the comments.',
@@ -105,15 +105,15 @@
   ];
 
   var adsFeed = [
-    { id: 'ad-feed-1', story: 'ad-story-1', name: 'Worth the wait', primary: 'The first Twenty-Eights are in the ageing room. Join The Ageing List and you book before anyone else.', headline: 'Worth the wait.', desc: 'The list books first · Twenty-Eight, BGC', cta: 'Sign up', url: C.web + '/list', runs: 'Day 06 to Day 18, before tables open' },
-    { id: 'ad-feed-2', story: 'ad-story-2', name: 'Dinner for two', primary: 'Our Porterhouse for Two has aged 45 days. Strip and tenderloin on the bone, sliced at the table. Book a table for two.', headline: 'Dinner for two takes 45 days.', desc: 'Porterhouse for Two · ₱9,800', cta: 'Book now', url: C.web + '/reserve', runs: 'From Day 23' },
-    { id: 'ad-feed-3', story: 'ad-story-3', name: 'Never hurried', primary: 'A dark, quiet dining room in BGC where every steak lists its age and no one brings the bill until you ask.', headline: 'Some things can’t be hurried.', desc: 'Prime ribeye, aged 35 days', cta: 'Book now', url: C.web + '/reserve', runs: 'From Day 27' }
+    { id: 'ad-feed-1', story: 'ad-story-1', name: 'Worth the wait', primary: 'The first Twenty-Eights are in the ageing room. Join The Ageing List and you book before anyone else.', headline: 'Worth the wait.', desc: 'The list books first · Twenty-Eight, BGC', cta: 'Join the list', url: C.web + '/#footer', runs: 'Day 06 to Day 18, before tables open' },
+    { id: 'ad-feed-2', story: 'ad-story-2', name: 'Dinner for two', primary: 'Our Porterhouse for Two has aged 45 days. Strip and tenderloin on the bone, sliced at the table. Book a table for two.', headline: 'Dinner for two takes 45 days.', desc: 'Porterhouse for Two · ₱9,800', cta: 'Book a table', url: C.web + '/#reserve', runs: 'From Day 23' },
+    { id: 'ad-feed-3', story: 'ad-story-3', name: 'Never hurried', primary: 'A dark, quiet dining room in BGC where every steak lists its age and no one brings the bill until you ask.', headline: 'Some things can’t be hurried.', desc: 'Prime ribeye, aged 35 days', cta: 'Book a table', url: C.web + '/#reserve', runs: 'From Day 27' }
   ];
 
   var search = {
-    url: C.web + '/reserve',
+    url: C.web + '/#reserve',
     headlines: ['Twenty-Eight Steakhouse BGC', 'Dry-Aged Steaks in BGC', 'Every Steak Lists Its Age', 'Aged 28 Days. Cut Today.', 'Book Opening Night', 'Reserve a Table Online', 'The Twenty-Eight Ribeye', '45-Day Sharing Cuts', 'A Private Room for 14', 'Some Things Can’t Be Hurried', 'Worth the Wait', 'Tableside Caesar for Two', 'Dinner Is Never Hurried', 'Bonifacio Global City', 'Patience: Our Old Fashioned'],
-    descriptions: ['Dry-aged in a glass room by our entrance. Every steak on the menu lists its age.', 'Bone-in ribeye aged 28 days, finished with cultured butter aged beside it. Book now.', 'Forty-five-day sharing cuts for the table. Order early. A private room for fourteen.', 'A quiet, dark dining room in BGC. Tables open from opening night. Reserve online.']
+    descriptions: ['Dry-aged in a glass room by our entrance. Every steak on the menu lists its age.', 'Bone-in ribeye aged 28 days, finished with cultured butter aged beside it. Book a table.', 'Forty-five-day sharing cuts for the table. Order early. A private room for fourteen.', 'A quiet, dark dining room in BGC. Tables open from opening night. Reserve online.']
   };
 
   var emails = [
@@ -126,7 +126,7 @@
   var sms = [
     { name: 'Booking confirmation', ch: 'SMS', text: 'Twenty-Eight: your table for 2 is set for [Date], 7:30 PM. Ref XXVIII-0000. To change it, reply here or call ' + C.phone + '.' },
     { name: 'Day-of reminder', ch: 'SMS', text: 'Twenty-Eight: see you tonight at 7:30 PM. Your table is ready, so take your time getting here. Reply C to cancel.' },
-    { name: 'Ageing List first access', ch: 'SMS', text: 'Twenty-Eight: tables open to The Ageing List first, for [48] hours. Book: ' + C.web + '/reserve Reply STOP to opt out.' },
+    { name: 'Ageing List first access', ch: 'SMS', text: 'Twenty-Eight: tables open to The Ageing List first, for [48] hours. Book: ' + C.web + '/#reserve Reply STOP to opt out.' },
     { name: 'Birthday month', ch: 'Viber', text: 'Happy birthday from Twenty-Eight. We would like to keep a table for you this month. [Birthday gesture, to confirm with the owner]', button: 'Book your table' }
   ];
 
@@ -158,8 +158,8 @@
     { ch: 'feed', fmt: 'Feed · 4:5', hook: 'A room for fourteen.', prev: 'post-09' },
     { ch: 'sms', fmt: 'SMS · Ageing List', hook: 'The list gets first access to tables.', prev: 'sms', cap: sms[2].text },
     { ch: 'feed', fmt: 'Feed · 4:5 carousel', hook: 'Patience is poured here.', prev: 'post-14', also: { ch: 'feed', prev: 'post-05', label: 'Slide 2 · the Patience recipe card' } },
-    { ch: 'feed', fmt: 'Feed · 4:5 + story', hook: 'Your table has waited too.', prev: 'post-10', also: { ch: 'story', prev: 'story-04', label: 'Story · link sticker to ' + C.web + '/reserve' } },
-    { ch: 'google', fmt: 'Search ads · RSA', hook: 'Search campaign goes live for BGC.', prev: 'search', cap: 'Responsive search ad: 15 headlines (≤ 30 characters), 4 descriptions (≤ 90). Final URL ' + C.web + '/reserve' },
+    { ch: 'feed', fmt: 'Feed · 4:5 + story', hook: 'Your table has waited too.', prev: 'post-10', also: { ch: 'story', prev: 'story-04', label: 'Story · link sticker to ' + C.web + '/#reserve' } },
+    { ch: 'google', fmt: 'Search ads · RSA', hook: 'Search campaign goes live for BGC.', prev: 'search', cap: 'Responsive search ad: 15 headlines (≤ 30 characters), 4 descriptions (≤ 90). Final URL ' + C.web + '/#reserve' },
     { ch: 'ads', fmt: 'Meta ad · image + video', hook: 'Dinner for two takes 45 days.', prev: 'ad-feed-2' },
     { ch: 'reel', fmt: 'Reel · 9:16 · 23 s', hook: 'The Long Wait, and what goes on top.', prev: 'reel-c', cap: 'The Long Wait: 45-day sharing cuts, carved at the table. Then truffle, marrow crust, foie gras, Oscar. Order early. #XXVIII #DryAged #Steakhouse #BGCEats\n[Add licensed audio in-app]' },
     { ch: 'story', fmt: 'Story · video', hook: 'Day 25 of 28. Still.', prev: 'story-03', cap: 'Story on the strip glide: Day 25 of 28. Twenty-five days in the glass room. They come out on Day 28, opening night.' },
