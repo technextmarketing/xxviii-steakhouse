@@ -90,7 +90,7 @@
   }).join('');
 
   var dlg = $('#dayPanel'), dlgI = 0;
-  function webImg(id, cls) { return '<img class="' + (cls || '') + '" src="exports/web/' + id + '.webp" alt="" decoding="async">'; }
+  function webImg(id, cls) { return '<img class="' + (cls || '') + '" src="exports/web/' + id + '.webp" alt="" loading="lazy" decoding="async">'; }
   function miniPreview(key) {
     if (/^reel-/.test(key)) return vid('exports/reels/' + REEL_FILE[key] + '.mp4', 'exports/web/' + REEL_FILE[key] + '.webp', 'Reel preview', 'dp-vid');
     if (/^story-/.test(key)) return vid('exports/stories/' + key + '.mp4', 'exports/web/' + key + '.webp', 'Story preview', 'dp-vid');

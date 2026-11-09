@@ -148,7 +148,8 @@
   var HD_OK = conn.effectiveType === '4g' && !conn.saveData && innerWidth >= 1200, hdReady = false;
   window.addEventListener('load', function () { setTimeout(function () { hdReady = true; }, 1500); });
   var SD = !HD_OK;
-  var VIDEO_OK = !RM && typeof X.video === 'function';
+  var SLOW = !!conn.saveData || /2g$/.test(conn.effectiveType || '');
+  var VIDEO_OK = !RM && !SLOW && typeof X.video === 'function';
   var VIDS = [];
   function vsrc(v) { return X.video(v.getAttribute('data-vid'), HD_OK && hdReady && !v._sdOnly ? 'hd' : 'sd'); }
   function loadV(v) { if (VIDEO_OK && !v.getAttribute('src')) { v.preload = 'auto'; v.src = vsrc(v); } }
@@ -222,7 +223,8 @@
     heroVids.forEach(function (v) { register(v, 3, true); v.loop = false; });
     cur._sdOnly = true; /* the first film is always the light rendition */
     var heroGo = false;
-    window.__heroStart = function () { if (heroGo) return; heroGo = true; want(cur, heroSeen && !userPaused); };
+    /* the first film starts once the page has loaded, so it never competes with the type and photos */
+    window.__heroStart = function () { if (heroGo) return; heroGo = true; var go = function () { want(cur, heroSeen && !userPaused); }; if (d.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true }); };
     function step() {
       if (switching || userPaused) return;
       switching = true;

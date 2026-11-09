@@ -99,7 +99,7 @@
       // never start a new image while a page is turning: a bitmap landing mid-turn re-rasters its sheet and drops frames
       const frame = () => new Promise(r => requestAnimationFrame(r));
       const worker = () => (this.hold || (this.busy && this.busy())) ? frame().then(worker) : (() => { const j = this.q.shift(); return j ? this.run(j).then(worker) : Promise.resolve(); })();
-      this.ready = Promise.all(Array.from({ length: 6 }, worker)).then(() => {
+      this.ready = Promise.all(Array.from({ length: 4 }, worker)).then(() => {
         this.finished = true; this.t1 = performance.now(); document.documentElement.classList.add('preloaded');
       });
       return this.ready;
@@ -821,7 +821,7 @@
       Book.openReady = document.fonts.ready.then(() => {
         Book.fontsOK = true;
         Preload.busy = () => Book.moving.size > 0 || !!Book.dragging;
-        Preload.start(Array.from({ length: Book.N + 1 }, (_, k) => faces(k)), [0, 1, 2]);
+        Preload.start(Array.from({ length: Book.N + 1 }, (_, k) => faces(k)), [0, 1]);
         return Preload.first;
       }).then(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
     }

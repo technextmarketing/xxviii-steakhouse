@@ -800,7 +800,7 @@
         const pages = range(g.from, g.to).filter(n => S.showBlanks || !isBlank(n));
         if (!pages.length) return '';
         return `<section class="gsec"><header class="gsec__head">${g.no ? `<span class="gsec__no">${g.no}</span>` : ''}<span class="gsec__title">${esc(g.title)}</span><span class="gsec__range">pp. ${g.from}–${g.to}</span></header>
-          <div class="gsec__tiles">${pages.map(n => `<button class="tile" type="button" data-tile="${n}"><span class="tile__img"><img decoding="async" src="${thumbUrl(n)}" alt=""></span><span class="tile__cap"><b>${n}</b><span>${esc(titleOf(n))}</span></span></button>`).join('')}</div></section>`;
+          <div class="gsec__tiles">${pages.map(n => `<button class="tile" type="button" data-tile="${n}"><span class="tile__img"><img loading="lazy" decoding="async" src="${thumbUrl(n)}" alt=""></span><span class="tile__cap"><b>${n}</b><span>${esc(titleOf(n))}</span></span></button>`).join('')}</div></section>`;
       }).join('');
       this.built = true;
       this.mark();

@@ -10,7 +10,7 @@
 <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/Gloock-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/BigShoulders.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/brand.css?v=4">
+<link rel="stylesheet" href="../assets/css/brand.css?v=5">
 <link rel="stylesheet" href="showcase.css">
 <script>document.documentElement.classList.add('js'); window.XXVIII_BASE = '../';</script>
 </head>
@@ -106,7 +106,7 @@
         <div class="phone-screen">
           <div class="pf-bar"><span class="label">@xxviii.steakhouse</span><span class="pf-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="pf-head">
-            <img class="pf-avatar" src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="64" height="64">
+            <img class="pf-avatar" src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="64" height="64" loading="lazy" decoding="async">
             <div class="pf-counts"><p><b class="num">15</b><span>posts</span></p><p><b class="num">·</b><span>followers</span></p><p><b class="num">·</b><span>following</span></p></div>
           </div>
           <div class="pf-bio">
@@ -149,7 +149,7 @@
 </section>
 
 <dialog class="lightbox" id="lightbox" aria-label="Post, full screen">
-  <img id="lbImg" alt="" width="1080" height="1350">
+  <img id="lbImg" alt="" width="1080" height="1350" loading="lazy" decoding="async">
   <button class="x" type="button" id="lbClose" aria-label="Close">Close</button>
   <button class="st-arrow prev" type="button" id="lbPrev" aria-label="Previous post"><span></span></button>
   <button class="st-arrow next" type="button" id="lbNext" aria-label="Next post"><span></span></button>
@@ -187,14 +187,14 @@
     <div class="ad-bar"><div class="tabs ad-tabs" role="tablist" aria-label="Ad variant" id="adTabs"></div><div class="seg" role="group" aria-label="Ad format" id="adFmt"><button type="button" aria-pressed="true" data-m="video">Video</button><button type="button" aria-pressed="false" data-m="image">Image</button></div></div>
     <div class="ad-pair" role="tabpanel" id="adPanel" aria-live="polite">
       <article class="meta-feed" aria-label="Feed ad preview">
-        <header class="mf-head"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="40" height="40"><div><b>XXVIII Steakhouse</b><span>Sponsored</span></div></header>
+        <header class="mf-head"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="40" height="40" loading="lazy" decoding="async"><div><b>XXVIII Steakhouse</b><span>Sponsored</span></div></header>
         <p class="mf-primary" id="mfPrimary"></p>
         <div class="mf-media"><img class="mf-img" id="mfImg" src="exports/web/ad-feed-1.webp" alt="" width="600" height="750" loading="lazy" decoding="async"><video class="mf-img vplay" id="mfVid" muted loop playsinline preload="none" width="600" height="750" aria-label="Feed video ad"></video></div>
         <div class="mf-foot"><div><span class="mf-url">xxviii.example</span><b id="mfHead"></b><span id="mfDesc"></span></div><span class="mf-cta" id="mfCta">Join the list</span></div>
       </article>
       <div class="phone phone-story" aria-label="Story ad preview">
         <div class="phone-screen"><img id="msImg" src="exports/web/ad-story-1.webp" alt="" width="600" height="1067" loading="lazy" decoding="async"><video class="vplay" id="msVid" muted loop playsinline preload="none" aria-label="Story video ad"></video>
-          <div class="ms-top"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="28" height="28"><b>XXVIII Steakhouse</b><span>Sponsored</span></div>
+          <div class="ms-top"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="28" height="28" loading="lazy" decoding="async"><b>XXVIII Steakhouse</b><span>Sponsored</span></div>
           <div class="ms-cta"><span id="msCta">Join the list</span></div>
         </div>
       </div>
@@ -210,7 +210,7 @@
         <h3>Search · responsive ad</h3>
         <div class="serp" aria-label="Search result preview">
           <p class="serp-spons">Sponsored</p>
-          <p class="serp-url"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="22" height="22"><span>xxviii.example<br><small>https://xxviii.example › reserve</small></span></p>
+          <p class="serp-url"><img src="../assets/logo/xxviii-seal-avatar.svg" alt="" width="22" height="22" loading="lazy" decoding="async"><span>xxviii.example<br><small>https://xxviii.example › reserve</small></span></p>
           <p class="serp-h" id="serpH"></p>
           <p class="serp-d" id="serpD"></p>
         </div>
@@ -289,7 +289,7 @@
     </div>
     <div class="club-play">
       <div class="club-card" id="clubCard">
-        <div class="cc-top"><img src="../assets/logo/xxviii-wordmark-bone.svg" alt="XXVIII" width="140" height="34"><span class="label">The Ageing Club</span></div>
+        <div class="cc-top"><img src="../assets/logo/xxviii-wordmark-bone.svg" alt="XXVIII" width="140" height="34" loading="lazy" decoding="async"><span class="label">The Ageing Club</span></div>
         <div class="cc-mid"><span class="label">Your card</span><p class="cc-day"><span class="label">Day</span> <b class="num" id="ccDay">00</b></p></div>
         <div class="cc-ticks" id="ccTicks" aria-hidden="true"></div>
         <div class="cc-foot"><span class="label">Member · [Guest name]</span><span class="label" id="ccNext">Next: Day 07</span></div>
@@ -313,14 +313,14 @@
     <div class="is-grid">
       <figure class="is-item is-tent">
         <div class="is-stage"><div class="tent" aria-label="QR table tent">
-          <div class="tent-face tent-a"><img src="../assets/logo/xxviii-monogram-brass.svg" alt="" width="64" height="64"><p class="tent-h">Book your<br>next table.</p><img class="tent-qr" src="art/qr-reserve-ink.svg" alt="QR code to the booking page" width="120" height="120"><p class="label">xxviii.example/#reserve</p></div>
+          <div class="tent-face tent-a"><img src="../assets/logo/xxviii-monogram-brass.svg" alt="" width="64" height="64" loading="lazy" decoding="async"><p class="tent-h">Book your<br>next table.</p><img class="tent-qr" src="art/qr-reserve-ink.svg" alt="QR code to the booking page" width="120" height="120" loading="lazy" decoding="async"><p class="label">xxviii.example/#reserve</p></div>
           <div class="tent-face tent-b" aria-hidden="true"></div>
         </div></div>
         <figcaption><b>QR table tent</b> Folded card on every table: book again, on the way out.</figcaption>
       </figure>
       <figure class="is-item is-stand">
         <div class="is-stage"><div class="stand" aria-label="Review stand">
-          <div class="stand-block"><p class="tent-h">Worth<br>the wait?</p><p>Say so. It helps the next table find us.</p><img src="art/qr-review-ink.svg" alt="QR code to the review page" width="110" height="110"><img class="stand-logo" src="../assets/logo/xxviii-horizontal-char.svg" alt="" width="120" height="19"></div>
+          <div class="stand-block"><p class="tent-h">Worth<br>the wait?</p><p>Say so. It helps the next table find us.</p><img src="art/qr-review-ink.svg" alt="QR code to the review page" width="110" height="110" loading="lazy" decoding="async"><img class="stand-logo" src="../assets/logo/xxviii-horizontal-char.svg" alt="" width="120" height="19" loading="lazy" decoding="async"></div>
         </div></div>
         <figcaption><b>Review stand</b> Bone acrylic block at the host stand. No incentives for reviews.</figcaption>
       </figure>
@@ -328,7 +328,7 @@
         <div class="is-stage"><div class="phone phone-mini" aria-label="Wi-Fi splash page">
           <div class="phone-screen wifi">
             <img class="wifi-room" src="../assets/img/interior/entrance-host-stand-sm.webp" alt="" width="640" height="360" loading="lazy" decoding="async">
-            <img src="../assets/logo/xxviii-primary-brass.svg" alt="" width="150" height="64">
+            <img src="../assets/logo/xxviii-primary-brass.svg" alt="" width="150" height="64" loading="lazy" decoding="async">
             <p class="wifi-h">Welcome in.<br>Stay a while.</p>
             <label class="wifi-f"><span class="label">Email, for The Ageing List (optional)</span><span class="wifi-in">name@example.com</span></label>
             <span class="wifi-btn">Connect</span>
@@ -348,7 +348,7 @@
           <p class="r-row r-small"><span>OR no.</span><span>[0000]</span></p>
           <p class="r-foot">Your steak waited [age] days.<br>Thank you for waiting with us.</p>
           <p class="r-club">Ageing Club · this visit adds 7 days</p>
-          <img src="art/qr-club-ink.svg" alt="QR code to join the Ageing Club" width="80" height="80">
+          <img src="art/qr-club-ink.svg" alt="QR code to join the Ageing Club" width="80" height="80" loading="lazy" decoding="async">
           <p class="r-url">xxviii.example/club</p>
         </div></div>
         <figcaption><b>Receipt footer</b> The last thing guests read, so it says thank you and asks once.</figcaption>
@@ -368,7 +368,7 @@
       <div class="invite-wrap">
         <button class="invite" type="button" id="invite" aria-pressed="false" aria-label="Turn the invitation card over">
           <span class="inv-face inv-front">
-            <img src="../assets/logo/xxviii-seal-brass.svg" alt="" width="120" height="120">
+            <img src="../assets/logo/xxviii-seal-brass.svg" alt="" width="120" height="120" loading="lazy" decoding="async">
             <span class="inv-tag">Day 26 · a tasting</span>
             <span class="inv-h">Before the doors open, taste the first <span class="nw">Twenty&#8209;Eights</span>.</span>
             <span class="label">For [Name] · [Publication]</span>
@@ -446,7 +446,7 @@
 
 <footer class="foot">
   <div class="wrap foot-in">
-    <img src="../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse" width="190" height="82">
+    <img src="../assets/logo/xxviii-primary-brass.svg" alt="XXVIII Twenty-Eight Steakhouse" width="190" height="82" loading="lazy" decoding="async">
     <p class="muted">Launch marketing, draft for review. Dates, contacts and prices are placeholders until the owner confirms them.</p>
     <nav class="foot-links" aria-label="Related pages"><a href="../index.html">Website</a><a href="../index.html#reserve">Reserve</a><a href="../menu/">Menu</a><a href="../index.html#visit">Hours and address</a><a href="../brand/">Brand kit</a></nav>
     <p class="label">Some things can’t be hurried.</p>
@@ -464,6 +464,6 @@
 <script src="../assets/vendor/ScrollTrigger.min.js"></script>
 <script src="../assets/vendor/SplitText.min.js"></script>
 <script src="../assets/vendor/lenis.min.js"></script>
-<script src="showcase.js"></script>
+<script src="showcase.js?v=2"></script>
 </body>
 </html>
